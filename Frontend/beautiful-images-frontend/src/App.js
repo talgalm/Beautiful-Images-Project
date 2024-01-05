@@ -1,7 +1,16 @@
+import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import './App.css';
 
 function App() {
-  const handleClick = () => {
+  const [images, setImages] = useState([]);
+  const [displayedImages, setdIsplayedImages] = useState(false);
+
+
+  const fetchImages = () => {
     fetch('http://localhost:3001', {
       method: 'POST',
       headers: {
@@ -9,15 +18,30 @@ function App() {
       },
       body: JSON.stringify({ message: 'Hello from client!' }),
     })
-    .then(data => console.log(data))
+    .then(response => response.json())
+    .then(data => {setdIsplayedImages(true) ; setImages(data)})
     .catch((error) => {
       console.error('Error:', error);
     });
   }
 
+
   return (
     <div className="App">
-      <button onClick={handleClick}>Click me</button>
+      <h1>Beautiful Images</h1>
+      <Button variant="primary" onClick={fetchImages}>Refresh Images</Button>
+      {displayedImages && <Row>
+        {images.map((image, index) => (
+          <Col sm={4} key={index}>
+            <Card>
+              <Card.Img variant="top" src={`data:image/jpeg;base64,${image.data}`} />
+              <Card.Body>
+                <Card.Title>{image.file}</Card.Title>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>}
     </div>
   );
 }
