@@ -32,12 +32,9 @@ function App() {
       <Button variant="primary" onClick={fetchImages}>Refresh Images</Button>
       {displayedImages && <Row>
         {images.map((image, index) => (
-          <Col sm={4} key={index}>
+          <Col sm={2} key={index}>
             <Card>
               <Card.Img variant="top" src={`data:image/jpeg;base64,${image.data}`} />
-              <Card.Body>
-                <Card.Title>{image.file}</Card.Title>
-              </Card.Body>
             </Card>
           </Col>
         ))}
