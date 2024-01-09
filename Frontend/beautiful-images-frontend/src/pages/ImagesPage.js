@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
 
-const ImageImpressionsPage = () => {
+const ImagesPage = () => {
   const [images, setImages] = useState([]);
   const [displayedImages, setdIsplayedImages] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
 
   const fetchImages = () => {
@@ -25,21 +24,49 @@ const ImageImpressionsPage = () => {
   }
 
 
+  const openModal = (image) => {
+    setSelectedImage(image);
+    setShowModal(true);
+  }
+
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
   return (
-    <div className="App">
+    <div className="App" style={{margin:"25px"}}>
       <h1>Beautiful Images</h1>
       <Button variant="primary" onClick={fetchImages}>Refresh Images</Button>
       {displayedImages && <Row>
         {images.map((image, index) => (
-          <Col sm={2} key={index}>
-            <Card>
-              <Card.Img variant="top" src={`data:image/jpeg;base64,${image.data}`} />
+          <Col xl={2} lg={3} md={3} sm={4} xs={6} 
+               key={index} 
+               onClick={() => openModal(image)} 
+               style={{padding:"0px"}}>
+            <Card style={{width: "auto"}}>
+              <Card.Img 
+                style={{padding:"0px", margin:"5px", width:"auto"}} 
+                variant="top"
+                src={`data:image/jpeg;base64,${image.data}`} />
             </Card>
           </Col>
         ))}
       </Row>}
+
+      <Modal show={showModal} onHide={closeModal} size="xl" >
+        <Modal.Header closeButton>
+          <Modal.Title>Image Preview</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedImage && 
+          <Card>
+              <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage.data}`} />
+            </Card>
+          }
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
 
-export default ImageImpressionsPage;
+export default ImagesPage;
