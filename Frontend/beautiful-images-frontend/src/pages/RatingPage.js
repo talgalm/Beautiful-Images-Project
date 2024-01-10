@@ -7,6 +7,10 @@ const RatingPage = () => {
 
   const baskets = new Array(10).fill(0);
   const basketRefs = useRef([]);
+  const NUM_BASKETS = 10; // Define the number of baskets
+  const initialBasketImages = Array(NUM_BASKETS).fill().map(() => []);
+  const [basketImages, setBasketImages] = useState(initialBasketImages);
+
 
   const fetchImages = () => {
     fetch('http://localhost:3001', {
@@ -22,6 +26,12 @@ const RatingPage = () => {
       console.error('Error:', error);
     });
   }
+
+  const removeImage = (basketIndex, imageIndex) => {
+    const newBasketImages = [...basketImages];
+    newBasketImages[basketIndex].splice(imageIndex, 1);
+    setBasketImages(newBasketImages);
+  };
 
   useEffect(() => {
     fetchImages();
@@ -48,7 +58,13 @@ const RatingPage = () => {
                       e.clientY >= basket.top && e.clientY <= basket.bottom && e.clientX >= basket.left && e.clientX <= basket.right
                     );
                     if (droppedBasket !== -1) {
-                      console.log(`Dropped on basket ${droppedBasket + 1}`);
+                      const newBasketImages = [...basketImages];
+                      // Check if the image already exists in any basket
+                      if (!newBasketImages.some(basket => basket.includes(`data:image/jpeg;base64,${image.data}`))) {
+                        // If it doesn't exist, add it to the basket
+                        newBasketImages[droppedBasket].push(`data:image/jpeg;base64,${image.data}`);
+                        setBasketImages(newBasketImages);
+                      }
                     }
                   }}
                   >
@@ -65,14 +81,24 @@ const RatingPage = () => {
         </Row>
       </Col>
       <Col xs={3}>
-          {baskets.map((_, index) => (
-              <div 
-                key={index} 
-                ref={el => basketRefs.current[index] = el}
-                onDragOver={(e) => e.preventDefault()}
-                style={{border: "1px solid black", borderLeft: "none", height: "48px", marginBottom: "10px"}}
-              ></div> 
-          ))}
+  {baskets.map((_, index) => (
+    <div 
+      key={index} 
+      ref={el => basketRefs.current[index] = el}
+      onDragOver={(e) => e.preventDefault()}
+      style={{display: "flex", justifyContent: "flex-end", border: "1px solid black", borderLeft: "none", height: "48px", marginBottom: "10px"}}
+    >
+      
+      {basketImages[index] && basketImages[index].map((image, imageIndex) => (
+  <img 
+    src={image} 
+    style={{width: "auto", height: "48px"}} 
+    alt={`Basket ${index + 1} content ${imageIndex + 1}`} 
+    key={imageIndex} 
+    onClick={() => removeImage(index, imageIndex)} // Add this line
+  />
+))} </div>
+  ))}
       </Col>
       </Row>
     </div>
