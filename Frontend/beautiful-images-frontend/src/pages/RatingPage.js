@@ -4,7 +4,6 @@ import Draggable from 'react-draggable';
 
 const RatingPage = () => {
   const [images, setImages] = useState([]);
-
   const baskets = new Array(10).fill(0);
   const basketRefs = useRef([]);
   const NUM_BASKETS = 10; // Define the number of baskets
@@ -29,9 +28,36 @@ const RatingPage = () => {
 
   const removeImage = (basketIndex, imageIndex) => {
     const newBasketImages = [...basketImages];
+    const removedImage = newBasketImages[basketIndex][imageIndex];
     newBasketImages[basketIndex].splice(imageIndex, 1);
     setBasketImages(newBasketImages);
+  
+    // Find the removed image in the images array and set its visible attribute to true
+    const imageIndexInImages = images.findIndex(image => `data:image/jpeg;base64,${image.data}` === removedImage);
+    if (imageIndexInImages !== -1) {
+      const newImages = [...images];
+      newImages[imageIndexInImages].visible = true;
+      setImages(newImages);
+    }
   };
+
+  const onDrop = (e, image, index) => {
+    const basketElements = basketRefs.current.map(el => el.getBoundingClientRect());
+    const droppedBasket = basketElements.findIndex(basket => 
+      e.clientY >= basket.top && e.clientY <= basket.bottom && e.clientX >= basket.left && e.clientX <= basket.right
+    );
+    if (droppedBasket !== -1) {
+      const newBasketImages = [...basketImages];
+      if (!newBasketImages[droppedBasket].includes(`data:image/jpeg;base64,${image.data}`)) {
+        newBasketImages[droppedBasket].push(`data:image/jpeg;base64,${image.data}`);
+        setBasketImages(newBasketImages);
+  
+        const newImages = [...images];
+        newImages[index].visible = false;
+        setImages(newImages);
+      }
+    }
+  }
 
   useEffect(() => {
     fetchImages();
@@ -47,28 +73,13 @@ const RatingPage = () => {
       <Row>
       <Col xs={9}>
         <Row>
-        {images.map((image, index) => (
+        {images.map((image, index) => (image.visible && (
           <Col xl={2} lg={3} md={3} sm={4} xs={6} 
                key={index} 
                style={{padding:"0px"}}>
             <Draggable
-                  onStop={(e) => {
-                    const basketElements = basketRefs.current.map(el => el.getBoundingClientRect());
-                    const droppedBasket = basketElements.findIndex(basket => 
-                      e.clientY >= basket.top && e.clientY <= basket.bottom && e.clientX >= basket.left && e.clientX <= basket.right
-                    );
-                    if (droppedBasket !== -1) {
-                      const newBasketImages = [...basketImages];
-                      // Check if the image already exists in any basket
-                      if (!newBasketImages.some(basket => basket.includes(`data:image/jpeg;base64,${image.data}`))) {
-                        // If it doesn't exist, add it to the basket
-                        newBasketImages[droppedBasket].push(`data:image/jpeg;base64,${image.data}`);
-                        setBasketImages(newBasketImages);
-                      }
-                    }
-                  }}
-                  >
-                  <Card style={{width: "auto"}}>
+                 onStop={(e) => onDrop(e, image, index)}>
+                  <Card style={{width: "auto" ,  border: "none"}}>
                     <Card.Img 
                       onDragStart={(e) => e.preventDefault()}
                       style={{padding:"0px", margin:"0px", width:"auto" , border: "3px solid black"}} 
@@ -77,7 +88,7 @@ const RatingPage = () => {
                   </Card>
             </Draggable>
           </Col>
-        ))}
+        )))}
         </Row>
       </Col>
       <Col xs={3}>

@@ -22,12 +22,12 @@ class FileHandler {
                             reject(err);
                             return;
                         }
-                        resolve({ file, data });
+                        resolve({ file, data});
                     });
                 });
             }))
             .then(images => {
-                res.json(images);
+                res.json(images.map(image => ({ ...image, visible: true })));
             })
             .catch(err => {
                 console.error(err);
