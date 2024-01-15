@@ -26,16 +26,19 @@ const RatingPage = () => {
     });
   }
 
-  const removeImage = (basketIndex, imageIndex) => {
+  const removeImage = (image , basketIndex, imageIndex) => {
     const newBasketImages = [...basketImages];
-    const removedImage = newBasketImages[basketIndex][imageIndex];
     newBasketImages[basketIndex].splice(imageIndex, 1);
     setBasketImages(newBasketImages);
-  
-    const imageIndexInImages = images.findIndex(image => `data:image/jpeg;base64,${image.data}` === removedImage);
+    const imageIndexInImages = images.findIndex(i => i.index === image.index);
     if (imageIndexInImages !== -1) {
+      if (!images[image.index].visible && images[image.index].rated)
+      {
+        console.log("Herewego")
+      }
       const newImages = [...images];
-      newImages[imageIndexInImages].visible = true;
+      //newImages[image.index].visible = true;
+      //newImages[image.index].rated = false;
       setImages(newImages);
     }
   };
@@ -45,17 +48,24 @@ const RatingPage = () => {
     const droppedBasket = basketElements.findIndex(basket =>
       e.clientY >= basket.top && e.clientY <= basket.bottom && e.clientX >= basket.left && e.clientX <= basket.right
     );
-
+  
     if (droppedBasket !== -1) {
       const newBasketImages = [...basketImages];
-      if (!newBasketImages[droppedBasket].includes(`data:image/jpeg;base64,${image.data}`)) {
-        newBasketImages[droppedBasket].push(`data:image/jpeg;base64,${image.data}`);
+      if (!newBasketImages[droppedBasket].includes(image)) {
+        newBasketImages[droppedBasket].push(image);
         setBasketImages(newBasketImages);
-
+  
         const newImages = [...images];
-        newImages[index].visible = false;
+        newImages[image.index].visible = false;
+        newImages[image.index].rated = true;
         setImages(newImages);
       }
+    }
+    else{
+      const newImages = [...images];
+      newImages[image.index].visible = true;
+      newImages[image.index].rated = false;
+      setImages(newImages);
     }
   };
 
@@ -101,22 +111,21 @@ const RatingPage = () => {
     >
       
       {basketImages[index] && basketImages[index].map((image, imageIndex) => (
-        <Draggable
-        key={imageIndex}
-        onStop={(e) => onDrop(e, { data: image }, index)}
-      >
-        <Card>
-        <Card.Img 
-          key={imageIndex} 
-          onDragStart={(e) => e.preventDefault()}
-          onClick={() => removeImage(index, imageIndex)}
-          style={{width: "auto", height: "48px"}} 
-          variant="top"
-          src={image}/>
-      </Card>
-      </Draggable>
-        )
-)} </div>
+  <Draggable
+    key={imageIndex}
+    onStop={(e) => onDrop(e, image, index)}
+  >
+    <Card>
+      <Card.Img 
+        key={imageIndex} 
+        onDragStart={(e) => e.preventDefault()}
+        onClick={() => removeImage(image , index, imageIndex)}
+        style={{width: "auto", height: "48px"}} 
+        variant="top"
+        src={`data:image/jpeg;base64,${image.data}`}/>
+    </Card>
+  </Draggable>
+))} </div>
   ))}
       </Col>
       </Row>

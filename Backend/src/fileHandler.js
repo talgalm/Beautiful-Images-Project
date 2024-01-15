@@ -27,7 +27,8 @@ class FileHandler {
                 });
             }))
             .then(images => {
-                res.json(images.map(image => ({ ...image, visible: true })));
+                const indexedImages = images.map((image, index) => ({ ...image, visible: true, rated: false, index }));
+                res.json(indexedImages);
             })
             .catch(err => {
                 console.error(err);
