@@ -1,0 +1,12 @@
+.box {
+  width: 270px;
+  height: 200px;
+  border-style: groove;
+}
+
+.imageStyle {
+  margin: 3px;
+  padding: 6px;
+  width: 200px;
+  height: auto;
+}

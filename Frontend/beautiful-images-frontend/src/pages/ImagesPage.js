@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
+import './ImagesPage.css';
 
 const ImagesPage = () => {
   const [images, setImages] = useState([]);
@@ -43,12 +44,13 @@ const ImagesPage = () => {
                key={index} 
                onClick={() => openModal(image)} 
                style={{padding:"0px"}}>
-            <Card style={{width: "auto"}}>
-              <Card.Img 
-                style={{padding:"0px", margin:"5px", width:"auto"}} 
-                variant="top"
-                src={`data:image/jpeg;base64,${image.data}`} />
-            </Card>
+            <div className='box'>
+              <Card>
+                <Card.Img 
+                  className="imageStyle" 
+                  src={`data:image/jpeg;base64,${image.data}`} />
+              </Card>
+            </div>
           </Col>
         ))}
       </Row>}
