@@ -43,21 +43,18 @@ const ImagesPage = () => {
           <Col xl={2} lg={3} md={3} sm={4} xs={6} 
                key={index} 
                onClick={() => openModal(image)} 
-               style={{padding:"0px"}}>
-            <div className='box'>
-              <Card>
-                <Card.Img 
-                  className="imageStyle" 
-                  src={`data:image/jpeg;base64,${image.data}`} />
-              </Card>
-            </div>
+               style={{padding:"4px"}}>
+            <Card className='cardContainer'>
+              <Card.Img 
+                className='imageCard'
+                src={`data:image/jpeg;base64,${image.data}`} />
+            </Card>
           </Col>
         ))}
       </Row>}
 
       <Modal show={showModal} onHide={closeModal} size="xl" >
         <Modal.Header closeButton>
-          <Modal.Title>Image Preview</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedImage && 
