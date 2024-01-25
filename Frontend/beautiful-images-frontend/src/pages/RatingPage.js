@@ -1,6 +1,7 @@
 import React, { useEffect, useState , useRef } from 'react';
 import {Card, Row, Col} from 'react-bootstrap';
 import Draggable from 'react-draggable';
+import './ImagesPage.css';
 
 const RatingPage = () => {
   const [images, setImages] = useState([]);
@@ -89,10 +90,10 @@ const RatingPage = () => {
                style={{padding:"0px"}}>
             <Draggable
                  onStop={(e) => onDrop(e, image, index)}>
-                  <Card style={{width: "auto" ,  border: "none"}}>
+                  <Card className='cardContainer'>
                     <Card.Img 
                       onDragStart={(e) => e.preventDefault()}
-                      style={{padding:"0px", margin:"0px", width:"auto" , border: "3px solid black"}} 
+                      className='imageCard'
                       variant="top"
                       src={`data:image/jpeg;base64,${image.data}`} />
                   </Card>

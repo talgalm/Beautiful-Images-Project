@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>APPPPPPP</h1>
+      <h1>APP</h1>
       <nav>
         <Button variant="primary"><Link to="/home" className="text-light">Home</Link></Button>{' '}
         <Button variant="primary"><Link to="/login" className="text-light">Login</Link></Button>{' '}
