@@ -1,15 +1,13 @@
 import React, { useEffect, useState , useRef } from 'react';
 import {Card, Row, Col} from 'react-bootstrap';
 import Draggable from 'react-draggable';
-import './ImagesPage.css';
+import { ImageStyle } from '../Image/Image';
 
 const RatingPage = () => {
   const [images, setImages] = useState([]);
   const baskets = new Array(10).fill(0);
   const basketRefs = useRef([]);
-  const NUM_BASKETS = 10;
-  const initialBasketImages = Array(NUM_BASKETS).fill().map(() => []);
-  const [basketImages, setBasketImages] = useState(initialBasketImages);
+  const [basketImages, setBasketImages] = useState(Array.from({length: 10}, () => []));
 
 
   const fetchImages = () => {
@@ -27,109 +25,97 @@ const RatingPage = () => {
     });
   }
 
-  const removeImage = (image , basketIndex, imageIndex) => {
-    const newBasketImages = [...basketImages];
-    newBasketImages[basketIndex].splice(imageIndex, 1);
-    setBasketImages(newBasketImages);
-    const imageIndexInImages = images.findIndex(i => i.index === image.index);
-    if (imageIndexInImages !== -1) {
-      if (!images[image.index].visible && images[image.index].rated)
-      {
-        console.log("Herewego")
-      }
-      const newImages = [...images];
-      //newImages[image.index].visible = true;
-      //newImages[image.index].rated = false;
-      setImages(newImages);
-    }
-  };
-
-  const onDrop = (e, image, index) => {
-    const basketElements = basketRefs.current.map(el => el.getBoundingClientRect());
-    const droppedBasket = basketElements.findIndex(basket =>
-      e.clientY >= basket.top && e.clientY <= basket.bottom && e.clientX >= basket.left && e.clientX <= basket.right
-    );
-  
-    if (droppedBasket !== -1) {
-      const newBasketImages = [...basketImages];
-      if (!newBasketImages[droppedBasket].includes(image)) {
-        newBasketImages[droppedBasket].push(image);
-        setBasketImages(newBasketImages);
-  
-        const newImages = [...images];
-        newImages[image.index].visible = false;
-        newImages[image.index].rated = true;
-        setImages(newImages);
-      }
-    }
-    else{
-      const newImages = [...images];
-      newImages[image.index].visible = true;
-      newImages[image.index].rated = false;
-      setImages(newImages);
-    }
-  };
-
   useEffect(() => {
     fetchImages();
   }, []);
 
   useEffect(() => {
+  }, [images]);
+
+  useEffect(() => {
+  }, [basketImages]);
+
+  useEffect(() => {
     basketRefs.current = basketRefs.current.slice(0, baskets.length);
   }, [baskets]);
 
+  
+const handleStop = (e, data , dragFrom) => {
+  const basketElements = basketRefs.current.map(el => el.getBoundingClientRect());
+  const droppedBasket = basketElements.findIndex(basket => 
+    e.clientY >= basket.top && e.clientY <= basket.bottom && e.clientX >= basket.left && e.clientX <= basket.right
+  );
+  if (droppedBasket === -1 && images[data.index].rating !== undefined){
+    setBasketImages(prevBasketImages => {
+      const newBasketImages = [...prevBasketImages];
+      newBasketImages[images[data.index].rating] = newBasketImages[images[data.index].rating].filter(item => item !== data);
+      images[data.index].rating = undefined;
+      images[data.index].visible = true;
+      return newBasketImages;
+    });
+  }
+
+  if (droppedBasket !== -1) {
+    setBasketImages(prevBasketImages => {
+      const newBasketImages = [...prevBasketImages];
+      images[data.index].visible = false;
+
+      // If the image already has a rating, remove it from its current basket
+      if (images[data.index].rating !== undefined) {
+        newBasketImages[images[data.index].rating] = newBasketImages[images[data.index].rating].filter(item => item !== data);
+        images[data.index].rating = undefined;
+
+      }
+
+      // If the image is not already in the dropped basket, add it to the dropped basket
+      if (!newBasketImages[droppedBasket].includes(data)) {
+        images[data.index].rating = droppedBasket;
+        newBasketImages[droppedBasket].push(data);
+      }
+      return newBasketImages;
+    });
+  }
+};
+
+  
   return (
     <div className="App" style={{margin:"25px"}}>
       <h1>Beautiful Images</h1>
-      <Row>
-      <Col xs={9}>
-        <Row>
-        {images.map((image, index) => (image.visible && (
-          <Col xl={2} lg={3} md={3} sm={4} xs={6} 
-               key={index} 
-               style={{padding:"0px"}}>
-            <Draggable
-                 onStop={(e) => onDrop(e, image, index)}>
-                  <Card className='cardContainer'>
-                    <Card.Img 
-                      onDragStart={(e) => e.preventDefault()}
-                      className='imageCard'
-                      variant="top"
-                      src={`data:image/jpeg;base64,${image.data}`} />
-                  </Card>
-            </Draggable>
-          </Col>
-        )))}
-        </Row>
-      </Col>
-      <Col xs={3}>
+      <Row style={{ display: 'flex', flexDirection: 'row', position: 'absolute', top: 100, bottom: 0, left: 0, right: 0 }}> 
+        <Col xs={9}  style={{ display: 'flex', flexDirection: 'column' }}>
+          <Row>{images.map((image, index) => (image.visible &&
+            <Col xl={1} lg={2} md={3} sm={4} xs={6} 
+              key={index} 
+              style={{padding:"0px"}}>
+            <Draggable onStop={(e) => handleStop(e, image , 'main')}>
+            <Card style={{width: "auto"}}>
+              <ImageStyle src={`data:image/jpeg;base64,${image.data}`} />
+            </Card>
+          </Draggable>
+        </Col>
+        ))}
+      </Row>
+    </Col>
+  <Col xs={3} style={{ display: 'flex', flexDirection: 'column'}}>
   {baskets.map((_, index) => (
     <div 
-      key={index} 
-      ref={el => basketRefs.current[index] = el}
-      onDragOver={(e) => e.preventDefault()}
-      style={{display: "flex", justifyContent: "flex-end", border: "1px solid black", borderLeft: "none", height: "48px", marginBottom: "10px"}}
-    >
-      
-      {basketImages[index] && basketImages[index].map((image, imageIndex) => (
-  <Draggable
-    key={imageIndex}
-    onStop={(e) => onDrop(e, image, index)}
-  >
-    <Card>
-      <Card.Img 
-        key={imageIndex} 
-        onDragStart={(e) => e.preventDefault()}
-        onClick={() => removeImage(image , index, imageIndex)}
-        style={{width: "auto", height: "48px"}} 
-        variant="top"
-        src={`data:image/jpeg;base64,${image.data}`}/>
-    </Card>
-  </Draggable>
-))} </div>
+  key={index} 
+  ref={el => basketRefs.current[index] = el}
+  style={{border: "3px solid black", borderLeft: "none", flex: 1, marginBottom: "10px", display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+  {basketImages[index] && basketImages[index].map((image, imgIndex) => (
+    <Draggable  onStop={(e) => handleStop(e, image , 'basket')}>
+      <Card.Img
+      onDragStart={(e) => e.preventDefault()}
+      key={imgIndex} 
+      src={`data:image/jpeg;base64,${image.data}`} 
+      alt={`Image ${imgIndex}`} 
+      style={{width: '20%', height: 'auto'}}
+      /></Draggable>
   ))}
-      </Col>
-      </Row>
+</div> 
+  ))}
+</Col>
+</Row>
     </div>
   );
 };
