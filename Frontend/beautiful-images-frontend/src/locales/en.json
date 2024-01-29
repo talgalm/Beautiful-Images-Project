@@ -1,0 +1,13 @@
+{
+    "welcome": "Welcome to my app!",
+    "home": "Home",
+    "login": "Login",
+    "images":"Images Page",
+    "rating":"rating",
+    "admin":"admin",
+    "adminPageTitle": "Mange Site",
+    "description": "description of the experiment",
+    "choose-photos": "Start en experiment",
+    "greet": "Hello, {{name}}!"
+}
+  

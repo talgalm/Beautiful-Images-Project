@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
 import './ImagesPage.css';
+import { useTranslation } from 'react-i18next';
 
 const ImagesPage = () => {
+  const { t } = useTranslation();
+
   const [images, setImages] = useState([]);
   const [displayedImages, setdIsplayedImages] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -37,7 +40,7 @@ const ImagesPage = () => {
   return (
     <div className="App" style={{margin:"25px"}}>
       <h1>Beautiful Images</h1>
-      <Button variant="primary" onClick={fetchImages}>Refresh Images</Button>
+      <Button variant="primary" onClick={fetchImages}>{t('choose-photos')}</Button>
       {displayedImages && <Row>
         {images.map((image, index) => (
           <Col xl={2} lg={3} md={3} sm={4} xs={6} 
