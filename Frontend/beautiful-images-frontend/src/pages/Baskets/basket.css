@@ -1,0 +1,43 @@
+.basket-div{
+    background-color: dimgrey;
+    width: 80%;
+    height: 56px;
+    margin: 10px;
+    display: flex;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    flex-direction: row-reverse;
+
+    .basket-inside-div {
+        background-color: black;
+        overflow-x: auto; 
+        width: 90%;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .basket-inside-div::-webkit-scrollbar {
+        display: none; 
+    }
+    
+    .basket-inside-div {
+        -ms-overflow-style: none; 
+        scrollbar-width: none; 
+    }
+    
+    .basket-num{
+        height: 50px;
+        width: 10%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        background-color: burlywood;
+    }
+}
+
+
+

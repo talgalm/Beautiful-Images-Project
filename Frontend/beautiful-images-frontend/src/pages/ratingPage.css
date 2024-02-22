@@ -1,0 +1,28 @@
+.rating-page-div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+
+    .image-display-div{
+        height: 650px;
+        width: 70%;
+        background-color: brown;
+
+
+        .images-dashboard{
+            height: 400px;
+            display: flex;
+            flex-direction: row;
+            background-color: aquamarine;
+            margin-top: 100px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    }
+    .baskets-div{
+        height: 500px;
+        width: 30%;
+        background-color: cadetblue;
+    }
+}
