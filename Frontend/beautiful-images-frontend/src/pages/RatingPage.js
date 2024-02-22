@@ -1,14 +1,15 @@
-import React, { useEffect, useState , useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Card, Row, Col} from 'react-bootstrap';
-import Draggable from 'react-draggable';
-import { ImageStyle } from '../Image/Image';
+import './ImagesPage.css';
+import { useTranslation } from 'react-i18next';
+import './ratingPage.css'
+import Basket from './Baskets/Basket';
+import Image from './Image/Image';
 
 const RatingPage = () => {
-  const [images, setImages] = useState([]);
-  const baskets = new Array(10).fill(0);
-  const basketRefs = useRef([]);
-  const [basketImages, setBasketImages] = useState(Array.from({length: 10}, () => []));
+  const { t } = useTranslation();
 
+  const [images, setImages] = useState([]);
 
   const fetchImages = () => {
     fetch('http://localhost:3001', {
@@ -25,99 +26,54 @@ const RatingPage = () => {
     });
   }
 
-  useEffect(() => {
+  useEffect(()=>{
     fetchImages();
-  }, []);
+  },[])
 
-  useEffect(() => {
-  }, [images]);
-
-  useEffect(() => {
-  }, [basketImages]);
-
-  useEffect(() => {
-    basketRefs.current = basketRefs.current.slice(0, baskets.length);
-  }, [baskets]);
-
-  
-const handleStop = (e, data , dragFrom) => {
-  const basketElements = basketRefs.current.map(el => el.getBoundingClientRect());
-  const droppedBasket = basketElements.findIndex(basket => 
-    e.clientY >= basket.top && e.clientY <= basket.bottom && e.clientX >= basket.left && e.clientX <= basket.right
-  );
-  if (droppedBasket === -1 && images[data.index].rating !== undefined){
-    setBasketImages(prevBasketImages => {
-      const newBasketImages = [...prevBasketImages];
-      newBasketImages[images[data.index].rating] = newBasketImages[images[data.index].rating].filter(item => item !== data);
-      images[data.index].rating = undefined;
-      images[data.index].visible = true;
-      return newBasketImages;
-    });
+  function handleOnDrag(event , dataImg)
+  {
+    event.dataTransfer.setData("application/json", JSON.stringify({from:0,data:dataImg}));
   }
 
-  if (droppedBasket !== -1) {
-    setBasketImages(prevBasketImages => {
-      const newBasketImages = [...prevBasketImages];
-      images[data.index].visible = false;
-
-      // If the image already has a rating, remove it from its current basket
-      if (images[data.index].rating !== undefined) {
-        newBasketImages[images[data.index].rating] = newBasketImages[images[data.index].rating].filter(item => item !== data);
-        images[data.index].rating = undefined;
-
-      }
-
-      // If the image is not already in the dropped basket, add it to the dropped basket
-      if (!newBasketImages[droppedBasket].includes(data)) {
-        images[data.index].rating = droppedBasket;
-        newBasketImages[droppedBasket].push(data);
-      }
-      return newBasketImages;
-    });
+  function handleOnDrop(event) {
+    const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
+    setImages(prevState => [...prevState, droppedItemData.data]);
+    
   }
-};
 
-  
+  function handleOnDragOver(event) {
+      event.preventDefault();
+  }
+
+
+  function onDropImage(dataImg){
+    const updatedImages = images.filter(img => img.file !== dataImg.data.file);
+    setImages(updatedImages);
+  }
+
   return (
-    <div className="App" style={{margin:"25px"}}>
-      <h1>Beautiful Images</h1>
-      <Row style={{ display: 'flex', flexDirection: 'row', position: 'absolute', top: 100, bottom: 0, left: 0, right: 0 }}> 
-        <Col xs={9}  style={{ display: 'flex', flexDirection: 'column' }}>
-          <Row>{images.map((image, index) => (image.visible &&
-            <Col xl={1} lg={2} md={3} sm={4} xs={6} 
-              key={index} 
-              style={{padding:"0px"}}>
-            <Draggable onStop={(e) => handleStop(e, image , 'main')}>
-            <Card style={{width: "auto"}}>
-              <ImageStyle src={`data:image/jpeg;base64,${image.data}`} />
-            </Card>
-          </Draggable>
-        </Col>
+    <div className="rating-page-div">
+      <div className='image-display-div'>
+        <div className='images-dashboard' onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
+            {images.map((img, index)=> (
+            <div onDragStart={(e) => handleOnDrag(e, img)}>
+              <Image key={index} img={img.data}/>
+            </div>
+            ))}
+        </div>
+      </div>
+
+      <div className='baskets-div'>
+        {[...Array(10)].map((_, index) => (
+          <div>
+            <Basket key={index} index={index + 1} onDropImage={onDropImage} />
+          </div>
         ))}
-      </Row>
-    </Col>
-  <Col xs={3} style={{ display: 'flex', flexDirection: 'column'}}>
-  {baskets.map((_, index) => (
-    <div 
-  key={index} 
-  ref={el => basketRefs.current[index] = el}
-  style={{border: "3px solid black", borderLeft: "none", flex: 1, marginBottom: "10px", display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-  {basketImages[index] && basketImages[index].map((image, imgIndex) => (
-    <Draggable  onStop={(e) => handleStop(e, image , 'basket')}>
-      <Card.Img
-      onDragStart={(e) => e.preventDefault()}
-      key={imgIndex} 
-      src={`data:image/jpeg;base64,${image.data}`} 
-      alt={`Image ${imgIndex}`} 
-      style={{width: '20%', height: 'auto'}}
-      /></Draggable>
-  ))}
-</div> 
-  ))}
-</Col>
-</Row>
+      </div>
+
     </div>
   );
 };
+
 
 export default RatingPage;

@@ -5,8 +5,9 @@ import './index.css';
 import App from './App';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-import ImagesPage from './pages/ImagesPage';
 import RatingPage from './pages/RatingPage';
+
+import ImagesPage from './pages/ImagesPage';
 import AdminPage from './pages/AdminPage';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';

@@ -12,7 +12,7 @@ class FileHandler {
 
             const imageFiles = files.filter(file => {
                 const ext = path.extname(file).toLowerCase();
-                return ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif';
+                return ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif' || ext === '.avif' || ext === '.webp';
             });
 
             Promise.all(imageFiles.map(file => {
