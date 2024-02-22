@@ -36,6 +36,33 @@ class ImageController {
             });
         });
     }
+    get(req, res) {
+        fs.readdir(path.join(__dirname, `../../images/${req.body.size}`), (err, files) => {
+            if (err) {
+                console.error(err);
+                res.status(500).end('Server error');
+                return;
+            }
+            console.log(files)
+    
+            const file = files.find(file => file === req.body.name);
+            if (!file) {
+                res.status(404).end('File not found');
+                return;
+            }
+    
+            const filePath = path.join(__dirname,`../../images/${req.body.size}`, file);
+    
+            fs.readFile(filePath, { encoding: 'base64' }, (err, data) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).end('Server error');
+                    return;
+                }
+                res.json({ file, data });
+            });
+        });
+    }
 }
 
 module.exports = new ImageController();

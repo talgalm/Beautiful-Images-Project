@@ -76,3 +76,17 @@ export const handleFetchImages = async (username) => {
     }
 };
 
+export const handleFetchSingleImage = async (username, fileName, size) => {
+    try {
+        const response = await axios.post('http://localhost:3001/api/images/get', {
+            username: username,
+            name : fileName,
+            size : window.innerWidth > 600 ? 'original' : 'small' 
+        });
+        console.log(response.data); // Handle successful login response
+        return response.data;
+    } catch (error) {
+        console.error('Error:', error); // Handle error
+    }
+};
+

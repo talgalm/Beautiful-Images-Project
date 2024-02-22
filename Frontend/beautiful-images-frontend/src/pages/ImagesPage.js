@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
 import './ImagesPage.css';
 import { useTranslation } from 'react-i18next';
+import { handleFetchImages, handleFetchSingleImage } from '../services/userService';
 
 const ImagesPage = () => {
   const { t } = useTranslation();
@@ -13,23 +14,27 @@ const ImagesPage = () => {
 
 
   const fetchImages = () => {
-    fetch('http://localhost:3001', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ message: 'Hello from client!' }),
-    })
-    .then(response => response.json())
-    .then(data => {setdIsplayedImages(true) ; setImages(data)})
+    handleFetchImages()
+    .then(data => { setdIsplayedImages(true) ;setImages(data)})
     .catch((error) => {
       console.error('Error:', error);
     });
   }
 
+  useEffect(()=>{
+    fetchImages();
+  },[])
+
+
+
 
   const openModal = (image) => {
-    setSelectedImage(image);
+    handleFetchSingleImage("" , image.file , 'original')
+    .then(data => { setSelectedImage(data)})
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
     setShowModal(true);
   }
 
