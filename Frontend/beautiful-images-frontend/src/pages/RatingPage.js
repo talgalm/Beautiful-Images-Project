@@ -13,7 +13,6 @@ const RatingPage = () => {
 
   const fetchImages = () => {
     handleFetchImages()
-    .then(response => response.json())
     .then(data => { setImages(data)})
     .catch((error) => {
       console.error('Error:', error);
