@@ -5,21 +5,14 @@ import { useTranslation } from 'react-i18next';
 import './ratingPage.css'
 import Basket from './Baskets/Basket';
 import Image from './Image/Image';
-
+import { handleFetchImages } from '../services/userService';
 const RatingPage = () => {
   const { t } = useTranslation();
 
   const [images, setImages] = useState([]);
 
   const fetchImages = () => {
-    fetch('http://localhost:3001', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ message: 'Hello from client!' }),
-    })
-    .then(response => response.json())
+    handleFetchImages()
     .then(data => { setImages(data)})
     .catch((error) => {
       console.error('Error:', error);
