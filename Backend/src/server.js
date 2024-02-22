@@ -3,6 +3,9 @@ const cors = require('cors');
 //const Routes = require('./routes');
 const apiRouter = require('./Routes/api');
 
+const { client, connectToPostgreSQL } = require('./config/pgConfig');
+const { sequelize, connectToSequelize } = require('./config/sequelizeConfig');
+
 class Server {
     constructor(port) {
         this.app = express();
@@ -14,6 +17,9 @@ class Server {
         this.app.use(cors());
         this.app.use(express.json());
         //this.app.use('/', this.routes.router);
+        
+        //connectToPostgreSQL();
+        //connectToSequelize();
 
          // Mount the API router
          this.app.use('/api', apiRouter);
