@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import './homePage.css'
-import { handleUserRegistration } from '../services/userService';
+import { handleUserLogin, handleUserRegistration } from '../services/userService';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -13,6 +13,8 @@ const HomePage = () => {
 
   function changeDisplay(){
     setSignUpActive(!isSignUpActive)
+    setAge('')
+    setUsername('')
   }
 
   function handleUsernameChange(event){
@@ -27,6 +29,16 @@ const HomePage = () => {
     handleUserRegistration(username , age)
     .then(data => {
       //if success -> alert user and go to start rating
+      //if fail -> alert user about the message
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+  function handleLogin(){
+    handleUserLogin(username)
+    .then(data => {
+      //if success -> alert user and go to dashboard rating
       //if fail -> alert user about the message
     })
     .catch((error) => {
@@ -57,7 +69,7 @@ const HomePage = () => {
         </div>
         <input type="input" placeholder='username' value={username} onChange={handleUsernameChange}/>
         <input placeholder='Age' value={age}  onChange={handleAgeChange}/>
-        <button class="button-53" onClick={handleRegistration} >SignUp</button>
+        <button className="button-53" onClick={handleRegistration} >SignUp</button>
       </form>
     </div>
     <div className="form-container sign-in-container">
@@ -74,9 +86,8 @@ const HomePage = () => {
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
           </div>
-        <input type="email" placeholder='Email'/>
-        <input type="email" placeholder='Age'/>
-        <button class="button-53">SignIn</button>
+        <input type="email" placeholder='Username' value={username} onChange={handleUsernameChange}/>
+        <button className="button-53" onClick={handleLogin}>SignIn</button>
       </form>
     </div>
     <div className="overlay-container">
@@ -84,14 +95,14 @@ const HomePage = () => {
         <div className="overlay-panel overlay-left">
           <h1>WelcomeBack</h1>
           <p>LoginPersonalInfo</p>
-          <button class="button-53" id="signIn" onClick={changeDisplay}>
+          <button className="button-53" id="signIn" onClick={changeDisplay}>
           SignIn
           </button>
         </div>
         <div className="overlay-panel overlay-right">
           <h1> HelloFriend</h1>
           <p>PersonalDetails</p>
-          <button class="button-53" id="signUp" onClick={changeDisplay}>
+          <button className="button-53" id="signUp" onClick={changeDisplay}>
           SignUp
           </button>
         </div>

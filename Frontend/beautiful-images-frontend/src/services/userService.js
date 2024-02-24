@@ -15,7 +15,7 @@ export const handleUserRegistration = async (username , age) => {
 };
 
 // Use Case 2: User Login
-export const handleLogin = async (username) => {
+export const handleUserLogin = async (username) => {
     try {
         const response = await axios.post('http://localhost:3001/api/auth/login', {
             username: username,

@@ -1,19 +1,21 @@
 class AuthController {
     // Handler for user login
     login(req, res) {
+        console.log(req.body)
+
         // Extract username and password from request body
-        const { email } = req.body;
+        // const { username } = req.body;
 
         // Perform authentication logic (e.g., verify credentials)
         // For demonstration purposes, let's assume successful login
-        if (email === 'user') {
-            // If login successful, send success message
-            console.log("hi!!!! hello user")
-            res.status(200).json({ message: 'Login successful' });
-        } else {
-            // If login failed, send error message
-            res.status(401).json({ message: 'Invalid credentials' });
-        }
+        // if (email === 'user') {
+        //     // If login successful, send success message
+        //     console.log("hi!!!! hello user")
+        //     res.status(200).json({ message: 'Login successful' });
+        // } else {
+        //     // If login failed, send error message
+        //     res.status(401).json({ message: 'Invalid credentials' });
+        // }
     }
 
     // Handler for user registration
