@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleLogin } from '../services/userService';
+import { handleUserLogin } from '../services/userService';
 
 const LoginPage = () => {
   const { t } = useTranslation();
   const [username, setUsername] = useState('user');
 
   useEffect(()=>{
-    handleLogin("user")
-    handleLogin("user1@example.com")
+    handleUserLogin("user")
+    handleUserLogin("user1@example.com")
   },[])
 
   return (
