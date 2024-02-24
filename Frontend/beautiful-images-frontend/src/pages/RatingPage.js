@@ -6,6 +6,10 @@ import './ratingPage.css'
 import Basket from './Baskets/Basket';
 import Image from './Image/Image';
 import { handleFetchImages } from '../services/userService';
+import { handleRateImage } from '../services/ratingService';
+
+
+
 const RatingPage = () => {
   const { t } = useTranslation();
 
@@ -26,12 +30,14 @@ const RatingPage = () => {
   function handleOnDrag(event , dataImg)
   {
     event.dataTransfer.setData("application/json", JSON.stringify({from:0,data:dataImg}));
+
   }
 
   function handleOnDrop(event) {
     const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
     setImages(prevState => [...prevState, droppedItemData.data]);
-    
+    handleRateImage("user",droppedItemData.from , droppedItemData.data.file , 0)
+
   }
 
   function handleOnDragOver(event) {

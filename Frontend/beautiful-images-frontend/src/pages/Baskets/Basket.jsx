@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './basket.css';
+import { handleRateImage } from '../../services/ratingService';
 
 export default function Basket({ index , onDropImage }) {
     const [imageInBasket, setImageInBasket] = useState([]);
@@ -11,6 +12,7 @@ export default function Basket({ index , onDropImage }) {
         if (droppedItemData.from === 0){
             onDropImage(droppedItemData);
         }
+        handleRateImage("user",droppedItemData.from , droppedItemData.data.file , index)
     }
 
     function handleOnDragOver(event) {
