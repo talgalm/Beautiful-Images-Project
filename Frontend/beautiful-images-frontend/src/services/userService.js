@@ -14,7 +14,7 @@ export const handleUserRegistration = async (participantData) => {
 export const handleLogin = async (username) => {
     try {
         const response = await axios.post('http://localhost:3001/api/auth/login', {
-            username: username,
+            email: username,
         });
         console.log(response.data); // Handle successful login response
     } catch (error) {

@@ -6,9 +6,10 @@ const LoginPage = () => {
   const { t } = useTranslation();
   const [username, setUsername] = useState('user');
 
-  useEffect(()=>(
+  useEffect(()=>{
     handleLogin("user")
-  ),[])
+    handleLogin("user1@example.com")
+  },[])
 
   return (
     <div>

@@ -1,31 +1,26 @@
+const UserRepository = require("../repositories/UserRepository");
+
 class AuthController {
-    // Handler for user login
-    login(req, res) {
-        // Extract username and password from request body
+
+      async login(req, res) {
         const { email } = req.body;
-
-        // Perform authentication logic (e.g., verify credentials)
-        // For demonstration purposes, let's assume successful login
-        if (email === 'user') {
-            // If login successful, send success message
-            console.log("hi!!!! hello user")
-            res.status(200).json({ message: 'Login successful' });
-        } else {
-            // If login failed, send error message
-            res.status(401).json({ message: 'Invalid credentials' });
+        try {
+          const user = await UserRepository.authenticateUser(email);
+          res.status(200).json({ message: 'Login successful', user });
+        } catch (error) {
+          res.status(401).json({ message: error.message });
         }
-    }
-
-    // Handler for user registration
-    register(req, res) {
-        // Extract username and password from request body
-        const { username, password } = req.body;
-
-        // Perform registration logic (e.g., create new user)
-        // For demonstration purposes, let's assume successful registration
-        // You would typically save the user to a database
-        res.status(201).json({ message: 'User registered successfully' });
-    }
+      }
+    
+      async register(req, res) {
+        const { email, age, gender } = req.body;
+        try {
+          await UserRepository.registerUser(email, age, gender);
+          res.status(201).json({ message: 'User registered successfully' });
+        } catch (error) {
+          res.status(400).json({ message: error.message });
+        }
+      }
 }
 
 module.exports = new AuthController();

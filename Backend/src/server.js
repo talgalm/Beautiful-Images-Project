@@ -18,8 +18,8 @@ class Server {
         this.app.use(express.json());
         //this.app.use('/', this.routes.router);
         
-        //connectToPostgreSQL();
-        //connectToSequelize();
+        connectToPostgreSQL();
+        connectToSequelize();
 
          // Mount the API router
          this.app.use('/api', apiRouter);

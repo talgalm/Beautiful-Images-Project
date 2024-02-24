@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 // Create a new Sequelize instance
-const sequelize = new Sequelize('your_database_name', 'your_database_username', 'your_database_password', {
+const sequelize = new Sequelize('beautiful-images-db', 'postgres', '123', {
     host: 'localhost',
     dialect: 'postgres', // Specify the dialect (postgres for PostgreSQL)
 });
