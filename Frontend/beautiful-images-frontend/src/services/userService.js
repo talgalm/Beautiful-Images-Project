@@ -1,12 +1,16 @@
 import axios from 'axios';
 
 // Use Case 1: Participant Registration
-export const handleUserRegistration = async (participantData) => {
+export const handleUserRegistration = async (username , age) => {
     try {
-        const response = await axios.post('http://localhost:3001/api/participants/register', participantData);
-        console.log(response.data); // Handle successful registration response
+        console.log("here")
+        const response = await axios.post('http://localhost:3001/api/auth/register', {
+            username : username, 
+            age : age
+        });
+        console.log(response.data); 
     } catch (error) {
-        console.error('Error:', error); // Handle error
+        console.error('Error:', error); 
     }
 };
 
@@ -16,9 +20,20 @@ export const handleLogin = async (username) => {
         const response = await axios.post('http://localhost:3001/api/auth/login', {
             username: username,
         });
-        console.log(response.data); // Handle successful login response
+        console.log(response.data); 
     } catch (error) {
-        console.error('Error:', error); // Handle error
+        console.error('Error:', error); 
+    }
+};
+//Use case : Logout 
+export const handleLogout = async (username) => {
+    try {
+        const response = await axios.post('http://localhost:3001/api/auth/logout', {
+            username: username,
+        });
+        console.log(response.data); 
+    } catch (error) {
+        console.error('Error:', error); 
     }
 };
 

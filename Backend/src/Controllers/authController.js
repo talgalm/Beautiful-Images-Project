@@ -18,13 +18,14 @@ class AuthController {
 
     // Handler for user registration
     register(req, res) {
-        // Extract username and password from request body
-        const { username, password } = req.body;
+        // // Extract username and password from request body
+        // const { username, age } = req.body;
 
-        // Perform registration logic (e.g., create new user)
-        // For demonstration purposes, let's assume successful registration
-        // You would typically save the user to a database
-        res.status(201).json({ message: 'User registered successfully' });
+        // // Perform registration logic (e.g., create new user)
+        // // For demonstration purposes, let's assume successful registration
+        // // You would typically save the user to a database
+        // res.status(201).json({ message: 'User registered successfully' });
+        console.log(req.body)
     }
 }
 
