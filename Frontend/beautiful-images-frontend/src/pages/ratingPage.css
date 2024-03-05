@@ -1,26 +1,39 @@
-.rating-page-div{
+.rating-page-div {
     display: flex;
     flex-direction: row;
     width: 100%;
 
-
-    .image-display-div{
+    .image-display-div {
         height: 650px;
         width: 70%;
         background-color: brown;
 
-
-        .images-dashboard{
+        .images-dashboard {
             height: 400px;
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
+            overflow-y: auto;
             background-color: aquamarine;
             margin-top: 100px;
             margin-left: 20px;
             margin-right: 20px;
+
+            .cardContainer {
+                width: 250px;
+                height: 175px;
+            }
+
+            .imageCard {
+                padding: 4px;
+                height: 176px;
+                width: 100%;
+                object-fit: contain;
+            }
         }
     }
-    .baskets-div{
+
+    .baskets-div {
         height: 500px;
         width: 30%;
         background-color: cadetblue;

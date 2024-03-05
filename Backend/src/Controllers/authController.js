@@ -3,6 +3,7 @@ const UserRepository = require("../repositories/UserRepository");
 class AuthController {
 
       async login(req, res) {
+        console.log("login ?")
         const { email } = req.body;
         try {
           const user = await UserRepository.authenticateUser(email);

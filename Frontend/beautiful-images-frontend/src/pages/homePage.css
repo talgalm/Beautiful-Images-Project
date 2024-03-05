@@ -220,6 +220,16 @@ input {
 	left: 0;
 	width: 50%;
 	z-index: 2;
+
+	.form-1{
+		.h1-sign{
+			margin-top: -100px;
+		}
+		.form-1-sign{
+			margin-top: 100px;
+
+		}
+	}
 }
 
 .container.right-panel-active .sign-in-container {
@@ -231,6 +241,10 @@ input {
 	width: 50%;
 	opacity: 0;
 	z-index: 1;
+
+	.form-2{
+		gap: 5px;
+	}
 }
 
 .container.right-panel-active .sign-up-container {
@@ -301,13 +315,24 @@ input {
 	transform: translateX(0);
 	transition: transform 0.6s ease-in-out;
   color: white;
-  font-weight: bold; /* Add this line to make the text bold */
-  font-size: 20px; /* Add this line to make the text bigger (adjust the size as needed) */
+  font-weight: bold; 
+  font-size: 20px; 
 
 }
 
 .overlay-left {
 	transform: translateX(-20%);
+	.h1-over-l{
+		margin-top: -100px;
+	}
+	.p-over-l{
+		margin-top: 100px;
+		font-size: 25px;
+	}
+	.button-53{
+		color: black;
+		background-color: white;
+	}
 }
 
 .container.right-panel-active .overlay-left {
@@ -317,6 +342,17 @@ input {
 .overlay-right {
 	right: 0;
 	transform: translateX(0);
+	.h1-over-r{
+		margin-top: -100px;
+	}
+	.p-over-r{
+		margin-top: 100px;
+		font-size: 25px;
+	}
+	.button-53{
+		color: black;
+		background-color: white;
+	}
 }
 
 .container.right-panel-active .overlay-right {
@@ -381,16 +417,7 @@ footer a {
   padding: .75rem 1.65rem;
   position: relative;
   text-align: center;
-  text-decoration: none #000000 solid;
-  text-decoration-thickness: auto;
-  width: 80%;
-  max-width: 400px;
-  position: relative;
-  cursor: pointer;
-  transform: rotate(-2deg);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+
 }
 
 .button-53:focus {
