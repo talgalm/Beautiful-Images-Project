@@ -6,6 +6,7 @@ import './ratingPage.css'
 import Basket from './Baskets/Basket';
 import { handleFetchImages, handleFetchSingleImage } from '../services/userService';
 import { handleRateImage } from '../services/ratingService';
+import { useNavigate } from "react-router-dom";
 
 
 const RatingPage = () => {
@@ -13,11 +14,17 @@ const RatingPage = () => {
 
   const [images, setImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showFinishModal, setShowFinishModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [initialNumberOfImages, setInitialNumberOfImages] = useState(null);
+  const navigate = useNavigate();
 
   const fetchImages = () => {
     handleFetchImages()
-    .then(data => { setImages(data)})
+    .then(data => { 
+      setImages(data)
+      setInitialNumberOfImages(data.length)
+    })
     .catch((error) => {
       console.error('Error:', error);
     });
@@ -65,11 +72,26 @@ const RatingPage = () => {
     setShowModal(true);
   }
 
+  function handleFinish(){
+    navigate("/finish")
+  }
+
   const closeModal = () => {
     setShowModal(false);
   } 
 
+  function openFinishModal(image){
+
+    setShowFinishModal(true);
+  }
+
+  const closeFinishModal = () => {
+    setShowFinishModal(false);
+  } 
+  
+
   return (
+    <div className='all-rating-page-div'>
     <div className="rating-page-div">
       <div className='image-display-div'>
         <div className='images-dashboard' onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
@@ -106,6 +128,19 @@ const RatingPage = () => {
         ))}
       </div>
 
+    </div>
+    <button className='button-53' onClick={openFinishModal}>{t('doneEvaluate')}</button>
+    <Modal show={showFinishModal} onHide={closeFinishModal} size="l" >
+        <Modal.Header closeButton>
+        </Modal.Header>
+        <Modal.Body>
+        <div dangerouslySetInnerHTML={{ __html: t('subimtRateModalText', { imagesNumber: initialNumberOfImages - images.length }) }} />
+        <div className='buttons-in-modal'>
+          <button className='button-53'>{t('displayMoreImages')}</button>
+          <button className='button-53' onClick={handleFinish}>{t('Finish')}</button>
+        </div>
+      </Modal.Body>
+      </Modal>
     </div>
   );
 };

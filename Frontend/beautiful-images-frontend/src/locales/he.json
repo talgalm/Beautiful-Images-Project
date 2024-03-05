@@ -25,6 +25,9 @@
     "checkToAgree" : "לא ניתן להמשיך ללא הסכמה להשתתף בפרוייקט",
     "enterNickname" : "הכנס/י כינוי",
     "enterGender" : "הכנס/י מין",
-    "enterCountry" : "הכנס/י מדינה"
+    "enterCountry" : "הכנס/י מדינה",
+    "doneEvaluate" : "סיימתי להעריך",
+    "displayMoreImages" : "הצג תמונות נוספות",
+    "Finish":"סיום"
 
 }

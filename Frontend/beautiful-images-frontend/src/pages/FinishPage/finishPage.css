@@ -1,0 +1,14 @@
+.finish-div{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+.thank-you-div{
+    background-color: aquamarine;
+    width: 70%;
+    height: 100vh;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}

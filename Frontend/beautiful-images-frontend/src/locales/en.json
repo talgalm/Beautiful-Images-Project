@@ -25,6 +25,10 @@
     "checkToAgree" : "It is not possible to continue without consent to participate in the project",
     "enterNickname" : "Enter nickname",
     "enterGender" : "Enter gender",
-    "enterCountry" : "Enter country"
+    "enterCountry" : "Enter country",
+    "doneEvaluate" : "Done Evaluate",
+    "subimtRateModalText" : "Very nice, you have finished evaluating {{imagesNumber}} images. Information and you want to see more photos, please select <b>\"Show more images\"</b>. To finish evaluating the photos and exit the system, please select <b>\"Finish\"</b>",
+    "displayMoreImages" : "Display more images",
+    "Finish":"Finish"
 }
   

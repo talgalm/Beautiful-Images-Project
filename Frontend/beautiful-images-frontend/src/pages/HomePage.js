@@ -69,10 +69,10 @@ export default function HomePage (){
       if (true){
         if (true){
           localStorage.setItem('username',username)
-          navigate("/rating")
+          navigate("/instructions")
         }
         else{
-          navigate("/landing")
+
         }
       }
       else{

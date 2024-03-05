@@ -12,6 +12,8 @@ import AdminPage from './pages/AdminPage';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import InstructionsPage from './pages/InstructionsPage/InstructionsPage';
+import FinishPage from './pages/FinishPage/FinishPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +26,8 @@ root.render(
       <Route path="/images" element={<ImagesPage/>} />
       <Route path="/rating" element={<RatingPage/>} />
       <Route path="/admin" element={<AdminPage/>} />
+      <Route path="/instructions" element={<InstructionsPage/>} />
+      <Route path="/finish" element={<FinishPage/>} />
     </Routes>
   </Router>
   </I18nextProvider>
