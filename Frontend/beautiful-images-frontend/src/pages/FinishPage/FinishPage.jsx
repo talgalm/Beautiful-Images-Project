@@ -14,10 +14,9 @@ export default function FinishPage(){
             <Header/>
             <div className='finish-div'>
                 <div className='images-example-div'>
-                    Enter image for example here
                 </div>
                 <div className='thank-you-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
-                    Enter image for example here2
+
                 </div>
             </div>
         </div>

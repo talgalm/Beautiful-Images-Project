@@ -25,7 +25,7 @@ export default function LandingPage(){
 
     return (
         <div className='landing-div'>
-            <div className='images-example-div'>Enter image for example here</div>
+            <div className='images-example-div'></div>
             <div className='instructions-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
                 <p className='p-intro'><Trans i18nKey="landingIntro" components={{ br: <br /> }} /></p>
                 <div className='checkbox-ok-div' style={{ flexDirection: isRtl ? 'row-reverse' : 'row' }}>

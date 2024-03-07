@@ -1,0 +1,25 @@
+.flags-div{
+    button {
+        background-color: black;
+        border: 0.2px solid black;
+    }
+    button:hover{
+        background-color: rgb(255, 255, 255);
+        color: rgb(0, 0, 0);
+    }
+    .flags-div .dropdown-toggle:hover {
+        background-color: rgb(255, 255, 255) !important;
+        color: rgb(0, 0, 0); 
+    }
+
+    img{
+        width: 30px;
+        height: 30px;
+    }
+    a{
+        margin-left: 10px;
+        width: 90%;
+        font-size: 20px;
+
+    }
+}
