@@ -12,6 +12,8 @@ import Header from '../components/Header/Header';
 
 const RatingPage = () => {
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
+  const isRtl = ['he'].includes(i18n.language);
 
   const [images, setImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -136,7 +138,7 @@ const RatingPage = () => {
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
-        <div dangerouslySetInnerHTML={{ __html: t('subimtRateModalText', { imagesNumber: initialNumberOfImages - images.length }) }} />
+        <div dir={isRtl ? 'rtl' : 'ltr'} dangerouslySetInnerHTML={{ __html: t('subimtRateModalText', { imagesNumber: initialNumberOfImages - images.length }) }} />
         <div className='buttons-in-modal'>
           <button className='button-53'>{t('displayMoreImages')}</button>
           <button className='button-53' onClick={handleFinish}>{t('Finish')}</button>
