@@ -7,6 +7,7 @@ import Basket from './Baskets/Basket';
 import { handleFetchImages, handleFetchSingleImage } from '../services/userService';
 import { handleRateImage } from '../services/ratingService';
 import { useNavigate } from "react-router-dom";
+import Header from '../components/Header/Header';
 
 
 const RatingPage = () => {
@@ -92,6 +93,7 @@ const RatingPage = () => {
 
   return (
     <div className='all-rating-page-div'>
+      <Header/>
     <div className="rating-page-div">
       <div className='image-display-div'>
         <div className='images-dashboard' onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>

@@ -29,6 +29,10 @@
     "doneEvaluate" : "Done Evaluate",
     "subimtRateModalText" : "Very nice, you have finished evaluating {{imagesNumber}} images. Information and you want to see more photos, please select <b>\"Show more images\"</b>. To finish evaluating the photos and exit the system, please select <b>\"Finish\"</b>",
     "displayMoreImages" : "Display more images",
-    "Finish":"Finish"
+    "Finish":"Finish",
+    "UsernamesError" : "The email addresses do not match, please try again",
+    "Male" : "Male",
+    "Female" : "Female",
+    "Other" : "Other"
 }
   

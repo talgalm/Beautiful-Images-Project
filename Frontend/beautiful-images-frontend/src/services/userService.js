@@ -1,13 +1,16 @@
 import axios from 'axios';
 
 // Use Case 1: Participant Registration
-export const handleUserRegistration = async (username , age) => {
+export const handleUserRegistration = async (username , nickname , age , country , gender) => {
     try {
-        console.log("here")
         const response = await axios.post('http://localhost:3001/api/auth/register', {
-            username : username, 
+            username : username , 
+            nickname : nickname ,
+            country : country ,
+            gender : gender , 
             age : age
         });
+        handleUserLogin(username);
         console.log(response.data); 
     } catch (error) {
         console.error('Error:', error); 

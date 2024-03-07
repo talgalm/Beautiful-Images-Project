@@ -6,14 +6,14 @@ import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from './components/LanguageSwitcher';
 import HomePage from './pages/HomePage';
 import LandingPage from './pages/LandingPgae/LandingPage';
+import Header from './components/Header/Header';
 
 function App() {
   const { t } = useTranslation();
 
   return (
     <div className="App">
-      <h1>{t('welcome')}</h1>
-      <LanguageSwitcher/>
+      <Header/>
       <LandingPage/>
     </div>
   );

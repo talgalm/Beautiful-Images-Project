@@ -1,3 +1,4 @@
+import Header from "../../components/Header/Header";
 import LanguageSwitcher from "../../components/LanguageSwitcher";
 import { useNavigate } from "react-router-dom";
 
@@ -8,8 +9,8 @@ export default function InstructionsPage (){
         navigate("/rating")
     } 
     return (
-        <div>
-            <LanguageSwitcher/>
+        <div className="header-wrapper">
+            <Header/>
             <div className="guidelines-div">
                 Here will be Guidelines!
                 <button onClick={handleGoToRating}>Continue to rate !</button>

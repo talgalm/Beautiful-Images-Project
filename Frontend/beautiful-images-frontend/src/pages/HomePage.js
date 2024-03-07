@@ -6,6 +6,7 @@ import './homePage.css'
 import { handleUserLogin, handleUserRegistration } from '../services/userService';
 import { useNavigate } from "react-router-dom";
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import Header from '../components/Header/Header';
 
 
 export default function HomePage (){
@@ -13,7 +14,7 @@ export default function HomePage (){
   const [isSignUpActive, setSignUpActive] = useState(false);
   const [username , setUsername] = useState('')
   const [nickname , setNickname] = useState('')
-  const [usernameConfitm , setUsernameConfirm] = useState('')
+  const [usernameConfirm , setUsernameConfirm] = useState('')
   const [age , setAge] = useState('')
   const [gender , setGender] = useState('')
   const [country , setCountry] = useState('')
@@ -54,14 +55,20 @@ export default function HomePage (){
   }
 
   function handleRegistration(){
-    handleUserRegistration(username , age)
-    .then(data => {
-      //if success -> alert user and go to start rating
-      //if fail -> alert user about the message
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+    if (usernameConfirm === username){
+      handleUserRegistration(username , nickname , age , country , gender)
+      .then(data => {
+        //if success -> alert user and go to start rating
+        //if fail -> alert user about the message
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
+    else{
+      alert(t('UsernamesError'))
+    }
+
   }
   function handleLogin(){
     handleUserLogin(username)
@@ -90,17 +97,22 @@ export default function HomePage (){
   }, []);
 
 
-  return (<div>
-    <LanguageSwitcher/>
+  return (<div className="header-wrapper">
+    <Header/>
 
     <div className={`container ${isSignUpActive ? 'right-panel-active' : ''}`} id="container">
     <div className="form-container sign-up-container">
       <form action="#"  className='form-2'>
         <h1>{t('createAccount')}</h1>
         <input required type="input" placeholder={t('enterUsername')} value={username} onChange={handleUsernameChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
-        <input required type="input" placeholder={t('enterUsernameConfirm')} value={usernameConfitm} onChange={handleUsernameConfirmChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input required type="input" placeholder={t('enterUsernameConfirm')} value={usernameConfirm} onChange={handleUsernameConfirmChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
         <input type="input" placeholder={t('enterNickname')} value={nickname} onChange={handleNickname}  dir={isRtl ? 'rtl' : 'ltr'}/>
-        <input type="input" placeholder={t('enterGender')} value={gender} onChange={handleGenderChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
+        <select value={gender} onChange={handleGenderChange} dir={isRtl ? 'rtl' : 'ltr'}>
+          <option value="" disabled>{t('enterGender')}</option> 
+          <option value="male">{t('Male')}</option>
+          <option value="female">{t('Female')}</option>
+          <option value="other">{t('Other')}</option>
+        </select>
         <input type="input" placeholder={t('enterCountry')} value={country} onChange={handleCountryChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
         <input placeholder={t('age')} value={age}  onChange={handleAgeChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
         <button className="button-53" onClick={handleRegistration} >{t('signUp')}</button>

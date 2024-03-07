@@ -2,6 +2,7 @@ import './finishPage.css'
 import { useTranslation , Trans} from 'react-i18next';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import Header from '../../components/Header/Header';
 
 export default function FinishPage(){
     const { t , i18n} = useTranslation();
@@ -9,12 +10,15 @@ export default function FinishPage(){
     const navigate = useNavigate();
 
     return (
-        <div className='finish-div'>
-            <div className='images-example-div'>
-                Enter image for example here
-            </div>
-            <div className='thank-you-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
-                Enter image for example here2
+        <div className='header-wrapper'>            
+            <Header/>
+            <div className='finish-div'>
+                <div className='images-example-div'>
+                    Enter image for example here
+                </div>
+                <div className='thank-you-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
+                    Enter image for example here2
+                </div>
             </div>
         </div>
     );

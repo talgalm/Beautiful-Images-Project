@@ -28,6 +28,10 @@
     "enterCountry" : "הכנס/י מדינה",
     "doneEvaluate" : "סיימתי להעריך",
     "displayMoreImages" : "הצג תמונות נוספות",
-    "Finish":"סיום"
+    "Finish":"סיום",
+    "UsernamesError" : "כתובות המייל אינן תואמות , אנא נסה שנית",
+    "Male" : "זכר",
+    "Female" : "נקבה",
+    "Other" : "אחר"
 
 }
