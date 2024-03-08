@@ -125,9 +125,9 @@ const RatingPage = () => {
       </div>
 
       <div className='baskets-div'>
-        {[...Array(10)].map((_, index) => (
+        {[...Array(10)].reverse().map((_, index) => (
           <div>
-            <Basket key={index} index={index + 1} onDropImage={onDropImage} />
+            <Basket key={index} index={10 - index} onDropImage={onDropImage} />
           </div>
         ))}
       </div>

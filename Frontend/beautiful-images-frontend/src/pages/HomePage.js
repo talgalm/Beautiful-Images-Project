@@ -73,19 +73,13 @@ export default function HomePage (){
   function handleLogin(){
     handleUserLogin(username)
     .then(data => {
-      if (true){
-        if (true){
-          localStorage.setItem('username',username)
-          navigate("/instructions")
-        }
-        else{
-
-        }
+      if (data.token){
+        localStorage.setItem('username',data.token)
+        navigate("/instructions")
       }
       else{
-        //fail in login , try again
-      }
 
+      }
     })
     .catch((error) => {
       console.error('Error:', error);

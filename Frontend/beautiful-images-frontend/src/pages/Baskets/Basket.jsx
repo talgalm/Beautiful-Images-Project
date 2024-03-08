@@ -29,16 +29,19 @@ export default function Basket({ index , onDropImage }) {
         setImageInBasket(updatedImages);
     }
 
-    return (
+    return (<div>
+                {imageInBasket.length > 8 && <div className='scroll-activate'>+ </div>}
+
         <div className='basket-div' onDrop={(e)=>handleOnDrop(e, index)} onDragOver={(e)=>handleOnDragOver(e)}>
             <div className='basket-inside-div'>
                 {imageInBasket.map((img, i) => (
                     <div onDragStart={(e) => handleOnDrag(e, img)}>
-                        <img key={i} src={`data:image/jpeg;base64,${img.data.data}`} alt={`Image ${i}`} style={{ width: '50px', height: '50px', marginRight: '5px' }} onDragEnd={() => removeImageFromBasket(img.data)} />
+                        <img key={i} src={`data:image/jpeg;base64,${img.data.data}`} alt={`Image ${i}`} style={{ width: '56px', height: '56px', marginRight: '0px' }} onDragEnd={() => removeImageFromBasket(img.data)} />
                     </div>
                 ))}
             </div>
             <div className='basket-num'>{index}</div>
+        </div>
         </div>
     );
 };

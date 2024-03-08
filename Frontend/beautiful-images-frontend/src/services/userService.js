@@ -23,7 +23,7 @@ export const handleUserLogin = async (username) => {
         const response = await axios.post('http://localhost:3001/api/auth/login', {
             email: username,
         });
-        console.log(response.data); 
+        return response.data
     } catch (error) {
         console.error('Error:', error); 
     }
