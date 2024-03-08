@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import './homePage.css'
-import { handleUserLogin, handleUserRegistration } from '../services/userService';
+import { handleUserLogin, handleUserRegistration } from '../../services/userService';
 import { useNavigate } from "react-router-dom";
-import LanguageSwitcher from '../components/LanguageSwitcher';
-import Header from '../components/Header/Header';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
+import Header from '../../components/Header/Header';
 
 
 export default function HomePage (){

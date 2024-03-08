@@ -13,3 +13,13 @@ export const handleRateImage = async (username , from , imageFile , rating) => {
         console.error('Error:', error); 
     }
 };
+export const handleSaveRating = async (username) => {
+    try {
+        const response = await axios.post('http://localhost:3001/api/rate/save', {
+            username : username, 
+        });
+        console.log(response.data); 
+    } catch (error) {
+        console.error('Error:', error); 
+    }
+};

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {Card, Modal} from 'react-bootstrap';
-import './ImagesPage.css';
+import '../ImagesPage/ImagesPage';
 import { useTranslation } from 'react-i18next';
 import './ratingPage.css'
-import Basket from './Baskets/Basket';
-import { handleFetchImages, handleFetchSingleImage } from '../services/userService';
-import { handleRateImage } from '../services/ratingService';
+import Basket from '../Baskets/Basket';
+import { handleFetchImages, handleFetchSingleImage } from '../../services/userService';
+import { handleRateImage } from '../../services/ratingService';
 import { useNavigate } from "react-router-dom";
-import Header from '../components/Header/Header';
+import Header from '../../components/Header/Header';
 
 
 const RatingPage = () => {
@@ -138,9 +138,9 @@ const RatingPage = () => {
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
-        <div dir={isRtl ? 'rtl' : 'ltr'} dangerouslySetInnerHTML={{ __html: t('subimtRateModalText', { imagesNumber: initialNumberOfImages - images.length }) }} />
+        <div dir={isRtl ? 'rtl' : 'ltr'} dangerouslySetInnerHTML={{ __html: t(initialNumberOfImages === initialNumberOfImages - images.length ? 'FinishEvaluateAllImages' : 'FinishEvaluateSomeImages', { imagesNumber: initialNumberOfImages - images.length }) }} />
         <div className='buttons-in-modal'>
-          <button className='button-53'>{t('displayMoreImages')}</button>
+          {initialNumberOfImages === initialNumberOfImages - images.length && <button className='button-53'>{t('displayMoreImages')}</button>}
           <button className='button-53' onClick={handleFinish}>{t('Finish')}</button>
         </div>
       </Modal.Body>

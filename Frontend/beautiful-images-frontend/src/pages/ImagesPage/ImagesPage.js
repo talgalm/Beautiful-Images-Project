@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
 import './ImagesPage.css';
 import { useTranslation } from 'react-i18next';
-import { handleFetchImages, handleFetchSingleImage } from '../services/userService';
+import { handleFetchImages, handleFetchSingleImage } from '../../services/userService';
 
 const ImagesPage = () => {
   const { t } = useTranslation();
