@@ -1,7 +1,47 @@
 const fs = require('fs');
 const path = require('path');
 
+const ImageRepository = require('../repositories/ImageRepository');
+
 class ImageController {
+
+    async fetchImages(req, res) {
+
+        console.log(req.body);
+        const {userName} = req.body;
+        try{
+            const images = await ImageRepository.fetchNewImages(userName);
+            console.log(images);
+            res.status(200).json({images: images});
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+    async fetchImage(req, res) {
+        const {userName, imageName} = req.body;
+        try{
+            const image = await ImageRepository.fetchImage(userName, imageName);
+            res.status(200).json({image});
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+    async fetchSessionImages(req, res) {
+        const {userName} = req.body;
+        try{
+            const images = await ImageRepository.fetchSessionImages(userName);
+            res.status(200).json({images});
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({ message: error.message });
+        }
+    }
+
+
     getAll(req, res) {
         fs.readdir(path.join(__dirname, '../../images/small'), (err, files) => {
             if (err) {
@@ -27,8 +67,8 @@ class ImageController {
                 });
             }))
             .then(images => {
-                const indexedImages = images.map((image, index) => ({ ...image, visible: true, rated: false, index }));
-                res.json(indexedImages);
+                
+                res.json(images);
             })
             .catch(err => {
                 console.error(err);
