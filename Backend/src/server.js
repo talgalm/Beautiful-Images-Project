@@ -5,6 +5,7 @@ const apiRouter = require('./Routes/api');
 
 const { client, connectToPostgreSQL } = require('./config/pgConfig');
 const { sequelize, connectToSequelize } = require('./config/sequelizeConfig');
+const ImageRepository = require('./repositories/ImageRepository');
 
 class Server {
     constructor(port) {
@@ -20,6 +21,8 @@ class Server {
         
         connectToPostgreSQL();
         connectToSequelize();
+
+        ImageRepository.initializeImagesDB(); // Initialize the images database
 
          // Mount the API router
          this.app.use('/api', apiRouter);
