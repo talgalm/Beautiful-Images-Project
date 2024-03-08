@@ -14,6 +14,7 @@ const RatingPage = () => {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
   const isRtl = ['he'].includes(i18n.language);
+  const [curHeight , setCurHeight] = useState('650px')
 
   const [images, setImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -91,6 +92,15 @@ const RatingPage = () => {
   const closeFinishModal = () => {
     setShowFinishModal(false);
   } 
+
+  function calcHeight(){
+    if(images.length % 10 === 0){
+      setCurHeight((images.length*10-50).toString()+'px');
+    }
+  }
+  useEffect(()=>{
+    calcHeight()
+  },[images])
   
 
   return (
@@ -98,10 +108,9 @@ const RatingPage = () => {
       <Header/>
     <div className="rating-page-div">
       <div className='image-display-div'>
-        <div className='images-dashboard' onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
+        <div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
             {images.map((img, index)=> (
             <div onDragStart={(e) => handleOnDrag(e, img)} onClick={(e) => openModal(img)} >
-              {/* <Image key={index} img={img.data}/> */}
               <Card className='cardContainer'>
               <Card.Img 
                 className='imageCard'
