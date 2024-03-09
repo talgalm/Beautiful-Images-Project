@@ -1,5 +1,5 @@
-const FinalRating = require("../Models/finalRatingModel");
-const TmpRating = require("../Models/tmpRatingModel");
+const FinalRating = require("../Models/finalrating");
+const TmpRating = require("../Models/tmprating");
 
 class RatingRepository {
     static async addInitialRatings(username, images) {
@@ -26,14 +26,14 @@ class RatingRepository {
 
     static async saveRatings(username) {
         const tmpRatings = await TmpRating.find({ username });
-        const FinalRating = tmpRatings.map((tmpRating) => {
+        const finalRatings = tmpRatings.map((tmpRating) => {
             return {
                 username: tmpRating.username,
                 imageName: tmpRating.imageName,
                 rating: tmpRating.rating,
             };
         });
-        FinalRating.bulkCreate(FinalRating);
+        FinalRating.bulkCreate(finalRatings);
         tmpRatings.destroy({ where: { username } });
     }
 }
