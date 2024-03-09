@@ -21,6 +21,8 @@ const TmpRating = sequelize.define('TmpRating', {
     allowNull: false,
     type: DataTypes.DATE
   }
+}, {
+  tableName: 'TmpRatings'
 });
 
 module.exports = TmpRating;

@@ -18,6 +18,8 @@ const ImageModel = sequelize.define('ImageModel', {
     allowNull: false,
     unique: false
   }
+}, {
+  tableName: 'Images'
 });
 
 module.exports = ImageModel;

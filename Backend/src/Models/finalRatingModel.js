@@ -17,6 +17,8 @@ const FinalRating = sequelize.define('FinalRating', {
     allowNull: false,
     unique: false
   }
+}, {
+  tableName: 'FinalRatings'
 });
 
 module.exports = FinalRating;
