@@ -1,11 +1,6 @@
-const User = require('../Models/userModel');
+const User = require('../Models/user');
 
 class UserRepository {
-    // constructor(UserModel) {
-    //   console.log("in user repo constructor")
-    //   this.UserModel = UserModel;
-    //   console.log("finish user repo constructor")
-    // }
   
     static async registerUser(email) {
       // Check if a user with the provided email already exists

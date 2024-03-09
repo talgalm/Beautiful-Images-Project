@@ -1,6 +1,4 @@
-const FinalRating = require("../Models/finalRatingModel");
-const ImageModel = require("../Models/imageModel");
-const TmpRating = require("../Models/tmpRatingModel");
+const { Image, FinalRating, TmpRating } = require("../Models");
 const RatingRepository = require("./RatingRepository");
 
 const fs = require('fs');
@@ -18,13 +16,12 @@ class ImageRepository {
         for (const imageName of images) {
           const imageId = generateImageId();
 
-          const image = new ImageModel({
+          const img = await Image.create({
             id: imageId,
             imageName: imageName,
             category: category
           });
-
-          await image.save();
+          console.log(img);
         }
       }
 
@@ -42,7 +39,7 @@ class ImageRepository {
     static async fetchNewImages(userName) {
         try {
             console.log("fetching images")
-            const allImages = await ImageModel.find();
+            const allImages = await Image.find();
             const userRatedImages = await FinalRating.find({ username: userName });
             console.log(allImages);
             //subtract rated images from all images
@@ -84,7 +81,7 @@ class ImageRepository {
 
     static async fetchImage(userName, imageName) {
         try {
-            const image = await ImageModel.findOne({ imageName });
+            const image = await Image.findOne({ imageName });
             const imagePath = path.join(__dirname, `../../images/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
             image.base64Data = imageData;
