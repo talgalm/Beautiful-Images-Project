@@ -70,7 +70,7 @@ class ImageRepository {
             selectedImages.forEach((image) => {
               const imagePath = path.join(__dirname, `../../images/${image.category}`, image.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
-              image.base64Data = imageData;
+              image.imageData = imageData;
             });
             
             return selectedImages;
@@ -79,12 +79,12 @@ class ImageRepository {
         }
     }
 
-    static async fetchImage(userName, imageName) {
+    static async fetchImage(userName, imageId) {
         try {
-            const image = await Image.findOne({ imageName });
+            const image = await Image.findOne({ imageId });
             const imagePath = path.join(__dirname, `../../images/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
-            image.base64Data = imageData;
+            image.imageData = imageData;
             return image;
         } catch (error) {
             throw new Error('Error fetching image');
