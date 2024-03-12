@@ -17,6 +17,8 @@ const RatingPage = () => {
   const [curHeight , setCurHeight] = useState('650px')
 
   const [images, setImages] = useState([]);
+  const [imagesToBaskets, setImagesToBaskets] = useState([]);
+
   const [showModal, setShowModal] = useState(false);
   const [showFinishModal, setShowFinishModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -26,7 +28,10 @@ const RatingPage = () => {
   const fetchImages = () => {
     handleFetchImages("gil@gmail.com")
     .then(data => { 
-      setImages(data.images)
+      const itemsWithZeroRating = data.images.filter(item => item.rating === 0);
+      const itemsWithNonZeroRating = data.images.filter(item => item.rating !== 0);
+      setImagesToBaskets(itemsWithNonZeroRating);
+      setImages(itemsWithZeroRating);
       setInitialNumberOfImages(data.images.length)
     })
     .catch((error) => {
@@ -118,15 +123,15 @@ const RatingPage = () => {
     <div className="rating-page-div">
       <div className='image-display-div'>
         <div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
-            {images.map((img, index)=> (
-            <div onDragStart={(e) => handleOnDrag(e, img)} onClick={(e) => openModal(img)} >
-              <Card className='cardContainer'>
-              <Card.Img 
-                className='imageCard'
-                src={`data:image/jpeg;base64,${img.imageData}`} />
-            </Card>
+                {images.map((img, index)=> (
+            <div key={img.imageId} onDragStart={(e) => handleOnDrag(e, img)} onClick={(e) => openModal(img)}>
+                <Card className='cardContainer'>
+                    <Card.Img 
+                        className='imageCard'
+                        src={`data:image/jpeg;base64,${img.imageData}`} />
+                </Card>
             </div>
-            ))}
+        ))}
 
       <Modal show={showModal} onHide={closeModal} size="xl" >
         <Modal.Header closeButton>
@@ -143,12 +148,12 @@ const RatingPage = () => {
       </div>
 
       <div className='baskets-div'>
-        {[...Array(10)].reverse().map((_, index) => (
-          <div>
-            <Basket key={index} index={10 - index} onDropImage={onDropImage} />
-          </div>
-        ))}
-      </div>
+    {[...Array(10)].reverse().map((_, index) => (
+        <div key={`basket-wrapper-${10 - index}`}>
+            <Basket index={10 - index} onDropImage={onDropImage} loadImages={imagesToBaskets.filter(img => img.rating === (10 - index))} />
+        </div>
+    ))}
+</div>
 
     </div>
     <button className='button-53' onClick={openFinishModal}>{t('doneEvaluate')}</button>
