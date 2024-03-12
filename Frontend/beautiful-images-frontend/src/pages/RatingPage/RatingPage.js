@@ -15,9 +15,8 @@ const RatingPage = () => {
   const { i18n } = useTranslation();
   const isRtl = ['he'].includes(i18n.language);
   const [curHeight , setCurHeight] = useState('650px')
-
+  const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
-  const [imagesToBaskets, setImagesToBaskets] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
   const [showFinishModal, setShowFinishModal] = useState(false);
@@ -28,10 +27,8 @@ const RatingPage = () => {
   const fetchImages = () => {
     handleFetchImages("gil@gmail.com")
     .then(data => { 
-      const itemsWithZeroRating = data.images.filter(item => item.rating === 0);
-      const itemsWithNonZeroRating = data.images.filter(item => item.rating !== 0);
-      setImagesToBaskets(itemsWithNonZeroRating);
-      setImages(itemsWithZeroRating);
+      console.log("a")
+      setImages(data.images);
       setInitialNumberOfImages(data.images.length)
     })
     .catch((error) => {
@@ -39,9 +36,17 @@ const RatingPage = () => {
     });
   }
 
-  useEffect(()=>{
-    fetchImages();
-  },[])
+  useEffect(() => {
+    handleFetchImages("gil@gmail.com")
+        .then(data => {
+          console.log("a")
+            setImages(data.images);
+            setLoading(false);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}, []);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -116,6 +121,10 @@ const RatingPage = () => {
     calcHeight()
   },[images])
   
+  if (loading) {
+    return <div>Loading...</div>;
+}
+  
 
   return (
     <div className='all-rating-page-div'>
@@ -123,7 +132,7 @@ const RatingPage = () => {
     <div className="rating-page-div">
       <div className='image-display-div'>
         <div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
-                {images.map((img, index)=> (
+                {images.filter(item => item.rating === 0).map((img, index)=> (
             <div key={img.imageId} onDragStart={(e) => handleOnDrag(e, img)} onClick={(e) => openModal(img)}>
                 <Card className='cardContainer'>
                     <Card.Img 
@@ -150,7 +159,7 @@ const RatingPage = () => {
       <div className='baskets-div'>
     {[...Array(10)].reverse().map((_, index) => (
         <div key={`basket-wrapper-${10 - index}`}>
-            <Basket index={10 - index} onDropImage={onDropImage} loadImages={imagesToBaskets.filter(img => img.rating === (10 - index))} />
+            <Basket index={10 - index} onDropImage={onDropImage} sessionImages={images.filter(item => item.rating === 10 - index)} />
         </div>
     ))}
 </div>

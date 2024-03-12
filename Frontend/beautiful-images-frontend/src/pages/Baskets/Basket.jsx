@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './basket.css';
 import { handleRateImage } from '../../services/ratingService';
 
-export default function Basket({ index , onDropImage , loadImages}) {
-    const [loading, setLoading] = useState(true);
+export default function Basket({ index , onDropImage , sessionImages  }) {
     const [imageInBasket, setImageInBasket] = useState([]);
 
-    useEffect(() => {
-        setImageInBasket(loadImages.map(item => ({ from: 0, data: item })));
-        setLoading(false); // Set loading to false once images are loaded
-    }, [loadImages]);
+    useEffect(()=>{
+        console.log("index is:",index,"-",sessionImages)
+        setImageInBasket(sessionImages)
+    },[])
 
     function handleOnDrop(event) {
         event.preventDefault();
         const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
-        setImageInBasket(prevState => [...prevState, droppedItemData]);
+        setImageInBasket(prevState => [...prevState, droppedItemData.data]);
         if (droppedItemData.from === 0){
             onDropImage(droppedItemData);
         }
@@ -26,16 +25,12 @@ export default function Basket({ index , onDropImage , loadImages}) {
     }
 
     function handleOnDrag(event , dataImg) {
-        event.dataTransfer.setData("application/json", JSON.stringify({from:index, data:dataImg.data}));
+        event.dataTransfer.setData("application/json", JSON.stringify({from:index, data:dataImg}));
     }
     
     function removeImageFromBasket(data) {
-        const updatedImages = imageInBasket.filter(img => img.data.imageId !== data.imageId);
+        const updatedImages = imageInBasket.filter(img => img.imageId !== data.imageId);
         setImageInBasket(updatedImages);
-    }
-
-    if (loading) {
-        return <div>Loading...</div>;
     }
 
     return (
@@ -44,8 +39,8 @@ export default function Basket({ index , onDropImage , loadImages}) {
             <div className='basket-div' onDrop={(e) => handleOnDrop(e, index)} onDragOver={(e) => handleOnDragOver(e)}>
                 <div className='basket-inside-div'>
                     {imageInBasket.map((img, i) => (
-                        <div key={img.data.imageId} onDragStart={(e) => handleOnDrag(e, img)} draggable>
-                            <img src={`data:image/jpeg;base64,${img.data.imageData}`} alt={`Image ${img.data.imageId}`} style={{ width: '56px', height: '56px', marginRight: '0px' }} onDragEnd={() => removeImageFromBasket(img.data)} />
+                        <div key={img.imageId} onDragStart={(e) => handleOnDrag(e, img)} draggable>
+                            <img src={`data:image/jpeg;base64,${img.imageData}`} alt={`Image ${img.imageId}`} style={{ width: '56px', height: '56px', marginRight: '0px' }} onDragEnd={() => removeImageFromBasket(img)} />
                         </div>
                     ))}
                 </div>
