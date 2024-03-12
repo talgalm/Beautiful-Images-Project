@@ -25,17 +25,22 @@ class RatingRepository {
             { where: { email, imageId, rating: fromBasket} });
     }
 
-    static async saveRatings(username) {
-        const tmpRatings = await TmpRating.find({ username });
+    static async saveRatings(email) {
+        const tmpRatings = await TmpRating.findAll({ where: { email } });
+
+        tmpRatings.forEach((tmpRating) => {
+            
+        });
+
         const finalRatings = tmpRatings.map((tmpRating) => {
             return {
-                username: tmpRating.username,
+                email: tmpRating.email,
                 imageName: tmpRating.imageName,
                 rating: tmpRating.rating,
             };
         });
         FinalRating.bulkCreate(finalRatings);
-        tmpRatings.destroy({ where: { username } });
+        TmpRating.destroy({ where: { email } });
     }
 }
 

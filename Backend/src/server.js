@@ -30,9 +30,14 @@ class Server {
         //ImageRepository.fetchNewImages('gil@gmail.com');
         //ImageRepository.fetchSessionImages('gil@gmail.com');
 
+
+        ImageRepository.fetchImages('gil@gmail.com');
+        //RatingRepository.changeRating('gil@gmail.com', '2bLAu4liFh', 0, 2);
+
         //ImageRepository.fetchImage("1GobjHdddl");
 
-        RatingRepository.changeRating('gil@gmail.com', '1GobjHdddl', 0, 1);
+
+        //RatingRepository.saveRatings('gil@gmail.com');
 
          // Mount the API router
          this.app.use('/api', apiRouter);

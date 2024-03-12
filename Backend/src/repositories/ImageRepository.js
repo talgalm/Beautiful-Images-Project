@@ -40,14 +40,17 @@ class ImageRepository {
     static async fetchImages(email) {
         try {
             const userTmpRatings = await TmpRating.findAll({ where: { email: email } });
+            console.log(userTmpRatings);
             if (userTmpRatings.length === 0) {
-                const images = await ImageRepository.fetchNewImages(email);
-                return images;
+              console.log("fetching new images");
+              const images = await ImageRepository.fetchNewImages(email);
+              return images;
 
             }
             else {
-                const images = await ImageRepository.fetchSessionImages(email);
-                return images;
+              console.log("fetching session images");
+              const images = await ImageRepository.fetchSessionImages(email);
+              return images;
             }
         } catch (error) {
             throw new Error('Error fetching images');
@@ -100,7 +103,7 @@ class ImageRepository {
 
     static async fetchImage(imageId) {
         try {
-          console.log("hello")
+            console.log("hello")
             const image = await Image.findOne({ where: { id: imageId } });
             const imagePath = path.join(__dirname, `../../images/original/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
@@ -113,18 +116,20 @@ class ImageRepository {
     static async fetchSessionImages(email) {
         try {
             const userRatedImagesRatings = await TmpRating.findAll({ where: { email : email } });
-            const userRatedImages = await Promise.all(userRatedImagesRatings.map(async (image) => {
-              return await Image.findOne({ where: { id: image.imageId } });
+            const userRatedImages = await Promise.all(userRatedImagesRatings.map(async (rating) => {
+              return await Image.findOne({ where: { id: rating.imageId } });
             }));
             //return array of {image, rating}
 
             const result = [];
             for (const image of userRatedImages) {
+              //console.log(image);
               const imagePath = path.join(__dirname, `../../images/small/${image.category}`, image.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
-              result.push({imageId: image.id, imageData: imageData});
+              const rating = userRatedImagesRatings.find((ratedImage) => ratedImage.imageId === image.id).rating;
+              result.push({imageId: image.id, imageData: imageData, rating: rating});
             }
-            //console.log(result.slice(0, 5));
+            console.log(result.slice(0, 5));
 
             return result;
         } catch (error) {
