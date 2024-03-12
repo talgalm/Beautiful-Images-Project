@@ -39,7 +39,7 @@ class ImageRepository {
 
     static async fetchImages(email) {
         try {
-            const userTmpRatings = await TmpRating.findAll({ where: { email: email } });
+            const userTmpRatings = await TmpRating.findAll({ where: { email } });
             console.log(userTmpRatings);
             if (userTmpRatings.length === 0) {
               console.log("fetching new images");
@@ -129,7 +129,7 @@ class ImageRepository {
               const rating = userRatedImagesRatings.find((ratedImage) => ratedImage.imageId === image.id).rating;
               result.push({imageId: image.id, imageData: imageData, rating: rating});
             }
-            console.log(result.slice(0, 5));
+            //console.log(result.slice(0, 5));
 
             return result;
         } catch (error) {

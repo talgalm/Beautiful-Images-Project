@@ -16,7 +16,7 @@ class Server {
         //this.routes = new Routes();
     }
 
-    start() {
+    async start() {
         this.app.use(cors());
         this.app.use(express.json());
         //this.app.use('/', this.routes.router);
@@ -24,20 +24,18 @@ class Server {
         connectToPostgreSQL();
         connectToSequelize();
 
-        //ImageRepository.initializeImagesDB(); // Initialize the images database
+        await ImageRepository.initializeImagesDB(); // Initialize the images database
 
-        //UserRepository.registerUser({email: 'gil@gmail.com'});
-        //ImageRepository.fetchNewImages('gil@gmail.com');
-        //ImageRepository.fetchSessionImages('gil@gmail.com');
+        await UserRepository.registerUser({email: 'gil@gmail.com'});
 
 
-        ImageRepository.fetchImages('gil@gmail.com');
+        await ImageRepository.fetchImages('gil@gmail.com');
         //RatingRepository.changeRating('gil@gmail.com', '2bLAu4liFh', 0, 2);
 
         //ImageRepository.fetchImage("1GobjHdddl");
 
 
-        //RatingRepository.saveRatings('gil@gmail.com');
+        await RatingRepository.saveRatings('gil@gmail.com');
 
          // Mount the API router
          this.app.use('/api', apiRouter);

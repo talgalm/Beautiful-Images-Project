@@ -29,17 +29,12 @@ class RatingRepository {
         const tmpRatings = await TmpRating.findAll({ where: { email } });
 
         tmpRatings.forEach((tmpRating) => {
-            
-        });
-
-        const finalRatings = tmpRatings.map((tmpRating) => {
-            return {
+            FinalRating.create({
                 email: tmpRating.email,
-                imageName: tmpRating.imageName,
+                imageId: tmpRating.imageId,
                 rating: tmpRating.rating,
-            };
+            })
         });
-        FinalRating.bulkCreate(finalRatings);
         TmpRating.destroy({ where: { email } });
     }
 }
