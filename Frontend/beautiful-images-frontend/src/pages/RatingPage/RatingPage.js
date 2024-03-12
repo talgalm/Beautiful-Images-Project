@@ -78,7 +78,9 @@ const RatingPage = () => {
 
   function openModal(image){
     handleFetchSingleImage(image.imageId , 'original')
-    .then(data => { setSelectedImage(data)})
+    .then(data => { 
+      console.log("he",data.image.imageData)
+      setSelectedImage(data.image.imageData)})
     .catch((error) => {
       console.error('Error:', error);
     });
@@ -135,7 +137,7 @@ const RatingPage = () => {
         <Modal.Body>
           {selectedImage && 
           <Card>
-              <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage.data}`} />
+              <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
             </Card>
           }
         </Modal.Body>

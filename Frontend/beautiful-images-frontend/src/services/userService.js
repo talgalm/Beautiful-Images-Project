@@ -18,10 +18,10 @@ export const handleUserRegistration = async (email , nickname , age , country , 
 };
 
 // Use Case 2: User Login
-export const handleUserLogin = async (username) => {
+export const handleUserLogin = async (email) => {
     try {
         const response = await axios.post('http://localhost:3001/api/auth/login', {
-            email: username,
+            email: email,
         });
         return response.data
     } catch (error) {
@@ -29,10 +29,17 @@ export const handleUserLogin = async (username) => {
     }
 };
 //Use case : Logout 
-export const handleLogout = async (username) => {
+export const handleLogout = async () => {
     try {
         const response = await axios.post('http://localhost:3001/api/auth/logout', {
-            username: username,
+            email: localStorage.getItem('email'),
+            token: localStorage.getItem('token'),
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
+            }
         });
         console.log(response.data); 
     } catch (error) {
@@ -82,28 +89,44 @@ export const handleStartNewExperiment = async (experimentData) => {
     }
 };
 
-export const handleFetchImages = async (email) => {
+export const handleFetchImages = async () => {
     try {
         const response = await axios.post('http://localhost:3001/api/images/fetchImages', {
-            email: email,
-        });
+            token: localStorage.getItem('token'), 
+            email: localStorage.getItem('email'), 
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
+            }
+        }
+        );
         console.log(response.data); // Handle successful login response
         return response.data;
     } catch (error) {
-        console.error('Error:', error); // Handle error
+        console.error('Error:', error); 
     }
 };
 
 export const handleFetchSingleImage = async (imageId, size) => {
     try {
         const response = await axios.post('http://localhost:3001/api/images/fetchImage', {
+            token: localStorage.getItem('token'), 
+            email: localStorage.getItem('email'), 
             imageId : imageId,
             size : window.innerWidth > 600 ? 'original' : 'small' 
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
+            }
         });
         console.log(response.data); 
         return response.data;
     } catch (error) {
-        console.error('Error:', error); // Handle error
+        console.error('Error:', error); 
     }
 };
 

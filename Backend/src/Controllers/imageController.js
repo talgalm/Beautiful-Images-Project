@@ -20,9 +20,10 @@ class ImageController {
     }
 
     async fetchImage(req, res) {
-        const {userName, imageId} = req.body;
+        console.log(req.body)
+        const { imageId } = req.body;
         try{
-            const image = await ImageRepository.fetchImage(userName, imageId);
+            const image = await ImageRepository.fetchImage(imageId);
             res.status(200).json({image});
         } catch (error) {
             console.log(error);
