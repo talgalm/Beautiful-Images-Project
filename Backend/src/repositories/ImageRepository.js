@@ -23,7 +23,6 @@ class ImageRepository {
             imageName: imageName,
             category: category
           });
-          console.log(img);
         }
       }
 
@@ -40,8 +39,8 @@ class ImageRepository {
 
     static async fetchNewImages(email) {
         try {
+            console.log("fetching new images");
             const allImages = await Image.findAll();
-            console.log(allImages.length);
             const userRatedImages = await FinalRating.findAll({where: { email: email }});
             //subtract rated images from all images
             const images = allImages.filter((image) => {
@@ -70,18 +69,25 @@ class ImageRepository {
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
               image.imageData = imageData;
             });
-            
-            console.log(selectedImages.slice(0, 5));
 
-            return selectedImages;
+            const result = [];
+            selectedImages.forEach((image) => {
+              result.push({imageId: image.imageId, imageData: image.imageData});
+            });
+
+            console.log(result.slice(0, 5));
+            
+            return result;
         } catch (error) {
             throw new Error('Error fetching images');
         }
     }
 
-    static async fetchImage(userName, imageId) {
+    static async fetchImage(email, imageId) {
         try {
-            const image = await Image.findOne({ imageId });
+            //TODO: validate email
+
+            const image = await Image.findOne({ where: { imageId } });
             const imagePath = path.join(__dirname, `../../images/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
             image.imageData = imageData;
@@ -91,9 +97,9 @@ class ImageRepository {
         }
     }
 
-    static async fetchSessionImages(userName) {
+    static async fetchSessionImages(email) {
         try {
-            const userRatedImages = await TmpRating.find({ username : userName });
+            const userRatedImages = await TmpRating.findAll({ where: { email : email } });
             //return array of {image, rating}
 
             const images = userRatedImages.map((ratedImage) => {
