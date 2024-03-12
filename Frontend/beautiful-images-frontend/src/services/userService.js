@@ -6,9 +6,9 @@ export const handleUserRegistration = async (email , nickname , age , country , 
         const response = await axios.post('http://localhost:3001/api/auth/register', {
             email : email , 
             nickname : nickname ,
+            age : age ,
             country : country ,
-            gender : gender , 
-            age : age
+            gender : gender 
         });
         handleUserLogin(email);
         console.log(response.data); 
@@ -23,7 +23,7 @@ export const handleUserLogin = async (username) => {
         const response = await axios.post('http://localhost:3001/api/auth/login', {
             email: username,
         });
-        console.log(response.data); 
+        return response.data
     } catch (error) {
         console.error('Error:', error); 
     }
@@ -82,10 +82,10 @@ export const handleStartNewExperiment = async (experimentData) => {
     }
 };
 
-export const handleFetchImages = async (username) => {
+export const handleFetchImages = async (email) => {
     try {
         const response = await axios.post('http://localhost:3001/api/images/fetchImages', {
-            username: username,
+            email: email,
         });
         console.log(response.data); // Handle successful login response
         return response.data;

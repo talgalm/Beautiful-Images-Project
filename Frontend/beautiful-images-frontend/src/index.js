@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RatingPage from './pages/RatingPage';
+import HomePage from './pages/HomePage/HomePage';
+import RatingPage from './pages/RatingPage/RatingPage';
 
-import ImagesPage from './pages/ImagesPage';
+import ImagesPage from './pages/ImagesPage/ImagesPage';
 import AdminPage from './pages/AdminPage';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
@@ -22,7 +21,6 @@ root.render(
     <Routes>
       <Route exact path="/" element={<App/>} />
       <Route path="/home" element={<HomePage/>} />
-      <Route path="/login" element={<LoginPage/>} />
       <Route path="/images" element={<ImagesPage/>} />
       <Route path="/rating" element={<RatingPage/>} />
       <Route path="/admin" element={<AdminPage/>} />

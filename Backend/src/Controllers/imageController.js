@@ -8,9 +8,9 @@ class ImageController {
     async fetchImages(req, res) {
 
         console.log(req.body);
-        const {userName} = req.body;
+        const {email} = req.body;
         try{
-            const images = await ImageRepository.fetchNewImages(userName);
+            const images = await ImageRepository.fetchNewImages(email);
             console.log(images);
             res.status(200).json({images: images});
         } catch (error) {
@@ -20,9 +20,9 @@ class ImageController {
     }
 
     async fetchImage(req, res) {
-        const {userName, imageName} = req.body;
+        const {userName, imageId} = req.body;
         try{
-            const image = await ImageRepository.fetchImage(userName, imageName);
+            const image = await ImageRepository.fetchImage(userName, imageId);
             res.status(200).json({image});
         } catch (error) {
             console.log(error);

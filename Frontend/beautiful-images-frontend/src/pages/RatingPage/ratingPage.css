@@ -12,26 +12,24 @@
         .image-display-div {
             height: 650px;
             width: 70%;
-            background-color: brown;
 
             .images-dashboard {
-                height: 400px;
+                height: 650px;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
                 overflow-y: auto;
-                background-color: aquamarine;
-                margin-top: 100px;
+                margin-top: 0px;
                 margin-left: 20px;
                 margin-right: 20px;
 
                 .cardContainer {
-                    width: 250px;
-                    height: 175px;
+                    width: 120px;
+                    height: 87px;
                 }
 
                 .imageCard {
-                    padding: 4px;
+                    padding: 3px;
                     height: 176px;
                     width: 100%;
                     object-fit: contain;
@@ -42,7 +40,6 @@
         .baskets-div {
             height: 500px;
             width: 30%;
-            background-color: cadetblue;
         }
     }
 }

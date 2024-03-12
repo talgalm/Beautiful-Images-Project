@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import './homePage.css'
-import { handleUserLogin, handleUserRegistration } from '../services/userService';
+import { handleUserLogin, handleUserRegistration } from '../../services/userService';
 import { useNavigate } from "react-router-dom";
-import LanguageSwitcher from '../components/LanguageSwitcher';
-import Header from '../components/Header/Header';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
+import Header from '../../components/Header/Header';
 
 
 export default function HomePage (){
@@ -71,25 +71,25 @@ export default function HomePage (){
 
   }
   function handleLogin(){
+    if (username === ''){
+      alert(t('cantBeEmpty'))
+    }
+    else{
     handleUserLogin(username)
     .then(data => {
-      if (true){
-        if (true){
-          localStorage.setItem('username',username)
-          navigate("/instructions")
-        }
-        else{
-
-        }
+      if (data.token){
+        localStorage.setItem('token',data.token)
+        navigate("/instructions")
       }
       else{
-        //fail in login , try again
-      }
 
+      }
     })
     .catch((error) => {
       console.error('Error:', error);
     });
+    }
+
   }
 
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function HomePage (){
     <div className="form-container sign-in-container">
       <form action="#" className='form-1'>
         <h1 className='h1-sign'>{t('signIn')}</h1>
-        <input type="email" placeholder={t('enterUsername')} className='form-1-sign' value={username} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input required type="input" placeholder={t('enterUsername')} className='form-1-sign' value={username} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
         <button className="button-53" onClick={handleLogin}>{t('continue')}</button>
       </form>
     </div>

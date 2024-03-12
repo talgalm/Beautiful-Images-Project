@@ -1,20 +1,20 @@
 .basket-div{
-    background-color: dimgrey;
-    width: 80%;
+    background-color: rgb(5, 3, 3);
+    width: 90%;
     height: 56px;
-    margin: 10px;
+    margin: 5px;
     display: flex;
-    gap: 8px;
     display: flex;
     align-items: center;
     justify-content: right;
     flex-direction: row-reverse;
 
+
     .basket-inside-div {
         background-color: black;
         overflow-x: auto; 
-        width: 90%;
-        height: 50px;
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: row;
     }
@@ -29,7 +29,7 @@
     }
     
     .basket-num{
-        height: 50px;
+        height: 100%;
         width: 10%;
         display: flex;
         align-items: center;
@@ -39,5 +39,16 @@
     }
 }
 
+.scroll-activate{
+    border-radius: 50%; 
+    right: 50px;
+    position: absolute;
+    background-color: darkkhaki;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
