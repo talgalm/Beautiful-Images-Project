@@ -39,6 +39,16 @@ const RatingPage = () => {
     fetchImages();
   },[])
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
+
+    if (!token || !email) {
+        navigate("/home"); 
+    }
+}, []); 
+
+
   function handleOnDrag(event , dataImg)
   {
     event.dataTransfer.setData("application/json", JSON.stringify({from:0,data:dataImg}));

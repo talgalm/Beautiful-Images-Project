@@ -23,7 +23,7 @@ class Server {
         connectToPostgreSQL();
         connectToSequelize();
 
-        //ImageRepository.initializeImagesDB(); // Initialize the images database
+        ImageRepository.initializeImagesDB(); // Initialize the images database
 
          // Mount the API router
          this.app.use('/api', apiRouter);

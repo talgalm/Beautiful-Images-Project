@@ -42,7 +42,7 @@ class ImageRepository {
         try {
             console.log("fetching images")
             const allImages = await Image.find();
-            const userRatedImages = await FinalRating.find({ email: email });
+            const userRatedImages = await FinalRating.find({ username: email });
             console.log(allImages);
             //subtract rated images from all images
             const images = allImages.filter((image) => {
