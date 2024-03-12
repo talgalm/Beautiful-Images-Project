@@ -82,17 +82,14 @@ class ImageRepository {
             //set the tmpRating of the selected images to 0
             RatingRepository.addInitialRatings(email, selectedImages);
 
-            //using the image path, read the image and convert to base64
-            selectedImages.forEach((image) => {
+            // Using the image path, read the image and convert to base64
+            const imagePromises = selectedImages.map(async (image) => {
               const imagePath = path.join(__dirname, `../../images/small/${image.category}`, image.imageName);
-              const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
-              image.imageData = imageData;
+              const imageData = await fs.promises.readFile(imagePath, { encoding: 'base64' });
+              return {imageId: image.id, imageData: imageData};
             });
 
-            const result = [];
-            selectedImages.forEach((image) => {
-              result.push({imageId: image.id, imageData: image.imageData});
-            });
+            const result = await Promise.all(imagePromises);
 
             
             return result;
