@@ -12,9 +12,9 @@ import Header from '../../components/Header/Header';
 export default function HomePage (){
   const { t, i18n } = useTranslation();
   const [isSignUpActive, setSignUpActive] = useState(false);
-  const [username , setUsername] = useState('')
+  const [email , setEmail] = useState('')
   const [nickname , setNickname] = useState('')
-  const [usernameConfirm , setUsernameConfirm] = useState('')
+  const [emailConfirm , setEmailConfirm] = useState('')
   const [age , setAge] = useState('')
   const [gender , setGender] = useState('')
   const [country , setCountry] = useState('')
@@ -26,18 +26,18 @@ export default function HomePage (){
   function changeDisplay(){
     setSignUpActive(!isSignUpActive)
     setAge('')
-    setUsername('')
-    setUsernameConfirm('')
+    setEmail('')
+    setEmailConfirm('')
     setNickname('')
     setGender('')
     setCountry('')
   }
 
   function handleUsernameChange(event){
-    setUsername(event.target.value);
+    setEmail(event.target.value);
   }
   function handleUsernameConfirmChange(event){
-    setUsernameConfirm(event.target.value);
+    setEmailConfirm(event.target.value);
   }
 
   function handleNickname(event){
@@ -55,8 +55,8 @@ export default function HomePage (){
   }
 
   function handleRegistration(){
-    if (usernameConfirm === username){
-      handleUserRegistration(username , nickname , age , country , gender)
+    if (emailConfirm === email){
+      handleUserRegistration(email , nickname , age , country , gender)
       .then(data => {
         //if success -> alert user and go to start rating
         //if fail -> alert user about the message
@@ -71,14 +71,15 @@ export default function HomePage (){
 
   }
   function handleLogin(){
-    if (username === ''){
+    if (email === ''){
       alert(t('cantBeEmpty'))
     }
     else{
-    handleUserLogin(username)
+    handleUserLogin(email)
     .then(data => {
       if (data.token){
         localStorage.setItem('token',data.token)
+        localStorage.setItem('email',email)
         navigate("/instructions")
       }
       else{
@@ -104,8 +105,8 @@ export default function HomePage (){
     <div className="form-container sign-up-container">
       <form action="#"  className='form-2'>
         <h1>{t('createAccount')}</h1>
-        <input required type="input" placeholder={t('enterUsername')} value={username} onChange={handleUsernameChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
-        <input required type="input" placeholder={t('enterUsernameConfirm')} value={usernameConfirm} onChange={handleUsernameConfirmChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input required type="input" placeholder={t('enterUsername')} value={email} onChange={handleUsernameChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input required type="input" placeholder={t('enterUsernameConfirm')} value={emailConfirm} onChange={handleUsernameConfirmChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
         <input type="input" placeholder={t('enterNickname')} value={nickname} onChange={handleNickname}  dir={isRtl ? 'rtl' : 'ltr'}/>
         <select value={gender} onChange={handleGenderChange} dir={isRtl ? 'rtl' : 'ltr'}>
           <option value="" disabled>{t('enterGender')}</option> 
@@ -121,7 +122,7 @@ export default function HomePage (){
     <div className="form-container sign-in-container">
       <form action="#" className='form-1'>
         <h1 className='h1-sign'>{t('signIn')}</h1>
-        <input required type="input" placeholder={t('enterUsername')} className='form-1-sign' value={username} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input required type="input" placeholder={t('enterUsername')} className='form-1-sign' value={email} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
         <button className="button-53" onClick={handleLogin}>{t('continue')}</button>
       </form>
     </div>

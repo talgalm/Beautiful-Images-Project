@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import LanguageSwitcher from "../../components/LanguageSwitcher";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +12,19 @@ export default function InstructionsPage (){
     const { i18n } = useTranslation();
     const isRtl = ['he'].includes(i18n.language);
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const email = localStorage.getItem('email');
 
+        if (!token || !email) {
+            navigate("/home"); 
+        }
+    }, []); 
 
     function handleGoToRating(){
-        navigate("/rating")
+        navigate("/rating");
     } 
+
     return (
         <div className="header-wrapper">
             <Header/>
@@ -40,5 +48,3 @@ export default function InstructionsPage (){
         </div>
     );
 }
-
-           {/*  */}

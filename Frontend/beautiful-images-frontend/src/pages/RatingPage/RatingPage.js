@@ -39,6 +39,16 @@ const RatingPage = () => {
     fetchImages();
   },[])
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
+
+    if (!token || !email) {
+        navigate("/home"); 
+    }
+}, []); 
+
+
   function handleOnDrag(event , dataImg)
   {
     event.dataTransfer.setData("application/json", JSON.stringify({from:0,data:dataImg}));
@@ -51,7 +61,7 @@ const RatingPage = () => {
     console.log(droppedItemData.data)
     if (!images.find(item => item.file === droppedItemData.data.file)){
       setImages(prevState => [...prevState, droppedItemData.data]);
-      handleRateImage("user",droppedItemData.from , droppedItemData.data.file , 0)
+      handleRateImage(droppedItemData.from , droppedItemData.data.file , 0)
     }
 
 

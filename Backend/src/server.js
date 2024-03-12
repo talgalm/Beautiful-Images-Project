@@ -23,7 +23,7 @@ class Server {
         connectToPostgreSQL();
         connectToSequelize();
 
-        //ImageRepository.initializeImagesDB(); // Initialize the images database
+        ImageRepository.initializeImagesDB(); // Initialize the images database
 
         //UserRepository.registerUser({email: 'gil@gmail.com'});
         console.log(ImageRepository.fetchNewImages('gil@gmail.com'));
