@@ -11,7 +11,6 @@ export const handleUserRegistration = async (email , nickname , age , country , 
             gender : gender 
         });
         handleUserLogin(email);
-        console.log(response.data); 
     } catch (error) {
         console.error('Error:', error); 
     }
@@ -41,7 +40,6 @@ export const handleLogout = async () => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         });
-        console.log(response.data); 
     } catch (error) {
         console.error('Error:', error); 
     }
@@ -51,7 +49,6 @@ export const handleLogout = async () => {
 export const handleImageClassification = async (imageData) => {
     try {
         const response = await axios.post('http://localhost:3001/api/image/classify', imageData);
-        console.log(response.data); // Handle image classification response
     } catch (error) {
         console.error('Error:', error); // Handle error
     }
@@ -63,7 +60,6 @@ export const handleChangeImageClassification = async (imageId, newClassification
         const response = await axios.put(`http://localhost:3001/api/image/classify/${imageId}`, {
             newClassification: newClassification,
         });
-        console.log(response.data); // Handle modification response
     } catch (error) {
         console.error('Error:', error); // Handle error
     }
@@ -73,7 +69,6 @@ export const handleChangeImageClassification = async (imageId, newClassification
 export const handleRemoveImageClassification = async (imageId) => {
     try {
         const response = await axios.delete(`http://localhost:3001/api/image/classify/${imageId}`);
-        console.log(response.data); // Handle removal response
     } catch (error) {
         console.error('Error:', error); // Handle error
     }
@@ -83,7 +78,6 @@ export const handleRemoveImageClassification = async (imageId) => {
 export const handleStartNewExperiment = async (experimentData) => {
     try {
         const response = await axios.post('http://localhost:3001/api/experiments/start', experimentData);
-        console.log(response.data); // Handle experiment start response
     } catch (error) {
         console.error('Error:', error); // Handle error
     }
@@ -102,7 +96,6 @@ export const handleFetchImages = async () => {
             }
         }
         );
-        console.log(response.data); // Handle successful login response
         return response.data;
     } catch (error) {
         console.error('Error:', error); 
@@ -123,7 +116,6 @@ export const handleFetchSingleImage = async (imageId, size) => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         });
-        console.log(response.data); 
         return response.data;
     } catch (error) {
         console.error('Error:', error); 

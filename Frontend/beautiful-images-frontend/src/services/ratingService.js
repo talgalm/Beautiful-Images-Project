@@ -1,14 +1,16 @@
 import axios from 'axios';
 
-export const handleRateImage = async ( from, imageFile, rating) => {
+export const handleRateImage = async (imageId, fromBasket , toBasket) => {
+    console.log(imageId, fromBasket , toBasket)
     try {
         const response = await axios.post(
             'http://localhost:3001/api/rate/rateImage',
             {
+                token: localStorage.getItem('token'), 
                 email: localStorage.getItem('email'), 
-                from: from,
-                imageFile: imageFile,
-                rating: rating
+                imageId : imageId,
+                fromBasket: fromBasket,
+                toBasket: toBasket
             },
             {
                 headers: {
@@ -17,7 +19,6 @@ export const handleRateImage = async ( from, imageFile, rating) => {
                 }
             }
         );
-        console.log(response.data); 
     } catch (error) {
         console.error('Error:', error); 
     }
@@ -33,7 +34,6 @@ export const handleSaveRating = async (email) => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         });
-        console.log(response.data); 
     } catch (error) {
         console.error('Error:', error); 
     }

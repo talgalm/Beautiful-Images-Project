@@ -9,11 +9,10 @@ export default function Basket({ index , onDropImage }) {
         event.preventDefault();
         const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
         setImageInBasket(prevState => [...prevState, droppedItemData]);
-        console.log(imageInBasket)
         if (droppedItemData.from === 0){
             onDropImage(droppedItemData);
         }
-        handleRateImage(droppedItemData.from , droppedItemData.data.file , index)
+        handleRateImage(droppedItemData.data.imageId, droppedItemData.from ,  index)
     }
 
     function handleOnDragOver(event) {

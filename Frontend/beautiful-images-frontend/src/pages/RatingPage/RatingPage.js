@@ -58,7 +58,7 @@ const RatingPage = () => {
     const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
     if (!images.find(item => item.imageId === droppedItemData.data.imageId)){
       setImages(prevState => [...prevState, droppedItemData.data]);
-      handleRateImage(droppedItemData.from , droppedItemData.data.file , 0)
+      handleRateImage(droppedItemData.data.imageId, droppedItemData.from ,  0)
     }
 
 
