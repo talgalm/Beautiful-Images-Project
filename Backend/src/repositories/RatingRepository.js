@@ -1,17 +1,18 @@
-const FinalRating = require("../Models/finalrating");
-const TmpRating = require("../Models/tmprating");
+const { FinalRating, TmpRating } = require("../Models");
+
 
 class RatingRepository {
-    static async addInitialRatings(username, images) {
+    static async addInitialRatings(email, images) {
         const ratings = images.map((image) => {
             return {
-                username,
-                imageName: image.imageName,
+                imageId: image.id,
+                email,
                 rating: 0,
-                updatedAt: new Date().getTime().toString()
+                submittedFrom: 'initial',
+                updatedAt: new Date().toISOString().substring(0, 19).replace('T', ' ')
             };
         });
-        TmpRating.bulkCreate(ratings);
+        await TmpRating.bulkCreate(ratings);
     }
 
     static async changeRating(username, fileName, fromBasket, toBasket) {

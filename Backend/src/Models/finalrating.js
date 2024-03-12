@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       primaryKey: true
     },
-    userName: DataTypes.STRING,
+    email: DataTypes.STRING,
     rating: DataTypes.INTEGER,
     updatedAt: DataTypes.DATE
   }, {

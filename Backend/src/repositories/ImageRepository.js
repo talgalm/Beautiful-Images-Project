@@ -40,23 +40,20 @@ class ImageRepository {
 
     static async fetchNewImages(email) {
         try {
-            console.log("fetching images")
-            const allImages = await Image.find();
-            const userRatedImages = await FinalRating.find({ email: email });
-            console.log(allImages);
+            const allImages = await Image.findAll();
+            console.log(allImages.length);
+            const userRatedImages = await FinalRating.findAll({where: { email: email }});
             //subtract rated images from all images
             const images = allImages.filter((image) => {
                 return !userRatedImages.some((ratedImage) => {
-                    return ratedImage.imageName === image.imageName;
+                    return ratedImage.imageId === image.imageId;
                 });
             });
-            console.log("fetching images")
 
             //select 60 images evenly from all categories
             const selectedImages = [];
             const categories = [...new Set(images.map((image) => image.category))];
             const imagesPerCategory = Math.ceil(60 / categories.length);
-            console.log("fetching images")
 
             categories.forEach((category) => {
               const categoryImages = images.filter((image) => image.category === category);
@@ -64,9 +61,8 @@ class ImageRepository {
               selectedImages.push(...selectedCategoryImages);
             });
 
-            console.log("fetching images")
             //set the tmpRating of the selected images to 0
-            RatingRepository.addInitialRatings(email, selectedImages);
+            //RatingRepository.addInitialRatings(email, selectedImages);
 
             //using the image path, read the image and convert to base64
             selectedImages.forEach((image) => {
@@ -75,6 +71,8 @@ class ImageRepository {
               image.imageData = imageData;
             });
             
+            console.log(selectedImages.slice(0, 5));
+
             return selectedImages;
         } catch (error) {
             throw new Error('Error fetching images');
