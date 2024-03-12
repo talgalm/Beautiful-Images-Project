@@ -82,10 +82,10 @@ export const handleStartNewExperiment = async (experimentData) => {
     }
 };
 
-export const handleFetchImages = async (username) => {
+export const handleFetchImages = async (email) => {
     try {
         const response = await axios.post('http://localhost:3001/api/images/fetchImages', {
-            username: username,
+            email: email,
         });
         console.log(response.data); // Handle successful login response
         return response.data;

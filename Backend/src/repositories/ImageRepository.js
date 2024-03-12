@@ -38,11 +38,11 @@ class ImageRepository {
       }
     }
 
-    static async fetchNewImages(userName) {
+    static async fetchNewImages(email) {
         try {
             console.log("fetching images")
             const allImages = await Image.find();
-            const userRatedImages = await FinalRating.find({ username: userName });
+            const userRatedImages = await FinalRating.find({ email: email });
             console.log(allImages);
             //subtract rated images from all images
             const images = allImages.filter((image) => {
@@ -66,7 +66,7 @@ class ImageRepository {
 
             console.log("fetching images")
             //set the tmpRating of the selected images to 0
-            RatingRepository.addInitialRatings(userName, selectedImages);
+            RatingRepository.addInitialRatings(email, selectedImages);
 
             //using the image path, read the image and convert to base64
             selectedImages.forEach((image) => {

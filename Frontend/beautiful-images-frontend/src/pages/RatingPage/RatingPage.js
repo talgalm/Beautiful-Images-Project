@@ -24,8 +24,9 @@ const RatingPage = () => {
   const navigate = useNavigate();
 
   const fetchImages = () => {
-    handleFetchImages()
+    handleFetchImages("tal.galmor3@gmail.com")
     .then(data => { 
+      console.log(data)
       setImages(data)
       setInitialNumberOfImages(data.length)
     })
