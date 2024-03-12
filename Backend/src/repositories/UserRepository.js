@@ -4,6 +4,7 @@ const { User } = require("../Models");
 class UserRepository {
   
     static async registerUser(props) {
+      console.log("registering user: " + props.email);
       const { email, nickname, age, country, gender } = props;
       // Check if a user with the provided email already exists
       const existingUser = await User.findOne({ where: { email: email } });
@@ -16,6 +17,8 @@ class UserRepository {
     }
   
     static async authenticateUser(email) {
+      console.log("authentication user: " + props.email);
+
       // Verify user credentials
       const user = await User.find({ email: email });
       if (!user) {

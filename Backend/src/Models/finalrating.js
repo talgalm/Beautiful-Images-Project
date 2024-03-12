@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   FinalRating.init({
-    imageId: DataTypes.STRING,
+    imageId: {
+      type: DataTypes.STRING,
+      primaryKey: true
+    },
     userName: DataTypes.STRING,
     rating: DataTypes.INTEGER,
     updatedAt: DataTypes.DATE

@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TmpRating.init({
-    imageId: DataTypes.STRING,
+    imageId: {
+      type: DataTypes.STRING,
+      primaryKey: true
+    },
     userName: DataTypes.STRING,
     rating: DataTypes.INTEGER,
     submittedFrom: DataTypes.STRING,
