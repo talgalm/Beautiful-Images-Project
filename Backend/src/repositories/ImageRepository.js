@@ -11,7 +11,7 @@ class ImageRepository {
       console.log("initializing images");
       const categories = fs.readdirSync(path.join(__dirname, '../../images'));
       for (const category of categories) {
-        const images = fs.readdirSync(path.join(__dirname, `../../images/${category}`));
+        const images = fs.readdirSync(path.join(__dirname, `../../images/small/${category}`));
 
         for (const imageName of images) {
           const imageId = generateImageId();
@@ -65,7 +65,7 @@ class ImageRepository {
 
             //using the image path, read the image and convert to base64
             selectedImages.forEach((image) => {
-              const imagePath = path.join(__dirname, `../../images/${image.category}`, image.imageName);
+              const imagePath = path.join(__dirname, `../../images/small/${image.category}`, image.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
               image.imageData = imageData;
             });
@@ -88,7 +88,7 @@ class ImageRepository {
             //TODO: validate email
 
             const image = await Image.findOne({ where: { imageId } });
-            const imagePath = path.join(__dirname, `../../images/${image.category}`, image.imageName);
+            const imagePath = path.join(__dirname, `../../images/small/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
             image.imageData = imageData;
             return image;
@@ -103,7 +103,7 @@ class ImageRepository {
             //return array of {image, rating}
 
             const images = userRatedImages.map((ratedImage) => {
-              const imagePath = path.join(__dirname, `../../images/${ratedImage.category}`, ratedImage.imageName);
+              const imagePath = path.join(__dirname, `../../images/small/${ratedImage.category}`, ratedImage.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
                 return {
                     imageDate: imageData,
