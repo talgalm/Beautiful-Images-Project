@@ -8,12 +8,12 @@ function generateAccessToken(email) {
 function authenticateToken(req , res  , next ) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
-
   if (token == null) return res.sendStatus(401)
-
+  require('dotenv').config();
   jwt.verify(token, process.env.TOKEN_SECRET , (err, user) => {
-    if (err) return res.sendStatus(403)
-    req.body.user = user
+    if (err) {
+      return res.sendStatus(403)
+    }
     next()
   })
 }

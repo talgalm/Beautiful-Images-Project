@@ -22,7 +22,7 @@ export default function InstructionsPage (){
     }, []); 
 
     function handleGoToRating(){
-        navigate("/rating")
+        navigate("/rating");
     } 
 
     return (

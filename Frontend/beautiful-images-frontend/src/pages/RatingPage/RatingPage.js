@@ -61,7 +61,7 @@ const RatingPage = () => {
     console.log(droppedItemData.data)
     if (!images.find(item => item.file === droppedItemData.data.file)){
       setImages(prevState => [...prevState, droppedItemData.data]);
-      handleRateImage("user",droppedItemData.from , droppedItemData.data.file , 0)
+      handleRateImage(droppedItemData.from , droppedItemData.data.file , 0)
     }
 
 
