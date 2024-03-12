@@ -10,7 +10,7 @@ class ImageController {
         console.log(req.body);
         const {email} = req.body;
         try{
-            const images = await ImageRepository.fetchNewImages(email);
+            const images = await ImageRepository.fetchImages(email);
             console.log(images);
             res.status(200).json({images: images});
         } catch (error) {

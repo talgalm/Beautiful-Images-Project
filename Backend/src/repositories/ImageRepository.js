@@ -9,7 +9,7 @@ class ImageRepository {
 
     static async initializeImagesDB() {
       console.log("initializing images");
-      const categories = fs.readdirSync(path.join(__dirname, '../../images'));
+      const categories = fs.readdirSync(path.join(__dirname, '../../images/small'));
       for (const category of categories) {
         const images = fs.readdirSync(path.join(__dirname, `../../images/small/${category}`));
 
