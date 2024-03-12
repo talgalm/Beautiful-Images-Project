@@ -56,11 +56,9 @@ const RatingPage = () => {
 
   function handleOnDrop(event) {
     const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
-    console.log(images)
-    console.log(droppedItemData.data)
-    if (!images.find(item => item.file === droppedItemData.data.file)){
+    if (!images.find(item => item.imageId === droppedItemData.data.imageId)){
       setImages(prevState => [...prevState, droppedItemData.data]);
-      handleRateImage(droppedItemData.from , droppedItemData.data.file , 0)
+      handleRateImage(droppedItemData.data.imageId, droppedItemData.from ,  0)
     }
 
 
@@ -72,13 +70,14 @@ const RatingPage = () => {
 
 
   function onDropImage(dataImg){
-    const updatedImages = images.filter(img => img.file !== dataImg.data.file);
+    const updatedImages = images.filter(img => img.imageId !== dataImg.data.imageId);
     setImages(updatedImages);
   }
 
   function openModal(image){
     handleFetchSingleImage(image.imageId , 'original')
-    .then(data => { setSelectedImage(data)})
+    .then(data => { 
+      setSelectedImage(data.image.imageData)})
     .catch((error) => {
       console.error('Error:', error);
     });
@@ -135,7 +134,7 @@ const RatingPage = () => {
         <Modal.Body>
           {selectedImage && 
           <Card>
-              <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage.data}`} />
+              <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
             </Card>
           }
         </Modal.Body>

@@ -12,7 +12,7 @@ export default function Basket({ index , onDropImage }) {
         if (droppedItemData.from === 0){
             onDropImage(droppedItemData);
         }
-        handleRateImage(droppedItemData.from , droppedItemData.data.file , index)
+        handleRateImage(droppedItemData.data.imageId, droppedItemData.from ,  index)
     }
 
     function handleOnDragOver(event) {
@@ -36,7 +36,7 @@ export default function Basket({ index , onDropImage }) {
             <div className='basket-inside-div'>
                 {imageInBasket.map((img, i) => (
                     <div onDragStart={(e) => handleOnDrag(e, img)}>
-                        <img key={i} src={`data:image/jpeg;base64,${img.data.data}`} alt={`Image ${i}`} style={{ width: '56px', height: '56px', marginRight: '0px' }} onDragEnd={() => removeImageFromBasket(img.data)} />
+                        <img key={i} src={`data:image/jpeg;base64,${img.data.imageData}`} alt={`Image ${i}`} style={{ width: '56px', height: '56px', marginRight: '0px' }} onDragEnd={() => removeImageFromBasket(img.data)} />
                     </div>
                 ))}
             </div>

@@ -100,6 +100,7 @@ class ImageRepository {
 
     static async fetchImage(imageId) {
         try {
+          console.log("hello")
             const image = await Image.findOne({ where: { id: imageId } });
             const imagePath = path.join(__dirname, `../../images/original/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
