@@ -6,9 +6,9 @@ export const handleUserRegistration = async (email , nickname , age , country , 
         const response = await axios.post('http://localhost:3001/api/auth/register', {
             email : email , 
             nickname : nickname ,
+            age : age ,
             country : country ,
-            gender : gender , 
-            age : age
+            gender : gender 
         });
         handleUserLogin(email);
         console.log(response.data); 

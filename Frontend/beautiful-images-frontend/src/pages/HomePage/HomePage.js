@@ -71,10 +71,14 @@ export default function HomePage (){
 
   }
   function handleLogin(){
+    if (username === ''){
+      alert(t('cantBeEmpty'))
+    }
+    else{
     handleUserLogin(username)
     .then(data => {
       if (data.token){
-        localStorage.setItem('username',data.token)
+        localStorage.setItem('token',data.token)
         navigate("/instructions")
       }
       else{
@@ -84,6 +88,8 @@ export default function HomePage (){
     .catch((error) => {
       console.error('Error:', error);
     });
+    }
+
   }
 
   useEffect(() => {
@@ -115,7 +121,7 @@ export default function HomePage (){
     <div className="form-container sign-in-container">
       <form action="#" className='form-1'>
         <h1 className='h1-sign'>{t('signIn')}</h1>
-        <input type="email" placeholder={t('enterUsername')} className='form-1-sign' value={username} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input required type="input" placeholder={t('enterUsername')} className='form-1-sign' value={username} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
         <button className="button-53" onClick={handleLogin}>{t('continue')}</button>
       </form>
     </div>
