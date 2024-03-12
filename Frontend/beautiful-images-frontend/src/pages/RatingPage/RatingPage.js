@@ -24,11 +24,10 @@ const RatingPage = () => {
   const navigate = useNavigate();
 
   const fetchImages = () => {
-    handleFetchImages("tal.galmor3@gmail.com")
+    handleFetchImages("gil@gmail.com")
     .then(data => { 
-      console.log(data)
-      setImages(data)
-      setInitialNumberOfImages(data.length)
+      setImages(data.images)
+      setInitialNumberOfImages(data.images.length)
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -125,7 +124,7 @@ const RatingPage = () => {
               <Card className='cardContainer'>
               <Card.Img 
                 className='imageCard'
-                src={`data:image/jpeg;base64,${img.data}`} />
+                src={`data:image/jpeg;base64,${img.imageData}`} />
             </Card>
             </div>
             ))}

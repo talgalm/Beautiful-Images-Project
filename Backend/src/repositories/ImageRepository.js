@@ -42,7 +42,7 @@ class ImageRepository {
             console.log("fetching new images");
             const allImages = await Image.findAll();
             const userRatedImages = await FinalRating.findAll({where: { email: email }});
-            //subtract rated images from all images
+            //subtract rated images from all images\
             const images = allImages.filter((image) => {
                 return !userRatedImages.some((ratedImage) => {
                     return ratedImage.imageId === image.imageId;
@@ -72,7 +72,7 @@ class ImageRepository {
 
             const result = [];
             selectedImages.forEach((image) => {
-              result.push({imageId: image.imageId, imageData: image.imageData});
+              result.push({imageId: image.id, imageData: image.imageData});
             });
 
             console.log(result.slice(0, 5));
