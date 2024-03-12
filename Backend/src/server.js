@@ -6,6 +6,7 @@ const apiRouter = require('./Routes/api');
 const { client, connectToPostgreSQL } = require('./config/pgConfig');
 const { sequelize, connectToSequelize } = require('./config/sequelizeConfig');
 const ImageRepository = require('./repositories/ImageRepository');
+const UserRepository = require('./repositories/UserRepository');
 
 class Server {
     constructor(port) {

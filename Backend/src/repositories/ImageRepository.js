@@ -15,7 +15,9 @@ class ImageRepository {
 
         for (const imageName of images) {
           const imageId = generateImageId();
-
+          
+          //check if image already exists
+        
           const img = await Image.create({
             id: imageId,
             imageName: imageName,
