@@ -7,6 +7,7 @@ const { client, connectToPostgreSQL } = require('./config/pgConfig');
 const { sequelize, connectToSequelize } = require('./config/sequelizeConfig');
 const ImageRepository = require('./repositories/ImageRepository');
 const UserRepository = require('./repositories/UserRepository');
+const RatingRepository = require('./repositories/RatingRepository');
 
 class Server {
     constructor(port) {
@@ -27,9 +28,11 @@ class Server {
 
         //UserRepository.registerUser({email: 'gil@gmail.com'});
         //ImageRepository.fetchNewImages('gil@gmail.com');
-        //console.log(ImageRepository.fetchSessionImages('gil@gmail.com'));
+        //ImageRepository.fetchSessionImages('gil@gmail.com');
 
         //ImageRepository.fetchImage("1GobjHdddl");
+
+        RatingRepository.changeRating('gil@gmail.com', '1GobjHdddl', 0, 1);
 
          // Mount the API router
          this.app.use('/api', apiRouter);

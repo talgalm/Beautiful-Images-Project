@@ -15,14 +15,14 @@ class RatingRepository {
         await TmpRating.bulkCreate(ratings);
     }
 
-    static async changeRating(username, fileName, fromBasket, toBasket) {
+    static async changeRating(email, imageId, fromBasket, toBasket) {
         const rating = await TmpRating.findOne(
-            { where: { username, imageName: fileName, rating: fromBasket } });
+            { where: { email, imageId, rating: fromBasket } });
         if (!rating) {
             throw new Error('Rating not found');
         }
         TmpRating.update({ rating: toBasket }, 
-            { where: { username, imageName: fileName, rating: fromBasket } });
+            { where: { email, imageId, rating: fromBasket} });
     }
 
     static async saveRatings(username) {

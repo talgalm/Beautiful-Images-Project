@@ -37,9 +37,25 @@ class ImageRepository {
       }
     }
 
+    static async fetchImages(email) {
+        try {
+            const userTmpRatings = await TmpRating.findAll({ where: { email: email } });
+            if (userTmpRatings.length === 0) {
+                const images = await ImageRepository.fetchNewImages(email);
+                return images;
+
+            }
+            else {
+                const images = await ImageRepository.fetchSessionImages(email);
+                return images;
+            }
+        } catch (error) {
+            throw new Error('Error fetching images');
+        }
+    }
+
     static async fetchNewImages(email) {
         try {
-            console.log("fetching new images");
             const allImages = await Image.findAll();
             const userRatedImages = await FinalRating.findAll({where: { email: email }});
             //subtract rated images from all images\
@@ -61,7 +77,7 @@ class ImageRepository {
             });
 
             //set the tmpRating of the selected images to 0
-            //RatingRepository.addInitialRatings(email, selectedImages);
+            RatingRepository.addInitialRatings(email, selectedImages);
 
             //using the image path, read the image and convert to base64
             selectedImages.forEach((image) => {
@@ -75,7 +91,6 @@ class ImageRepository {
               result.push({imageId: image.id, imageData: image.imageData});
             });
 
-            console.log(result.slice(0, 5));
             
             return result;
         } catch (error) {
@@ -88,7 +103,6 @@ class ImageRepository {
             const image = await Image.findOne({ where: { id: imageId } });
             const imagePath = path.join(__dirname, `../../images/original/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
-            console.log({imageId: image.id, imageData: imageData});
             return {imageId: image.id, imageData: imageData};
         } catch (error) {
             throw new Error('Error fetching image');
@@ -97,18 +111,21 @@ class ImageRepository {
 
     static async fetchSessionImages(email) {
         try {
-            const userRatedImages = await TmpRating.findAll({ where: { email : email } });
+            const userRatedImagesRatings = await TmpRating.findAll({ where: { email : email } });
+            const userRatedImages = await Promise.all(userRatedImagesRatings.map(async (image) => {
+              return await Image.findOne({ where: { id: image.imageId } });
+            }));
             //return array of {image, rating}
 
-            const images = userRatedImages.map((ratedImage) => {
-              const imagePath = path.join(__dirname, `../../images/small/${ratedImage.category}`, ratedImage.imageName);
+            const result = [];
+            for (const image of userRatedImages) {
+              const imagePath = path.join(__dirname, `../../images/small/${image.category}`, image.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
-                return {
-                    imageDate: imageData,
-                    rating: ratedImage.rating
-                };
-            });
-            return images;
+              result.push({imageId: image.id, imageData: imageData});
+            }
+            //console.log(result.slice(0, 5));
+
+            return result;
         } catch (error) {
           throw new Error('Error fetching images');
         }
