@@ -77,7 +77,7 @@ const RatingPage = () => {
   }
 
   function openModal(image){
-    handleFetchSingleImage("" , image.file , 'original')
+    handleFetchSingleImage(image.imageId , 'original')
     .then(data => { setSelectedImage(data)})
     .catch((error) => {
       console.error('Error:', error);

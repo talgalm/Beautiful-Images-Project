@@ -83,15 +83,12 @@ class ImageRepository {
         }
     }
 
-    static async fetchImage(email, imageId) {
+    static async fetchImage(imageId) {
         try {
-            //TODO: validate email
-
             const image = await Image.findOne({ where: { imageId } });
-            const imagePath = path.join(__dirname, `../../images/small/${image.category}`, image.imageName);
+            const imagePath = path.join(__dirname, `../../images/original/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
-            image.imageData = imageData;
-            return image;
+            return {imageId: image.id, imageData: imageData};
         } catch (error) {
             throw new Error('Error fetching image');
         }
