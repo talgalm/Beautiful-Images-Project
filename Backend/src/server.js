@@ -26,9 +26,10 @@ class Server {
         //ImageRepository.initializeImagesDB(); // Initialize the images database
 
         //UserRepository.registerUser({email: 'gil@gmail.com'});
-        ImageRepository.fetchNewImages('gil@gmail.com');
+        //ImageRepository.fetchNewImages('gil@gmail.com');
         //console.log(ImageRepository.fetchSessionImages('gil@gmail.com'));
 
+        //ImageRepository.fetchImage("1GobjHdddl");
 
          // Mount the API router
          this.app.use('/api', apiRouter);

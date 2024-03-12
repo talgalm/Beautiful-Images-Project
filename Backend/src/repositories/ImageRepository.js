@@ -85,9 +85,10 @@ class ImageRepository {
 
     static async fetchImage(imageId) {
         try {
-            const image = await Image.findOne({ where: { imageId } });
+            const image = await Image.findOne({ where: { id: imageId } });
             const imagePath = path.join(__dirname, `../../images/original/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
+            console.log({imageId: image.id, imageData: imageData});
             return {imageId: image.id, imageData: imageData};
         } catch (error) {
             throw new Error('Error fetching image');
