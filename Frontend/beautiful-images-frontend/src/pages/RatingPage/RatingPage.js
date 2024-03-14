@@ -24,22 +24,10 @@ const RatingPage = () => {
   const [initialNumberOfImages, setInitialNumberOfImages] = useState(null);
   const navigate = useNavigate();
 
-  const fetchImages = () => {
-    handleFetchImages("gil@gmail.com")
-    .then(data => { 
-      console.log("a")
-      setImages(data.images);
-      setInitialNumberOfImages(data.images.length)
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  }
 
   useEffect(() => {
-    handleFetchImages("gil@gmail.com")
+    handleFetchImages()
         .then(data => {
-          console.log("a")
             setImages(data.images);
             setLoading(false);
         })
