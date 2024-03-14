@@ -3,9 +3,38 @@ const RatingRepository = require("./RatingRepository");
 
 const fs = require('fs');
 const path = require('path');
+const sharp = require('sharp');
 
 
 class ImageRepository {
+
+    static async generateSmalllImages() {
+      const categories = fs.readdirSync(path.join(__dirname, '../../images/original'));
+      for (const category of categories) {
+        const images = fs.readdirSync(path.join(__dirname, `../../images/original/${category}`));
+        if (!fs.existsSync(path.join(__dirname, `../../images/small/${category}`))) {
+          fs.mkdirSync(path.join(__dirname, `../../images/small/${category}`));
+        }
+        for (const imageName of images) {
+          const resizedImagePath = path.join(__dirname, `../../images/small/${category}`, imageName);
+          if (!fs.existsSync(resizedImagePath)) {
+            await this.generateSmallImage(imageName, category);
+          }
+        }
+      }
+    }
+
+    static async generateSmallImage(imageName, category){
+      const imagePath = path.join(__dirname, `../../images/original/${category}`, imageName);
+      const image = await fs.promises.readFile(imagePath);
+      const resizedImage = await sharp(image).metadata()
+      .then(({ width }) => sharp(image)
+        .resize(Math.round(width * 0.5))
+        .toBuffer()
+      );
+      const resizedImagePath = path.join(__dirname, `../../images/small/${category}`, imageName);
+      await fs.promises.writeFile(resizedImagePath, resizedImage);
+    }
 
     static async initializeImagesDB() {
       console.log("initializing images");
@@ -14,15 +43,17 @@ class ImageRepository {
         const images = fs.readdirSync(path.join(__dirname, `../../images/small/${category}`));
 
         for (const imageName of images) {
-          const imageId = generateImageId();
           
           //check if image already exists
-        
-          const img = await Image.create({
-            id: imageId,
-            imageName: imageName,
-            category: category
-          });
+          const image = await Image.findOne({ where: { imageName, category } });
+          if (!image) {
+            const imageId = generateImageId();
+            const img = await Image.create({
+              id: imageId,
+              imageName: imageName,
+              category: category
+            });
+          }
         }
       }
 
@@ -100,7 +131,6 @@ class ImageRepository {
 
     static async fetchImage(imageId) {
         try {
-            console.log("hello")
             const image = await Image.findOne({ where: { id: imageId } });
             const imagePath = path.join(__dirname, `../../images/original/${image.category}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });

@@ -24,18 +24,19 @@ class Server {
         connectToPostgreSQL();
         connectToSequelize();
 
-        await ImageRepository.initializeImagesDB(); // Initialize the images database
+        await ImageRepository.generateSmalllImages(); // Generate small images if they don't exist
+        await ImageRepository.initializeImagesDB(); // Initialize the images database if it doesn't exist
 
-        await UserRepository.registerUser({email: 'gil@gmail.com'});
+        //await UserRepository.registerUser({email: 'gil@gmail.com'});
 
 
-        await ImageRepository.fetchImages('gil@gmail.com');
+        //await ImageRepository.fetchImages('gil@gmail.com');
         //RatingRepository.changeRating('gil@gmail.com', '2bLAu4liFh', 0, 2);
 
         //ImageRepository.fetchImage("1GobjHdddl");
 
 
-        await RatingRepository.saveRatings('gil@gmail.com');
+        //await RatingRepository.saveRatings('gil@gmail.com');
 
          // Mount the API router
          this.app.use('/api', apiRouter);
