@@ -27,13 +27,13 @@ class Server {
         await ImageRepository.generateSmalllImages(); // Generate small images if they don't exist
         await ImageRepository.initializeImagesDB(); // Initialize the images database if it doesn't exist
 
-        //await UserRepository.registerUser({email: 'gil@gmail.com'});
-
+        setInterval(RatingRepository.saveOldRatings, 60 * 60 * 1000);
 
         //await ImageRepository.fetchImages('gil@gmail.com');
-        //RatingRepository.changeRating('gil@gmail.com', '2bLAu4liFh', 0, 2);
 
-        //ImageRepository.fetchImage("1GobjHdddl");
+        //RatingRepository.saveOldRatings();
+        //await UserRepository.registerUser({email: 'gil@gmail.com'});
+        //RatingRepository.changeRating('gil@gmail.com', '2bLAu4liFh', 0, 2);
 
 
         //await RatingRepository.saveRatings('gil@gmail.com');

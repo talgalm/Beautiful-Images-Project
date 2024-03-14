@@ -1,5 +1,5 @@
 const { FinalRating, TmpRating } = require("../Models");
-
+const { Op } = require("sequelize");
 
 class RatingRepository {
     static async addInitialRatings(email, images) {
@@ -28,14 +28,34 @@ class RatingRepository {
     static async saveRatings(email) {
         const tmpRatings = await TmpRating.findAll({ where: { email } });
 
-        tmpRatings.forEach((tmpRating) => {
-            FinalRating.create({
+        tmpRatings.forEach(async (tmpRating) => {
+            await FinalRating.create({
                 email: tmpRating.email,
                 imageId: tmpRating.imageId,
                 rating: tmpRating.rating,
             })
         });
-        TmpRating.destroy({ where: { email } });
+        await TmpRating.destroy({ where: { email } });
+    }
+
+    static async saveOldRatings() {
+        const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        const emailsToSave = await TmpRating.findAll({
+            attributes: ['email'],
+            where: {
+            updatedAt: {
+                [Op.lt]: oneDayAgo
+            }
+            },
+            group: ['email']
+        });
+
+        console.log(emailsToSave);
+
+        emailsToSave.forEach(async (email) => {
+            await RatingRepository.saveRatings(email.email);
+        });
+
     }
 }
 
