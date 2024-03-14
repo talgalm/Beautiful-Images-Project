@@ -1,6 +1,6 @@
 import { useTranslation , Trans} from 'react-i18next';
 import './landingPage.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 
@@ -9,6 +9,17 @@ export default function LandingPage(){
     const isRtl = ['he'].includes(i18n.language);
     const [isChecked, setIsChecked] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const expireTime = localStorage.getItem('expireTime');
+        const currentTime = new Date().getTime();
+
+        if (expireTime && currentTime > expireTime) {
+            // If expireTime is past, clear specific local storage items
+            localStorage.removeItem('token');
+            localStorage.removeItem('email');
+        }
+    }, []);
 
 
     const handleCheckboxChange = (event) => {

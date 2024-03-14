@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const handleRateImage = async (imageId, fromBasket , toBasket) => {
-    console.log(imageId, fromBasket , toBasket)
     try {
         const response = await axios.post(
             'http://localhost:3001/api/rate/rateImage',
