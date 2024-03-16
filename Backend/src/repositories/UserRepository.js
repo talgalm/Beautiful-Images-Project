@@ -30,6 +30,17 @@ class UserRepository {
       }
       return user;
     }
+
+    static async getUser(email) {
+      console.log("get user: " + email);
+      // Verify user credentials
+      const user = await User.find({ where: { email: email } });
+      if (!user) {
+        throw new Error('Invalid email');
+      }
+      return user;
+    }
+
   }
   
   module.exports = UserRepository;

@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --detectOpenHandles",
     "start": "node server.js"
   },
   "author": "",
@@ -17,5 +17,8 @@
     "pg": "^8.11.3",
     "sequelize": "^6.37.1",
     "sharp": "^0.33.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
