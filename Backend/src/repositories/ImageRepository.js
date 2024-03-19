@@ -92,7 +92,7 @@ class ImageRepository {
         try {
             const allImages = await Image.findAll();
             const userRatedImages = await FinalRating.findAll({where: { email: email }});
-            //subtract rated images from all images\
+            //subtract rated images from all images
             const images = allImages.filter((image) => {
                 return !userRatedImages.some((ratedImage) => {
                     return ratedImage.imageId === image.imageId;
@@ -106,12 +106,17 @@ class ImageRepository {
 
             categories.forEach((category) => {
               const categoryImages = images.filter((image) => image.category === category);
+              //shuffle the images so that we get a random selection and not the first images in each category
+              categoryImages.sort(() => Math.random() - 0.5); 
               const selectedCategoryImages = categoryImages.slice(0, imagesPerCategory);
               selectedImages.push(...selectedCategoryImages);
             });
 
             //set the tmpRating of the selected images to 0
             RatingRepository.addInitialRatings(email, selectedImages);
+
+            //shuffle the whole list of images so that we mix the categories
+            selectedImages.sort(() => Math.random() - 0.5); 
 
             // Using the image path, read the image and convert to base64
             const imagePromises = selectedImages.map(async (image) => {
@@ -122,7 +127,6 @@ class ImageRepository {
 
             const result = await Promise.all(imagePromises);
 
-            
             return result;
         } catch (error) {
             throw new Error('Error fetching images');
