@@ -54,10 +54,13 @@ export default function HomePage (){
     setCountry(event.target.value);
   }
 
-  function handleRegistration(){
+  function handleRegistration(event){
     if (emailConfirm === email){
       handleUserRegistration(email , nickname , age , country , gender)
       .then(data => {
+        if (data.message === 'User registered successfully'){
+          handleLogin(event)
+        }
         //if success -> alert user and go to start rating
         //if fail -> alert user about the message
       })

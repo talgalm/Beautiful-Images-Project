@@ -15,7 +15,7 @@ export const handleUserRegistration = async (email , nickname , age , country , 
             country : country ,
             gender : gender 
         });
-        handleUserLogin(email);
+        return response.data;
     } catch (error) {
         console.error('Error:', error); 
     }
