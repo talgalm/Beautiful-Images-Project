@@ -3,6 +3,7 @@ import axios from 'axios';
 const baseURL = process.env.NODE_ENV === 'production' 
     ? '' 
     : 'http://localhost:3001/'
+    
 
 // Use Case 1: Participant Registration
 export const handleUserRegistration = async (email , nickname , age , country , gender) => {
