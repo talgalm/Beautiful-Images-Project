@@ -50,8 +50,6 @@ class RatingRepository {
             group: ['email']
         });
 
-        console.log(emailsToSave);
-
         emailsToSave.forEach(async (email) => {
             await RatingRepository.saveRatings(email.email);
         });

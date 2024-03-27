@@ -99,24 +99,43 @@ class ImageRepository {
                 });
             });
 
-            //select 60 images evenly from all categories
-            const selectedImages = [];
-            const categories = [...new Set(images.map((image) => image.category))];
-            const imagesPerCategory = Math.ceil(60 / categories.length);
+            const totalNumOfImages = images.length;
 
-            categories.forEach((category) => {
-              const categoryImages = images.filter((image) => image.category === category);
-              //shuffle the images so that we get a random selection and not the first images in each category
-              categoryImages.sort(() => Math.random() - 0.5); 
-              const selectedCategoryImages = categoryImages.slice(0, imagesPerCategory);
-              selectedImages.push(...selectedCategoryImages);
-            });
+            //select 70 images evenly from all categories
+            let selectedImages = [];
+            const categories = [...new Set(images.map((image) => image.category))];
+            
+            //create an array of arrays, each array will contain the images of a category
+            let categoryImagesArray = categories.map((category) => images.filter((image) => image.category === category));
+            categoryImagesArray = categoryImagesArray.map((category) => category.sort(() => Math.random() - 0.5)); //shuffle each category
+            
+            for (let i=0; i < categoryImagesArray.length; i++){
+              const categoryImages = categoryImagesArray[i];
+              const numOfImagesToSelect = Math.floor((categoryImages.length / totalNumOfImages) * 70);
+              for (let j=0; j < numOfImagesToSelect; j++){
+                selectedImages.push(categoryImages.pop());
+              }
+              categoryImagesArray[i] = categoryImages;
+            }
+
+            if (selectedImages.length < 70) {
+              //if we didn't reach 70 images, select the rest randomly
+              const restImages = categoryImagesArray.flat();
+              restImages.sort(() => Math.random() - 0.5);
+              for (let i=selectedImages.length; i < 70; i++){
+                if (restImages.length === 0) {
+                  throw new Error('Not enough images');
+                }
+                selectedImages.push(restImages.pop());
+              }
+            }
+
+            //shuffle the whole list of images so that we mix the categories
+            selectedImages.sort(() => Math.random() - 0.5); 
 
             //set the tmpRating of the selected images to 0
             RatingRepository.addInitialRatings(email, selectedImages);
 
-            //shuffle the whole list of images so that we mix the categories
-            selectedImages.sort(() => Math.random() - 0.5); 
 
             // Using the image path, read the image and convert to base64
             const imagePromises = selectedImages.map(async (image) => {
@@ -129,7 +148,7 @@ class ImageRepository {
 
             return result;
         } catch (error) {
-            throw new Error('Error fetching images');
+            throw new Error(`Error fetching images ${error}`);
         }
     }
 
