@@ -10,7 +10,12 @@ export default function FinishPage(){
     const navigate = useNavigate();
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        const email = localStorage.getItem('email');
 
+        if (!token || !email) {
+            navigate("/home"); 
+        }
     }, []); 
 
     return (

@@ -70,13 +70,25 @@ export default function HomePage (){
     }
 
   }
-  function handleLogin(){
-    if (email === ''){
-      alert(t('cantBeEmpty'))
-    }
-    else{
-      navigate("/instructions")
-    }
+  function handleLogin(event){
+    event.preventDefault(); 
+    handleUserLogin(email)
+    .then(data => {
+      if (data.token){
+        const currentTime = new Date().getTime();
+        const expireTime = currentTime + (24 * 60 * 60 * 1000);
+        localStorage.setItem('expireTime', expireTime.toString());
+        localStorage.setItem('token',data.token)
+        localStorage.setItem('email',email)
+        navigate("/instructions")
+      }
+      else{
+
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 
   }
 

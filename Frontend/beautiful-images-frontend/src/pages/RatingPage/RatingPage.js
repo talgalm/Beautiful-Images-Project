@@ -36,9 +36,17 @@ const RatingPage = () => {
         });
 }, []);
 
+
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    const email = localStorage.getItem('email');
+    
+    if (!token || !email) {
+      navigate("/home"); 
+  }
 
 }, []); 
+
 
 
   function handleOnDrag(event , dataImg)
