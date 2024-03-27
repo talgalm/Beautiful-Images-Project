@@ -12,6 +12,10 @@
 .guidelines-div{
 	display: flex;
 	flex-direction: row;
+	overflow-y: auto;
+	height: 80%;
+	margin-top: 50px;
+	max-height: 65vh;
 }
 .left-div{
     width: 20%;
@@ -32,7 +36,7 @@
 	justify-content: center;
 
 	button{
-		margin-top: 100px;
+		margin-top: 20px;
         background-color: #2c3e50;
         border: 0 solid #E5E7EB;
         box-sizing: border-box;
