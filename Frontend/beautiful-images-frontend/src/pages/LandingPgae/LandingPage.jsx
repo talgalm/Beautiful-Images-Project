@@ -15,7 +15,6 @@ export default function LandingPage(){
         const currentTime = new Date().getTime();
 
         if (expireTime && currentTime > expireTime) {
-            // If expireTime is past, clear specific local storage items
             localStorage.removeItem('token');
             localStorage.removeItem('email');
         }
@@ -36,10 +35,9 @@ export default function LandingPage(){
 
     return (
         <div className='landing-div'>
-            <div className='images-example-div'></div>
             <div className='instructions-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
                 <p className='p-intro'><Trans i18nKey="landingIntro" components={{ br: <br /> }} /></p>
-                <div className='checkbox-ok-div' style={{ flexDirection: isRtl ? 'row-reverse' : 'row' }}>
+                <div className='checkbox-ok-div' style={{ flexDirection: isRtl ? 'row-reverse' : 'row'  , marginRight : '60px' , marginLeft : '50px'}}>
                     {!isRtl ? (
                         <>
                             <input 
@@ -50,11 +48,11 @@ export default function LandingPage(){
                                 checked={isChecked} 
                                 onChange={handleCheckboxChange}
                             />
-                            <label className='l-1' htmlFor="myCheckbox">{t('checkboxAgreeExp')}</label>
+                            <label className='l-1' htmlFor="myCheckbox" style={{marginLeft: '20px'}}>{t('checkboxAgreeExp')}</label>
                         </>
                     ) : (
                         <>
-                            <label className='l-1' htmlFor="myCheckbox">{t('checkboxAgreeExp')}</label>
+                            <label className='l-1' htmlFor="myCheckbox"  style={{marginRight: '10px'}}>{t('checkboxAgreeExp')}</label>
                             <input 
                                 type="checkbox" 
                                 id="myCheckbox" 

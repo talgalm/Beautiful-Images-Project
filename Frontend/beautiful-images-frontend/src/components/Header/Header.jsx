@@ -45,9 +45,8 @@ export default function Header (){
 
     return(
     <div className='header-div'>
-        <div className='logo-div'> </div>
         <div className='icons-div'> 
-            <div className='icon-panel'>
+            <div className='icon-panel' style={{right: '20px'}}>
                 <LanguageSwitcher/>
                 {!isHomeOrRoot() && 
                     <div>
