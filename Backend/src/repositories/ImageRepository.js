@@ -101,7 +101,7 @@ class ImageRepository {
 
             const totalNumOfImages = images.length;
 
-            //select 70 images evenly from all categories
+            //select 70 images proportionally to the number of images in each category
             let selectedImages = [];
             const categories = [...new Set(images.map((image) => image.category))];
             
