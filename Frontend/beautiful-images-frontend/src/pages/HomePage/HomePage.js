@@ -19,7 +19,7 @@ export default function HomePage (){
   const [gender , setGender] = useState('')
   const [country , setCountry] = useState('')
   const navigate = useNavigate();
-
+  const mobileScreen = window.innerWidth <= 400;
   const isRtl = ['he'].includes(i18n.language);
 
 
@@ -74,7 +74,7 @@ export default function HomePage (){
     event.preventDefault(); 
     handleUserLogin(email)
     .then(data => {
-      if (data.token){
+      if (data.token && data.message === 'Login successful'){
         const currentTime = new Date().getTime();
         const expireTime = currentTime + (24 * 60 * 60 * 1000);
         localStorage.setItem('expireTime', expireTime.toString());
@@ -97,7 +97,9 @@ export default function HomePage (){
   }, []);
 
 
-  return (<div className="header-wrapper">
+  return (
+    <div>
+    <div className="header-wrapper">
     <Header/>
 
     <div className={`container ${isSignUpActive ? 'right-panel-active' : ''}`} id="container">
@@ -126,7 +128,7 @@ export default function HomePage (){
       </form>
     </div>
     <div className="overlay-container">
-      <div className="overlay">
+      {!mobileScreen && <div className="overlay">
         <div className="overlay-panel overlay-left">
           <h1 className='h1-over-l'>{t('welcomeBack')}</h1>
           <p className='p-over-l'>{t('loginHere')}</p>
@@ -141,9 +143,18 @@ export default function HomePage (){
           {t('signUp')}
           </button>
         </div>
-      </div>
+      </div>}
     </div>
   </div>
   </div>
+  {mobileScreen && 
+  <div className='button-in-mobile'>
+      <button className="button-53" id="signUp" onClick={changeDisplay}>
+        {isSignUpActive ? t('signInMobile') : t('signUpMobile')}
+      </button>
+    </div>}
+
+</div>
+  
   );
 };

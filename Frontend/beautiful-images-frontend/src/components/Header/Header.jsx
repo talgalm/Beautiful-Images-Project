@@ -64,7 +64,7 @@ export default function Header (){
                 <h1>{t('logout')}</h1>
                 <button className='button-53' onClick={handleLogout}>{t('logoutButton')}</button>
             </div>
-      </Modal.Body>
-      </Modal>
+        </Modal.Body>
+        </Modal>
     </div>)
 }

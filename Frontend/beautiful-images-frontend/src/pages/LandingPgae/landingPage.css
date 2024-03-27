@@ -10,18 +10,23 @@
 }
 
 .instructions-div {
-    width: 95%;
+    width: 90%;
     gap: 10px;
     height: 80%;
     max-height: 100vh;
     display: flex;
+    align-items: center;
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
+
 }
 
 
-
+.checkbox-ok-div{
+    display: flex;
+    justify-content: center;
+}
 .myCheckbox {
     width: 20px;
     height: 20px;
@@ -40,8 +45,7 @@
 .p-intro {
     color: black;
     font-family: NotoSerifHebrew;
-    width: 90%;
-    margin-left: 50px;
+    width: 95%;
     margin-top: 50px;
     font-size: 23px;
     line-height: 1.4;
@@ -53,7 +57,7 @@
 }
 
 .button-c {
-    margin-top: 25px;
+    margin-top: 0px;
     background-color: #2c3e50;
     border: 0 solid #e5e7eb;
     box-sizing: border-box;

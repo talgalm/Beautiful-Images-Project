@@ -43,7 +43,9 @@
     "cantBeEmpty" : "Email can't be empty",
     "cantGetIn" : "Can't have access to this page without login",
     "logout" : "Are you sure you want to log out?",
-    "logoutButton" : "Logout"
+    "logoutButton" : "Logout",
+    "signUpMobile" : "Registration for new users",
+    "signInMobile" : "Login for existing users"
 
 }
   

@@ -2,13 +2,17 @@ import { useTranslation , Trans} from 'react-i18next';
 import './landingPage.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import {Modal} from 'react-bootstrap';
 
 
 export default function LandingPage(){
     const { t , i18n} = useTranslation();
     const isRtl = ['he'].includes(i18n.language);
     const [isChecked, setIsChecked] = useState(false);
+    const [isOK, setIsOK] = useState(false);
+
     const navigate = useNavigate();
+
 
     useEffect(() => {
         const expireTime = localStorage.getItem('expireTime');
@@ -23,21 +27,23 @@ export default function LandingPage(){
 
     const handleCheckboxChange = (event) => {
         setIsChecked(event.target.checked);
+        setIsOK (!event.target.checked)
     };
 
     const handleButtonClick = () => {
         if (!isChecked) {
-            alert(t('checkToAgree'));
+            setIsOK(true);
         } else {
             navigate("/home")
         }
     };
 
+
     return (
         <div className='landing-div'>
             <div className='instructions-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
                 <p className='p-intro'><Trans i18nKey="landingIntro" components={{ br: <br /> }} /></p>
-                <div className='checkbox-ok-div' style={{ flexDirection: isRtl ? 'row-reverse' : 'row'  , marginRight : '60px' , marginLeft : '50px'}}>
+                <div className='checkbox-ok-div' style={{ }}>
                     {!isRtl ? (
                         <>
                             <input 
@@ -64,10 +70,17 @@ export default function LandingPage(){
                         </>
                     )}
                 </div>
+                {isOK ? <div style={{ color: 'red' }}>{t('checkToAgree')}</div>
+: (
+  <div style={{ height: '25px', width: '100%', backgroundColor: 'white', color: 'white' }}>
+    {t('checkToAgree').replace('s', ' ')}
+  </div>
+)}
                 <div className='buttons-div'>
                     <button className='button-c' onClick={handleButtonClick}>{t('continue')}</button>
                 </div>
             </div>
+
         </div>
     );
 }
