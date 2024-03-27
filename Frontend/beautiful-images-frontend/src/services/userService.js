@@ -1,9 +1,14 @@
 import axios from 'axios';
 
+const baseURL = process.env.NODE_ENV === 'production' 
+    ? '' 
+    : 'http://localhost:3001/'
+    
+
 // Use Case 1: Participant Registration
 export const handleUserRegistration = async (email , nickname , age , country , gender) => {
     try {
-        const response = await axios.post('http://localhost:3001/api/auth/register', {
+        const response = await axios.post(baseURL + 'api/auth/register', {
             email : email , 
             nickname : nickname ,
             age : age ,
@@ -19,7 +24,7 @@ export const handleUserRegistration = async (email , nickname , age , country , 
 // Use Case 2: User Login
 export const handleUserLogin = async (email) => {
     try {
-        const response = await axios.post('http://localhost:3001/api/auth/login', {
+        const response = await axios.post(baseURL + 'api/auth/login', {
             email: email,
         });
         return response.data
@@ -30,7 +35,7 @@ export const handleUserLogin = async (email) => {
 //Use case : Logout 
 export const handleUserLogout = async () => {
     try {
-        const response = await axios.post('http://localhost:3001/api/auth/logout', {
+        const response = await axios.post(baseURL + 'api/auth/logout', {
             email: localStorage.getItem('email'),
             token: localStorage.getItem('token'),
         },
@@ -48,7 +53,7 @@ export const handleUserLogout = async () => {
 // Use Case 3: Classify Image
 export const handleImageClassification = async (imageData) => {
     try {
-        const response = await axios.post('http://localhost:3001/api/image/classify', imageData);
+        const response = await axios.post(baseURL + 'api/image/classify', imageData);
     } catch (error) {
         console.error('Error:', error); // Handle error
     }
@@ -57,7 +62,7 @@ export const handleImageClassification = async (imageData) => {
 // Use Case 4: Modify Image Classification – Change Classification
 export const handleChangeImageClassification = async (imageId, newClassification) => {
     try {
-        const response = await axios.put(`http://localhost:3001/api/image/classify/${imageId}`, {
+        const response = await axios.put(baseURL + `api/image/classify/${imageId}`, {
             newClassification: newClassification,
         });
     } catch (error) {
@@ -68,7 +73,7 @@ export const handleChangeImageClassification = async (imageId, newClassification
 // Use Case 5: Modify Image Classification - Remove Classification
 export const handleRemoveImageClassification = async (imageId) => {
     try {
-        const response = await axios.delete(`http://localhost:3001/api/image/classify/${imageId}`);
+        const response = await axios.delete(baseURL + `api/image/classify/${imageId}`);
     } catch (error) {
         console.error('Error:', error); // Handle error
     }
@@ -77,7 +82,7 @@ export const handleRemoveImageClassification = async (imageId) => {
 // Use Case 6: The participant starts a new experiment
 export const handleStartNewExperiment = async (experimentData) => {
     try {
-        const response = await axios.post('http://localhost:3001/api/experiments/start', experimentData);
+        const response = await axios.post(baseURL + 'api/experiments/start', experimentData);
     } catch (error) {
         console.error('Error:', error); // Handle error
     }
@@ -85,7 +90,7 @@ export const handleStartNewExperiment = async (experimentData) => {
 
 export const handleFetchImages = async () => {
     try {
-        const response = await axios.post('http://localhost:3001/api/images/fetchImages', {
+        const response = await axios.post(baseURL + 'api/images/fetchImages', {
             token: localStorage.getItem('token'), 
             email: localStorage.getItem('email'), 
         },
@@ -104,7 +109,7 @@ export const handleFetchImages = async () => {
 
 export const handleFetchSingleImage = async (imageId, size) => {
     try {
-        const response = await axios.post('http://localhost:3001/api/images/fetchImage', {
+        const response = await axios.post(baseURL + 'api/images/fetchImage', {
             token: localStorage.getItem('token'), 
             email: localStorage.getItem('email'), 
             imageId : imageId,
