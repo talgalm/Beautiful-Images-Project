@@ -15,6 +15,7 @@ class AuthController {
     
       async register(req, res) {
         try {
+          const {email , nickname , age , country , gender} = req.body;
           await UserRepository.registerUser(email, age, gender);
           res.status(201).json({ message: 'User registered successfully' });
         } catch (error) {
