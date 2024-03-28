@@ -6,7 +6,6 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
     const [imageInBasket, setImageInBasket] = useState([]);
 
     useEffect(()=>{
-        console.log("index is:",index,"-",sessionImages)
         setImageInBasket(sessionImages)
     },[])
 
