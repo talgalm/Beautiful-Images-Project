@@ -45,7 +45,9 @@
     "logout" : "Are you sure you want to log out?",
     "logoutButton" : "Logout",
     "signUpMobile" : "Registration for new users",
-    "signInMobile" : "Login for existing users"
+    "signInMobile" : "Login for existing users",
+    "selectCountry" : "Select a country",
+    "Email does not exist" : "Email does not exist"
 
 }
   

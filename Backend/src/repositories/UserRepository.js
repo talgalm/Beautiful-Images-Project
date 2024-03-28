@@ -16,19 +16,19 @@ class UserRepository {
     }
   
     static async authenticateUser(email) {
-      console.log("authentication user: " + props.email);
-
+      console.log("authentication user: " + email);
+    
       // Verify user credentials
-      const user = await User.find({ email: email });
+      const user = await User.findOne({ where: { email: email } });
       if (!user) {
-        console.log(`${email} not exist you can not login!!!!`)
-        throw new Error('Invalid email');
-      }
-      else{
-        console.log(`${email} exists you can login!!!!`)
+        console.log(`${email} does not exist. You cannot log in!`);
+        throw new Error('Email does not exist');
+      } else {
+        console.log(`${email} exists. You can log in!`);
       }
       return user;
     }
+    
 
     static async getUser(email) {
       console.log("get user: " + email);

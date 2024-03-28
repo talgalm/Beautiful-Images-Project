@@ -7,7 +7,7 @@ import { handleUserLogin, handleUserRegistration } from '../../services/userServ
 import { useNavigate } from "react-router-dom";
 import LanguageSwitcher from '../../components/LanguageSwitcher';
 import Header from '../../components/Header/Header';
-
+import {countries} from '../HomePage/hebrewCountries.js';
 
 export default function HomePage (){
   const { t, i18n } = useTranslation();
@@ -18,10 +18,12 @@ export default function HomePage (){
   const [age , setAge] = useState('')
   const [gender , setGender] = useState('')
   const [country , setCountry] = useState('')
+  const [error , setError] = useState(undefined)
+  
   const navigate = useNavigate();
   const mobileScreen = window.innerWidth <= 400;
   const isRtl = ['he'].includes(i18n.language);
-
+  const Countries = countries.map(item => item);
 
   function changeDisplay(){
     setSignUpActive(!isSignUpActive)
@@ -34,6 +36,7 @@ export default function HomePage (){
   }
 
   function handleUsernameChange(event){
+    setError("")
     setEmail(event.target.value);
   }
   function handleUsernameConfirmChange(event){
@@ -77,7 +80,7 @@ export default function HomePage (){
     event.preventDefault(); 
     handleUserLogin(email)
     .then(data => {
-      if (data.token && data.message === 'Login successful'){
+      if ( data.message === 'Login successful' && data.token ){
         const currentTime = new Date().getTime();
         const expireTime = currentTime + (24 * 60 * 60 * 1000);
         localStorage.setItem('expireTime', expireTime.toString());
@@ -86,7 +89,8 @@ export default function HomePage (){
         navigate("/instructions")
       }
       else{
-
+        if (data.message === 'Email does not exist')
+          setError(data.message)
       }
     })
     .catch((error) => {
@@ -118,7 +122,19 @@ export default function HomePage (){
           <option value="female">{t('Female')}</option>
           <option value="other">{t('Other')}</option>
         </select>
-        <input type="input" placeholder={t('enterCountry')} value={country} onChange={handleCountryChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
+        <select value={country} onChange={handleCountryChange} dir={isRtl ? 'rtl' : 'ltr'}>
+                <option value="">{t("selectCountry")}</option>
+                {isRtl ? (Countries.map(obj => obj.name).map((country, index) => (
+                    <option key={index} value={country}>
+                        {country}
+                    </option>
+                ))) : (Countries.map(obj => obj.english_name).map((country, index) => (
+                  <option key={index} value={country}>
+                      {country}
+                  </option>
+              )))}
+                
+            </select>
         <input placeholder={t('age')} value={age}  onChange={handleAgeChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
         <button className="button-53" onClick={handleRegistration} >{t('signUp')}</button>
       </form>
@@ -126,7 +142,8 @@ export default function HomePage (){
     <div className="form-container sign-in-container">
       <form action="#" className='form-1'>
         <h1 className='h1-sign'>{t('signIn')}</h1>
-        <input required type="input" placeholder={t('enterUsername')} className='form-1-sign' value={email} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input required type="input" placeholder={t('enterUsername')} className= {error ? 'form-1-sign-error' : 'form-1-sign'} value={email} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <span style={{color:'red'}}>{t(error)}</span>
         <button className="button-53" onClick={handleLogin}>{t('continue')}</button>
       </form>
     </div>

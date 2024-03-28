@@ -4,12 +4,12 @@ const UserRepository = require("../repositories/UserRepository");
 class AuthController {
       async login(req, res) {
         try {
-          // const user = await UserRepository.authenticateUser(email);
           const { email } = req.body;
+          await UserRepository.authenticateUser(email);
           const token = generateAccessToken(email);
           res.status(200).json({ message: 'Login successful', token: token });
         } catch (error) {
-          res.status(401).json({ message: error.message });
+          res.status(200).json({ message: error.message });
         }
       }
     

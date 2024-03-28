@@ -29,7 +29,7 @@ export const handleUserLogin = async (email) => {
         });
         return response.data
     } catch (error) {
-        console.error('Error:', error); 
+        return error;
     }
 };
 //Use case : Logout 
