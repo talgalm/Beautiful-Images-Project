@@ -1,5 +1,5 @@
 const RatingRepository = require("../repositories/RatingRepository");
-const { FinalRating, TmpRating } = require("../Models");
+const { FinalRating, TmpRating } = require("../models");
 
 describe("RatingRepository", () => {
   describe("addInitialRatings", () => {

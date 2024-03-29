@@ -16,7 +16,8 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
     "sequelize": "^6.37.1",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.2",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "jest": "^29.7.0"

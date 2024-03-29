@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const apiRouter = require('./Routes/api');
-
+const logger = require('./logger');
 const { client, connectToPostgreSQL } = require('./config/pgConfig');
 const { sequelize, connectToSequelize } = require('./config/sequelizeConfig');
 const ImageRepository = require('./repositories/ImageRepository');
@@ -20,7 +20,7 @@ class Server {
         
         connectToPostgreSQL();
         connectToSequelize();
-
+        logger.info('*************************************Server started*************************************');
         await ImageRepository.generateSmalllImages(); // Generate small images if they don't exist
         await ImageRepository.initializeImagesDB(); // Initialize the images database if it doesn't exist
 
