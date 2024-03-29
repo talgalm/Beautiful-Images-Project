@@ -8,7 +8,7 @@ let baseURL = process.env.NODE_ENV === 'production'
     ? 'https://coil.cs.bgu.ac.il/' 
     : 'http://localhost:3001/';
     
-baseURL = 'http://localhost:3001/';
+baseURL = 'https://coil.cs.bgu.ac.il/';
 
 export const handleRateImage = async (imageId, fromBasket , toBasket) => {
     try {
