@@ -1,5 +1,5 @@
 const ImageRepository = require('../repositories/ImageRepository');
-const { Image, FinalRating, TmpRating } = require('../Models');
+const { Image, FinalRating, TmpRating } = require('../models');
 
 describe('ImageRepository', () => {
   describe('generateSmalllImages', () => {

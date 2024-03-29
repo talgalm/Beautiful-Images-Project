@@ -1,0 +1,36 @@
+info: ********************************Server started*********************************** {"timestamp":"2024-03-29 14:18:54"}
+info: login request by shayk1934@gmail.com {"timestamp":"2024-03-29 14:19:32"}
+info: fetchImages request by shayk1934@gmail.com {"timestamp":"2024-03-29 14:19:33"}
+info: fetchImages request by shayk1934@gmail.com {"timestamp":"2024-03-29 14:19:33"}
+info: changeRating request by shayk1934@gmail.com imageId: CCIkeWVn3w fromBasket: 0 toBasket: 6 {"timestamp":"2024-03-29 14:19:43"}
+info: changeRating request by shayk1934@gmail.com imageId: U22pXkqiqa fromBasket: 0 toBasket: 6 {"timestamp":"2024-03-29 14:19:46"}
+info: changeRating request by shayk1934@gmail.com imageId: g7Cx7cfpyM fromBasket: 0 toBasket: 6 {"timestamp":"2024-03-29 14:19:48"}
+info: changeRating request by shayk1934@gmail.com imageId: h4NeA3Toch fromBasket: 0 toBasket: 6 {"timestamp":"2024-03-29 14:19:49"}
+info: changeRating request by shayk1934@gmail.com imageId: dR0punzwEm fromBasket: 0 toBasket: 7 {"timestamp":"2024-03-29 14:19:51"}
+info: changeRating request by shayk1934@gmail.com imageId: AopjIAGByK fromBasket: 0 toBasket: 7 {"timestamp":"2024-03-29 14:19:52"}
+info: changeRating request by shayk1934@gmail.com imageId: AtJ1QadlKp fromBasket: 0 toBasket: 7 {"timestamp":"2024-03-29 14:19:53"}
+info: changeRating request by shayk1934@gmail.com imageId: fHCMtANgRZ fromBasket: 0 toBasket: 7 {"timestamp":"2024-03-29 14:19:54"}
+info: changeRating request by shayk1934@gmail.com imageId: kOKn7YpYX0 fromBasket: 0 toBasket: 7 {"timestamp":"2024-03-29 14:19:56"}
+2024-03-29 14:21:41 info: ********************************Server started***********************************
+2024-03-29 14:22:24 info: login request by shayk1934@gmail.com
+2024-03-29 14:22:25 info: fetchImages request by shayk1934@gmail.com
+2024-03-29 14:22:25 info: fetchImages request by shayk1934@gmail.com
+2024-03-29 14:22:32 info: changeRating request by shayk1934@gmail.com imageId: b8sQnuLrf7 fromBasket: 0 toBasket: 4
+info: *************************************Server started************************************* {"timestamp":"2024-03-29 14:37:12"}
+info: ImageRepo - generateSmalllImages func is running {"timestamp":"2024-03-29 14:37:12"}
+info: ImageRepo - initializeImagesDB func is running - initializing images {"timestamp":"2024-03-29 14:37:12"}
+info: AuthController - login request by shayk1934@gmail.com {"timestamp":"2024-03-29 14:37:37"}
+info: fetchImages request by shayk1934@gmail.com {"timestamp":"2024-03-29 14:37:38"}
+info: ImageRepo - fetchImages func is running - fetching session images {"timestamp":"2024-03-29 14:37:38"}
+info: fetchImages request by shayk1934@gmail.com {"timestamp":"2024-03-29 14:37:38"}
+info: ImageRepo - fetchImages func is running - fetching session images {"timestamp":"2024-03-29 14:37:39"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: rH92fTATwU fromBasket: 0 toBasket: 9 {"timestamp":"2024-03-29 14:39:30"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: CPkignuOOH fromBasket: 0 toBasket: 10 {"timestamp":"2024-03-29 14:39:32"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: Q4PQmJvmML fromBasket: 0 toBasket: 9 {"timestamp":"2024-03-29 14:39:33"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: nxGo05bPIK fromBasket: 0 toBasket: 6 {"timestamp":"2024-03-29 14:39:35"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: uA6LlZWwRE fromBasket: 0 toBasket: 5 {"timestamp":"2024-03-29 14:39:47"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: tUPbZhpFaj fromBasket: 0 toBasket: 5 {"timestamp":"2024-03-29 14:39:49"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: tUPbZhpFaj fromBasket: 5 toBasket: 0 {"timestamp":"2024-03-29 14:39:51"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: uA6LlZWwRE fromBasket: 5 toBasket: 0 {"timestamp":"2024-03-29 14:39:54"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: tUPbZhpFaj fromBasket: 0 toBasket: 8 {"timestamp":"2024-03-29 14:39:56"}
+info: RatingController - changeRating request by shayk1934@gmail.com imageId: YzYG94FM2k fromBasket: 0 toBasket: 9 {"timestamp":"2024-03-29 14:39:58"}

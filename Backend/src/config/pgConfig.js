@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-
+const logger = require('../logger');
 // Create a new PostgreSQL client instance
 const client = new Client({
     user: 'postgres',
@@ -13,8 +13,8 @@ const client = new Client({
 async function connectToPostgreSQL() {
     try {
         await client.connect();
-        console.log('Connected to PostgreSQL database');
     } catch (error) {
+        logger.error('Error connecting to PostgreSQL database:', error);
         console.error('Error connecting to PostgreSQL database:', error);
     }
 }

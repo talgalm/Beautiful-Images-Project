@@ -8,7 +8,7 @@ let baseURL = process.env.NODE_ENV === 'production'
     ? 'https://coil.cs.bgu.ac.il/' 
     : 'http://localhost:3001/';
     
-baseURL = 'https://coil.cs.bgu.ac.il/';
+baseURL = 'http://localhost:3001/';
 
 // Use Case 1: Participant Registration
 export const handleUserRegistration = async (email , nickname , age , country , gender) => {

@@ -1,6 +1,6 @@
 const { connectToPostgreSQL } = require('../config/pgConfig');
 const { connectToSequelize } = require('../config/sequelizeConfig');
-const { User } = require("../Models");
+const { User } = require("../models");
 const UserRepository = require("../repositories/UserRepository");
 
 describe("UserRepository", () => {

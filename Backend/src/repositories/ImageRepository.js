@@ -1,6 +1,6 @@
 const { Image, FinalRating, TmpRating } = require("../models");
 const RatingRepository = require("./RatingRepository");
-
+const logger = require('../logger');
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
@@ -9,6 +9,7 @@ const sharp = require('sharp');
 class ImageRepository {
 
     static async generateSmalllImages() {
+      logger.info(`ImageRepo - generateSmalllImages func is running`);
       const categories = fs.readdirSync(path.join(__dirname, '../../images/original'));
       for (const category of categories) {
         const images = fs.readdirSync(path.join(__dirname, `../../images/original/${category}`));
@@ -25,6 +26,7 @@ class ImageRepository {
     }
 
     static async generateSmallImage(imageName, category){
+      logger.info(`ImageRepo - generateSmallImage func is running for imageName: ${imageName} category: ${category}`);
       const imagePath = path.join(__dirname, `../../images/original/${category}`, imageName);
       const image = await fs.promises.readFile(imagePath);
       const resizedImage = await sharp(image).metadata()
@@ -38,6 +40,7 @@ class ImageRepository {
 
     static async initializeImagesDB() {
       console.log("initializing images");
+      logger.info(`ImageRepo - initializeImagesDB func is running - initializing images`);
       const categories = fs.readdirSync(path.join(__dirname, '../../images/small'));
       for (const category of categories) {
         const images = fs.readdirSync(path.join(__dirname, `../../images/small/${category}`));
@@ -74,16 +77,19 @@ class ImageRepository {
             console.log(userTmpRatings);
             if (userTmpRatings.length === 0) {
               console.log("fetching new images");
+              logger.info(`ImageRepo - fetchImages func is running - fetching new images`);
               const images = await ImageRepository.fetchNewImages(email);
               return images;
 
             }
             else {
               console.log("fetching session images");
+              logger.info(`ImageRepo - fetchImages func is running - fetching session images`);
               const images = await ImageRepository.fetchSessionImages(email);
               return images;
             }
         } catch (error) {
+            logger.error(`ImageRepo - fetchImages error ${error}`);
             throw new Error('Error fetching images');
         }
     }
@@ -148,6 +154,7 @@ class ImageRepository {
 
             return result;
         } catch (error) {
+            logger.error(`ImageRepo - fetchNewImages error ${error}`);
             throw new Error(`Error fetching images ${error}`);
         }
     }
@@ -159,6 +166,7 @@ class ImageRepository {
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
             return {imageId: image.id, imageData: imageData};
         } catch (error) {
+            logger.error(`ImageRepo - fetchImage error ${error} for imageId ${imageId}`);
             throw new Error('Error fetching image');
         }
     }
@@ -173,16 +181,15 @@ class ImageRepository {
 
             const result = [];
             for (const image of userRatedImages) {
-              //console.log(image);
               const imagePath = path.join(__dirname, `../../images/small/${image.category}`, image.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
               const rating = userRatedImagesRatings.find((ratedImage) => ratedImage.imageId === image.id).rating;
               result.push({imageId: image.id, imageData: imageData, rating: rating});
             }
-            //console.log(result.slice(0, 5));
 
             return result;
         } catch (error) {
+          logger.error(`ImageRepo - fetchSessionImages error ${error}`);
           throw new Error('Error fetching images');
         }
     }
