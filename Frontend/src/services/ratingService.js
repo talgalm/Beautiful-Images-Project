@@ -1,14 +1,9 @@
 import axios from 'axios';
 
-//todo fix
-//DO NOT PUSH THIS FILE TO MAIN
-//DOING SO WILL BREAK THE CONNECTION
-//require('dotenv').config();
-let baseURL = process.env.NODE_ENV === 'production' 
+let baseURL = process.env.REACT_APP_ENV === 'production' 
     ? 'https://coil.cs.bgu.ac.il/' 
     : 'http://localhost:3001/';
     
-baseURL = 'https://coil.cs.bgu.ac.il/';
 
 export const handleRateImage = async (imageId, fromBasket , toBasket) => {
     try {
