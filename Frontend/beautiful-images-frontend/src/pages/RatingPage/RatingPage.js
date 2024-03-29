@@ -26,15 +26,21 @@ const RatingPage = () => {
 
 
   useEffect(() => {
-    handleFetchImages()
-        .then(data => {
+    const fetchData = async () => {
+        try {
+            const data = await handleFetchImages();
             setImages(data.images);
             setLoading(false);
-        })
-        .catch((error) => {
+        } catch (error) {
             console.error('Error:', error);
-        });
+        }
+    };
+
+    fetchData();
+    fetchData();
+
 }, []);
+
 
 
   useEffect(() => {
@@ -51,6 +57,7 @@ const RatingPage = () => {
 
   function handleOnDrag(event , dataImg)
   {
+    event.dataTransfer.effectAllowed = 'move'
     event.dataTransfer.setData("application/json", JSON.stringify({from:0,data:dataImg}));
 
   }
@@ -122,7 +129,7 @@ const RatingPage = () => {
       <Header/>
     <div className="rating-page-div">
       <div className='image-display-div'>
-        {!loading && <div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
+        {<div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
                 {images.filter(item => item.rating === 0).map((img, index)=> (
             <div key={img.imageId} onDragStart={(e) => handleOnDrag(e, img)} onClick={(e) => openModal(img)}>
                 <Card className='cardContainer'>
