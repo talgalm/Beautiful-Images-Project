@@ -1,4 +1,4 @@
-const { Image, FinalRating, TmpRating } = require("../Models");
+const { Image, FinalRating, TmpRating } = require("../models");
 const RatingRepository = require("./RatingRepository");
 
 const fs = require('fs');

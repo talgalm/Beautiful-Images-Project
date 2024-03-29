@@ -1,4 +1,4 @@
-const { User } = require("../Models");
+const { User } = require("../models");
 
 
 class UserRepository {

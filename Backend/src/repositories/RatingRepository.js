@@ -1,4 +1,4 @@
-const { FinalRating, TmpRating } = require("../Models");
+const { FinalRating, TmpRating } = require("../models");
 const { Op } = require("sequelize");
 
 class RatingRepository {

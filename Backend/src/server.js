@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-//const Routes = require('./routes');
 const apiRouter = require('./Routes/api');
 
 const { client, connectToPostgreSQL } = require('./config/pgConfig');
@@ -13,13 +12,11 @@ class Server {
     constructor(port) {
         this.app = express();
         this.port = port;
-        //this.routes = new Routes();
     }
 
     async start() {
         this.app.use(cors());
         this.app.use(express.json());
-        //this.app.use('/', this.routes.router);
         
         connectToPostgreSQL();
         connectToSequelize();
@@ -34,8 +31,6 @@ class Server {
         //RatingRepository.saveOldRatings();
         //await UserRepository.registerUser({email: 'gil@gmail.com'});
         //RatingRepository.changeRating('gil@gmail.com', '2bLAu4liFh', 0, 2);
-
-
         //await RatingRepository.saveRatings('gil@gmail.com');
 
          // Mount the API router

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const imageController = require('../Controllers/imageController');
+const imageController = require('../controllers/imageController');
 
 // Define routes for authentication
 
