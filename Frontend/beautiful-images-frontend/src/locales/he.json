@@ -46,5 +46,7 @@
     "logout" : "האם את/ה בטוח שברצונך להתנתק ",
     "logoutButton" : "התנתק",
     "signUpMobile" : "הרשמה למשתמשים חדשים",
-    "signInMobile" : "כניסה למשתמשים קיימים"
+    "signInMobile" : "כניסה למשתמשים קיימים",
+    "selectCountry" : "בחר/י מדינה",
+    "Email does not exist" : "המייל אינו קיים במערכת"
 }

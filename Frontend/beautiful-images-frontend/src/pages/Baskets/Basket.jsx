@@ -6,7 +6,6 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
     const [imageInBasket, setImageInBasket] = useState([]);
 
     useEffect(()=>{
-        console.log("index is:",index,"-",sessionImages)
         setImageInBasket(sessionImages)
     },[])
 
@@ -25,6 +24,7 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
     }
 
     function handleOnDrag(event , dataImg) {
+        event.dataTransfer.effectAllowed = 'move'
         event.dataTransfer.setData("application/json", JSON.stringify({from:index, data:dataImg}));
     }
     
