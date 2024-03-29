@@ -1,9 +1,14 @@
 import axios from 'axios';
 
-const baseURL = process.env.NODE_ENV === 'production' 
-    ? '' 
-    : 'http://localhost:3001/'
+//todo fix
+//DO NOT PUSH THIS FILE TO MAIN
+//DOING SO WILL BREAK THE CONNECTION
+//require('dotenv').config();
+let baseURL = process.env.NODE_ENV === 'production' 
+    ? 'https://coil.cs.bgu.ac.il/' 
+    : 'http://localhost:3001/';
     
+baseURL = 'https://coil.cs.bgu.ac.il/';
 
 // Use Case 1: Participant Registration
 export const handleUserRegistration = async (email , nickname , age , country , gender) => {
