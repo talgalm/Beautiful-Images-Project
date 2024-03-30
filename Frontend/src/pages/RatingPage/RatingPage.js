@@ -131,7 +131,10 @@ const RatingPage = () => {
       <div className='image-display-div'>
         {<div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
                 {images.filter(item => item.rating === 0).map((img, index)=> (
-            <div key={img.imageId} onDragStart={(e) => handleOnDrag(e, img)} onClick={(e) => openModal(img)}>
+            <div key={img.imageId}
+             onDragStart={(e) => handleOnDrag(e, img)}
+              onClick={(e) => openModal(img)}
+              >
                 <Card className='cardContainer'>
                     <Card.Img 
                         className='imageCard'

@@ -54,3 +54,13 @@
 	}
 
 }
+
+@media screen and (max-width: 400px) {
+	.guidelines-div{
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		
+	}
+
+}
