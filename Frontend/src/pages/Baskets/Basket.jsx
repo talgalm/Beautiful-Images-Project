@@ -4,33 +4,50 @@ import { handleRateImage } from '../../services/ratingService';
 
 export default function Basket({ index , onDropImage , sessionImages  }) {
     const [imageInBasket, setImageInBasket] = useState([]);
+    const [validate , setValidate] = useState(false)
 
     useEffect(()=>{
         setImageInBasket(sessionImages)
     },[])
 
     function handleOnDrop(event) {
+        console.log("handleOnDrop")
         event.preventDefault();
         const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
-        setImageInBasket(prevState => [...prevState, droppedItemData.data]);
-        if (droppedItemData.from === 0){
-            onDropImage(droppedItemData);
+        if (droppedItemData.from !== index){
+            setImageInBasket(prevState => [...prevState, droppedItemData.data]);
+            if (droppedItemData.from === 0){
+                onDropImage(droppedItemData);
+            }
+            handleRateImage(droppedItemData.data.imageId, droppedItemData.from ,  index);
         }
-        handleRateImage(droppedItemData.data.imageId, droppedItemData.from ,  index);
+        else{
+            setValidate(true)
+        }
+
     }
 
     function handleOnDragOver(event) {
+        console.log("handleOnDragOver")
         event.preventDefault();
     }
 
     function handleOnDrag(event , dataImg) {
+        console.log("handleOnDrag")
+        setValidate(false)
         event.dataTransfer.effectAllowed = 'move'
         event.dataTransfer.setData("application/json", JSON.stringify({from:index, data:dataImg}));
     }
     
     function removeImageFromBasket(data) {
-        const updatedImages = imageInBasket.filter(img => img.imageId !== data.imageId);
-        setImageInBasket(updatedImages);
+        console.log("removeImageFromBasket")
+        console.log("v-",validate)
+        if (!validate){
+            const updatedImages = imageInBasket.filter(img => img.imageId !== data.imageId);
+            setImageInBasket(updatedImages);
+        }
+        console.log("----------------------------------")
+
     }
 
     return (

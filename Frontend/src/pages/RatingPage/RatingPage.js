@@ -120,7 +120,7 @@ const RatingPage = () => {
   },[images])
   
   if (loading) {
-    return <div className='loader-div'><span class="loader"></span></div>;
+    return <div className='loader-div'><span className="loader"></span></div>;
 }
   
 
