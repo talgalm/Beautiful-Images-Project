@@ -3,14 +3,18 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('TmpRatings', {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+      },
       imageId: {
         type: Sequelize.STRING,
-        primaryKey: true,
         allowNull: false
       },
       email: {
         type: Sequelize.STRING,
-        primaryKey: true,
         allowNull: false
       },
       rating: {
