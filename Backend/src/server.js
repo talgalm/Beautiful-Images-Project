@@ -26,10 +26,11 @@ class Server {
 
         setInterval(RatingRepository.saveOldRatings, 60 * 60 * 1000);
 
+        //await UserRepository.registerUser({email: 'gil@gmail.com', age: "24", gender: "male", country: "aaa", nickname: "gil"});
         //await ImageRepository.fetchImages('gil@gmail.com');
 
         //RatingRepository.saveOldRatings();
-        //await UserRepository.registerUser({email: 'gil@gmail.com'});
+    
         //RatingRepository.changeRating('gil@gmail.com', '2bLAu4liFh', 0, 2);
         //await RatingRepository.saveRatings('gil@gmail.com');
 

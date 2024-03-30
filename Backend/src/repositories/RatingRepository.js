@@ -3,16 +3,20 @@ const { Op } = require("sequelize");
 
 class RatingRepository {
     static async addInitialRatings(email, images) {
-        const ratings = images.map((image) => {
-            return {
+        console.log('images: ', images.length);
+        let ids = images.map((image) => image.id);
+        ids.sort();
+        console.log('ids: ', ids);
+        await Promise.all(images.map(async (image) => {
+            console.log('adding initial rating for image: ', image.id, ' email: ', email);
+            await TmpRating.create({
                 imageId: image.id,
                 email,
                 rating: 0,
                 submittedFrom: 'initial',
                 updatedAt: new Date().toISOString().substring(0, 19).replace('T', ' ')
-            };
-        });
-        await TmpRating.bulkCreate(ratings);
+            });
+        }));
     }
 
     static async changeRating(email, imageId, fromBasket, toBasket) {

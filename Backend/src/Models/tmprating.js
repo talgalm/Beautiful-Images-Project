@@ -18,7 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       primaryKey: true
     },
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      primaryKey: true
+    },
     rating: DataTypes.INTEGER,
     submittedFrom: DataTypes.STRING,
     updatedAt: DataTypes.DATE
