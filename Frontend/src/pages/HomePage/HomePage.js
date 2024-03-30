@@ -63,6 +63,7 @@ export default function HomePage (){
   }
 
   function handleRegistration(event){
+    event.preventDefault();
     const isAge = (!isNaN(parseInt(age)) && parseInt(age) >= 18 && parseInt(age) <= 99);
     const isEmail = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
     const matchingEmail = emailConfirm === email;

@@ -3,16 +3,15 @@ const { User } = require("../models");
 
 class UserRepository {
   
-    static async registerUser(email, age, gender) {
+    static async registerUser(email, age, gender , country , nickname) {
       console.log("registering user: " + email);
       // Check if a user with the provided email already exists
       const existingUser = await User.findOne({ where: { email: email } });
       if (existingUser) {
         throw new Error('User with this email already exists');
       }
-  
       // Create a new user record in the database
-      return User.create({ email, nickname: 'nickname', age, country : 'country', gender });
+      return User.create({ email, nickname, age, country, gender });
     }
   
     static async authenticateUser(email) {
