@@ -5,6 +5,11 @@
   }
 }
 
+.err-div {
+	background-color: rgba(255, 0, 0, 0.22);
+	border: solid red 0.5px;
+}
+
 .homepage-heading {
 
 	color: black;
