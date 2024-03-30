@@ -23,15 +23,17 @@ describe("UserRepository", () => {
 
     it('should create a new user if the email does not exist', async () => {
 
-      const dummyUser = { id: 1, email: 'test@example.com', age: 25, gender: 'male' };
+      const dummyUser = { id: 1, email: 'test@example.com', age: 25, gender: 'male', country:'Israel', nickname:'john' };
 
       // Call the method being tested
-      const result = await UserRepository.registerUser('test@example.com', 25, 'male');
+      const result = await UserRepository.registerUser('test@example.com', 25, 'male','Israel','john');
 
       // Check if the method returns the expected result
       expect(result.email).toEqual(dummyUser.email);
       expect(result.age).toEqual(dummyUser.age);
       expect(result.gender).toEqual(dummyUser.gender);
+      expect(result.country).toEqual(dummyUser.country);
+      expect(result.nickname).toEqual(dummyUser.nickname);
     });
 
     it('should throw an error if the email already exists', async () => {
