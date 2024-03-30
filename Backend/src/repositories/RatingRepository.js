@@ -21,7 +21,7 @@ class RatingRepository {
         if (!rating) {
             throw new Error('Rating not found');
         }
-        TmpRating.update({ rating: toBasket }, 
+        await TmpRating.update({ rating: toBasket }, 
             { where: { email, imageId, rating: fromBasket} });
     }
 

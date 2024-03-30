@@ -74,7 +74,7 @@ class ImageRepository {
     static async fetchImages(email) {
         try {
             const userTmpRatings = await TmpRating.findAll({ where: { email } });
-            console.log(userTmpRatings);
+            //console.log(userTmpRatings);
             if (userTmpRatings.length === 0) {
               console.log("fetching new images");
               logger.info(`ImageRepo - fetchImages func is running - fetching new images`);

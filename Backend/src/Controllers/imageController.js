@@ -12,7 +12,7 @@ class ImageController {
         logger.info(`ImageController - fetchImages request by ${email}`);
         try{
             const images = await ImageRepository.fetchImages(email);
-            console.log(images);
+            //console.log(images);
             res.status(200).json({images: images});
         } catch (error) {
             res.status(400).json({ message: error.message });

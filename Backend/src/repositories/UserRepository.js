@@ -3,8 +3,8 @@ const { User } = require("../models");
 
 class UserRepository {
   
-    static async registerUser(email, age, gender , country , nickname) {
-      console.log("registering user: " + email);
+    static async registerUser(email, age, gender, country, nickname) {
+      //console.log("registering user: " + email);
       // Check if a user with the provided email already exists
       const existingUser = await User.findOne({ where: { email: email } });
       if (existingUser) {
@@ -15,22 +15,22 @@ class UserRepository {
     }
   
     static async authenticateUser(email) {
-      console.log("authentication user: " + email);
+      //console.log("authentication user: " + email);
     
       // Verify user credentials
       const user = await User.findOne({ where: { email: email } });
       if (!user) {
-        console.log(`${email} does not exist. You cannot log in!`);
+        //console.log(`${email} does not exist. You cannot log in!`);
         throw new Error('Email does not exist');
       } else {
-        console.log(`${email} exists. You can log in!`);
+        //console.log(`${email} exists. You can log in!`);
       }
       return user;
     }
     
 
     static async getUser(email) {
-      console.log("get user: " + email);
+      //console.log("get user: " + email);
       // Verify user credentials
       const user = await User.find({ where: { email: email } });
       if (!user) {

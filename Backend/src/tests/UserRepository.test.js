@@ -1,39 +1,73 @@
-const { connectToPostgreSQL } = require('../config/pgConfig');
+const UserRepository = require('../repositories/UserRepository');
+const { connectToPostgreSQL,disconnectFromPostgreSQL } = require('../config/pgConfig');
 const { connectToSequelize } = require('../config/sequelizeConfig');
-const { User } = require("../models");
-const UserRepository = require("../repositories/UserRepository");
+const { User } = require('../models');
 
 describe("UserRepository", () => {
-  beforeAll(async () => {
-    await connectToPostgreSQL();
-    console.log("connected to postgreSQL");
-    await connectToSequelize();
-    console.log("connected to sequelize");
-  });
-
-  describe("registerUser", () => {
-    it("should register a new user", async () => {
-      const user1 = {
-        email: "user1@gmail.com",
-        nickname: "user1",
-        age: 25,
-        country: "USA",
-        gender: "male"
-      };
-
-      await expect(UserRepository.getUser(user1.email)).rejects.toThrow();
-
-      const registeredUser = await UserRepository.registerUser(user1);
-
-      await expect(registeredUser).toBeInstanceOf(User);
-      await expect(registeredUser.email).toBe(user1.email);
+    beforeAll(async () => {
+        await connectToPostgreSQL();
+        await connectToSequelize();
     });
 
+    afterAll(async () => {
+        await disconnectFromPostgreSQL(); // Disconnect from the PostgreSQL database after running all tests
+    });
+
+    afterEach(async () => {
+        // Clean up test data after each test
+        await User.destroy({ where: {} })
+        
+    });
+
+  describe('registerUser', () => {
+
+    it('should create a new user if the email does not exist', async () => {
+
+      const dummyUser = { id: 1, email: 'test@example.com', age: 25, gender: 'male', country:'Israel', nickname:'john' };
+
+      // Call the method being tested
+      const result = await UserRepository.registerUser('test@example.com', 25, 'male','Israel','john');
+
+      // Check if the method returns the expected result
+      expect(result.email).toEqual(dummyUser.email);
+      expect(result.age).toEqual(dummyUser.age);
+      expect(result.gender).toEqual(dummyUser.gender);
+      expect(result.country).toEqual(dummyUser.country);
+      expect(result.nickname).toEqual(dummyUser.nickname);
+    });
+
+    it('should throw an error if the email already exists', async () => {
+     
+      const existingUser = { email:'test@example.com' , nickname: 'nickname', age:25, country : 'country', gender:'male'};
+     
+      await User.create(existingUser);
+
+      // Call the method being tested and expect it to throw an error
+      await expect(UserRepository.registerUser('test@example.com', 25, 'male')).rejects.toThrowError('User with this email already exists');
+    });
   });
 
-  describe("authenticateUser", () => {
-    it("should authenticate a user with valid email", async () => {
-
+  describe('authenticateUser', () => {
+  
+    it('should throw an error if the user does not exist', async () => {
+  
+      // Call the method being tested and expect it to throw an error
+      await expect(UserRepository.authenticateUser('shay@example.com')).rejects.toThrowError('Email does not exist');
+    });
+  
+    it('should return the user if it exists', async () => {
+    
+      const existingUser = { id: 1, email: 'test@example.com', age: 25, gender: 'male' };
+     
+      await User.create(existingUser);
+  
+      // Call the method being tested
+      const result = await UserRepository.authenticateUser('test@example.com');
+  
+      // Check if the method returns the expected user
+      expect(result.email).toEqual(existingUser.email);
+      expect(result.age).toEqual(existingUser.age);
+      expect(result.gender).toEqual(existingUser.gender);
     });
   });
 
