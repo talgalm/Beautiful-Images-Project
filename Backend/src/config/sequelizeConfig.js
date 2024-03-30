@@ -1,10 +1,22 @@
 const { Sequelize } = require('sequelize');
 const logger = require('../logger');
 // Create a new Sequelize instance
-const sequelize = new Sequelize('beautiful-images-db', 'postgres', '123', {
-    host: 'localhost',
-    dialect: 'postgres', 
-});
+
+let sequelize;
+
+if (process.env.NODE_ENV === 'test') {
+    // Use test database configuration
+    sequelize = new Sequelize('database_test', 'postgres', '123', {
+        host: 'localhost',
+        dialect: 'postgres', 
+    });
+} else {
+    // Use development or production database configuration
+    sequelize = new Sequelize('beautiful-images-db', 'postgres', '123', {
+        host: 'localhost',
+        dialect: 'postgres', 
+    });
+}
 
 // Test the connection
 async function connectToSequelize() {
