@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Send request to Nginx
       run: |
+        pwsh -Command @'
         $request = "https://coil.cs.bgu.ac.il/activate_script"
-        $encodedCommand = [System.Web.HttpUtility]::UrlEncode("powershell -Command `"Start-Process cmd.exe -Verb RunAs -ArgumentList '/c C:\Users\user\Desktop\run.bat'`"")
+        $encodedCommand = [System.Web.HttpUtility]::UrlEncode("powershell -Command `"Start-Process cmd.exe -Verb RunAs -ArgumentList '/c C:\path\to\your\script.bat'`"")
         curl.exe -X POST -d "cmd=$encodedCommand" $request
+        '@
