@@ -19,7 +19,9 @@ export default function HomePage (){
   const [gender , setGender] = useState('')
   const [country , setCountry] = useState('')
   const [error , setError] = useState(undefined)
-  
+  const [errorAge , setErrorAge] = useState(undefined)
+  const [errorEmail , setErrorEmail] = useState(undefined)
+
   const navigate = useNavigate();
   const mobileScreen = window.innerWidth <= 400;
   const isRtl = ['he'].includes(i18n.language);
@@ -37,9 +39,11 @@ export default function HomePage (){
 
   function handleUsernameChange(event){
     setError("")
+    setErrorEmail("")
     setEmail(event.target.value);
   }
   function handleUsernameConfirmChange(event){
+    setErrorEmail("")
     setEmailConfirm(event.target.value);
   }
 
@@ -48,6 +52,7 @@ export default function HomePage (){
   }
 
   function handleAgeChange(event){
+    setErrorAge("")
     setAge(event.target.value);
   }
   function handleGenderChange(event){
@@ -58,7 +63,20 @@ export default function HomePage (){
   }
 
   function handleRegistration(event){
-    if (emailConfirm === email){
+    event.preventDefault();
+    const isAge = (!isNaN(parseInt(age)) && parseInt(age) >= 18 && parseInt(age) <= 99);
+    const isEmail = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+    const matchingEmail = emailConfirm === email;
+    if (!isAge){
+      setErrorAge("Invalid Age")
+    }
+    if (!isEmail){
+      setErrorEmail("Invalid email")
+    }
+    if (!matchingEmail){
+      setErrorEmail("Email dont match")
+    }
+    else if (isAge && isEmail && matchingEmail){
       handleUserRegistration(email , nickname , age , country , gender)
       .then(data => {
         if (data.message === 'User registered successfully'){
@@ -113,9 +131,9 @@ export default function HomePage (){
     <div className="form-container sign-up-container">
       <form action="#"  className='form-2'>
         <h1>{t('createAccount')}</h1>
-        <input required type="input" placeholder={t('enterUsername')} value={email} onChange={handleUsernameChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
-        <input required type="input" placeholder={t('enterUsernameConfirm')} value={emailConfirm} onChange={handleUsernameConfirmChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
-        <input type="input" placeholder={t('enterNickname')} value={nickname} onChange={handleNickname}  dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input required type="input" placeholder={t('enterUsername')} value={email} onChange={handleUsernameChange}  dir={isRtl ? 'rtl' : 'ltr'} className={errorEmail ? 'err-div' : ''} />
+        <input required type="input" placeholder={t('enterUsernameConfirm')} value={emailConfirm} onChange={handleUsernameConfirmChange}  dir={isRtl ? 'rtl' : 'ltr'} className={errorEmail ? 'err-div' : ''} />
+        <input type="input" placeholder={t('enterNickname')} value={nickname} onChange={handleNickname}  dir={isRtl ? 'rtl' : 'ltr'}  />
         <select value={gender} onChange={handleGenderChange} dir={isRtl ? 'rtl' : 'ltr'}>
           <option value="" disabled>{t('enterGender')}</option> 
           <option value="male">{t('Male')}</option>
@@ -135,7 +153,7 @@ export default function HomePage (){
               )))}
                 
             </select>
-        <input placeholder={t('age')} value={age}  onChange={handleAgeChange}  dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input placeholder={t('age')} value={age}  onChange={handleAgeChange} className={errorAge ? 'err-div' : ''} dir={isRtl ? 'rtl' : 'ltr'}/>
         <button className="button-53" onClick={handleRegistration} >{t('signUp')}</button>
       </form>
     </div>

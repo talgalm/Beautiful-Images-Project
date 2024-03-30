@@ -24,7 +24,7 @@
     "loginHere": "Login here",
     "createAccount": "Create new username",
     "checkToAgree" : "It is not possible to continue without consent to participate in the project",
-    "enterNickname" : "Enter nickname",
+    "enterNickname" : "Enter nickname (Optional)",
     "enterGender" : "Enter gender",
     "enterCountry" : "Enter country",
     "doneEvaluate" : "Done Evaluate",
