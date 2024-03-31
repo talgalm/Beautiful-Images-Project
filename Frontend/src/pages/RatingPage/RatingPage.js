@@ -37,7 +37,6 @@ const RatingPage = () => {
     };
 
     fetchData();
-    fetchData();
 
 }, []);
 
@@ -130,7 +129,7 @@ const RatingPage = () => {
     <div className="rating-page-div">
       <div className='image-display-div'>
         {<div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
-                {images.filter(item => item.rating === 0).map((img, index)=> (
+            {images.map((img, index)=> (
             <div key={img.imageId}
              onDragStart={(e) => handleOnDrag(e, img)}
               onClick={(e) => openModal(img)}
