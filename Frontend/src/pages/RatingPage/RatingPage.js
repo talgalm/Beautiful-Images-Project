@@ -130,7 +130,7 @@ const RatingPage = () => {
       <div className='image-display-div'>
         {<div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
             {images.map((img, index)=> (
-            <div key={img.imageId}
+            <div key={img.imageId} className='draggable'
              onDragStart={(e) => handleOnDrag(e, img)}
               onClick={(e) => openModal(img)}
               >

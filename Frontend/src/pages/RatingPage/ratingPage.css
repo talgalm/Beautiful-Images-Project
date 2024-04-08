@@ -95,6 +95,13 @@
         margin-top: 0px;
         margin-left: 0px !important;
         margin-right: 0px;
+        -ms-touch-action: none;
+        touch-action: none;
+
+        .draggable{
+            -ms-touch-action: none;
+            touch-action: none;
+        }
         
 
 

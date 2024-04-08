@@ -7,6 +7,7 @@ import LanguageSwitcher from './components/LanguageSwitcher';
 import HomePage from './pages/HomePage/HomePage';
 import LandingPage from './pages/LandingPgae/LandingPage';
 import Header from './components/Header/Header';
+import 'drag-drop-touch'; 
 
 function App() {
   const { t } = useTranslation();
