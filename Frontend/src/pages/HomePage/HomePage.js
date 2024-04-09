@@ -19,8 +19,7 @@ export default function HomePage (){
   const [gender , setGender] = useState('')
   const [country , setCountry] = useState('')
   const [error , setError] = useState(undefined)
-  const [errorAge , setErrorAge] = useState(undefined)
-  const [errorEmail , setErrorEmail] = useState(undefined)
+  const [errorInRegistration , setInRegistraion] = useState(undefined)
 
   const navigate = useNavigate();
   const mobileScreen = window.innerWidth <= 400;
@@ -39,11 +38,11 @@ export default function HomePage (){
 
   function handleUsernameChange(event){
     setError("")
-    setErrorEmail("")
+    setInRegistraion("")
     setEmail(event.target.value);
   }
   function handleUsernameConfirmChange(event){
-    setErrorEmail("")
+    setInRegistraion("")
     setEmailConfirm(event.target.value);
   }
 
@@ -52,7 +51,7 @@ export default function HomePage (){
   }
 
   function handleAgeChange(event){
-    setErrorAge("")
+    setInRegistraion("")
     setAge(event.target.value);
   }
   function handleGenderChange(event){
@@ -68,13 +67,13 @@ export default function HomePage (){
     const isEmail = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
     const matchingEmail = emailConfirm === email;
     if (!isAge){
-      setErrorAge("Invalid Age")
+      setInRegistraion("ageValidation")
     }
     if (!isEmail){
-      setErrorEmail("Invalid email")
+      setInRegistraion("invalidEmail")
     }
     if (!matchingEmail){
-      setErrorEmail("Email dont match")
+      setInRegistraion("emailsDontMatch")
     }
     else if (isAge && isEmail && matchingEmail){
       handleUserRegistration(email , nickname , age , country , gender)
@@ -82,15 +81,17 @@ export default function HomePage (){
         if (data.message === 'User registered successfully'){
           handleLogin(event)
         }
-        //if success -> alert user and go to start rating
-        //if fail -> alert user about the message
+        else{
+          console.log(data.message.replace(/\s/g, ''))
+          setInRegistraion(data.message.replace(/\s/g, ''))
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
       });
     }
     else{
-      alert(t('UsernamesError'))
+      
     }
 
   }
@@ -131,8 +132,8 @@ export default function HomePage (){
     <div className="form-container sign-up-container">
       <form action="#"  className='form-2'>
         <h1>{t('createAccount')}</h1>
-        <input required type="input" placeholder={t('enterUsername')} value={email} onChange={handleUsernameChange}  dir={isRtl ? 'rtl' : 'ltr'} className={errorEmail ? 'err-div' : ''} />
-        <input required type="input" placeholder={t('enterUsernameConfirm')} value={emailConfirm} onChange={handleUsernameConfirmChange}  dir={isRtl ? 'rtl' : 'ltr'} className={errorEmail ? 'err-div' : ''} />
+        <input required type="input" placeholder={t('enterUsername')} value={email} onChange={handleUsernameChange}  dir={isRtl ? 'rtl' : 'ltr'} className={errorInRegistration ? 'err-div' : ''} />
+        <input required type="input" placeholder={t('enterUsernameConfirm')} value={emailConfirm} onChange={handleUsernameConfirmChange}  dir={isRtl ? 'rtl' : 'ltr'} className={errorInRegistration ? 'err-div' : ''} />
         <input type="input" placeholder={t('enterNickname')} value={nickname} onChange={handleNickname}  dir={isRtl ? 'rtl' : 'ltr'}  />
         <select value={gender} onChange={handleGenderChange} dir={isRtl ? 'rtl' : 'ltr'}>
           <option value="" disabled>{t('enterGender')}</option> 
@@ -153,7 +154,8 @@ export default function HomePage (){
               )))}
                 
             </select>
-        <input placeholder={t('age')} value={age}  onChange={handleAgeChange} className={errorAge ? 'err-div' : ''} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input placeholder={t('age')} value={age}  onChange={handleAgeChange} className={errorInRegistration ? errorInRegistration ==='Userwiththisemailalreadyexists' ? '' :'err-div' : ''} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <span style={{color:'red' , height: '25px' , width:'100%'}}>{t(errorInRegistration)}</span>
         <button className="button-53" onClick={handleRegistration} >{t('signUp')}</button>
       </form>
     </div>
@@ -161,7 +163,7 @@ export default function HomePage (){
       <form action="#" className='form-1'>
         <h1 className='h1-sign'>{t('signIn')}</h1>
         <input required type="input" placeholder={t('enterUsername')} className= {error ? 'form-1-sign-error' : 'form-1-sign'} value={email} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
-        <span style={{color:'red'}}>{t(error)}</span>
+        <span style={{color:'red' , height: '25px' , width:'100%'}}>{t(error)}</span>
         <button className="button-53" onClick={handleLogin}>{t('continue')}</button>
       </form>
     </div>

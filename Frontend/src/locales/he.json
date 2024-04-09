@@ -48,5 +48,9 @@
     "signUpMobile" : "הרשמה למשתמשים חדשים",
     "signInMobile" : "כניסה למשתמשים קיימים",
     "selectCountry" : "בחר/י מדינה",
-    "Email does not exist" : "המייל אינו קיים במערכת"
+    "Email does not exist" : "המייל אינו קיים במערכת",
+    "invalidEmail" : "כתובת המייל אינה תקינה",
+    "emailsDontMatch" : "כתובות המייל אינן זהות",
+    "ageValidation" : "הגיל אינו תקין",
+    "Userwiththisemailalreadyexists" : "המשתמש עם האימייל הזה כבר קיים"
 }

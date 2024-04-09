@@ -27,7 +27,7 @@ class AuthController {
           }
           res.status(200).json({ message: 'User registered successfully' });
         } catch (error) {
-          res.status(400).json({ message: error.message });
+          res.status(200).json({ message: error.message });
           logger.error(`AuthController - register error message ${error.message}`);
         }
       }
