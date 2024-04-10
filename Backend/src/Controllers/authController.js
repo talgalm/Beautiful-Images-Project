@@ -21,7 +21,6 @@ class AuthController {
           const {email , nickname , age , country , gender} = req.body;
           logger.info(`AuthController - register request by ${email} nickname: ${nickname} age: ${age} country: ${country} gender: ${gender}`);
           let a = await UserRepository.registerUser(email, age, gender, country , nickname);
-          console.log(a);
           if (a === null ){
             await UserRepository.registerUser(email, age, gender, country , nickname);
           }

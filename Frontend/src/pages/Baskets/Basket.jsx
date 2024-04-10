@@ -11,7 +11,6 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
     },[])
 
     function handleOnDrop(event) {
-        console.log("handleOnDrop")
         event.preventDefault();
         const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
         if (droppedItemData.from !== index){
@@ -28,25 +27,20 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
     }
 
     function handleOnDragOver(event) {
-        console.log("handleOnDragOver")
         event.preventDefault();
     }
 
     function handleOnDrag(event , dataImg) {
-        console.log("handleOnDrag")
         setValidate(false)
         event.dataTransfer.effectAllowed = 'move'
         event.dataTransfer.setData("application/json", JSON.stringify({from:index, data:dataImg}));
     }
     
     function removeImageFromBasket(data) {
-        console.log("removeImageFromBasket")
-        console.log("v-",validate)
         if (!validate){
             const updatedImages = imageInBasket.filter(img => img.imageId !== data.imageId);
             setImageInBasket(updatedImages);
         }
-        console.log("----------------------------------")
 
     }
 

@@ -31,6 +31,7 @@ const RatingPage = () => {
             const data = await handleFetchImages();
             setImages(data.images);
             setLoading(false);
+
         } catch (error) {
             console.error('Error:', error);
         }
@@ -46,7 +47,15 @@ const RatingPage = () => {
 
 }, []);
 
+useEffect(() => {
+  if (!loading)
+  {
+    const updatedImages = images.filter(img => img.rating === 0);
+    setImages(updatedImages)
+  }
 
+
+}, [loading]);
 
 
   function handleOnDrag(event , dataImg)
@@ -59,10 +68,12 @@ const RatingPage = () => {
   function handleOnDrop(event) {
     const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
     if (!images.find(item => item.imageId === droppedItemData.data.imageId)){
+      droppedItemData.data.rating = 0;
       setImages(prevState => [...prevState, droppedItemData.data]);
       handleRateImage(droppedItemData.data.imageId, droppedItemData.from ,  0)
-    }
 
+    }
+    
 
   }
 
@@ -75,6 +86,7 @@ const RatingPage = () => {
     const updatedImages = images.filter(img => img.imageId !== dataImg.data.imageId);
     setImages(updatedImages);
   }
+
 
   function openModal(image){
     handleFetchSingleImage(image.imageId , 'original')
@@ -112,20 +124,26 @@ const RatingPage = () => {
   useEffect(()=>{
     calcHeight()
   },[images])
+
+  function addImageFromBasketInInit(){
+    setImages(prevState => [...prevState, images[0]]);
+  }
   
   if (loading) {
     return <div className='loader-div'><span className="loader"></span></div>;
-}
+  }
+
   
 
   return (
     <div className='all-rating-page-div'>
       <Header/>
+      <button onClick={addImageFromBasketInInit}>press</button>
     <div className="rating-page-div">
       <div className='image-display-div'>
         {<div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
             {images.map((img, index)=> (
-            <div key={img.imageId} className='draggable'
+            (img.rating === 0 && <div key={img.imageId} className='draggable'
              onDragStart={(e) => handleOnDrag(e, img)}
               onClick={(e) => openModal(img)}
               >
@@ -134,7 +152,7 @@ const RatingPage = () => {
                         className='imageCard'
                         src={`data:image/jpeg;base64,${img.imageData}`} />
                 </Card>
-            </div>
+            </div>)
         ))}
 
       <Modal show={showModal} onHide={closeModal} size="xl" >

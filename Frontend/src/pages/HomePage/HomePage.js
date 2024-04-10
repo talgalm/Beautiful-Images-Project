@@ -87,7 +87,6 @@ export default function HomePage (){
           handleLogin(event)
         }
         else{
-          console.log(data.message.replace(/\s/g, ''))
           setInRegistraion(data.message.replace(/\s/g, ''))
         }
       })
