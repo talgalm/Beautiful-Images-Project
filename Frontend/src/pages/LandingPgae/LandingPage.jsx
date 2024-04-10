@@ -19,13 +19,6 @@ export default function LandingPage(){
 
 
     useEffect(() => {
-        const expireTime = localStorage.getItem('expireTime');
-        const currentTime = new Date().getTime();
-
-        if (expireTime && currentTime > expireTime) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('email');
-        }
     }, []);
 
 

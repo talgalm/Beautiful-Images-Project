@@ -18,7 +18,7 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <div className='flags-div'>
+    <div className='flags-div' dir={isRtl ? 'rtl' : 'ltr'}>
       <Dropdown>
       <Dropdown.Toggle id="dropdown-basic" >
       {lang}
