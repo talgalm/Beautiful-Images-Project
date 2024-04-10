@@ -30,6 +30,7 @@ const RatingPage = () => {
         try {
             const data = await handleFetchImages();
             setImages(data.images);
+            setInitialNumberOfImages(data.images.length)
             setLoading(false);
 
         } catch (error) {
@@ -138,7 +139,6 @@ useEffect(() => {
   return (
     <div className='all-rating-page-div'>
       <Header/>
-      <button onClick={addImageFromBasketInInit}>press</button>
     <div className="rating-page-div">
       <div className='image-display-div'>
         {<div className='images-dashboard' style={{height:curHeight}} onDrop={(e)=>handleOnDrop(e)} onDragOver={(e)=>handleOnDragOver(e)}>
@@ -176,7 +176,7 @@ useEffect(() => {
         </div>
     ))}
 </div>
-
+  
     </div>
     <button className='button-53' onClick={openFinishModal}>{t('doneEvaluate')}</button>
     <Modal show={showFinishModal} onHide={closeFinishModal} size="l" >
