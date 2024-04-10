@@ -9,6 +9,8 @@ import LanguageSwitcher from '../../components/LanguageSwitcher';
 import Header from '../../components/Header/Header';
 import {countries} from '../HomePage/hebrewCountries.js';
 
+import useAutoLogout from '../../hooks/useAutoLogout.js';
+
 export default function HomePage (){
   const { t, i18n } = useTranslation();
   const [isSignUpActive, setSignUpActive] = useState(false);
@@ -20,6 +22,9 @@ export default function HomePage (){
   const [country , setCountry] = useState('')
   const [error , setError] = useState(undefined)
   const [errorInRegistration , setInRegistraion] = useState(undefined)
+
+  const { isLoggedIn, handleLoginInLocalStorage } = useAutoLogout();
+
 
   const navigate = useNavigate();
   const mobileScreen = window.innerWidth <= 400;
@@ -100,9 +105,7 @@ export default function HomePage (){
     handleUserLogin(email)
     .then(data => {
       if ( data.message === 'Login successful' && data.token ){
-        const currentTime = new Date().getTime();
-        const expireTime = currentTime + (24 * 60 * 60 * 1000);
-        localStorage.setItem('expireTime', expireTime.toString());
+        handleLoginInLocalStorage()
         localStorage.setItem('token',data.token)
         localStorage.setItem('email',email)
         navigate("/instructions")
@@ -147,9 +150,9 @@ export default function HomePage (){
                     <option key={index} value={country}>
                         {country}
                     </option>
-                ))) : (Countries.map(obj => obj.english_name).map((country, index) => (
+                ))) : (Countries.map(obj => obj.english_name).sort().map((country, index) => (
                   <option key={index} value={country}>
-                      {country}
+                    {country}
                   </option>
               )))}
                 
@@ -194,7 +197,7 @@ export default function HomePage (){
       </button>
     </div>}
 
-</div>
+    </div>
   
   );
 };

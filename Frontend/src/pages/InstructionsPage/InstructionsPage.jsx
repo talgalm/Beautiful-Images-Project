@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
 import './instructionsPage.css'
 
+
 export default function InstructionsPage (){
     const [isReturningUser , setReturningUser] = useState(false);
     const navigate = useNavigate();

@@ -11,6 +11,10 @@ export default function LandingPage(){
     const [isChecked, setIsChecked] = useState(false);
     const [isOK, setIsOK] = useState(false);
 
+    //try auto logout
+
+    
+
     const navigate = useNavigate();
 
 

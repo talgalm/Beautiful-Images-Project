@@ -1,11 +1,5 @@
 export const countries = [{
     "table": "טבלת ארצות",
-    "id": "900",
-    "name": "ישראל",
-    "english_name": "ISRAEL"
-},
-{
-    "table": "טבלת ארצות",
     "id": "317",
     "name": "אבחזיסטאן",
     "english_name": "ABKHAZISTAN"
@@ -753,6 +747,12 @@ export const countries = [{
     "id": "40",
     "name": "ירדן",
     "english_name": "JORDAN"
+},
+{
+    "table": "טבלת ארצות",
+    "id": "900",
+    "name": "ישראל",
+    "english_name": "ISRAEL"
 },
 {
     "table": "טבלת ארצות",
