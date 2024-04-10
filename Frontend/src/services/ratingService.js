@@ -16,7 +16,8 @@ export const handleRateImage = async (imageId, fromBasket , toBasket) => {
                 email: localStorage.getItem('email'), 
                 imageId : imageId,
                 fromBasket: fromBasket,
-                toBasket: toBasket
+                toBasket: toBasket,
+                isMobile : isMobile ? 'Mobile' : 'Desktop'
             },
             {
                 headers: {
@@ -34,7 +35,6 @@ export const handleSaveRating = async (email) => {
         const response = await axios.post(baseURL + 'api/rate/save', {
             email : localStorage.getItem('email'), 
             token: localStorage.getItem('token'), 
-            isMobile : isMobile ? 'Mobile' : 'Desktop'
         },
         {
             headers: {
