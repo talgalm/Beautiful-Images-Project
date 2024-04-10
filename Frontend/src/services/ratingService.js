@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {isMobile} from 'react-device-detect';
+
 
 let baseURL = process.env.REACT_APP_ENV === 'production' 
     ? 'https://coil.cs.bgu.ac.il/' 
@@ -14,7 +16,8 @@ export const handleRateImage = async (imageId, fromBasket , toBasket) => {
                 email: localStorage.getItem('email'), 
                 imageId : imageId,
                 fromBasket: fromBasket,
-                toBasket: toBasket
+                toBasket: toBasket,
+                isMobile : isMobile ? 'Mobile' : 'Desktop'
             },
             {
                 headers: {

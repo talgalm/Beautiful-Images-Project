@@ -19,6 +19,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.2",
     "react-country-region-selector": "^3.6.1",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",
     "react-i18next": "^14.0.1",
