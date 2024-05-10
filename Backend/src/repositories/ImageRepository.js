@@ -1,4 +1,4 @@
-const { Image, FinalRating, TmpRating } = require("../models");
+const { Image, Rating } = require("../models");
 const RatingRepository = require("./RatingRepository");
 const logger = require('../logger');
 const fs = require('fs');
@@ -73,7 +73,7 @@ class ImageRepository {
 
     static async fetchImages(email) {
         try {
-            const userTmpRatings = await TmpRating.findAll({ where: { email } });
+            const userTmpRatings = await Rating.findAll({ where: { email, type: "tmp" } });
             if (userTmpRatings.length === 0) {
               console.log("fetching new images");
               logger.info(`ImageRepo - fetchImages func is running - fetching new images`);
@@ -96,7 +96,7 @@ class ImageRepository {
     static async fetchNewImages(email) {
         try {
             const allImages = await Image.findAll();
-            const userRatedImages = await FinalRating.findAll({where: { email: email }});
+            const userRatedImages = await Rating.findAll({where: { email: email, type: "final" }});
             //subtract rated images from all images
             const images = allImages.filter((image) => {
                 return !userRatedImages.some((ratedImage) => {
@@ -172,7 +172,7 @@ class ImageRepository {
 
     static async fetchSessionImages(email) {
         try {
-            const userRatedImagesRatings = await TmpRating.findAll({ where: { email : email } });
+            const userRatedImagesRatings = await Rating.findAll({ where: { email : email, type: "tmp" } });
             const userRatedImages = await Promise.all(userRatedImagesRatings.map(async (rating) => {
               return await Image.findOne({ where: { id: rating.imageId } });
             }));

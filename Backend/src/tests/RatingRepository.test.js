@@ -1,7 +1,7 @@
 const RatingRepository = require('../repositories/RatingRepository');
 const { connectToPostgreSQL,disconnectFromPostgreSQL } = require('../config/pgConfig');
 const { connectToSequelize } = require('../config/sequelizeConfig');
-const { FinalRating, TmpRating } = require('../models');
+const { Rating } = require('../models');
 
 describe('RatingRepository', () => {
 
@@ -16,8 +16,7 @@ describe('RatingRepository', () => {
 
     afterEach(async () => {
         // Clean up test data after each test
-        await TmpRating.destroy({ where: {} })
-        await FinalRating.destroy({ where: {} })
+        await Rating.destroy({ where: {} })
     });
     
   describe('addInitialRatings', () => {
@@ -27,8 +26,8 @@ describe('RatingRepository', () => {
 
       await RatingRepository.addInitialRatings(email, images);
 
-      // Check if initial ratings are added to the TmpRating table
-      const tmpRatings = await TmpRating.findAll({ where: { email } });
+      // Check if initial ratings are added to the Rating table
+      const tmpRatings = await Rating.findAll({ where: { email, type: "tmp" } });
       expect(tmpRatings.length).toEqual(images.length);
     });
   });
@@ -40,14 +39,14 @@ describe('RatingRepository', () => {
       const fromBasket = 0;
       const toBasket = 1;
 
-      // Insert a dummy rating into the TmpRating table
-      await TmpRating.create({ email, imageId, rating: fromBasket });
+      // Insert a dummy rating into the Rating table
+      await Rating.create({ email, imageId, rating: fromBasket, type: "tmp" });
      
       // Call the method being tested
       await RatingRepository.changeRating(email, imageId, fromBasket, toBasket);
 
-      // Check if the rating is updated in the TmpRating table
-      const updatedRating = await TmpRating.findOne({ where: { email, imageId } });
+      // Check if the rating is updated in the Rating table
+      const updatedRating = await Rating.findOne({ where: { email, imageId, type: "tmp" } });
       expect(updatedRating.rating).toEqual(toBasket);
     });
 
@@ -72,13 +71,13 @@ describe('RatingRepository', () => {
         ];
       
         // Mock TmpRating.findAll to return temporary ratings
-        jest.spyOn(TmpRating, 'findAll').mockResolvedValue(tmpRatings);
+        jest.spyOn(Rating, 'findAll').mockResolvedValue(tmpRatings);
       
         // Mock FinalRating.create to simulate saving to final ratings
         const createMock = jest.spyOn(FinalRating, 'create').mockResolvedValue();
       
         // Mock TmpRating.destroy to simulate deleting from temporary ratings
-        jest.spyOn(TmpRating, 'destroy').mockResolvedValue();
+        jest.spyOn(Rating, 'destroy').mockResolvedValue();
       
         // Call the method being tested
         await RatingRepository.saveRatings(email);
@@ -92,7 +91,7 @@ describe('RatingRepository', () => {
             rating: tmpRating.rating,
           });
         });
-        expect(TmpRating.destroy).toHaveBeenCalledWith({ where: { email } });
+        expect(Rating.destroy).toHaveBeenCalledWith({ where: { email, type: "tmp" } });
     });
 });
       
@@ -104,7 +103,7 @@ describe('RatingRepository', () => {
         const oldEmails = [{ email: 'old1@example.com' }, { email: 'old2@example.com' }];
       
         // Mock TmpRating.findAll to return emails with old ratings
-        jest.spyOn(TmpRating, 'findAll').mockResolvedValue(oldEmails);
+        jest.spyOn(Rating, 'findAll').mockResolvedValue(oldEmails);
       
         // Mock RatingRepository.saveRatings to simulate saving old ratings
         const saveRatingsMock = jest.spyOn(RatingRepository, 'saveRatings').mockResolvedValue();
