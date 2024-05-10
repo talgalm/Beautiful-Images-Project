@@ -13,9 +13,9 @@ module.exports = {
      * }], {});
     */
     return queryInterface.bulkInsert('Users', [
-      { email: 'user1@example.com', age: 25, gender: 'male', createdAt: new Date(), updatedAt: new Date() },
-      { email: 'user2@example.com', age: 30, gender: 'female', createdAt: new Date(), updatedAt: new Date() },
-      { email: 'user3@example.com', age: 28, gender: 'male', createdAt: new Date(), updatedAt: new Date() }
+      { email: 'user@gmail.com', nickname: "user", age: 25, country:"Israel", gender: 'female', isAdmin: false, createdAt: new Date(), updatedAt: new Date() },
+      { email: 'user1@gmail.com', nickname: "user1", age: 25, country:"Israel", gender: 'male', isAdmin: false, createdAt: new Date(), updatedAt: new Date() },
+      { email: 'admin@gmail.com', nickname: "admin", age: 28, country:"Israel", gender: 'male', password:"admin123", isAdmin:true, createdAt: new Date(), updatedAt: new Date() }
       // Add more dummy users as needed
     ]);
   },

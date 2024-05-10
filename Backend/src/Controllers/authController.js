@@ -20,10 +20,7 @@ class AuthController {
         try {
           const {email , nickname , age , country , gender} = req.body;
           logger.info(`AuthController - register request by ${email} nickname: ${nickname} age: ${age} country: ${country} gender: ${gender}`);
-          let a = await UserRepository.registerUser(email, age, gender, country , nickname);
-          if (a === null ){
-            await UserRepository.registerUser(email, age, gender, country , nickname);
-          }
+          await UserRepository.registerUser(email, age, gender, country , nickname);
           res.status(200).json({ message: 'User registered successfully' });
         } catch (error) {
           res.status(200).json({ message: error.message });
