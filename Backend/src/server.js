@@ -22,6 +22,7 @@ class Server {
         connectToSequelize();
         logger.info('*************************************Server started*************************************');
         await ImageRepository.generateSmalllImages(); // Generate small images if they don't exist
+        await ImageRepository.initializeCategoryDB(); // Initialize the categories database if it doesn't exist
         await ImageRepository.initializeImagesDB(); // Initialize the images database if it doesn't exist
 
         setInterval(RatingRepository.saveOldRatings, 60 * 60 * 1000);

@@ -1,4 +1,4 @@
-const { Image, Rating } = require("../models");
+const { Image, Rating, Category } = require("../models");
 const RatingRepository = require("./RatingRepository");
 const UserRepository = require('../repositories/UserRepository');
 const logger = require('../logger');
@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 const { v4: uuidv4 } = require('uuid');
+
 
 
 
@@ -42,24 +43,34 @@ class ImageRepository {
     }
 
     static async initializeImagesDB() {
-      console.log("initializing images");
       logger.info(`ImageRepo - initializeImagesDB func is running - initializing images`);
-      const categories = fs.readdirSync(path.join(__dirname, '../../images/small'));
+      const categories = await Category.findAll();
       for (const category of categories) {
-        const images = fs.readdirSync(path.join(__dirname, `../../images/small/${category}`));
-
+        const images = fs.readdirSync(path.join(__dirname, `../../images/small/${category.categoryName}`));
+        const categoryId = category.id;
         for (const imageName of images) {
           
           //check if image already exists
-          const image = await Image.findOne({ where: { imageName, category } });
+          const image = await Image.findOne({ where: { imageName, categoryId } });
           if (!image) {
             const imageId = uuidv4();
             const img = await Image.create({
               id: imageId,
               imageName: imageName,
-              category: category
+              categoryId: categoryId
             });
           }
+        }
+      }
+    }
+
+    static async initializeCategoryDB() {
+      logger.info(`ImageRepo - initializeCategoryDB func is running - initializing catrgories`);
+      const categories = fs.readdirSync(path.join(__dirname, '../../images/original'));
+      for (const categoryName of categories) {
+        const category = await Category.findOne({ where: { categoryName } });
+        if(!category){
+          await Category.create({categoryName});
         }
       }
     }
@@ -102,10 +113,10 @@ class ImageRepository {
 
             //select 70 images proportionally to the number of images in each category
             let selectedImages = [];
-            const categories = [...new Set(images.map((image) => image.category))];
-            
+            const categories = await Category.findAll();
+           
             //create an array of arrays, each array will contain the images of a category
-            let categoryImagesArray = categories.map((category) => images.filter((image) => image.category === category));
+            let categoryImagesArray = categories.map((category) => images.filter((image) => image.categoryId === category.id));
             categoryImagesArray = categoryImagesArray.map((category) => category.sort(() => Math.random() - 0.5)); //shuffle each category
             
             for (let i=0; i < categoryImagesArray.length; i++){
@@ -138,7 +149,8 @@ class ImageRepository {
 
             // Using the image path, read the image and convert to base64
             const imagePromises = selectedImages.map(async (image) => {
-              const imagePath = path.join(__dirname, `../../images/small/${image.category}`, image.imageName);
+              const category = await Category.findOne({ where: { id: image.categoryId } })
+              const imagePath = path.join(__dirname, `../../images/small/${category.categoryName}`, image.imageName);
               const imageData = await fs.promises.readFile(imagePath, { encoding: 'base64' });
               return {imageId: image.id, imageData: imageData};
             });
@@ -155,7 +167,8 @@ class ImageRepository {
     static async fetchImage(imageId) {
         try {
             const image = await Image.findOne({ where: { id: imageId } });
-            const imagePath = path.join(__dirname, `../../images/original/${image.category}`, image.imageName);
+            const category = await Category.findOne({ where: { id: image.categoryId } })
+            const imagePath = path.join(__dirname, `../../images/original/${category.categoryName}`, image.imageName);
             const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
             return {imageId: image.id, imageData: imageData};
         } catch (error) {
@@ -173,7 +186,8 @@ class ImageRepository {
 
             const result = [];
             for (const image of userRatedImages) {
-              const imagePath = path.join(__dirname, `../../images/small/${image.category}`, image.imageName);
+              const category = await Category.findOne({ where: { id: image.categoryId } })
+              const imagePath = path.join(__dirname, `../../images/small/${category.categoryName}`, image.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
               const rating = userRatedImagesRatings.find((ratedImage) => ratedImage.imageId === image.id).rating;
               result.push({imageId: image.id, imageData: imageData, rating: rating});
