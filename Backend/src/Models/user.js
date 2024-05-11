@@ -14,14 +14,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
+    id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,
+    },
     email: {
       type: DataTypes.STRING,
-      primaryKey: true
     },
     nickname: DataTypes.STRING,
     age: DataTypes.INTEGER,
     country: DataTypes.STRING,
-    gender: DataTypes.STRING
+    gender: DataTypes.STRING,
+    password: DataTypes.STRING,
+    isAdmin: {
+      type: DataTypes.BOOLEAN, 
+      defaultValue: false,
+    },
   }, {
     sequelize,
     modelName: 'User',

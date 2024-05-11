@@ -1,9 +1,12 @@
 const { Image, Rating } = require("../models");
 const RatingRepository = require("./RatingRepository");
+const UserRepository = require('../repositories/UserRepository');
 const logger = require('../logger');
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
+const { v4: uuidv4 } = require('uuid');
+
 
 
 class ImageRepository {
@@ -50,7 +53,7 @@ class ImageRepository {
           //check if image already exists
           const image = await Image.findOne({ where: { imageName, category } });
           if (!image) {
-            const imageId = generateImageId();
+            const imageId = uuidv4();
             const img = await Image.create({
               id: imageId,
               imageName: imageName,
@@ -59,32 +62,23 @@ class ImageRepository {
           }
         }
       }
-
-      function generateImageId() {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let imageId = '';
-        for (let i = 0; i < 10; i++) {
-          const randomIndex = Math.floor(Math.random() * characters.length);
-          imageId += characters[randomIndex];
-        }
-        return imageId;
-      }
     }
 
     static async fetchImages(email) {
         try {
-            const userTmpRatings = await Rating.findAll({ where: { email, type: "tmp" } });
+            const userId = await UserRepository.getUserId(email);
+            const userTmpRatings = await Rating.findAll({ where: { userId: userId, type: "tmp" } });
             if (userTmpRatings.length === 0) {
               console.log("fetching new images");
               logger.info(`ImageRepo - fetchImages func is running - fetching new images`);
-              const images = await ImageRepository.fetchNewImages(email);
+              const images = await ImageRepository.fetchNewImages(userId);
               return images;
 
             }
             else {
               console.log("fetching session images");
               logger.info(`ImageRepo - fetchImages func is running - fetching session images`);
-              const images = await ImageRepository.fetchSessionImages(email);
+              const images = await ImageRepository.fetchSessionImages(userId);
               return images;
             }
         } catch (error) {
@@ -93,10 +87,10 @@ class ImageRepository {
         }
     }
 
-    static async fetchNewImages(email) {
+    static async fetchNewImages(userId) {
         try {
             const allImages = await Image.findAll();
-            const userRatedImages = await Rating.findAll({where: { email: email, type: "final" }});
+            const userRatedImages = await Rating.findAll({where: { userId, type: "final" }});
             //subtract rated images from all images
             const images = allImages.filter((image) => {
                 return !userRatedImages.some((ratedImage) => {
@@ -139,7 +133,7 @@ class ImageRepository {
             selectedImages.sort(() => Math.random() - 0.5); 
 
             //set the tmpRating of the selected images to 0
-            RatingRepository.addInitialRatings(email, selectedImages);
+            RatingRepository.addInitialRatings(userId, selectedImages);
 
 
             // Using the image path, read the image and convert to base64
@@ -170,13 +164,12 @@ class ImageRepository {
         }
     }
 
-    static async fetchSessionImages(email) {
+    static async fetchSessionImages(userId) {
         try {
-            const userRatedImagesRatings = await Rating.findAll({ where: { email : email, type: "tmp" } });
+            const userRatedImagesRatings = await Rating.findAll({ where: { userId, type: "tmp" } });
             const userRatedImages = await Promise.all(userRatedImagesRatings.map(async (rating) => {
               return await Image.findOne({ where: { id: rating.imageId } });
             }));
-            //return array of {image, rating}
 
             const result = [];
             for (const image of userRatedImages) {

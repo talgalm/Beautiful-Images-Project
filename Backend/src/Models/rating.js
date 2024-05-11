@@ -18,12 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       primaryKey: true
     },
-    email: {
+    userId: {
       type: DataTypes.STRING,
       primaryKey: true
     },
     rating: DataTypes.INTEGER,
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     submittedFrom: DataTypes.STRING,
     updatedAt: DataTypes.DATE
   }, {
