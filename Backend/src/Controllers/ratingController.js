@@ -1,4 +1,5 @@
 const RatingRepository = require('../repositories/RatingRepository');
+const UserRepository = require('../repositories/UserRepository');
 const logger = require('../logger');
 
 class RatingController {
@@ -8,7 +9,8 @@ class RatingController {
         const {email , imageId, fromBasket , toBasket} = req.body
         logger.info(`RatingController - changeRating request by ${email} imageId: ${imageId} fromBasket: ${fromBasket} toBasket: ${toBasket}`);
         try {
-            const rating = await RatingRepository.changeRating(email, imageId, fromBasket, toBasket);
+            const userId = await UserRepository.getUserId(email);
+            const rating = await RatingRepository.changeRating(userId, imageId, fromBasket, toBasket);
             res.status(200).json({ message: 'Rating added successfully', rating });
         } catch (error) {
             res.status(400).json({ message: error.message });
@@ -18,10 +20,11 @@ class RatingController {
 
     async saveRatings(req, res) {
 
-        const {username} = req.body
-        logger.info(`RatingController - saveRatings request by ${username}`);
+        const {email} = req.body
+        logger.info(`RatingController - saveRatings request by ${email}`);
         try {
-            await RatingRepository.saveRatings(username);
+            const userId = await UserRepository.getUserId(email);
+            await RatingRepository.saveRatings(userId);
             res.status(200).json({ message: 'Ratings saved successfully' });
         } catch (error) {
             res.status(400).json({ message: error.message });
