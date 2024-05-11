@@ -3,7 +3,7 @@ const path = require('path');
 const sharp = require('sharp');
 const { connectToPostgreSQL,disconnectFromPostgreSQL } = require('../config/pgConfig');
 const { connectToSequelize } = require('../config/sequelizeConfig');
-const { Image, FinalRating, TmpRating } = require("../models");
+const { Image, Rating } = require("../models");
 const ImageRepository = require("../repositories/ImageRepository");
 const RatingRepository = require("../repositories/RatingRepository");
 
@@ -26,8 +26,7 @@ describe('ImageRepository', () => {
 
     afterEach(async () => {
         // Clean up test data after each test
-        await TmpRating.destroy({ where: {} })
-        await FinalRating.destroy({ where: {} })
+        await Rating.destroy({ where: {} })
         await Image.destroy({ where: {} })
 
     });
@@ -37,14 +36,14 @@ describe('ImageRepository', () => {
           const email = 'test@example.com';
     
           // Mock TmpRating.findAll to return an empty array
-          const findAllMock = jest.spyOn(TmpRating, 'findAll').mockResolvedValue([]);
+          const findAllMock = jest.spyOn(Rating, 'findAll').mockResolvedValue([]);
     
           // Mock fetchNewImages method
           ImageRepository.fetchNewImages = jest.fn().mockResolvedValueOnce(['image1', 'image2']);
     
           const result = await ImageRepository.fetchImages(email);
     
-          // Assert that TmpRating.findAll is called with the correct arguments
+          // Assert that Rating.findAll is called with the correct arguments
           expect(findAllMock).toHaveBeenCalledWith({ where: { email } });
     
           // Assert that fetchNewImages is called with the correct arguments
@@ -53,22 +52,22 @@ describe('ImageRepository', () => {
           // Assert the returned data
           expect(result).toEqual(['image1', 'image2']);
     
-          // Restore the original implementation of TmpRating.findAll
+          // Restore the original implementation of Rating.findAll
           findAllMock.mockRestore();
         });
     
         it('should fetch session images if userTmpRatings is not empty', async () => {
           const email = 'test@example.com';
     
-          // Mock TmpRating.findAll to return a non-empty array
-          const findAllMock = jest.spyOn(TmpRating, 'findAll').mockResolvedValue(['rating1', 'rating2']);
+          // Mock Rating.findAll to return a non-empty array
+          const findAllMock = jest.spyOn(Rating, 'findAll').mockResolvedValue(['rating1', 'rating2']);
     
           // Mock fetchSessionImages method
           ImageRepository.fetchSessionImages = jest.fn().mockResolvedValueOnce(['image3', 'image4']);
     
           const result = await ImageRepository.fetchImages(email);
     
-          // Assert that TmpRating.findAll is called with the correct arguments
+          // Assert that Rating.findAll is called with the correct arguments
           expect(findAllMock).toHaveBeenCalledWith({ where: { email } });
     
           // Assert that fetchSessionImages is called with the correct arguments

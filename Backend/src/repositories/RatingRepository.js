@@ -1,4 +1,4 @@
-const { FinalRating, TmpRating } = require("../models");
+const { FinalRating, Rating } = require("../models");
 const { Op } = require("sequelize");
 
 class RatingRepository {
@@ -9,10 +9,11 @@ class RatingRepository {
         console.log('ids: ', ids);
         await Promise.all(images.map(async (image) => {
             console.log('adding initial rating for image: ', image.id, ' email: ', email);
-            await TmpRating.create({
+            await Rating.create({
                 imageId: image.id,
                 email,
                 rating: 0,
+                type: "tmp",
                 submittedFrom: 'initial',
                 updatedAt: new Date().toISOString().substring(0, 19).replace('T', ' ')
             });
@@ -20,36 +21,37 @@ class RatingRepository {
     }
 
     static async changeRating(email, imageId, fromBasket, toBasket) {
-        const rating = await TmpRating.findOne(
-            { where: { email, imageId, rating: fromBasket } });
+        const rating = await Rating.findOne(
+            { where: { email, imageId, rating: fromBasket, type: "tmp" } });
         if (!rating) {
             throw new Error('Rating not found');
         }
-        await TmpRating.update({ rating: toBasket }, 
+        const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        if (rating.createdAt < oneDayAgo) {
+            throw new Error('Rating is older than 24 hours');
+        }
+        await Rating.update({ rating: toBasket }, 
             { where: { email, imageId, rating: fromBasket} });
     }
 
     static async saveRatings(email) {
-        const tmpRatings = await TmpRating.findAll({ where: { email } });
+        const tmpRatings = await Rating.findAll({ where: { email, type: "tmp" } });
 
-        tmpRatings.forEach(async (tmpRating) => {
-            await FinalRating.create({
-                email: tmpRating.email,
-                imageId: tmpRating.imageId,
-                rating: tmpRating.rating,
-            })
+        await tmpRatings.forEach(async (tmpRating) => {
+            tmpRating.type = "final";
         });
-        await TmpRating.destroy({ where: { email } });
+        
     }
 
     static async saveOldRatings() {
         const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-        const emailsToSave = await TmpRating.findAll({
+        const emailsToSave = await Rating.findAll({
             attributes: ['email'],
             where: {
-            updatedAt: {
-                [Op.lt]: oneDayAgo
-            }
+                updatedAt: {
+                    [Op.lt]: oneDayAgo
+                },
+                type: "final"
             },
             group: ['email']
         });
