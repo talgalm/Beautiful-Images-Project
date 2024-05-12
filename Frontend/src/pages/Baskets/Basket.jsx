@@ -61,6 +61,7 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
 
       const closeModal = () => {
         setShowModal(false);
+        setSelectedImage(null);
       } 
 
     return (

@@ -249,7 +249,7 @@ input {
 .overlay {
 	background: #FF416C;
 	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right,#2c3e50,#2c3e50);
+	background: linear-gradient(to right,#708ea3,#708ea3);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
@@ -369,7 +369,7 @@ footer a {
 /* CSS */
 .button-53 {
     margin-top: 25px;
-  background-color: #2c3e50;
+  background-color: #708ea3;
   border: 0 solid #E5E7EB;
   box-sizing: border-box;
   color: white;

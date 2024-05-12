@@ -99,6 +99,7 @@ const RatingPage = () => {
 
   const closeModal = () => {
     setShowModal(false);
+    setSelectedImage(null);
   };
 
   function openFinishModal(image) {
