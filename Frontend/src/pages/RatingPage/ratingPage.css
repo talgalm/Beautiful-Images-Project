@@ -25,51 +25,67 @@
     100% {
         transform: rotate(360deg);
     }
-    } 
-.all-rating-page-div{
+}
+
+.rating-container-page{
+    height: 100vh;
+    width: 100%;
+}
+
+.rating-container{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-
-    .rating-page-div {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
+    width: 100%;
+    height: 80%;
 
         .image-display-div {
-            height: 100vh;
+            align-self: flex-start;
+            height: 80%;
             width: 70%;
+        }
 
-            .images-dashboard {
-                height: 100vh;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                overflow-y: auto;
-                margin-top: 0px;
-                margin-left: 20px;
-                margin-right: 20px;
+        .images-dashboard {
+            
+            display: flex;
+            flex-wrap: wrap;
+            overflow-y: auto;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
 
-                .cardContainer {
-                    width: 120px;
-                    height: 87px;
-                }
+        .cardContainer {
+            width: 120px;
+            height: 87px;
+        }
 
-                .imageCard {
-                    padding: 3px;
-                    height: 100%;
-                    width: 100%;
-                    object-fit: contain;
-                }
-            }
+        .imageCard {
+            padding: 3px;
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
         }
 
         .baskets-div {
-            height: 100vh;
+            align-self: flex-start;
+            height: 80%;;
             width: 30%;
         }
-    }
+
+   
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Adjust width as needed */
+    height: auto;
+    margin-top: 20px;
+}
+
+.button-53 {
+    margin-top: 0; /* Override margin-top */
 }
 
 .buttons-in-modal{
@@ -102,8 +118,6 @@
             -ms-touch-action: none;
             touch-action: none;
         }
-        
-
 
         .cardContainer {
             width: 233px !important;

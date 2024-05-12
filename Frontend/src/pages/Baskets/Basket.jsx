@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import './basket.css';
 import { handleRateImage } from '../../services/ratingService';
+import {Card, Modal} from 'react-bootstrap';
+import { handleFetchSingleImage } from '../../services/userService';
 
 export default function Basket({ index , onDropImage , sessionImages  }) {
     const [imageInBasket, setImageInBasket] = useState([]);
     const [validate , setValidate] = useState(false)
+    const [showModal, setShowModal] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(()=>{
         setImageInBasket(sessionImages)
@@ -44,19 +48,42 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
 
     }
 
+    function openModal(image){
+        handleFetchSingleImage(image.imageId , 'original')
+        .then(data => { 
+          setSelectedImage(data.image.imageData)
+          setShowModal(true);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+      }
+
+      const closeModal = () => {
+        setShowModal(false);
+      } 
+
     return (
-        <div>
-            {imageInBasket.length > 8 && <div className='scroll-activate'>+</div>}
             <div className='basket-div' onDrop={(e) => handleOnDrop(e, index)} onDragOver={(e) => handleOnDragOver(e)}>
                 <div className='basket-inside-div'>
                     {imageInBasket.map((img, i) => (
-                        <div key={img.imageId} onDragStart={(e) => handleOnDrag(e, img)} draggable>
+                        <div key={img.imageId} onDragStart={(e) => handleOnDrag(e, img)} draggable onClick={(e) => openModal(img)}>
                             <img src={`data:image/jpeg;base64,${img.imageData}`} alt={`Image ${img.imageId}`} style={{ width: '56px', height: '56px', marginRight: '0px' }} onDragEnd={() => removeImageFromBasket(img)} />
                         </div>
                     ))}
                 </div>
                 <div className='basket-num'>{index}</div>
+                <Modal show={showModal} onHide={closeModal} size="xl" >
+                    <Modal.Header closeButton>
+                    </Modal.Header>
+                    <Modal.Body>
+                    {selectedImage && 
+                    <Card>
+                        <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
+                        </Card>
+                    }
+                    </Modal.Body>
+                </Modal>
             </div>
-        </div>
     );
 };
