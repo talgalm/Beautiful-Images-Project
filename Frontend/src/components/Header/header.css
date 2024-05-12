@@ -7,6 +7,12 @@
     background-color: #708ea3;
 }
 
+.logo{
+    margin-left: 20px; /* Optional: Add margin for spacing */
+    align-self: flex-start; /* Align logo to the start (left) of the flex container */
+    margin-top: 22px;
+}
+
 .icons-div{
     width: 100%;
     display: flex;

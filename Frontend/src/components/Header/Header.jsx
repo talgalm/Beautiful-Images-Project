@@ -6,6 +6,7 @@ import { useState } from "react";
 //import userIcon from "./user.svg";
 import instructionsIcon from "./instructions.png";
 import userIcon from "./user-icon.png";
+import logo from './logo.webp'; // Import the .webp image file
 import { useLocation } from "react-router-dom";
 import { handleUserLogout } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +45,9 @@ export default function Header() {
 
   return (
     <div className="header-div">
+       <img className="logo" src={logo} alt="Logo" />
       <div className="icons-div">
+       
         <div className="icon-panel" style={{ right: "20px" }}>
           <LanguageSwitcher />
           {!isHomeOrRoot() && (
