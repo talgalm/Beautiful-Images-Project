@@ -15,20 +15,23 @@ class UserRepository {
     }
   
     static async authenticateUser(email) {
-      // Verify user credentials
       const user = await User.findOne({ where: { email: email } });
       if (!user) {
-        //console.log(`${email} does not exist. You cannot log in!`);
         throw new Error('Email does not exist');
-      } else {
-        //console.log(`${email} exists. You can log in!`);
+      }
+      return user;
+    }
+
+    static async authenticateAdmin(email, password) {
+      const user = await User.findOne({ where: { email, password, isAdmin: true } });
+      if (!user) {
+        throw new Error('Email does not exist');
       }
       return user;
     }
     
 
     static async getUser(email) {
-      // Verify user credentials
       const user = await User.findOne({ where: { email } });
       if (!user) {
         throw new Error('Invalid email');
@@ -37,7 +40,6 @@ class UserRepository {
     }
 
     static async getUser(id) {
-      // Verify user credentials
       const user = await User.findOne({ where: { id: id } });
       if (!user) {
         throw new Error('Invalid id');
@@ -46,7 +48,6 @@ class UserRepository {
     }
 
     static async getUserId(email) {
-      // Verify user credentials
       const user = await User.findOne({ where: { email } });
       if (!user) {
         throw new Error('Invalid email');

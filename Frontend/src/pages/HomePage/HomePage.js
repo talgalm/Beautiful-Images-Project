@@ -120,6 +120,10 @@ export default function HomePage (){
 
   }
 
+  function handleAdminLogin(event){
+    navigate("/adminLogin")
+  }
+
   useEffect(() => {
 
   }, []);
@@ -167,6 +171,7 @@ export default function HomePage (){
         <input required type="input" placeholder={t('enterUsername')} className= {error ? 'form-1-sign-error' : 'form-1-sign'} value={email} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
         <span style={{color:'red' , height: '25px' , width:'100%'}}>{t(error)}</span>
         <button className="button-53" onClick={handleLogin}>{t('continue')}</button>
+        <button className="button-53" onClick={handleAdminLogin}>{t('adminLogin')}</button>
       </form>
     </div>
     <div className="overlay-container">
