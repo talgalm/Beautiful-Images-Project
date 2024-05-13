@@ -30,19 +30,22 @@
 .rating-container-page{
     height: 100vh;
     width: 100%;
+    overflow: overlay;
 }
 
 .rating-container{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 15px;
     width: 100%;
     height: 80%;
 
         .image-display-div {
             align-self: flex-start;
-            height: 80%;
+            height: 100%;
             width: 70%;
+            overflow: overlay;
         }
 
         .images-dashboard {
@@ -68,7 +71,7 @@
 
         .baskets-div {
             align-self: flex-start;
-            height: 80%;;
+            height: 100%;;
             width: 30%;
         }
 
@@ -80,12 +83,7 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     width: 100%; /* Adjust width as needed */
-    height: auto;
-    margin-top: 20px;
-}
-
-.button-53 {
-    margin-top: 0; /* Override margin-top */
+    height: 50px;
 }
 
 .buttons-in-modal{

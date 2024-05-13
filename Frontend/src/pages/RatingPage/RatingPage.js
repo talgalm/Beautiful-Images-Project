@@ -29,11 +29,14 @@ const RatingPage = () => {
     const fetchData = async () => {
       try {
         const data = await handleFetchImages();
+        console.log(data.images);
         setImages(data.images);
         setInitialNumberOfImages(data.images.length);
-        setLoading(false);
       } catch (error) {
         console.error("Error:", error);
+      }
+      finally{
+        setLoading(false);
       }
     };
     const token = localStorage.getItem("token");
@@ -46,10 +49,9 @@ const RatingPage = () => {
 
   useEffect(() => {
     if (!loading) {
-      const updatedImages = images.filter((img) => img.rating === 0);
-      setImages(updatedImages);
+      setImages((prevImages) => prevImages.filter((img) => img.rating === 0));
     }
-  }, [loading]);
+  }, [loading]); // Added images to the dependency array
 
   function handleOnDrag(event, dataImg) {
     event.dataTransfer.effectAllowed = "move";
@@ -121,7 +123,6 @@ const RatingPage = () => {
       </div>
     );
   }
-
   return (
     <div>
       <Header />
