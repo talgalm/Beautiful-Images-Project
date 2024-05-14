@@ -26,6 +26,7 @@ export const handleRateImage = async (imageId, fromBasket , toBasket) => {
                 }
             }
         );
+        return response.data;
     } catch (error) {
         console.error('Error:', error); 
     }
@@ -42,6 +43,7 @@ export const handleSaveRating = async (email) => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}` 
             }
         });
+        return response.data;
     } catch (error) {
         console.error('Error:', error); 
     }

@@ -7,6 +7,23 @@
     background-color: #708ea3;
 }
 
+.logout-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #333;
+
+    h1{
+        font-size: 24px;
+    }
+}
+
+.button-53{
+    font-size: 18px;
+    
+}
+
 .logo{
     margin-left: 20px; /* Optional: Add margin for spacing */
     align-self: flex-start; /* Align logo to the start (left) of the flex container */
@@ -60,13 +77,16 @@
         transform: translateX(-50%);
         opacity: 0;
         transition: opacity 0.3s, visibility 0s linear 0.3s;
-      }
+    }
       
-      .tooltip-container:hover .tooltip-text {
+    .tooltip-container:hover .tooltip-text {
         visibility: visible;
         opacity: 1;
         transition-delay: 0s;
-      }
+    }
+
+    
+    
 }
 
 
