@@ -61,6 +61,47 @@ class RatingRepository {
         });
 
     }
+
+    static async getAllRatings() {
+        try {
+            const ratings = await Rating.findAll();
+            return ratings;
+        } catch (error) {
+            logger.error(`RatingRepo - getAllRatings error ${error}`);
+            throw new Error('Error fetching ratings');
+        }
+    }
+
+    static async getImageRatings(imageId) {
+        try {
+          const ratings = await Rating.findAll({ where: { imageId } });
+          return ratings;
+        } catch (error) {
+          logger.error(`ImageRepo - getAllImageRatings error ${error}`);
+          throw new Error('Error fetching ratings');
+        }
+      }
+  
+      static async getAverageImageRating(imageId) {
+        try {
+          const ratings = await Rating.findAll({ where: { imageId } });
+          const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
+          return sum / ratings.length;
+        } catch (error) {
+          logger.error(`ImageRepo - getAverageRating error ${error}`);
+          throw new Error('Error fetching ratings');
+        }
+      }
+  
+      static async getUserRatings(userId) {
+        try {
+          const ratings = await Rating.findAll({ where: { userId } });
+          return ratings;
+        } catch (error) {
+          logger.error(`ImageRepo - getAllUserRatings error ${error}`);
+          throw new Error('Error fetching ratings');
+        }
+      }
 }
 
 module.exports = RatingRepository;
