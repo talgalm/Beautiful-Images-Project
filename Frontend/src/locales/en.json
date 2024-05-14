@@ -29,8 +29,8 @@
     "enterGender" : "Enter gender",
     "enterCountry" : "Enter country",
     "doneEvaluate" : "Done Evaluate",
-    "FinishEvaluateAllImages" : "All",
-    "FinishEvaluateSomeImages" : "Some",
+    "FinishEvaluateAllImages" : "Great gob, you have finished evaluating {{imagesNumber}} images. If you want to rate more images, please select <b>\"Display more images\"</b>. To finish evaluating the images and exit the system, select <b>\"Finish\"</b>",
+    "FinishEvaluateSomeImages" : "Great gob, you have finished evaluating {{imagesNumber}} images. To finish evaluating the images and exit the system, select <b>\"Finish\"</b>",
     "displayMoreImages" : "Display more images",
     "Finish":"Finish",
     "UsernamesError" : "The email addresses do not match, please try again",
@@ -54,7 +54,8 @@
     "invalidEmail" : "The email address is not valid",
     "emailsDontMatch" : "The email addresses are not the same",
     "ageValidation" : "The age is incorrect",
-    "Userwiththisemailalreadyexists" : "User with this email already exists"
+    "Userwiththisemailalreadyexists" : "User with this email already exists",
+    "finishExperiment":"We appreciate your participation in the project! You can return to this site later using the email with which you have registered to view and rate up to 250 photos!. If you have any feedback on this project, please let us know by pressing the “Feedback” link. If you have not done so, you can also return here to update the background questions. This will help us in statistically analyzing the study’s result."
 
 
 }

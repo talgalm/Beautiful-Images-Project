@@ -25,9 +25,9 @@ class RatingController {
         try {
             const userId = await UserRepository.getUserId(email);
             await RatingRepository.saveRatings(userId);
-            res.status(200).json({ message: 'Ratings saved successfully' });
+            res.status(200).json({ message: 'Ratings saved successfully', flag:true });
         } catch (error) {
-            res.status(400).json({ message: error.message });
+            res.status(400).json({ message: error.message , flag:false});
             logger.error(`RatingController - saveRatings error message ${error.message}`);
         }
     }

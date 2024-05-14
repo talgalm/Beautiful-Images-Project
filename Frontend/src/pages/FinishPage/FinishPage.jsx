@@ -25,7 +25,7 @@ export default function FinishPage(){
                 <div className='images-example-div'>
                 </div>
                 <div className='thank-you-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
-
+                    {t("finishExperiment")}
                 </div>
             </div>
         </div>

@@ -43,6 +43,10 @@ export default function Header() {
     setShowlogout(true);
   };
 
+  const onInstructionClick = () => {
+    navigate("/instructions");
+  }
+
   return (
     <div className="header-div">
        <img className="logo" src={logo} alt="Logo" />
@@ -57,7 +61,7 @@ export default function Header() {
                 <span className="tooltip-text">{t("logoutOption")}</span>
               </div>
               <div className="tooltip-container">
-                <img className="instructions-icon" src={instructionsIcon}></img>
+                <img className="instructions-icon" src={instructionsIcon} onClick={onInstructionClick}></img>
                 <span className="tooltip-text">{t("instructions")}</span>
               </div>
             </div>
