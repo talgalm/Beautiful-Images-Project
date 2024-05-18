@@ -41,8 +41,10 @@
     "En" : "English",
     "generalInstructions": "Now we will show you all 70 images in a window when they are reduced. Hovering the mouse over each image will enlarge it a little, and clicking with the mouse on the image will enlarge it further. The scores for each image are given by dragging it to the appropriate cell on the right side of the screen. The system allows you to transfer images from one cell to another, until you feel that the grades for all the images do reflect your taste. We recommend that there be a similar (not necessarily the same) amount of images in the different grade cells. Basically, the more you like the image, the higher it should be in the cell with a higher score. For example, if you really like the picture, give it a score of 9 or 10. If you like it but not completely, give it a score of 7 or 8. And vice versa: give a score of 1 or 2 to pictures you don't like at all, and so on. After you finish rating the 70 images, you can choose between the option of seeing more images and rating them or end your participation.",
     "returningGeneralInstructions": "Now we will show you all 70 images in a window when they are reduced. Hovering the mouse over each image will enlarge it a little, and clicking with the mouse on the image will enlarge it further. The scores for each image are given by dragging it to the appropriate cell on the right side of the screen. The system allows you to transfer images from one cell to another, until you feel that the grades for all the images do reflect your taste. We recommend that there be a similar (not necessarily the same) amount of images in the different grade cells. Basically, the more you like the image, the higher it should be in the cell with a higher score. For example, if you really like the picture, give it a score of 9 or 10. If you like it but not completely, give it a score of 7 or 8. And vice versa: give a score of 1 or 2 to pictures you don't like at all, and so on. After you finish rating the 70 images, you can choose between the option of seeing more images and rating them or end your participation.",
+    "instructions": "Experiment instructions",
     "cantBeEmpty" : "Email can't be empty",
     "cantGetIn" : "Can't have access to this page without login",
+    "logoutOption":"Logout",
     "logout" : "Are you sure you want to log out?",
     "logoutButton" : "Logout",
     "signUpMobile" : "Registration for new users",
@@ -52,7 +54,8 @@
     "invalidEmail" : "The email address is not valid",
     "emailsDontMatch" : "The email addresses are not the same",
     "ageValidation" : "The age is incorrect",
-    "Userwiththisemailalreadyexists" : "User with this email already exists"
+    "Userwiththisemailalreadyexists" : "User with this email already exists",
+    "finishExperiment":"We appreciate your participation in the project! You can return to this site later using the email with which you have registered to view and rate up to 250 photos!. If you have any feedback on this project, please let us know by pressing the “Feedback” link. If you have not done so, you can also return here to update the background questions. This will help us in statistically analyzing the study’s result."
 
 
 }

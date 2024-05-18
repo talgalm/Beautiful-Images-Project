@@ -1,25 +1,36 @@
 .flags-div{
     button {
-        background-color: black;
+        background-color: rgb(255, 255, 255);
         border: 0.2px solid black;
+        cursor: pointer;
+        color: black;
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
     }
     button:hover{
-        background-color: rgb(255, 255, 255);
-        color: rgb(0, 0, 0);
+        background-color: rgb(19, 36, 68);
+        color: white;
     }
-    .flags-div .dropdown-toggle:hover {
-        background-color: rgb(255, 255, 255) !important;
-        color: rgb(0, 0, 0); 
+   /* Styles for the dropdown menu items */
+   .dropdown-menu {
+    a {
+        display: flex;
+        align-items: center;
+        padding: 2px 8px;
+        color: black;
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
     }
 
-    img{
+    /* Hover styles for the dropdown menu items */
+    a:hover {
+        background-color: rgb(19, 36, 68);
+        color: white;
+    }
+
+    img {
         width: 30px;
         height: 30px;
+        margin-right: 10px; /* Add spacing between flag icon and text */
     }
-    a{
-        margin-left: 10px;
-        width: 90%;
-        font-size: 20px;
-
-    }
+}
 }

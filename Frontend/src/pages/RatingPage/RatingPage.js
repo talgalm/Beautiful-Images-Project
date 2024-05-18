@@ -8,7 +8,10 @@ import {
   handleFetchImages,
   handleFetchSingleImage,
 } from "../../services/userService";
-import { handleRateImage } from "../../services/ratingService";
+import {
+  handleRateImage,
+  handleSaveRating,
+} from "../../services/ratingService";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 
@@ -26,16 +29,6 @@ const RatingPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await handleFetchImages();
-        setImages(data.images);
-        setInitialNumberOfImages(data.images.length);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
     const token = localStorage.getItem("token");
     const email = localStorage.getItem("email");
 
@@ -44,12 +37,24 @@ const RatingPage = () => {
     } else fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const data = await handleFetchImages();
+      console.log(data.images);
+      setImages(data.images);
+      setInitialNumberOfImages(data.images.length);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!loading) {
-      const updatedImages = images.filter((img) => img.rating === 0);
-      setImages(updatedImages);
+      setImages((prevImages) => prevImages.filter((img) => img.rating === 0));
     }
-  }, [loading]);
+  }, [loading]); // Added images to the dependency array
 
   function handleOnDrag(event, dataImg) {
     event.dataTransfer.effectAllowed = "move";
@@ -94,11 +99,46 @@ const RatingPage = () => {
   }
 
   function handleFinish() {
-    navigate("/finish");
+    const email = localStorage.getItem("email");
+    if (email) {
+      handleSaveRating(email)
+        .then((data) => {
+          if (data.flag === true){  
+            closeFinishModal();
+            navigate("/finish");
+          }
+          else {
+            alert("Error: " + data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  }
+
+  function handleDisplayMoreImages() {
+    const email = localStorage.getItem("email");
+    if (email) {
+      handleSaveRating(email)
+        .then((data) => {
+          if (data.flag === true) {
+            closeFinishModal();
+            setLoading(true);
+            fetchData();
+          } else {
+            alert("Error: " + data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   }
 
   const closeModal = () => {
     setShowModal(false);
+    setSelectedImage(null);
   };
 
   function openFinishModal(image) {
@@ -120,7 +160,6 @@ const RatingPage = () => {
       </div>
     );
   }
-
   return (
     <div>
       <Header />
@@ -184,37 +223,39 @@ const RatingPage = () => {
           </div>
         </div>
         <div className="button-container">
-        <button className="button-53" onClick={openFinishModal}>
-          {t("doneEvaluate")}
-        </button>
+          <button className="button-53" onClick={openFinishModal}>
+            {t("doneEvaluate")}
+          </button>
         </div>
       </div>
       <Modal show={showFinishModal} onHide={closeFinishModal} size="l">
-          <Modal.Header closeButton></Modal.Header>
-          <Modal.Body>
-            <div
-              dir={isRtl ? "rtl" : "ltr"}
-              dangerouslySetInnerHTML={{
-                __html: t(
-                  initialNumberOfImages ===
-                    initialNumberOfImages - images.length
-                    ? "FinishEvaluateAllImages"
-                    : "FinishEvaluateSomeImages",
-                  { imagesNumber: initialNumberOfImages - images.length }
-                ),
-              }}
-            />
-            <div className="buttons-in-modal">
-              {initialNumberOfImages ===
-                initialNumberOfImages - images.length && (
-                <button className="button-53">{t("displayMoreImages")}</button>
-              )}
-              <button className="button-53" onClick={handleFinish}>
-                {t("Finish")}
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div
+            className="modal-div"
+            dir={isRtl ? "rtl" : "ltr"}
+            dangerouslySetInnerHTML={{
+              __html: t(
+                initialNumberOfImages === initialNumberOfImages - images.length
+                  ? "FinishEvaluateAllImages"
+                  : "FinishEvaluateSomeImages",
+                { imagesNumber: initialNumberOfImages - images.length }
+              ),
+            }}
+          />
+          <div className="buttons-in-modal">
+            {initialNumberOfImages ===
+              initialNumberOfImages - images.length && (
+              <button className="button-53" onClick={handleDisplayMoreImages}>
+                {t("displayMoreImages")}
               </button>
-            </div>
-          </Modal.Body>
-        </Modal>
+            )}
+            <button className="button-53" onClick={handleFinish}>
+              {t("Finish")}
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

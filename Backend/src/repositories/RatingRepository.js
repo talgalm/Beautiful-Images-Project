@@ -1,3 +1,4 @@
+const rating = require("../Models/rating");
 const { FinalRating, Rating } = require("../models");
 const { Op } = require("sequelize");
 
@@ -35,12 +36,8 @@ class RatingRepository {
     }
 
     static async saveRatings(userId) {
-        const tmpRatings = await Rating.findAll({ where: { userId, type: "tmp" } });
-
-        await tmpRatings.forEach(async (tmpRating) => {
-            tmpRating.type = "final";
-        });
-        
+        //await Rating.destroy( {where: { userId, type: "tmp", rating: 0 }}); //remove images with rating 0 from the table
+        await Rating.update({type: "final"}, { where: { userId, type: "tmp" } });// change all current user ratings to final
     }
 
     static async saveOldRatings() {
