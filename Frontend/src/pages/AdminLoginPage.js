@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleAdminLogin } from '../services/userService';
+import { handleAdminLogin } from '../services/adminService';
 import { useNavigate } from "react-router-dom";
 
 

@@ -127,15 +127,3 @@ export const handleFetchSingleImage = async (imageId, size) => {
         console.error('Error:', error); 
     }
 };
-
-export const handleAdminLogin = async (email, password) => {
-    try {
-        const response = await axios.post(baseURL + 'api/auth/adminLogin', {
-            email,
-            password
-        });
-        return response.data
-    } catch (error) {
-        return error;
-    }
-};
