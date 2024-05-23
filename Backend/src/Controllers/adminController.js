@@ -2,6 +2,7 @@ const { generateAccessToken } = require("../tokens/tokens");
 const UserRepository = require("../repositories/UserRepository");
 const logger = require('../logger');
 const RatingRepository = require("../repositories/RatingRepository");
+const ImageRepository = require("../repositories/ImageRepository");
 
 class AdminController {
   async adminLogin(req, res) {
@@ -50,6 +51,18 @@ class AdminController {
     } catch (error) {
       res.status(200).json({ message: error.message });
       logger.error(`AuthController - imageRatings error message ${error.message}`);
+    }
+  }
+
+  async getAllImages(req, res) {
+    try {
+      const { email } = req.body;
+      logger.info(`AuthController - getAllImages request by ${email}`);
+      const images = await ImageRepository.getAllImages();
+      res.status(200).json({ images });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AuthController - getAllImages error message ${error.message}`);
     }
   }
 }

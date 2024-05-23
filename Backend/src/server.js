@@ -21,7 +21,10 @@ class Server {
         connectToPostgreSQL();
         connectToSequelize();
         logger.info('*************************************Server started*************************************');
-        await ImageRepository.generateSmalllImages(); // Generate small images if they don't exist
+        // Generate small images if they don't exist
+        await ImageRepository.generateSmallImages(0.5);
+        await ImageRepository.generateSmallImages(0.25);
+        await ImageRepository.generateSmallImages(0.1);
         await ImageRepository.initializeCategoryDB(); // Initialize the categories database if it doesn't exist
         await ImageRepository.initializeImagesDB(); // Initialize the images database if it doesn't exist
 

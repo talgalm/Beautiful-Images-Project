@@ -12,33 +12,38 @@ const { v4: uuidv4 } = require('uuid');
 
 class ImageRepository {
 
-    static async generateSmalllImages() {
+
+    static async generateSmallImages(factor) {
       logger.info(`ImageRepo - generateSmalllImages func is running`);
-      const categories = fs.readdirSync(path.join(__dirname, '../../images/original'));
+      const IMAGES_PATH = path.join(__dirname, '../../images');
+      const categories = fs.readdirSync(`${IMAGES_PATH}/original`);
       for (const category of categories) {
-        const images = fs.readdirSync(path.join(__dirname, `../../images/original/${category}`));
-        if (!fs.existsSync(path.join(__dirname, `../../images/small/${category}`))) {
-          fs.mkdirSync(path.join(__dirname, `../../images/small/${category}`));
+        const images = fs.readdirSync(`${IMAGES_PATH}/original/${category}`);
+        if (!fs.existsSync(`${IMAGES_PATH}/_${factor*100}`)) {
+          fs.mkdirSync(`${IMAGES_PATH}/_${factor*100}`);
+        }
+        if (!fs.existsSync(`${IMAGES_PATH}/_${factor*100}/${category}`)) {
+          fs.mkdirSync(`${IMAGES_PATH}/_${factor*100}/${category}`);
         }
         for (const imageName of images) {
-          const resizedImagePath = path.join(__dirname, `../../images/small/${category}`, imageName);
+          const resizedImagePath = path.join(`${IMAGES_PATH}/_${factor*100}/${category}/${imageName}`);
           if (!fs.existsSync(resizedImagePath)) {
-            await this.generateSmallImage(imageName, category);
+            await this.generateSmallImage(imageName, category, factor);
           }
         }
       }
     }
 
-    static async generateSmallImage(imageName, category){
-      logger.info(`ImageRepo - generateSmallImage func is running for imageName: ${imageName} category: ${category}`);
+    static async generateSmallImage(imageName, category, factor){
+      logger.info(`ImageRepo - generateSmallImage func is running for imageName: ${imageName} category: ${category} factor: ${factor}`);
       const imagePath = path.join(__dirname, `../../images/original/${category}`, imageName);
       const image = await fs.promises.readFile(imagePath);
       const resizedImage = await sharp(image).metadata()
       .then(({ width }) => sharp(image)
-        .resize(Math.round(width * 0.5))
+        .resize(Math.round(width * factor))
         .toBuffer()
       );
-      const resizedImagePath = path.join(__dirname, `../../images/small/${category}`, imageName);
+      const resizedImagePath = path.join(__dirname, `../../images/_${factor*100}/${category}`, imageName);
       await fs.promises.writeFile(resizedImagePath, resizedImage);
     }
 
@@ -46,7 +51,7 @@ class ImageRepository {
       logger.info(`ImageRepo - initializeImagesDB func is running - initializing images`);
       const categories = await Category.findAll();
       for (const category of categories) {
-        const images = fs.readdirSync(path.join(__dirname, `../../images/small/${category.categoryName}`));
+        const images = fs.readdirSync(path.join(__dirname, `../../images/_50/${category.categoryName}`));
         const categoryId = category.id;
         for (const imageName of images) {
           
@@ -150,7 +155,7 @@ class ImageRepository {
             // Using the image path, read the image and convert to base64
             const imagePromises = selectedImages.map(async (image) => {
               const category = await Category.findOne({ where: { id: image.categoryId } })
-              const imagePath = path.join(__dirname, `../../images/small/${category.categoryName}`, image.imageName);
+              const imagePath = path.join(__dirname, `../../images/_50/${category.categoryName}`, image.imageName);
               const imageData = await fs.promises.readFile(imagePath, { encoding: 'base64' });
               return {imageId: image.id, imageData: imageData};
             });
@@ -187,7 +192,7 @@ class ImageRepository {
             const result = [];
             for (const image of userRatedImages) {
               const category = await Category.findOne({ where: { id: image.categoryId } })
-              const imagePath = path.join(__dirname, `../../images/small/${category.categoryName}`, image.imageName);
+              const imagePath = path.join(__dirname, `../../images/_25/${category.categoryName}`, image.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
               const rating = userRatedImagesRatings.find((ratedImage) => ratedImage.imageId === image.id).rating;
               result.push({imageId: image.id, imageData: imageData, rating: rating});
@@ -197,6 +202,23 @@ class ImageRepository {
         } catch (error) {
           logger.error(`ImageRepo - fetchSessionImages error ${error}`);
           throw new Error('Error fetching images');
+        }
+    }
+
+    static async getAllImages() {
+        try {
+            const images = await Image.findAll();
+            let result = [];
+            for (const image of images) {
+              const category = await Category.findOne({ where: { id: image.categoryId } })
+              const imagePath = path.join(__dirname, `../../images/_10/${category.categoryName}`, image.imageName);
+              const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
+              result.push({id: image.id, imageName: image.imageName, imageCategory: category.categoryName, imageData: imageData});
+            }
+            return result;
+        } catch (error) {
+            logger.error(`ImageRepo - getAllImages error ${error}`);
+            throw new Error('Error fetching images');
         }
     }
 }

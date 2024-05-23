@@ -1,0 +1,11 @@
+.table-wrapper {
+  max-height: 500px; /* Adjust this height as needed */
+  overflow-y: auto;
+}
+
+.table-wrapper thead th {
+  position: sticky;
+  top: 0;
+  background: #7b8085; /* Bootstrap thead-dark background color */
+  z-index: 1;
+}
