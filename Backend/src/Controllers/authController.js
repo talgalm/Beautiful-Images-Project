@@ -15,19 +15,6 @@ class AuthController {
           logger.error(`AuthController - login error message ${error.message}`);
         }
       }
-
-      async adminLogin(req, res) {
-        try {
-          const { email, password } = req.body;
-          logger.info(`AuthController - admin login request by ${email}`);
-          await UserRepository.authenticateAdmin(email, password);
-          const token = generateAccessToken(email);
-          res.status(200).json({ message: 'Login successful', token: token });
-        } catch (error) {
-          res.status(200).json({ message: error.message });
-          logger.error(`AuthController - login error message ${error.message}`);
-        }
-      }
     
       async register(req, res) {
         try {

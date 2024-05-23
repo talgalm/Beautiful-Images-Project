@@ -9,7 +9,7 @@ let baseURL = process.env.REACT_APP_ENV === 'production'
 
 export const handleAdminLogin = async (email, password) => {
     try {
-        const response = await axios.post(baseURL + 'api/auth/adminLogin', {
+        const response = await axios.post(baseURL + 'api/admin/login', {
             email,
             password
         });
