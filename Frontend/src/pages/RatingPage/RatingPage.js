@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Card, Modal } from "react-bootstrap";
-import "../ImagesPage/ImagesPage";
 import { useTranslation } from "react-i18next";
 import "./ratingPage.css";
 import Basket from "../Baskets/Basket";
@@ -14,6 +13,10 @@ import {
 } from "../../services/ratingService";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
+import arrowLeft from "../../../src/icons/arrow-circle-left.svg"
+import arrowLeftWhite from "../../../src/icons/arrow-circle-left-w.svg"
+import arrowRight from "../../../src/icons/arrow-circle-right.svg"
+import arrowRightWhite from "../../../src/icons/arrow-circle-right-w.svg"
 
 const RatingPage = () => {
   const { t } = useTranslation();
@@ -21,10 +24,10 @@ const RatingPage = () => {
   const isRtl = ["he"].includes(i18n.language);
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
-
   const [showModal, setShowModal] = useState(false);
   const [showFinishModal, setShowFinishModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [imgIndx, setImgIndex] = useState(-1);
   const [initialNumberOfImages, setInitialNumberOfImages] = useState(null);
   const navigate = useNavigate();
 
@@ -34,14 +37,15 @@ const RatingPage = () => {
 
     if (!token || !email) {
       navigate("/home");
-    } else fetchData();
+    } else {
+      fetchData();
+    }
   }, []);
 
   const fetchData = async () => {
     try {
       const data = await handleFetchImages();
-      console.log(data.images);
-      setImages(data.images);
+      setImages(data.images); // Filter here
       setInitialNumberOfImages(data.images.length);
     } catch (error) {
       console.error("Error:", error);
@@ -51,10 +55,10 @@ const RatingPage = () => {
   };
 
   useEffect(() => {
-    if (!loading) {
-      setImages((prevImages) => prevImages.filter((img) => img.rating === 0));
+    if (!loading && images.length === 0) {
+      fetchData();  
     }
-  }, [loading]); // Added images to the dependency array
+  }, [loading, images]);
 
   function handleOnDrag(event, dataImg) {
     event.dataTransfer.effectAllowed = "move";
@@ -86,7 +90,7 @@ const RatingPage = () => {
     setImages(updatedImages);
   }
 
-  function openModal(image) {
+  function openModal(image , index) {
     handleFetchSingleImage(image.imageId, "original")
       .then((data) => {
         setSelectedImage(data.image.imageData);
@@ -94,7 +98,7 @@ const RatingPage = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-
+    setImgIndex(index);
     setShowModal(true);
   }
 
@@ -103,11 +107,10 @@ const RatingPage = () => {
     if (email) {
       handleSaveRating(email)
         .then((data) => {
-          if (data.flag === true){  
+          if (data.flag === true) {
             closeFinishModal();
             navigate("/finish");
-          }
-          else {
+          } else {
             alert("Error: " + data.message);
           }
         })
@@ -141,6 +144,21 @@ const RatingPage = () => {
     setSelectedImage(null);
   };
 
+  const handleArrow = (next , img) => {
+    if (next){
+      if (imgIndx === images.length - 1)
+        setImgIndex(-1)
+      setImgIndex(imgIndx+1)
+    }
+    else{
+      if (imgIndx === 0)
+        setImgIndex(images.length)
+      setImgIndex(imgIndx-1)
+    }
+    setSelectedImage(images[imgIndx].imageData)
+  }
+
+
   function openFinishModal(image) {
     setShowFinishModal(true);
   }
@@ -148,10 +166,6 @@ const RatingPage = () => {
   const closeFinishModal = () => {
     setShowFinishModal(false);
   };
-
-  function addImageFromBasketInInit() {
-    setImages((prevState) => [...prevState, images[0]]);
-  }
 
   if (loading) {
     return (
@@ -166,46 +180,55 @@ const RatingPage = () => {
       <div className="rating-container-page">
         <div className="rating-container">
           <div className="image-display-div">
-            {
-              <div
-                className="images-dashboard"
-                onDrop={(e) => handleOnDrop(e)}
-                onDragOver={(e) => handleOnDragOver(e)}
-              >
-                {images.map(
-                  (img, index) =>
-                    img.rating === 0 && (
-                      <div
-                        key={img.imageId}
-                        className="draggable"
-                        onDragStart={(e) => handleOnDrag(e, img)}
-                        onClick={(e) => openModal(img)}
-                      >
-                        <Card className="cardContainer">
-                          <Card.Img
-                            className="imageCard"
-                            src={`data:image/jpeg;base64,${img.imageData}`}
-                          />
-                        </Card>
-                      </div>
-                    )
-                )}
+            <div
+              className="images-dashboard"
+              onDrop={(e) => handleOnDrop(e)}
+              onDragOver={(e) => handleOnDragOver(e)}
+            >
+              {images.map((img , index) => (
+                <div
+                  key={img.imageId}
+                  className="draggable"
+                  onDragStart={(e) => handleOnDrag(e, img)}
+                  onClick={() => openModal(img , index)}
+                >
+                  <Card className="cardContainer">
+                    <Card.Img
+                      className="imageCard"
+                      src={`data:image/jpeg;base64,${img.imageData}`}
+                    />
+                  </Card>
+                </div>
+              ))}
 
-                <Modal show={showModal} onHide={closeModal} size="xl">
-                  <Modal.Header closeButton></Modal.Header>
-                  <Modal.Body>
-                    {selectedImage && (
+              <Modal show={showModal} onHide={closeModal} size="xl">
+                <Modal.Header closeButton></Modal.Header>
+                <Modal.Body>
+                  {selectedImage && (
+                    <div className="modal-card-div">
+                      <div className="next-card">
+                        <img src={arrowLeft}/>
+                      </div>
+                      <div className="next-card-w"  onClick={() => handleArrow(true , selectedImage)}>
+                        <img src={arrowLeftWhite}/>
+                      </div>
                       <Card>
                         <Card.Img
                           variant="top"
                           src={`data:image/jpeg;base64,${selectedImage}`}
                         />
                       </Card>
-                    )}
-                  </Modal.Body>
-                </Modal>
-              </div>
-            }
+                      <div className="prev-card">
+                        <img src={arrowRight}/>
+                      </div>
+                      <div className="prev-card-w" onClick={() => handleArrow(false , selectedImage)}>
+                        <img src={arrowRightWhite}/>
+                      </div>
+                    </div>
+                  )}
+                </Modal.Body>
+              </Modal>
+            </div>
           </div>
 
           <div className="baskets-div">
