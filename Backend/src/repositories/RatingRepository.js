@@ -1,5 +1,4 @@
-const rating = require("../Models/rating");
-const { FinalRating, Rating } = require("../models");
+const { Rating, Image, Category } = require("../models");
 const { Op } = require("sequelize");
 
 class RatingRepository {
@@ -60,45 +59,72 @@ class RatingRepository {
     }
 
     static async getAllRatings() {
-        try {
-            const ratings = await Rating.findAll();
-            return ratings;
-        } catch (error) {
-            logger.error(`RatingRepo - getAllRatings error ${error}`);
-            throw new Error('Error fetching ratings');
-        }
-    }
+      try {
+          const ratings = await Rating.findAll();
+          let result = [];
+          for (let rating of ratings) {
+              const image = await Image.findOne({ where: { id: rating.imageId } });
+              const category = await Category.findOne({ where: { id: image.categoryId } })
+              result.push({
+                imageId: rating.imageId, 
+                imageName: image.imageName, 
+                imageCategory: category.categoryName,
+                userId: rating.userId,
+                rating: rating.rating,
+                type: rating.type,
+                submittedFrom: rating.submittedFrom,
+                updatedAt: rating.updatedAt
+              });
+          }
+          return result;
+      } catch (error) {
+          throw new Error('Error fetching ratings ' + error);
+      }
+  }
 
-    static async getImageRatings(imageId) {
-        try {
-          const ratings = await Rating.findAll({ where: { imageId } });
-          return ratings;
-        } catch (error) {
-          logger.error(`ImageRepo - getAllImageRatings error ${error}`);
-          throw new Error('Error fetching ratings');
-        }
+  static async getImageRatings(imageId) {
+    try {
+      const ratings = await Rating.findAll({ where: { imageId } });
+      let result = [];
+      for (let rating of ratings) {
+          const image = await Image.findOne({ where: { id: rating.imageId } });
+          const category = await Category.findOne({ where: { id: image.categoryId } })
+          result.push({
+            imageId: rating.imageId, 
+            imageName: image.imageName, 
+            imageCategory: category.categoryName,
+            userId: rating.userId,
+            rating: rating.rating,
+            type: rating.type,
+            submittedFrom: rating.submittedFrom,
+            updatedAt: rating.updatedAt
+          });
       }
+      return result;
+    } catch (error) {
+      logger.error(`ImageRepo - getAllImageRatings error ${error}`);
+      throw new Error('Error fetching ratings');
+    }
+  }
   
-      static async getAverageImageRating(imageId) {
-        try {
-          const ratings = await Rating.findAll({ where: { imageId } });
-          const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
-          return sum / ratings.length;
-        } catch (error) {
-          logger.error(`ImageRepo - getAverageRating error ${error}`);
-          throw new Error('Error fetching ratings');
-        }
-      }
-  
-      static async getUserRatings(userId) {
-        try {
-          const ratings = await Rating.findAll({ where: { userId } });
-          return ratings;
-        } catch (error) {
-          logger.error(`ImageRepo - getAllUserRatings error ${error}`);
-          throw new Error('Error fetching ratings');
-        }
-      }
+  static async getAverageImageRating(imageId) {
+    try {
+      const ratings = await Rating.findAll({ where: { imageId } });
+      const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
+      return sum / ratings.length;
+    } catch (error) {
+      throw new Error('Error fetching ratings');
+    }
+  }
+
+  static async getUserRatings(userId) {
+    try {
+      const ratings = await Rating.findAll({ where: { userId } });
+      return ratings;
+    } catch (error) {
+      throw new Error('Error fetching ratings');
+    }
+  }
 }
 
 module.exports = RatingRepository;

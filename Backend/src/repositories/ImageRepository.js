@@ -192,7 +192,7 @@ class ImageRepository {
             const result = [];
             for (const image of userRatedImages) {
               const category = await Category.findOne({ where: { id: image.categoryId } })
-              const imagePath = path.join(__dirname, `../../images/_25/${category.categoryName}`, image.imageName);
+              const imagePath = path.join(__dirname, `../../images/_50/${category.categoryName}`, image.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
               const rating = userRatedImagesRatings.find((ratedImage) => ratedImage.imageId === image.id).rating;
               result.push({imageId: image.id, imageData: imageData, rating: rating});

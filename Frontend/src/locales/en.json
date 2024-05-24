@@ -55,7 +55,19 @@
     "emailsDontMatch" : "The email addresses are not the same",
     "ageValidation" : "The age is incorrect",
     "Userwiththisemailalreadyexists" : "User with this email already exists",
-    "finishExperiment":"We appreciate your participation in the project! You can return to this site later using the email with which you have registered to view and rate up to 250 photos!. If you have any feedback on this project, please let us know by pressing the “Feedback” link. If you have not done so, you can also return here to update the background questions. This will help us in statistically analyzing the study’s result."
+    "finishExperiment":"We appreciate your participation in the project! You can return to this site later using the email with which you have registered to view and rate up to 250 photos!. If you have any feedback on this project, please let us know by pressing the “Feedback” link. If you have not done so, you can also return here to update the background questions. This will help us in statistically analyzing the study’s result.",    
+    "selectCategory": "Select Category",
+    "selectImageId": "Select Image ID",
+    "fetchRatings": "Fetch Ratings",
+    "imageIdColumn": "Image ID",
+    "imageIconColumn": "Image Icon",
+    "imageNameColumn": "Image Name",
+    "imageCategoryColumn": "Image Category",
+    "userIdColumn": "User ID",
+    "ratingColumn": "Rating",
+    "typeColumn": "Type",
+    "submittedFromColumn": "Submitted From",
+    "updatedAtColumn": "Updated At"
 
 
 }
