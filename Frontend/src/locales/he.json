@@ -8,6 +8,7 @@
     "images":"תמונות",
     "rating":"דירוג",
     "admin":"ניהול אתר",
+    "adminLogin":"כניסת מנהל",
     "adminPageTitle": "עמוד ניהול האתר",
     "description": "תיאור הניסוי",
     "choose-photos": "התחל ניסוי",
@@ -67,6 +68,8 @@
     "ratingColumn": "דירוג",
     "typeColumn": "סוג",
     "submittedFromColumn": "מקום הגשה",
-    "updatedAtColumn": "תאריך עדכון"
+    "updatedAtColumn": "תאריך עדכון",
+    "enterPassword": "הכנס/י סיסמה",
+    "back": "חזור"
 
 }

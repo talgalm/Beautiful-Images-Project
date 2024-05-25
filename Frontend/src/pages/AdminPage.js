@@ -111,7 +111,7 @@ const AdminPage = () => {
 
   return (
     <div>
-    <Header />
+      <Header />
       <div className="container mt-4">
         <h1 className="mb-4">{t("adminPageTitle")}</h1>
         <div className="mb-3 d-flex align-items-center">

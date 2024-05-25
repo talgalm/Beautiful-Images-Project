@@ -67,7 +67,9 @@
     "ratingColumn": "Rating",
     "typeColumn": "Type",
     "submittedFromColumn": "Submitted From",
-    "updatedAtColumn": "Updated At"
+    "updatedAtColumn": "Updated At",
+    "enterPassword": "Enter password",
+    "back": "Back"
 
 
 }
