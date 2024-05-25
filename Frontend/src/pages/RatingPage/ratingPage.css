@@ -46,6 +46,11 @@
             height: 100%;
             width: 70%;
             overflow: overlay;
+
+            
+            @media screen and (min-width: 1000px) {
+                height: 90%;
+            }
         }
 
         .images-dashboard {
@@ -55,6 +60,7 @@
             overflow-y: auto;
             margin-left: 20px;
             margin-right: 20px;
+
         }
 
         .cardContainer {
@@ -84,6 +90,10 @@
     align-items: center; /* Center vertically */
     width: 100%; /* Adjust width as needed */
     height: 50px;
+
+    @media screen and (min-width: 1000px) {
+        margin-top: -50px;
+    }
 }
 
 .modal-div{
@@ -94,6 +104,78 @@
     flex-direction: row;
     justify-content:space-around;
     align-items: center;
+}
+
+.modal-dialog{
+
+    .modal-content{
+    height: 90vh !important;
+
+       .modal-body{
+        .modal-card-div{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            .next-card-w,
+            .prev-card-w,
+            .prev-card,
+            .next-card {
+            position: absolute;
+            top: 50%;
+            left: 3%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity 0.3s;
+            z-index: 9999;
+
+            img{
+                width: 50px;
+                height: 50px;
+            }
+                &:hover {
+                    opacity: 1;
+                }
+
+                &:hover  {
+                    opacity: 1;
+                }
+
+            }
+            .prev-card-w,
+            .prev-card{
+                left: 95% !important;
+            }
+            .prev-card-w{
+                opacity: 1;
+                &:hover {
+                    opacity: 0;
+                }
+            }
+            .next-card-w{
+                opacity: 1;
+                &:hover {
+                    opacity: 0;
+                }
+            }
+
+            .card{
+                width: 100%;
+                height: 80vh !important;
+                img {
+                    height: 98% !important;
+                }
+            }
+        }
+       }
+    }
 }
 
 @media screen and (max-width: 400px) {
@@ -128,6 +210,37 @@
             width: 233px !important;
             height: 200px !important;
 
+        }
+    }
+    .modal-dialog{
+
+        .modal-content{
+        height: 90vh !important;
+    
+           .modal-body{
+            .modal-card-div{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+    
+                .next-card-w,
+                .prev-card-w,
+                .prev-card,
+                .next-card {
+                    display: none !important;
+                }
+
+    
+                .card{
+                    width: 100%;
+                    height: 80vh !important;
+                    img {
+                        height: 98% !important;
+                    }
+                }
+            }
+           }
         }
     }
 }
