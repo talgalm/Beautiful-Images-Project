@@ -32,6 +32,29 @@ class ImageController {
         }
     }
 
+    async fetchCategories(req, res) {
+        logger.info(`ImageController - fetchCategories request`);
+        try{
+            const categories = await ImageRepository.fetchCategories();
+            res.status(200).json({categories});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+            logger.error(`ImageController - fetchCategories error message ${error}`);
+        }
+    }
+
+    async createImage(req, res) {
+        const {email, imageNme, categoryName, imageData} = req.body;
+        logger.info(`ImageController - createImage request by ${email}`);
+        try{
+            const image = await ImageRepository.createImage(email, imageNme, categoryName, imageData);
+            res.status(200).json({image});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+            logger.error(`ImageController - createImage error message ${error}`);
+        }
+    }
+
 }
 
 module.exports = new ImageController();

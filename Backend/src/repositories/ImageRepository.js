@@ -12,9 +12,18 @@ const { v4: uuidv4 } = require('uuid');
 
 class ImageRepository {
 
+    static async generateSmallScaleImages() {
+      logger.info(`ImageRepo - generateSmallScaleImages func is running`);
+      const factors = [0.5, 0.25, 0.1];
+      for (const factor of factors) {
+        await this.generateSmallImages(factor);
+      }
+    }
+      
+
 
     static async generateSmallImages(factor) {
-      logger.info(`ImageRepo - generateSmalllImages func is running`);
+      logger.info(`ImageRepo - generateSmallImages func is running`);
       const IMAGES_PATH = path.join(__dirname, '../../images');
       const categories = fs.readdirSync(`${IMAGES_PATH}/original`);
       for (const category of categories) {
@@ -220,6 +229,72 @@ class ImageRepository {
             logger.error(`ImageRepo - getAllImages error ${error}`);
             throw new Error('Error fetching images');
         }
+    }
+
+
+    static async doesUserHaveRatedImages(userId) {
+      try {
+        const userRatedImages = await Rating.findAll({ where: { userId, type: "final" } });
+        return userRatedImages.length > 0;
+      } catch (error) {
+        logger.error(`ImageRepo - doesUserHaveRatedImages error ${error}`);
+        throw new Error('Error checking if user has rated images');
+      }
+    }
+
+    static async getRatedImages(userId) {
+      try {
+        const userRatedImagesRatings = await Rating.findAll({ where: { userId, type: "final" } });
+        const userRatedImages = await Promise.all(userRatedImagesRatings.map(async (rating) => {
+          return await Image.findOne({ where: { id: rating.imageId } });
+        }));
+
+        const result = [];
+        for (const image of userRatedImages) {
+          const category = await Category.findOne({ where: { id: image.categoryId } })
+          const imagePath = path.join(__dirname, `../../images/_50/${category.categoryName}`, image.imageName);
+          const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
+          const rating = userRatedImagesRatings.find((ratedImage) => ratedImage.imageId === image.id).rating;
+          result.push({imageId: image.id, imageData: imageData, rating: rating});
+        }
+
+        return result;
+      } catch (error) {
+        logger.error(`ImageRepo - getRatedImages error ${error}`);
+        throw new Error('Error fetching images');
+      }
+    }
+
+    static async fetchCategories() {
+        try {
+            const categories = await Category.findAll();
+            return categories;
+        } catch (error) {
+            logger.error(`ImageRepo - fetchCategories error ${error}`);
+            throw new Error('Error fetching categories');
+        }
+    }
+
+    static async createImage(imageName, categoryName, imageData) {
+      try {
+        let category = await Category.findOne({ where: { categoryName } });
+        if (!category) {
+          category = Category.create({ categoryName });
+        }
+        const imageId = uuidv4();
+        const img = await Image.create({
+          id: imageId,
+          imageName: imageName,
+          categoryId: category.id
+        });
+        const imagePath = path.join(__dirname, `../../images/original/${categoryName}`, imageName);
+        await fs.promises.writeFile(imagePath, imageData, { encoding: 'base64' });
+        this.generateSmallScaleImages();
+        return img;
+      } catch (error) {
+        logger.error(`ImageRepo - addImage error ${error}`);
+        throw new Error('Error adding image');
+      }
     }
 }
 

@@ -117,6 +117,15 @@ class RatingRepository {
     }
   }
 
+  static async getAmountOfRatings(imageId) {
+    try {
+      const ratings = await Rating.findAll({ where: { imageId } });
+      return ratings.length;
+    } catch (error) {
+      throw new Error('Error fetching ratings');
+    }
+  }
+
   static async getUserRatings(userId) {
     try {
       const ratings = await Rating.findAll({ where: { userId } });
