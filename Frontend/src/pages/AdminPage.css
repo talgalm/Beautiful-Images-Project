@@ -1,6 +1,19 @@
+.container{
+  color: black;
+}
 .table-wrapper {
-  max-height: 500px; /* Adjust this height as needed */
+  max-height: 500px;
   overflow-y: auto;
+
+  .table-striped{
+    .thead-dark{
+      tr{
+        th{
+          text-align: center;
+        }
+      }
+    }
+  }
 }
 
 .table-wrapper thead th {
@@ -8,6 +21,7 @@
   top: 0;
   background: #7b8085; /* Bootstrap thead-dark background color */
   z-index: 1;
+
 }
 
 /* New styles for smaller selection boxes */

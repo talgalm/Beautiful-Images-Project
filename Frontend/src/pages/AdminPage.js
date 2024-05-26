@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './AdminPage.css';
 import { Card } from 'react-bootstrap';
 import Header from '../components/Header/Header';
+import { useNavigate } from 'react-router-dom';
 
 /*
 row data example
@@ -36,12 +37,18 @@ const AdminPage = () => {
   const [selectedImageId, setSelectedImageId] = useState('');
   const [images, setImages] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  const navigate = useNavigate();
+
 
   const fetchImages = async () => {
     handleGetAllImages("adminnnnnn@gmail.com").then((response) => {
       setImages(response.images);
     });
   };
+
+  const moveToMan = () => {
+    navigate("/admin/images")
+  }
 
   const fetchRatings = async () => {
     if (selectedImageId) {
@@ -148,6 +155,12 @@ const AdminPage = () => {
             onClick={fetchRatings}
           >
             {t("fetchRatings")}
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={moveToMan}
+          >
+           Images Managenent
           </button>
         </div>
         <div className="table-responsive table-wrapper">

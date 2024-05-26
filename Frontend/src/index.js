@@ -13,6 +13,7 @@ import HomePage from './pages/HomePage/HomePage';
 import RatingPage from './pages/RatingPage/RatingPage';
 import ImagesPage from './pages/ImagesPage/ImagesPage';
 import AdminPage from './pages/AdminPage';
+import ImagesAdminPage from './pages/ImagesAdmin/ImagesAdminPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import InstructionsPage from './pages/InstructionsPage/InstructionsPage';
 import FinishPage from './pages/FinishPage/FinishPage';
@@ -28,6 +29,7 @@ root.render(
       <Route path="/images" element={<ImagesPage/>} />
       <Route path="/rating" element={<RatingPage/>} />
       <Route path="/admin" element={<AdminPage/>} />
+      <Route path="/admin/images" element={<ImagesAdminPage/>} />
       <Route path="/adminLogin" element={<AdminLoginPage/>} />
       <Route path="/instructions" element={<InstructionsPage/>} />
       <Route path="/finish" element={<FinishPage/>} />

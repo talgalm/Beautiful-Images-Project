@@ -1,0 +1,141 @@
+.container{
+  color: black;
+}
+.table-wrapper {
+    max-height: 500px; /* Adjust this height as needed */
+    overflow-y: auto;
+  
+    .table-striped{
+      .thead-dark{
+        tr{
+          th{
+            text-align: center;
+          }
+        }
+      }
+      .thead-dark-body{
+        tr{
+          td{
+            text-align: center;
+
+            img{
+              width: 30px;
+              height: 30px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .table-wrapper thead th {
+    position: sticky;
+    top: 0;
+    background: #7b8085; /* Bootstrap thead-dark background color */
+    z-index: 1;
+  
+  }
+  
+  /* New styles for smaller selection boxes */
+  .small-select {
+    width: 250px; /* Adjust the width as needed */
+  }
+  
+  .sort-indicator {
+    font-size: 10px;
+    margin-left: 5px;
+  }
+
+  .modal-dialog{
+
+    .modal-content{
+
+      input {
+        background-color:#7b8085;
+      }
+
+      img {
+        height: 45vh;
+        width: 100%;
+      }
+
+      .tagsDiv{
+        color: black;
+      }
+      .sendDiv{
+        display: flex;
+        flex-direction: row;
+        justify-content:center;
+        height: 37.6px;
+        margin-top: 15px;
+        gap: 15px;
+
+        button {
+          width: 130px;
+        }
+        input {
+          width: 158px;
+          height: 37.6px;
+          margin: 0px;
+          color: black;
+          background-color: #a5aeb7;
+          border: 1px solid black;
+        }
+      }
+      .loader-div{
+        background-color: white;
+        width: 50px;
+        height: 50px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    .loader {
+        width: 50px;
+        height: 50px;
+        border: 10px solid #7b8085;
+        border-bottom-color: #FF3D00;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+        }
+      
+        .deleteContainer{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: black;
+          font-size: 17px;
+          font-weight: 600;
+          flex-direction: column;
+
+          .imgDiv{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+          }
+
+
+        }
+        .buttonsDiv{
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          gap:25px
+        }
+    }
+    .buttons{
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      gap:15px;
+      margin-top: 15px;
+    }
+  }
