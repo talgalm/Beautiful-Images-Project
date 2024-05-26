@@ -1,8 +1,10 @@
 const { generateAccessToken } = require("../tokens/tokens");
 const UserRepository = require("../repositories/UserRepository");
-const logger = require('../logger');
 const RatingRepository = require("../repositories/RatingRepository");
 const ImageRepository = require("../repositories/ImageRepository");
+const AdminRepository = require("../repositories/AdminRepository");
+const logger = require('../logger');
+
 
 class AdminController {
   async adminLogin(req, res) {
@@ -63,6 +65,19 @@ class AdminController {
     } catch (error) {
       res.status(200).json({ message: error.message });
       logger.error(`AdminController - getAllImages error message ${error.message}`);
+    }
+  }
+
+  async generateAndFetchPdfReport(req, res) {
+    try {
+      const { email } = req.body;
+      logger.info(`AdminController - generatePdfReport request by ${email}`);
+      await AdminRepository.generatePdfReport(email);
+
+      res.status(200).json({ message: 'Report generated successfully' });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - generatePdfReport error message ${error.message}`);
     }
   }
 }

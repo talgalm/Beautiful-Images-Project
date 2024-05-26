@@ -9,5 +9,6 @@ router.post('/userRatings', AdminController.userRatings);
 router.post('/imageRatings', AdminController.imageRatings);
 router.post('/images', AdminController.getAllImages);
 
+router.post('/generatePdf', AdminController.generateAndFetchPdfReport);
 
 module.exports = router;

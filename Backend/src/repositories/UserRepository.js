@@ -55,6 +55,10 @@ class UserRepository {
       return user.id;
     }
 
+    static async getAllUsers() {
+      return User.findAll();
+    }
+
   }
   
   module.exports = UserRepository;
