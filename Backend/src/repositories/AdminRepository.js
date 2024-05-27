@@ -1,8 +1,11 @@
 const UserRepository = require("../repositories/UserRepository");
 const RatingRepository = require("../repositories/RatingRepository");
 const ImageRepository = require("../repositories/ImageRepository");
+const { Rating, Image, User } = require("../models");
+
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 class AdminRepository {
   static async generatePdfReport(email) {
@@ -80,6 +83,43 @@ class AdminRepository {
     
     doc.end();
   }
+
+  static async generateCsvRatings() {
+    const ratings = await Rating.findAll();
+    return this.generateCsvFromTable("ratings", ratings);
+  }
+
+  static async generateCsvImages() {
+    const images = await Image.findAll();
+    return this.generateCsvFromTable("images", images);
+  }
+
+  static async generateCsvUsers() {
+    const users = await User.findAll();
+    return this.generateCsvFromTable("users", users);
+  }
+
+  static async generateCsvFromTable(name, data) {
+    const date = new Date();
+    const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}--${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+
+    const records = data.map((record) => record.toJSON());
+
+    const header = Object.keys(records[0]).map(key => ({id: key, title: key}));
+
+    const filePath = `../csv/${name}--${formattedDate}.csv`;
+
+    const csvWriter = createCsvWriter({
+      path: filePath,
+      header: header
+    });
+
+    await csvWriter.writeRecords(records);
+
+    console.log(`CSV file generated: ${filePath}`);
+    return filePath;
+  }
+
 }
 
 module.exports = AdminRepository;

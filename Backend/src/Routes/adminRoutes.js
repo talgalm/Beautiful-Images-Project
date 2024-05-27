@@ -10,5 +10,6 @@ router.post('/imageRatings', AdminController.imageRatings);
 router.post('/images', AdminController.getAllImages);
 
 router.post('/generatePdf', AdminController.generateAndFetchPdfReport);
+router.post('/generateCsvRatings', AdminController.generateAndFetchCsvRatings);
 
 module.exports = router;

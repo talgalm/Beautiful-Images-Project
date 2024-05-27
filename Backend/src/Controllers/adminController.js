@@ -80,6 +80,60 @@ class AdminController {
       logger.error(`AdminController - generatePdfReport error message ${error.message}`);
     }
   }
+
+  async generateAndFetchCsvRatings(req, res) {
+    try {
+      const { email } = req.body;
+      logger.info(`AdminController - generateCsvReport request by ${email}`);
+      const csvFilePaths = await AdminRepository.generateCsvRatings(email);
+
+      res.download(csvFilePaths, (err) => {
+        if (err) {
+          res.status(500).json({ message: 'Error downloading file' });
+          logger.error(`AdminController - generateCsvReport error message ${err.message}`);
+        }
+      });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - generateCsvReport error message ${error.message}`);
+    }
+  }
+
+  async generateAndFetchCsvImages(req, res) {
+    try {
+      const { email } = req.body;
+      logger.info(`AdminController - generateCsvImages request by ${email}`);
+      const csvFilePaths = await AdminRepository.generateCsvImages(email);
+
+      res.download(csvFilePaths, (err) => {
+        if (err) {
+          res.status(500).json({ message: 'Error downloading file' });
+          logger.error(`AdminController - generateCsvImages error message ${err.message}`);
+        }
+      });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - generateCsvImages error message ${error.message}`);
+    }
+  }
+
+  async generateAndFetchCsvUsers(req, res) {
+    try {
+      const { email } = req.body;
+      logger.info(`AdminController - generateCsvUsers request by ${email}`);
+      const csvFilePaths = await AdminRepository.generateCsvUsers(email);
+
+      res.download(csvFilePaths, (err) => {
+        if (err) {
+          res.status(500).json({ message: 'Error downloading file' });
+          logger.error(`AdminController - generateCsvUsers error message ${err.message}`);
+        }
+      });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - generateCsvUsers error message ${error.message}`);
+    }
+  }
 }
 
 module.exports = new AdminController();

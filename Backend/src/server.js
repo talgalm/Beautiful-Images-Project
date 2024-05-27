@@ -29,6 +29,7 @@ class Server {
 
         setInterval(RatingRepository.saveOldRatings, 60 * 60 * 1000);
         //await AdminRepository.generatePdfReport();
+        //await AdminRepository.generateCsvReports();
 
         //await UserRepository.registerUser({email: 'gil@gmail.com', age: "24", gender: "male", country: "aaa", nickname: "gil"});
         //await ImageRepository.fetchImages('gil@gmail.com');
