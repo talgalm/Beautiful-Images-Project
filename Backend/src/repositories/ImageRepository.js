@@ -296,6 +296,63 @@ class ImageRepository {
         throw new Error('Error adding image');
       }
     }
+
+    static async deleteImage(imageId) {
+      try {
+        const image = await Image.findOne({ where: { id: imageId } });
+        const category = await Category.findOne({ where: { id: image.categoryId } });
+        //delete images files
+        const sizes = ["original", "_50", "_25", "_10"];
+        for (const size of sizes) {
+          const imagePath = path.join(__dirname, `../../images/${size}/${category.categoryName}`, image.imageName);
+          await fs.promises.unlink(imagePath);
+        }
+        //delete image from db
+        await image.destroy();
+
+        //check if the category is empty and delete it
+        const imagesInCategory = await Image.findAll({ where: { categoryId: category.id } });
+        if (imagesInCategory.length === 0) {
+          await category.destroy();
+        }
+
+        //delete ratings with the image id from db
+        await RatingRepository.deleteRatings(imageId);
+      } catch (error) {
+        logger.error(`ImageRepo - deleteImage error ${error}`);
+        throw new Error('Error deleting image');
+      }
+    }
+
+    static async updateImage(imageId, imageName, categoryName) {
+      try {
+        const image = await Image.findOne({ where: { id: imageId } });
+        const category = await Category.findOne({ where: { categoryName } });
+        if (!category) {
+          category = Category.create({ categoryName });
+        }
+        image.imageName = imageName;
+        image.categoryId = category.id;
+        await image.save();
+      } catch (error) {
+        logger.error(`ImageRepo - updateImage error ${error}`);
+        throw new Error('Error updating image');
+      }
+    }
+
+    static async getImageRatingsDistribution(imageId) {
+      try {
+        const ratings = await Rating.findAll({ where: { imageId } });
+        const distribution = Array(11).fill(0);
+        for (const rating of ratings) {
+          distribution[rating.rating]++;
+        }
+        return distribution;
+      } catch (error) {
+        logger.error(`ImageRepo - getImageRatingDistribution error ${error}`);
+        throw new Error('Error fetching ratings');
+      }
+    }
 }
 
 module.exports = ImageRepository;

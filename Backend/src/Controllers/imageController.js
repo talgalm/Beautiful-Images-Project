@@ -55,6 +55,42 @@ class ImageController {
         }
     }
 
+    async deleteImage(req, res) {
+        const {email, imageId} = req.body;
+        logger.info(`ImageController - deleteImage request by ${email}`);
+        try{
+            const image = await ImageRepository.deleteImage(imageId);
+            res.status(200).json({image});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+            logger.error(`ImageController - deleteImage error message ${error}`);
+        }
+    }
+
+    async updateImage(req, res) {
+        const {email, imageId, imageNme, categoryName} = req.body;
+        logger.info(`ImageController - updateImage request by ${email}`);
+        try{
+            const image = await ImageRepository.updateImage(imageId, imageNme, categoryName);
+            res.status(200).json({image});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+            logger.error(`ImageController - updateImage error message ${error}`);
+        }
+    }
+
+    async getImageRatingsDistribution(req, res) {
+        const {email, imageId} = req.body;
+        logger.info(`ImageController - getImageRatingsDistribution request by ${email}`);
+        try{
+            const ratings = await ImageRepository.getImageRatingsDistribution(imageId);
+            res.status(200).json({ratings});
+        } catch (error) {
+            res.status(400).json({ message: error.message });
+            logger.error(`ImageController - getImageRatingsDistribution error message ${error}`);
+        }
+    }
+
 }
 
 module.exports = new ImageController();

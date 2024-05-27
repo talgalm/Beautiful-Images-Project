@@ -134,6 +134,15 @@ class RatingRepository {
       throw new Error('Error fetching ratings');
     }
   }
+
+  static async deleteRatings(imageId) {
+    try {
+      await Rating.destroy({ where: { imageId } });
+    } catch (error) {
+      throw new Error('Error deleting rating');
+    }
+  }
+
 }
 
 module.exports = RatingRepository;
