@@ -47,7 +47,11 @@ const AdminPage = () => {
   };
 
   const moveToMan = () => {
-    navigate("/admin/images")
+    navigate("/admin/images");
+  }
+
+  const handleNavigateToReportsPage = () => {
+    navigate("/admin/reports");
   }
 
   const fetchRatings = async () => {
@@ -161,6 +165,13 @@ const AdminPage = () => {
             onClick={moveToMan}
           >
            Images Managenent
+          </button>
+
+          <button
+            className="btn btn-primary"
+            onClick={handleNavigateToReportsPage}
+          >
+           Reports
           </button>
         </div>
         <div className="table-responsive table-wrapper">

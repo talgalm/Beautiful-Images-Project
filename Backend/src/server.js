@@ -16,7 +16,9 @@ class Server {
     }
 
     async start() {
-        this.app.use(cors());
+        this.app.use(cors({
+            exposedHeaders: ['Content-Disposition'],
+          }));
         this.app.use(express.json());
         
         connectToPostgreSQL();

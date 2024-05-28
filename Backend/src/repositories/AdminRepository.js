@@ -39,8 +39,9 @@ class AdminRepository {
     
     const doc = new PDFDocument();
     const date = new Date();
-    const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}--${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
-    doc.pipe(fs.createWriteStream(`../pdf/report--${formattedDate}.pdf`));
+    const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}--${date.getHours()}-${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}-${date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()}`;
+    const filePath = `../pdf/report--${formattedDate}.pdf`;
+    doc.pipe(fs.createWriteStream(filePath));
     doc.fontSize(20).text('Image Report', { align: 'center' });
     doc.moveDown();
     doc.fontSize(10);
@@ -82,6 +83,10 @@ class AdminRepository {
     });
     
     doc.end();
+
+    console.log(`PDF file generated: ${filePath}`);
+
+    return filePath;
   }
 
   static async generateCsvRatings() {
