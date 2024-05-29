@@ -11,6 +11,9 @@ import '@tensorflow/tfjs-backend-cpu';
 import '@tensorflow/tfjs-backend-webgl';
 import * as mobilenet from '@tensorflow-models/mobilenet'
 import deleteIcon from "../../../src/icons/minus-image-photo-icon.svg"
+import { handleFetchSingleImage } from '../../services/userService';
+
+import { useNavigate } from 'react-router-dom';
 
 /*
 row data example
@@ -50,6 +53,10 @@ const ImagesAdminPage = () => {
   const [gen, setGen] = useState(false);
   const [input, setInput] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const navigate = useNavigate();
+
 
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
@@ -58,7 +65,20 @@ const ImagesAdminPage = () => {
     setSelectedValue(event.target.value);
   };
 
-  //setSelectedValueText
+  const openModalI =(img) => {
+    handleFetchSingleImage(img.imageId , 'original')
+    .then(data => { 
+      setSelectedImage(data.image.imageData)
+      setShowModal(true);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+    setShowModal(true)
+  }
+  const closeModalI =() => {
+    setShowModal(false)
+  }
 
 
   
@@ -145,12 +165,35 @@ const ImagesAdminPage = () => {
     setShowAddModal(true);
   }
 
+  const back = () => {
+    navigate("/admin");
+  }
+
   const closeDModal = () => {
     setShowDeleteModal(false);
   }
   const openDModal = (item) => {
     setFile(item)
     setShowDeleteModal(true);
+  }
+
+  const [isEdit , setIsEdit] = useState(false);
+  const [editedCategory , setEditedCategory] = useState(false);
+  const [editIndex , setEditIndex] = useState(-1);
+
+  const editCategory = (item , index) =>{
+    setEditedCategory(item.imageCategory)
+    setIsEdit(true);
+    setEditIndex(index)
+  }
+
+  const editCategoryDB = (item) => {
+    console.log("s")
+    setIsEdit(false);
+    setEditIndex(-1)
+  }
+  const changeEdit = (event) =>{
+    setEditedCategory(event.target.value)
   }
 
   const classifyImage = async (image) => {
@@ -203,6 +246,12 @@ const ImagesAdminPage = () => {
         <div className="mb-3 d-flex align-items-center">
         <button
             className="btn btn-primary"
+            onClick={back}
+          >
+           Return
+          </button>
+        <button
+            className="btn btn-primary"
             onClick={openModal}
           >
            Add image
@@ -246,10 +295,16 @@ const ImagesAdminPage = () => {
                         className="imageCard"
                         src={`data:image/jpeg;base64,${images.find(img => img.id === item.imageId)?.imageData}`}
                         style={{ maxWidth: '60px', maxHeight: '60px' }}
+                        onClick={() => openModalI(item)}
                       />
                     </td>
                     <td>{item.imageName}</td>
-                    <td>{item.imageCategory}</td>
+                    <td>{(!isEdit || index !== editIndex) ? <div onClick={() => editCategory(item , index)}>{item.imageCategory}</div> : 
+                    <div className='editDiv'>
+                      <button className="btn btn-primary2" onClick={() => {setEditIndex(-1)}}>cancel</button>
+                      <button className="btn btn-primary3" onClick={()=>editCategoryDB(item)}>save</button>
+                      <input value={editedCategory} onChange={changeEdit}/>
+                    </div>}</td>
                     <td>{data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).length.toFixed(2)}</td>
                     <td>{(data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).reduce((acc, curr) => acc + curr, 0) / data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).length).toFixed(2)}</td>
 
@@ -289,7 +344,7 @@ const ImagesAdminPage = () => {
             </div>)
           )}
           {input !== false && <div className='sendDiv'><input placeholder={t('enterMan')} value={selectedValue} onChange={setSelectedValueText}/>
-          <button className="btn btn-primary">Send</button></div>}
+          <button className="btn btn-primary" style={{backgroundColor:'red !important'}}>Send</button></div>}
       </Modal.Body>
       </Modal>
       <Modal show={showDeleteModal} onHide={closeDModal} size="m">
@@ -309,6 +364,21 @@ const ImagesAdminPage = () => {
         </div>
       </Modal.Body>
       </Modal>
+      <Modal show={showModal} onHide={closeModalI} size="xl" >
+                    <Modal.Header closeButton>
+                    </Modal.Header>
+                    <Modal.Body>
+                    {selectedImage && (
+                        <div className="modal-card-div">
+                            <Card>
+                                <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
+                            </Card>
+
+                        </div>
+                        )
+                    }
+                    </Modal.Body>
+                </Modal>
     </div>
 
   );

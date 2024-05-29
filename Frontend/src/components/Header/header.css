@@ -47,6 +47,10 @@
     .tooltip-container {
         position: relative;
         display: inline-block;
+
+        img{
+            width: 65%;
+        }
     }
       
     img{

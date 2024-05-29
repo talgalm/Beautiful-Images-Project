@@ -65,7 +65,7 @@
     "imageNameColumn": "שם תמונה",
     "imageCategoryColumn": "קטגוריית תמונה",
     "totalRatingsColumn" : "מס' דירוגים כללי",
-    "avarageRatingColumn" : "מס' דירוגים כללי",
+    "avarageRatingColumn" : "דירוג ממוצע",
     "generateCategory": "ג'נרט קטגוריה",
     "enterMan":"הכנס קטגוריה",
     "userIdColumn": "מזהה משתמש",

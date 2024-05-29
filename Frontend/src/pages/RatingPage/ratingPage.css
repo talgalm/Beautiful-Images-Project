@@ -109,7 +109,6 @@
 .modal-dialog{
 
     .modal-content{
-    height: 90vh !important;
 
        .modal-body{
         .modal-card-div{
@@ -215,7 +214,6 @@
     .modal-dialog{
 
         .modal-content{
-        height: 90vh !important;
     
            .modal-body{
             .modal-card-div{

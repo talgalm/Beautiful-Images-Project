@@ -18,6 +18,38 @@
           td{
             text-align: center;
 
+            .editDiv{
+              display: flex;
+              flex-direction: row-reverse;
+              justify-content: center;
+              align-items: center;
+              gap: 15px;
+              height: 48px;
+
+              input {
+                height: 48px;
+                width: 50%;
+                background-color: #7b8085;
+                color: white;
+
+              }
+              button {
+                height: 48px;
+
+              }
+              .btn-primary2,
+              .btn-primary3,
+              .btn-primary{
+              }
+              .btn-primary2{
+                background-color: #FF3D00;
+                color: white;
+              }
+              .btn-primary3{
+                background-color:rgb(15, 145, 8);
+                color: black;
+              }
+            }
             img{
               width: 30px;
               height: 30px;

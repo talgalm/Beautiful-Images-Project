@@ -63,7 +63,15 @@ export default function HomePage (){
     setGender(event.target.value);
   }
   function handleCountryChange(event){
-    setCountry(event.target.value);
+
+    let counyrtName = event.target.value;
+    if (isRtl){
+        countries.find((country)=> {
+        if (country.name === event.target.value)
+          counyrtName = country.english_name;
+      })
+    }
+      setCountry(counyrtName);
   }
 
   function handleRegistration(event){

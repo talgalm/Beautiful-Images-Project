@@ -4,7 +4,6 @@ import LanguageSwitcher from "../LanguageSwitcher";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
 //import userIcon from "./user.svg";
-import instructionsIcon from "./instructions.png";
 import userIcon from "./user-icon.png";
 import logo from './logo.webp'; // Import the .webp image file
 import { useLocation } from "react-router-dom";
@@ -43,9 +42,6 @@ export default function Header() {
     setShowlogout(true);
   };
 
-  const onInstructionClick = () => {
-    navigate("/instructions");
-  }
 
   return (
     <div className="header-div">
@@ -59,10 +55,6 @@ export default function Header() {
               <div className="tooltip-container">
                 <img src={userIcon} onClick={openFinishModal}></img>
                 <span className="tooltip-text">{t("logoutOption")}</span>
-              </div>
-              <div className="tooltip-container">
-                <img className="instructions-icon" src={instructionsIcon} onClick={onInstructionClick}></img>
-                <span className="tooltip-text">{t("instructions")}</span>
               </div>
             </div>
           )}
