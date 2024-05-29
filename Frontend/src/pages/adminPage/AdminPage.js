@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleGetAllImages, handleGetAllRatings, handleGetImageRatings } from '../services/adminService';
+import { handleGetAllImages, handleGetAllRatings, handleGetImageRatings } from '../../services/adminService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './AdminPage.css';
 
 import { Card , Modal} from 'react-bootstrap';
-import Header from '../components/Header/Header';
+import Header from '../../components/Header/Header';
 import { useNavigate } from 'react-router-dom';
-import { handleFetchSingleImage } from '../services/userService';
+import { handleFetchSingleImage } from '../../services/userService';
 
 const AdminPage = () => {
   const { t } = useTranslation();

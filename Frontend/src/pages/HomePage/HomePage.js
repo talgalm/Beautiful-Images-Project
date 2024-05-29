@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faGoogle, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import './homePage.css'
 import { handleUserLogin, handleUserRegistration } from '../../services/userService';
 import { useNavigate } from "react-router-dom";
-import LanguageSwitcher from '../../components/LanguageSwitcher';
 import Header from '../../components/Header/Header';
 import {countries} from '../HomePage/hebrewCountries.js';
 
@@ -22,9 +19,6 @@ export default function HomePage (){
   const [country , setCountry] = useState('')
   const [error , setError] = useState(undefined)
   const [errorInRegistration , setInRegistraion] = useState(undefined)
-
-  const { isLoggedIn, handleLoginInLocalStorage } = useAutoLogout();
-
 
   const navigate = useNavigate();
   const mobileScreen = window.innerWidth <= 400;
@@ -66,7 +60,7 @@ export default function HomePage (){
 
     let counyrtName = event.target.value;
     if (isRtl){
-        countries.find((country)=> {
+      countries.find((country)=> {
         if (country.name === event.target.value)
           counyrtName = country.english_name;
       })
@@ -112,7 +106,6 @@ export default function HomePage (){
     handleUserLogin(email)
     .then(data => {
       if ( data.message === 'Login successful' && data.token ){
-        handleLoginInLocalStorage()
         localStorage.setItem('token',data.token)
         localStorage.setItem('email',email)
         navigate("/instructions")

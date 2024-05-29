@@ -2,7 +2,6 @@ import { useTranslation , Trans} from 'react-i18next';
 import './landingPage.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import {Modal} from 'react-bootstrap';
 
 
 export default function LandingPage(){
@@ -10,9 +9,6 @@ export default function LandingPage(){
     const isRtl = ['he'].includes(i18n.language);
     const [isChecked, setIsChecked] = useState(false);
     const [isOK, setIsOK] = useState(false);
-
-    //try auto logout
-
     
 
     const navigate = useNavigate();

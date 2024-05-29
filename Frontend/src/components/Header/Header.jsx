@@ -3,9 +3,8 @@ import "./header.css";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-//import userIcon from "./user.svg";
 import userIcon from "./user-icon.png";
-import logo from './logo.webp'; // Import the .webp image file
+import logo from './logo.webp'; 
 import { useLocation } from "react-router-dom";
 import { handleUserLogout } from "../../services/userService";
 import { useNavigate } from "react-router-dom";

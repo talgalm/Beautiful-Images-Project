@@ -6,7 +6,6 @@ import './ImagesAdminPage.css';
 import { Card } from 'react-bootstrap';
 import Header from '../../components/Header/Header';
 import { Modal } from "react-bootstrap";
-import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-cpu';
 import '@tensorflow/tfjs-backend-webgl';
 import * as mobilenet from '@tensorflow-models/mobilenet'
@@ -15,29 +14,6 @@ import { handleFetchSingleImage } from '../../services/userService';
 
 import { useNavigate } from 'react-router-dom';
 
-/*
-row data example
-  {
-    imageId: 1,
-    image,
-    iamgeName: 'image1',
-    imageCategory: 'landscape',
-    userId: 1,
-    rating: 4.5,
-    type: 'landscape',
-    submittedFrom: 'web',
-    updatedAt: '2022-01-01',
-  }
-];
-
-image data example
-  {
-    id: 1,
-    imageName: 'image1',
-    imageCategory: 'landscape',
-    imageData: 'base64',
-  }
-*/
 const ImagesAdminPage = () => {
   const { t } = useTranslation();
   const [data, setData] = useState([]);
