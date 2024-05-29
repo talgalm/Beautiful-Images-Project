@@ -12,12 +12,13 @@ import i18n from './i18n';
 import HomePage from './pages/HomePage/HomePage';
 import RatingPage from './pages/RatingPage/RatingPage';
 import ImagesPage from './pages/ImagesPage/ImagesPage';
-import AdminPage from './pages/AdminPage';
+import AdminPage from './pages/adminPage/AdminPage';
 import ImagesAdminPage from './pages/ImagesAdmin/ImagesAdminPage';
-import AdminLoginPage from './pages/AdminLoginPage';
+
 import InstructionsPage from './pages/InstructionsPage/InstructionsPage';
 import FinishPage from './pages/FinishPage/FinishPage';
 import ReportsAdminPage from './pages/ReportsAdmin/ReportsAdminPage';
+import AdminLoginPage from './pages/AdminLoginPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
