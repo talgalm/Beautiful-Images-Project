@@ -1,35 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleGetAllImages, handleGetAllRatings, handleGetImageRatings } from '../services/adminService';
+import { handleGetAllImages, handleGetAllRatings, handleGetImageRatings } from '../../services/adminService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './AdminPage.css';
-import { Card } from 'react-bootstrap';
-import Header from '../components/Header/Header';
+
+import { Card , Modal} from 'react-bootstrap';
+import Header from '../../components/Header/Header';
 import { useNavigate } from 'react-router-dom';
+import { handleFetchSingleImage } from '../../services/userService';
 
-/*
-row data example
-  {
-    imageId: 1,
-    image,
-    iamgeName: 'image1',
-    imageCategory: 'landscape',
-    userId: 1,
-    rating: 4.5,
-    type: 'landscape',
-    submittedFrom: 'web',
-    updatedAt: '2022-01-01',
-  }
-];
-
-image data example
-  {
-    id: 1,
-    imageName: 'image1',
-    imageCategory: 'landscape',
-    imageData: 'base64',
-  }
-*/
 const AdminPage = () => {
   const { t } = useTranslation();
   const [data, setData] = useState([]);
@@ -38,6 +17,8 @@ const AdminPage = () => {
   const [images, setImages] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
 
   const fetchImages = async () => {
@@ -119,6 +100,24 @@ const AdminPage = () => {
     }
     return null;
   };
+
+
+
+  const openModal =(img) => {
+    handleFetchSingleImage(img.imageId , 'original')
+    .then(data => { 
+      setSelectedImage(data.image.imageData)
+      setShowModal(true);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+    setShowModal(true)
+  }
+  const closeModal =() => {
+    setShowModal(false)
+  }
+
 
   return (
     <div>
@@ -215,6 +214,7 @@ const AdminPage = () => {
                         className="imageCard"
                         src={`data:image/jpeg;base64,${images.find(img => img.id === item.imageId)?.imageData}`}
                         style={{ maxWidth: '60px', maxHeight: '60px' }}
+                        onClick={() => openModal(item)}
                       />
                     </td>
                     <td>{item.imageName}</td>
@@ -231,6 +231,21 @@ const AdminPage = () => {
           </table>
         </div>
       </div>
+      <Modal show={showModal} onHide={closeModal} size="xl" >
+                    <Modal.Header closeButton>
+                    </Modal.Header>
+                    <Modal.Body>
+                    {selectedImage && (
+                        <div className="modal-card-div">
+                            <Card>
+                                <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
+                            </Card>
+
+                        </div>
+                        )
+                    }
+                    </Modal.Body>
+                </Modal>
     </div>
   );
 };

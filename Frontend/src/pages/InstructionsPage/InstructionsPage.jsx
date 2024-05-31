@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
-import LanguageSwitcher from "../../components/LanguageSwitcher";
 import { useNavigate } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
 import './instructionsPage.css'

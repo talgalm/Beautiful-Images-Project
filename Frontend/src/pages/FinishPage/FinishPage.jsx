@@ -1,6 +1,6 @@
 import './finishPage.css'
-import { useTranslation , Trans} from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Header from '../../components/Header/Header';
 
