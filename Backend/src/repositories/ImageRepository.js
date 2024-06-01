@@ -327,12 +327,29 @@ class ImageRepository {
     static async updateImage(imageId, imageName, categoryName) {
       try {
         const image = await Image.findOne({ where: { id: imageId } });
-        const category = await Category.findOne({ where: { categoryName } });
+        const oldCategory = await Category.findOne({ where: { id: image.categoryId } });
+        const imageData = fs.readFileSync(path.join(__dirname, `../../images/original/${oldCategory.categoryName}`, image.imageName), { encoding: 'base64' });
+        
+        //delete images files
+        const sizes = ["original", "_50", "_25", "_10"];
+        for (const size of sizes) {
+          const imagePath = path.join(__dirname, `../../images/${size}/${oldCategory.categoryName}`, image.imageName);
+          await fs.promises.unlink(imagePath);
+        }
+
+        let category = await Category.findOne({ where: { categoryName } });
         if (!category) {
           category = Category.create({ categoryName });
+          //create the category folder
+          fs.mkdirSync(path.join(__dirname, `../../images/original/${categoryName}`));
         }
         image.imageName = imageName;
         image.categoryId = category.id;
+
+        const imagePath = path.join(__dirname, `../../images/original/${categoryName}`, imageName);
+        await fs.promises.writeFile(imagePath, imageData, { encoding: 'base64' });
+        this.generateSmallScaleImages();
+      
         await image.save();
       } catch (error) {
         logger.error(`ImageRepo - updateImage error ${error}`);
