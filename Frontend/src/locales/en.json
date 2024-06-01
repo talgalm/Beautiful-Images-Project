@@ -73,7 +73,15 @@
     "submittedFromColumn": "Submitted From",
     "updatedAtColumn": "Updated At",
     "enterPassword": "Enter password",
-    "back": "Back"
+    "back": "Back",
+    "reports": "Generate Reports",
+    "imageManage": "Manage Images",
+    "participants": "Participants Data",
+    "gender": "Gender",
+    "country":"Country",
+    "ageRange":"Age Range",
+    "usersByCountry":"Users by Country",
+    "ageDistribution": "Age Distribution"
 
 
 }

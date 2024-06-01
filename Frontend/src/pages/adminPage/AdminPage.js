@@ -35,6 +35,10 @@ const AdminPage = () => {
     navigate("/admin/reports");
   }
 
+  const handleNavigateToParticipantPage = () => {
+    navigate("/admin/participants");
+  }
+
   const fetchRatings = async () => {
     if (selectedImageId) {
       handleGetImageRatings("adminnnnnn@gmail.com", selectedImageId).then((response) => {
@@ -163,14 +167,20 @@ const AdminPage = () => {
             className="btn btn-primary"
             onClick={moveToMan}
           >
-           Images Managenent
+           {t('imageManage')}
           </button>
 
           <button
             className="btn btn-primary"
             onClick={handleNavigateToReportsPage}
           >
-           Reports
+           {t('reports')}
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={handleNavigateToParticipantPage}
+          >
+           {t('participants')}
           </button>
         </div>
         <div className="table-responsive table-wrapper">

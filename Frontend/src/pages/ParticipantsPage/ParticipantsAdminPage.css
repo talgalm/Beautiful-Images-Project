@@ -1,0 +1,48 @@
+/* ParticipantsAdminPage.css */
+.admin-page {
+    padding: 20px;
+    color: black;
+}
+
+.header {
+    text-align: center;
+    font-size: -webkit-xxx-large ;
+}
+
+.filter-controls {
+    margin-bottom: 20px;
+}
+
+.filter-controls label {
+    margin-right: 10px;
+}
+
+.charts {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chart {
+    flex: 1;
+    min-width: 300px;
+    margin: 10px;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+    text-align: left;
+}

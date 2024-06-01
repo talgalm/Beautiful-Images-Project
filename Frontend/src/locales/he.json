@@ -74,6 +74,14 @@
     "submittedFromColumn": "מקום הגשה",
     "updatedAtColumn": "תאריך עדכון",
     "enterPassword": "הכנס/י סיסמה",
-    "back": "חזור"
+    "back": "חזור",
+    "reports":"הפק דוחות",
+    "imageManage":"ניהול תמונות",
+    "participants": "משתתפי הניסוי",
+    "gender": "מגדר",
+    "country":"מדינה",
+    "ageRange":"טווח גילאים",
+    "usersByCountry":"משתתפים לפי מדינות",
+    "ageDistribution":"התפלגות גילאים"
 
 }

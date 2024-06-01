@@ -19,6 +19,7 @@ import InstructionsPage from './pages/InstructionsPage/InstructionsPage';
 import FinishPage from './pages/FinishPage/FinishPage';
 import ReportsAdminPage from './pages/ReportsAdmin/ReportsAdminPage';
 import AdminLoginPage from './pages/AdminLoginPage';
+import ParticipantsAdminPage from './pages/ParticipantsPage/ParticipantsAdminPage'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -33,6 +34,7 @@ root.render(
       <Route path="/admin" element={<AdminPage/>} />
       <Route path="/admin/images" element={<ImagesAdminPage/>} />
       <Route path="/admin/reports" element={<ReportsAdminPage/>} />
+      <Route path="/admin/participants" element={<ParticipantsAdminPage/>} />
       <Route path="/adminLogin" element={<AdminLoginPage/>} />
       <Route path="/instructions" element={<InstructionsPage/>} />
       <Route path="/finish" element={<FinishPage/>} />
