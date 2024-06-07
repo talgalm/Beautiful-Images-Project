@@ -157,6 +157,18 @@ class AdminController {
       logger.error(`AdminController - generateCsvUsers error message ${error.message}`);
     }
   }
+
+  async participantsData(req, res) {
+    try {
+      const { email } = req.body;
+      logger.info(`AdminController - participantsData request by ${email}`);
+      const participants = await AdminRepository.getParticipantsData();
+      res.status(200).json({ participants });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - participantsData error message ${error.message}`);
+    }
+  }
 }
 
 module.exports = new AdminController();

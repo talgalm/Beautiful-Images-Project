@@ -9,6 +9,13 @@
     font-size: -webkit-xxx-large ;
 }
 
+.no-data-message {
+    color: red;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
 .filter-controls {
     margin-bottom: 20px;
 }

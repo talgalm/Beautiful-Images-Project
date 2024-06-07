@@ -6,7 +6,7 @@ import { useTable, useFilters } from 'react-table';
 import { useTranslation } from 'react-i18next';
 import Header from '../../components/Header/Header';
 import './ParticipantsAdminPage.css';
-
+import { handleGetParticipantsData } from '../../services/adminService';
 // Register the components in Chart.js
 ChartJS.register(
     CategoryScale,
@@ -33,9 +33,20 @@ const ParticipantsAdminPage = () => {
         // Add more mock data as needed
     ];
 
-    const [users, setUsers] = useState(mockUsers);
-    const [filteredUsers, setFilteredUsers] = useState(mockUsers);
+    const [users, setUsers] = useState([]);
+    const [filteredUsers, setFilteredUsers] = useState([]);
     const [filter, setFilter] = useState({ gender: '', country: '', ageRange: [0, 100] });
+
+    useEffect(() => {
+        handleGetParticipantsData()
+        .then(data => { 
+            setUsers(data.participants);
+            setFilteredUsers(data.participants);
+        })
+        .catch((error) => {
+          console.error('Error :', error);
+        });
+    }, []);
 
     useEffect(() => {
         applyFilter();
@@ -139,6 +150,7 @@ const ParticipantsAdminPage = () => {
             <Header />
             <div className="admin-page">
                 <div className='header'>{t('participants')}</div>
+                {users?.length === 0 && <div className='no-data-message'>{t('noParticipantsData')}</div>}
                 <div className="filter-controls">
                     <label>
                         {t("gender")}

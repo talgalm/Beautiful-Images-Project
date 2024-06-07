@@ -117,6 +117,18 @@ export const handleGetPdfReport = async (email) => {
     }
 }
 
+export const handleGetParticipantsData = async () => {
+    try {
+        const response = await axios.post(baseURL + 'api/admin/participantsData', {
+            token: localStorage.getItem('token'), 
+            email: localStorage.getItem('email'), 
+        });
+        return response.data
+    } catch (error) {
+        return error;
+    }
+}
+
 // Utility function to extract filename from content-disposition header
 const getFileNameFromContentDisposition = (contentDisposition) => {
     let filename = 'download.csv';

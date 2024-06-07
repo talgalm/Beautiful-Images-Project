@@ -125,6 +125,35 @@ class AdminRepository {
     return filePath;
   }
 
+  static async getParticipantsData() {
+     // Fetch all participants who are not admins
+    // Exclude 'email', 'nickname', 'password', and 'isAdmin' fields from the result
+    const participants = await User.findAll({
+      where: {
+        isAdmin: false
+      },
+      attributes: { exclude: ['email','nickname','password', 'isAdmin'] }
+    });
+
+     // Fetch all ratings where the type is 'final'
+      // This will be used to determine which participants have finished at least one experiment
+    const ratings = await Rating.findAll({
+      where: {
+        type: 'final'
+      },
+    });
+
+    // Extract user IDs from the ratings
+    // This gives us a list of user IDs who have at least one 'final' rating
+    const completedExperimentUserIds = ratings.map(rating => rating.userId);
+
+    // Filter participants to include only those who have completed at least one experiment
+    // This is determined by checking if the participant's ID is in the list of user IDs with 'final' ratings
+    const participantThatFinisedAtLeadtOneExperiment = participants.filter(participant =>completedExperimentUserIds.includes(participant.id))
+
+    return participantThatFinisedAtLeadtOneExperiment;
+  }
+
 }
 
 module.exports = AdminRepository;

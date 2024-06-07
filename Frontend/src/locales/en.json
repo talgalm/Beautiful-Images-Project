@@ -81,7 +81,8 @@
     "country":"Country",
     "ageRange":"Age Range",
     "usersByCountry":"Users by Country",
-    "ageDistribution": "Age Distribution"
+    "ageDistribution": "Age Distribution",
+    "noParticipantsData": "There is no participants data to present"
 
 
 }

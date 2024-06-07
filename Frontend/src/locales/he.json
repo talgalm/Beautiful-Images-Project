@@ -82,6 +82,7 @@
     "country":"מדינה",
     "ageRange":"טווח גילאים",
     "usersByCountry":"משתתפים לפי מדינות",
-    "ageDistribution":"התפלגות גילאים"
+    "ageDistribution":"התפלגות גילאים",
+    "noParticipantsData": "לא קיים מידע על משתתפי הניסוי"
 
 }
