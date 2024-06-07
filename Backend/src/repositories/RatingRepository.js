@@ -1,5 +1,6 @@
 const { Rating, Image, Category } = require("../models");
 const { Op } = require("sequelize");
+const logger = require('../logger');
 
 class RatingRepository {
     static async addInitialRatings(userId, images) {
@@ -20,7 +21,8 @@ class RatingRepository {
         }));
     }
 
-    static async changeRating(userId, imageId, fromBasket, toBasket) {
+    static async changeRating(userId, imageId, fromBasket, toBasket, submittedFrom) {
+      logger.info(`RatingRepository - changeRating request by userId ${userId} imageId: ${imageId} fromBasket: ${fromBasket} toBasket: ${toBasket} submittedFrom: ${submittedFrom}`);
         const rating = await Rating.findOne(
             { where: { userId, imageId, rating: fromBasket, type: "tmp" } });
         if (!rating) {
@@ -30,8 +32,15 @@ class RatingRepository {
         if (rating.createdAt < oneDayAgo) {
             throw new Error('Rating is older than 24 hours');
         }
-        await Rating.update({ rating: toBasket }, 
-            { where: { userId, imageId, rating: fromBasket} });
+        
+        const updatedRating = await Rating.update({  
+          submittedFrom: submittedFrom,
+          rating: toBasket,  
+        }, { 
+          where: { userId, imageId, rating: fromBasket} 
+        });
+
+        return updatedRating;
     }
 
     static async saveRatings(userId) {

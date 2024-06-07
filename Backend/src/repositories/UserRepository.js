@@ -1,5 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const { User } = require("../models");
+const logger = require('../logger');
 
 class UserRepository {
   
@@ -48,10 +49,13 @@ class UserRepository {
     }
 
     static async getUserId(email) {
+      logger.info(`UserRepository - getUserId request by ${email}`);
       const user = await User.findOne({ where: { email } });
       if (!user) {
+        logger.error(`UserRepository - getUserId request by ${email} error: User with this email does not exist`);
         throw new Error('Invalid email');
       }
+      logger.info(`UserRepository - getUserId request by ${email} returned successfully`);
       return user.id;
     }
 

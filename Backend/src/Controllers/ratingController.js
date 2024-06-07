@@ -5,11 +5,12 @@ const logger = require('../logger');
 class RatingController {
 
     async changeRating(req, res) {
-        const {email , imageId, fromBasket , toBasket} = req.body
-        logger.info(`RatingController - changeRating request by ${email} imageId: ${imageId} fromBasket: ${fromBasket} toBasket: ${toBasket}`);
+        const {email , imageId, fromBasket , toBasket, submittedFrom} = req.body
+        logger.info(`RatingController - changeRating request by ${email} imageId: ${imageId} fromBasket: ${fromBasket} toBasket: ${toBasket} submittedFrom: ${submittedFrom}`);
         try {
             const userId = await UserRepository.getUserId(email);
-            const rating = await RatingRepository.changeRating(userId, imageId, fromBasket, toBasket);
+            logger.info(`RatingController - changeRating UserRepository.getUserId - finished, starting RatingRepository.changeRating`);
+            const rating = await RatingRepository.changeRating(userId, imageId, fromBasket, toBasket, submittedFrom);
             res.status(200).json({ message: 'Rating added successfully', rating });
         } catch (error) {
             res.status(400).json({ message: error.message });

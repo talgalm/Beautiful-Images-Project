@@ -17,7 +17,7 @@ export const handleRateImage = async (imageId, fromBasket , toBasket) => {
                 imageId : imageId,
                 fromBasket: fromBasket,
                 toBasket: toBasket,
-                fromsSubmitted : isMobile ? 'Mobile' : 'Desktop'
+                submittedFrom : isMobile ? 'Mobile' : 'Desktop'
             },
             {
                 headers: {
