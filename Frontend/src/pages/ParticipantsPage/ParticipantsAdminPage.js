@@ -111,10 +111,6 @@ const ParticipantsAdminPage = () => {
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Name',
-                accessor: 'name',
-            },
-            {
                 Header: t("gender"),
                 accessor: 'gender',
             },
