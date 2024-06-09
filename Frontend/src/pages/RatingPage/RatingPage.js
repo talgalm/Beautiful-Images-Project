@@ -45,8 +45,10 @@ const RatingPage = () => {
   const fetchData = async () => {
     try {
       const data = await handleFetchImages();
-      setImages(data.images); // Filter here
-      setInitialNumberOfImages(data.images.length);
+      console.log(data.images)
+      setImages(data.images); 
+      // setImages(images.filter((image) => image.rating === 0));
+      setInitialNumberOfImages(images.filter(image => image.rating !== 0).length);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -54,11 +56,36 @@ const RatingPage = () => {
     }
   };
 
+
   useEffect(() => {
     if (!loading && images.length === 0) {
-      fetchData();  
+      fetchData()
     }
   }, [loading, images]);
+
+
+  // useEffect(() => {
+  //   const checkImages = () => {
+  //     console.log(initialNumberOfImages )
+  //     if (images.length > 0) {
+  //       myFunction();
+  //     } else {
+  //       setTimeout(checkImages, 1);
+  //     }
+  //   };
+
+  //   // Start the initial 5-second wait
+  //   const timer = setTimeout(checkImages, 1);
+
+  //   // Cleanup timeout if the component unmounts
+  //   return () => clearTimeout(timer);
+  // }, [images]);
+
+  // const myFunction = () => {
+  //   setImages(images.filter((image) => image.rating === 0));
+  // };
+
+  
 
   function handleOnDrag(event, dataImg) {
     event.dataTransfer.effectAllowed = "move";
@@ -66,6 +93,7 @@ const RatingPage = () => {
       "application/json",
       JSON.stringify({ from: 0, data: dataImg })
     );
+
   }
 
   function handleOnDrop(event) {
@@ -74,6 +102,7 @@ const RatingPage = () => {
     );
     if (!images.find((item) => item.imageId === droppedItemData.data.imageId)) {
       droppedItemData.data.rating = 0;
+      droppedItemData.data.visible = true;
       setImages((prevState) => [...prevState, droppedItemData.data]);
       handleRateImage(droppedItemData.data.imageId, droppedItemData.from, 0);
     }
@@ -145,17 +174,53 @@ const RatingPage = () => {
   };
 
   const handleArrow = (next , img) => {
-    if (next){
-      if (imgIndx === images.length - 1)
-        setImgIndex(-1)
-      setImgIndex(imgIndx+1)
+
+    if (!next){
+      if (imgIndx===images.length-1){
+        setImgIndex(0)
+        handleFetchSingleImage(images[0].imageId, "original")
+        .then((data) => {
+          setSelectedImage(data.image.imageData);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+      }
+      else{
+        setImgIndex(imgIndx+1)
+        setSelectedImage(images[imgIndx+1].imageData)
+        handleFetchSingleImage(images[imgIndx+1].imageId, "original")
+        .then((data) => {
+          setSelectedImage(data.image.imageData);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+      }
     }
     else{
-      if (imgIndx === 0)
-        setImgIndex(images.length)
-      setImgIndex(imgIndx-1)
+      if (imgIndx===0){
+        setImgIndex(images.length-1)
+        handleFetchSingleImage(images[images.length-1].imageId, "original")
+        .then((data) => {
+          setSelectedImage(data.image.imageData);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+      }
+      else{
+        setImgIndex(imgIndx-1)
+        handleFetchSingleImage(images[imgIndx-1].imageId, "original")
+        .then((data) => {
+          setSelectedImage(data.image.imageData);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+      }
     }
-    setSelectedImage(images[imgIndx].imageData)
+    
   }
 
 
@@ -186,7 +251,7 @@ const RatingPage = () => {
               onDragOver={(e) => handleOnDragOver(e)}
             >
               {images.map((img , index) => (
-                <div
+                img.visible && <div
                   key={img.imageId}
                   className="draggable"
                   onDragStart={(e) => handleOnDrag(e, img)}
@@ -262,7 +327,7 @@ const RatingPage = () => {
                 initialNumberOfImages === initialNumberOfImages - images.length
                   ? "FinishEvaluateAllImages"
                   : "FinishEvaluateSomeImages",
-                { imagesNumber: initialNumberOfImages - images.length }
+                { imagesNumber: initialNumberOfImages }
               ),
             }}
           />

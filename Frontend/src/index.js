@@ -11,7 +11,6 @@ import i18n from './i18n';
 
 import HomePage from './pages/HomePage/HomePage';
 import RatingPage from './pages/RatingPage/RatingPage';
-import ImagesPage from './pages/ImagesPage/ImagesPage';
 import AdminPage from './pages/adminPage/AdminPage';
 import ImagesAdminPage from './pages/ImagesAdmin/ImagesAdminPage';
 
@@ -29,7 +28,6 @@ root.render(
     <Routes>
       <Route exact path="/" element={<App/>} />
       <Route path="/home" element={<HomePage/>} />
-      <Route path="/images" element={<ImagesPage/>} />
       <Route path="/rating" element={<RatingPage/>} />
       <Route path="/admin" element={<AdminPage/>} />
       <Route path="/admin/images" element={<ImagesAdminPage/>} />

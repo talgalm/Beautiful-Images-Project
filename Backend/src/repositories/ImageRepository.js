@@ -97,6 +97,13 @@ class ImageRepository {
               console.log("fetching new images");
               logger.info(`ImageRepo - fetchImages func is running - fetching new images`);
               const images = await ImageRepository.fetchNewImages(userId);
+              const processedImages = images.map(image => ({
+                ...image,
+                visible: image.rating ? image.rating === 0 : true
+              }));
+              console.log("---------------------------")
+              console.log(processedImages)
+              return processedImages;
               return images;
 
             }
@@ -104,6 +111,13 @@ class ImageRepository {
               console.log("fetching session images");
               logger.info(`ImageRepo - fetchImages func is running - fetching session images`);
               const images = await ImageRepository.fetchSessionImages(userId);
+              const processedImages = images.map(image => ({
+                ...image,
+                visible: image.rating ? image.rating === 0 : true
+              }));
+              console.log("---------------------------")
+              console.log(processedImages)
+              return processedImages;
               return images;
             }
         } catch (error) {

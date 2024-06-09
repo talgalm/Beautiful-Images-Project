@@ -70,26 +70,51 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
         setSelectedImage(null);
       } 
       const handleArrow = (next , img) => {
-        console.log(imgIndx)
-        if (imgIndx <= -1){
-            setImgIndex(0)
-            setSelectedImage(imageInBasket[0].imageData)
-        }
-        else if (imgIndx >= imageInBasket.length){
-            setImgIndex(imageInBasket.length-1)
-            setSelectedImage(imageInBasket[imageInBasket.length-1].imageData)
-        }
-        else{
-            if (!next){
-                setImgIndex(imgIndx+1)
-              }
-              else{
-                setImgIndex(imgIndx-1)
-             }
-             console.log("hre")
-             setSelectedImage(imageInBasket[imgIndx].imageData)
+        if (!next){
+            if (imgIndx===imageInBasket.length-1){
+              setImgIndex(0)
+              handleFetchSingleImage(imageInBasket[0].imageId, "original")
+              .then((data) => {
+                setSelectedImage(data.image.imageData);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+            }
+            else{
+              setImgIndex(imgIndx+1)
+              handleFetchSingleImage(imageInBasket[imgIndx+1].imageId, "original")
+              .then((data) => {
+                setSelectedImage(data.image.imageData);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
 
-        }
+            }
+          }
+          else{
+            if (imgIndx===0){
+              setImgIndex(imageInBasket.length)
+              handleFetchSingleImage(imageInBasket[imageInBasket.length-1].imageId, "original")
+              .then((data) => {
+                setSelectedImage(data.image.imageData);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+            }
+            else{
+              setImgIndex(imgIndx-1)
+              handleFetchSingleImage(imageInBasket[imageInBasket.length-1].imageId, "original")
+              .then((data) => {
+                setSelectedImage(data.image.imageData);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+            }
+          }
       }
 
     return (
