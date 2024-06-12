@@ -18,6 +18,19 @@ export const handleAdminLogin = async (email, password) => {
         return error;
     }
 };
+export const handleCreateImage = async (email, imageNme,categoryName ,imageData) => {
+    try {
+        const response = await axios.post(baseURL + 'api/admin/createImage', {
+            email,
+            imageNme,
+            categoryName, 
+            imageData
+        });
+        return response.data
+    } catch (error) {
+        return error;
+    }
+};
 
 export const handleGetAllRatings = async (email) => {
     try {

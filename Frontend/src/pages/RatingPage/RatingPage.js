@@ -29,7 +29,9 @@ const RatingPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imgIndx, setImgIndex] = useState(-1);
   const [initialNumberOfImages, setInitialNumberOfImages] = useState(null);
+  const [count , setCount] = useState(0);
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -45,8 +47,8 @@ const RatingPage = () => {
   const fetchData = async () => {
     try {
       const data = await handleFetchImages();
-      console.log(data.images)
       setImages(data.images); 
+      setCount(data.images.filter(item => !item.visible).length);
       // setImages(images.filter((image) => image.rating === 0));
       setInitialNumberOfImages(images.filter(image => image.rating !== 0).length);
     } catch (error) {
@@ -62,28 +64,7 @@ const RatingPage = () => {
       fetchData()
     }
   }, [loading, images]);
-
-
-  // useEffect(() => {
-  //   const checkImages = () => {
-  //     console.log(initialNumberOfImages )
-  //     if (images.length > 0) {
-  //       myFunction();
-  //     } else {
-  //       setTimeout(checkImages, 1);
-  //     }
-  //   };
-
-  //   // Start the initial 5-second wait
-  //   const timer = setTimeout(checkImages, 1);
-
-  //   // Cleanup timeout if the component unmounts
-  //   return () => clearTimeout(timer);
-  // }, [images]);
-
-  // const myFunction = () => {
-  //   setImages(images.filter((image) => image.rating === 0));
-  // };
+  
 
   
 
@@ -93,7 +74,7 @@ const RatingPage = () => {
       "application/json",
       JSON.stringify({ from: 0, data: dataImg })
     );
-
+    setCount(count+1)
   }
 
   function handleOnDrop(event) {
@@ -101,6 +82,7 @@ const RatingPage = () => {
       event.dataTransfer.getData("application/json")
     );
     if (!images.find((item) => item.imageId === droppedItemData.data.imageId)) {
+      setCount(count-1)
       droppedItemData.data.rating = 0;
       droppedItemData.data.visible = true;
       setImages((prevState) => [...prevState, droppedItemData.data]);
@@ -239,6 +221,8 @@ const RatingPage = () => {
       </div>
     );
   }
+
+
   return (
     <div>
       <Header />
@@ -327,7 +311,7 @@ const RatingPage = () => {
                 initialNumberOfImages === initialNumberOfImages - images.length
                   ? "FinishEvaluateAllImages"
                   : "FinishEvaluateSomeImages",
-                { imagesNumber: initialNumberOfImages }
+                { imagesNumber: count}
               ),
             }}
           />

@@ -9,7 +9,6 @@ export default function LandingPage(){
     const isRtl = ['he'].includes(i18n.language);
     const [isChecked, setIsChecked] = useState(false);
     const [isOK, setIsOK] = useState(false);
-    
 
     const navigate = useNavigate();
 
@@ -20,23 +19,60 @@ export default function LandingPage(){
 
     const handleCheckboxChange = (event) => {
         setIsChecked(event.target.checked);
-        setIsOK (!event.target.checked)
     };
 
     const handleButtonClick = () => {
-        if (!isChecked) {
-            setIsOK(true);
-        } else {
-            navigate("/home")
+        if (!isOK){
+            setIsOK(true)
         }
+        else{
+            if (isChecked && isOK){
+                navigate("/home")
+            }
+        }
+    };
+    const handleButtonClickRegistered = () => {
+
+        navigate("/home")
+        
     };
 
 
     return (
         <div className='landing-div'>
             <div className='instructions-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
-                <p className='p-intro'><Trans i18nKey="landingIntro" components={{ br: <br /> }} /></p>
-                <div className='checkbox-ok-div' style={{ }}>
+                {isRtl && <p className='p-intro'><Trans i18nKey="landingIntro" components={{ br: <br /> }} /></p>}
+                {!isRtl && <div className='text-div'>
+                    <p className='p-intro'>{t("landingTitle")}</p>
+                    <p className='p-subtitle'>{t("landingSubTitle")}</p>
+                    <p className='p-text'>{t("landingPart1")}</p>
+                    <p className='p-text'>{t("landingPart2")}</p>
+                    {!isOK && <p className='p-text'>{t("landingPart3")} </p>}
+                    {!isOK && <div className='num-count'>0 {t('landingNum')}</div>}
+                    {isOK &&                 <p className='p-text'>{t("landingPartContinute")}</p>}
+                    </div>}
+
+
+                {isOK && <div className='text-div-con'>
+                    {!isRtl && <div>
+                    <p className='p-text-in-title'>{t("landingSubHeadline1")}</p>
+                    <p className='p-text-in-sub'>{t("landingSubText1")}</p>
+                    <p className='p-text-in-title'>{t("landingSubHeadline2")}</p>
+                    <p className='p-text-in-sub'>{t("landingSubText2")}</p>
+                    <p className='p-text-in-title'>{t("landingSubHeadline3")}</p>
+                    <p className='p-text-in-sub'>{t("landingSubText3")}</p>
+                    <p className='p-text-in-title'>{t("landingSubHeadline4")}</p>
+                    <p className='p-text-in-sub'>{t("landingSubText4")}</p>
+                    <p className='p-text-in-title'>{t("landingSubHeadline5")}</p>
+                    <p className='p-text-in-sub'>{t("landingSubText5")}</p>
+                    <p className='p-text-in-title'>{t("landingSubHeadline6")}</p>
+                    <p className='p-text-in-sub'>{t("landingSubText6")}</p>
+                    <p className='p-text-in-title'>{t("landingSubHeadline7")}</p>
+                    <p className='p-text-in-sub'>{t("landingSubText7")}</p>
+                    <p className='p-text-in-title'>{t("landingSubHeadline8")}</p>
+                    <p className='p-text-in-sub'>{t("landingSubText8")}</p>
+                    </div>}
+                    <div className='checkbox-ok-div' style={{ }}>
                     {!isRtl ? (
                         <>
                             <input 
@@ -62,15 +98,21 @@ export default function LandingPage(){
                             />
                         </>
                     )}
+
                 </div>
-                {isOK ? <div style={{ color: 'red' }}>{t('checkToAgree')}</div>
+                {/* {isOK ? <div style={{ color: 'red' }}>{t('checkToAgree')}</div>
 : (
   <div style={{ height: '25px', width: '100%', backgroundColor: 'white', color: 'white' }}>
     {t('checkToAgree').replace('s', ' ')}
   </div>
-)}
+)} */}
+                </div>
+
+                }
                 <div className='buttons-div'>
                     <button className='button-c' onClick={handleButtonClick}>{t('continue')}</button>
+                    {!isOK && <button className='button-c' onClick={handleButtonClickRegistered}>{t('RegisteredUsers')}</button>}
+
                 </div>
             </div>
 

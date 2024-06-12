@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { handleAdminLogin } from '../services/adminService';
 import { useNavigate } from "react-router-dom";
 import Header from '../components/Header/Header';
+import './adminLoginPage.css'
 
 const AdminLoginPage = () => {
   const { t } = useTranslation();
@@ -43,10 +44,10 @@ const AdminLoginPage = () => {
   return (
     <div>
       <Header/>
-      <div className=" d-flex justify-content-center">
-        <div >
-          <h1 className="mt-5" style={{ color: 'black' }}>{t("adminLogin")}</h1>
-          <form onSubmit={handleAdminLoginHelper} className="mt-3">
+      <div className="center-div">
+        <div>
+          <form onSubmit={handleAdminLoginHelper} className="box-div">
+          <h1 className="head-div" style={{ color: 'black' }}>{t("adminLogin")}</h1>
             <div className="form-group">
               <input
                 type="text"
@@ -68,11 +69,14 @@ const AdminLoginPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
+            <div className='button-div'>
+            <button className="btn btn-primary" onClick={() => navigate("/home")}>{t("back")}</button>
             <button type="submit" className="btn btn-primary">{t("login")}</button>
+            </div>
+
             {loginError && <div className="alert alert-danger mt-3">{loginError}</div>}
           </form>
 
-          <button className="btn btn-primary" onClick={() => navigate("/home")}>{t("back")}</button>
         </div>
       </div>
     </div>

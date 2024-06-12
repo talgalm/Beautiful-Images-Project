@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleGetAllImages, handleGetAllRatings, handleGetImageRatings } from '../../services/adminService';
+import { handleCreateImage, handleGetAllImages, handleGetAllRatings, handleGetImageRatings } from '../../services/adminService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ImagesAdminPage.css';
 import { Card } from 'react-bootstrap';
@@ -210,6 +210,12 @@ const ImagesAdminPage = () => {
   const enterCategory = async () => {
     setInput(true);
   };
+  const createImage = async () => {
+    handleCreateImage("adminnnnnn@gmail.com" , "temp" , input,file).then((response) => {
+      setShowAddModal(false);
+    });
+  };
+  //createImage
 
 
 
@@ -320,7 +326,7 @@ const ImagesAdminPage = () => {
             </div>)
           )}
           {input !== false && <div className='sendDiv'><input placeholder={t('enterMan')} value={selectedValue} onChange={setSelectedValueText}/>
-          <button className="btn btn-primary" style={{backgroundColor:'red !important'}}>Send</button></div>}
+          <button className="btn btn-primary" style={{backgroundColor:'red !important'}} onClick={createImage}>Save</button></div>}
       </Modal.Body>
       </Modal>
       <Modal show={showDeleteModal} onHide={closeDModal} size="m">
