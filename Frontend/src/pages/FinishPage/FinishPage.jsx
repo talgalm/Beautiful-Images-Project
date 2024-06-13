@@ -1,5 +1,5 @@
 import './finishPage.css'
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from "react-i18next";
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Header from '../../components/Header/Header';
@@ -24,8 +24,11 @@ export default function FinishPage(){
             <div className='finish-div'>
                 <div className='images-example-div'>
                 </div>
-                <div className='thank-you-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
-                    {t("finishExperiment")}
+                <div className='thank-you-div'  dangerouslySetInnerHTML={{
+              __html: t('finishExperiment')
+              ,
+            }}>
+
                 </div>
             </div>
         </div>

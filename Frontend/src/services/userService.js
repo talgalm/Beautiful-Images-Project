@@ -35,6 +35,7 @@ export const handleUserLogin = async (email) => {
 };
 //Use case : Logout 
 export const handleUserLogout = async () => {
+    localStorage.clear();
     try {
         const response = await axios.post(baseURL + 'api/auth/logout', {
             email: localStorage.getItem('email'),

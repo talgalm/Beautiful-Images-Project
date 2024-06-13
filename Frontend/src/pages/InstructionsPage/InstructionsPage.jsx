@@ -6,7 +6,8 @@ import './instructionsPage.css'
 
 
 export default function InstructionsPage (){
-    const [isReturningUser , setReturningUser] = useState(false);
+    const [isReturningUser , setReturningUser] = useState(localStorage.getItem("nowRegistered") !== null);
+    
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { i18n } = useTranslation();
@@ -31,12 +32,12 @@ export default function InstructionsPage (){
             <div className="guidelines-div">
                 <div className="left-div"></div>
                 <div className="text-div">
-                {isReturningUser ? 
-                (<div dir={isRtl ? 'rtl' : 'ltr'}>
+                {!isReturningUser ? 
+                (<div dir={isRtl ? 'rtl' : 'ltr'} className="text-ins">
                     <Trans i18nKey="returningGeneralInstructions" components={{ br: <br /> }} />
                 </div>) 
                 :
-                (<div dir={isRtl ? 'rtl' : 'ltr'}>
+                (<div dir={isRtl ? 'rtl' : 'ltr'} className="text-ins">
                     <Trans i18nKey="generalInstructions" components={{ br: <br /> }} />
                 </div>)}
                 </div>

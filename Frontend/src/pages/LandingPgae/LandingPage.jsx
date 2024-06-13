@@ -2,6 +2,7 @@ import { useTranslation , Trans} from 'react-i18next';
 import './landingPage.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { handleGetParticipantsData } from '../../services/adminService';
 
 
 export default function LandingPage(){
@@ -9,6 +10,19 @@ export default function LandingPage(){
     const isRtl = ['he'].includes(i18n.language);
     const [isChecked, setIsChecked] = useState(false);
     const [isOK, setIsOK] = useState(false);
+    const [num , setNum] = useState(0);
+
+    useEffect(() => {
+        handleGetParticipantsData()
+        .then(data => { 
+            setNum(data.participants.length);
+            console.log(data.participants.length)
+
+        })
+        .catch((error) => {
+          console.error('Error :', error);
+        });
+    }, []);
 
     const navigate = useNavigate();
 
@@ -48,7 +62,7 @@ export default function LandingPage(){
                     <p className='p-text'>{t("landingPart1")}</p>
                     <p className='p-text'>{t("landingPart2")}</p>
                     {!isOK && <p className='p-text'>{t("landingPart3")} </p>}
-                    {!isOK && <div className='num-count'>0 {t('landingNum')}</div>}
+                    {!isOK && <div className='num-count'>{num} {t('landingNum')}</div>}
                     {isOK &&                 <p className='p-text'>{t("landingPartContinute")}</p>}
                     </div>}
 

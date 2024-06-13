@@ -49,7 +49,6 @@ const RatingPage = () => {
       const data = await handleFetchImages();
       setImages(data.images); 
       setCount(data.images.filter(item => !item.visible).length);
-      // setImages(images.filter((image) => image.rating === 0));
       setInitialNumberOfImages(images.filter(image => image.rating !== 0).length);
     } catch (error) {
       console.error("Error:", error);
@@ -308,7 +307,7 @@ const RatingPage = () => {
             dir={isRtl ? "rtl" : "ltr"}
             dangerouslySetInnerHTML={{
               __html: t(
-                initialNumberOfImages === initialNumberOfImages - images.length
+                count === images.length
                   ? "FinishEvaluateAllImages"
                   : "FinishEvaluateSomeImages",
                 { imagesNumber: count}
@@ -316,8 +315,7 @@ const RatingPage = () => {
             }}
           />
           <div className="buttons-in-modal">
-            {initialNumberOfImages ===
-              initialNumberOfImages - images.length && (
+            { (
               <button className="button-53" onClick={handleDisplayMoreImages}>
                 {t("displayMoreImages")}
               </button>

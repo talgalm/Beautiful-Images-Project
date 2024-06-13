@@ -86,6 +86,7 @@ export default function HomePage (){
       handleUserRegistration(email , nickname , age , country , gender)
       .then(data => {
         if (data.message === 'User registered successfully'){
+          localStorage.setItem('nowRegistered',"true")
           handleLogin(event)
         }
         else{

@@ -2,19 +2,20 @@
     width: 100%;
     height: 100vh;
     display: flex;
-    flex-direction: row;
+
 }
 .thank-you-div{
-    width: 70%;
-    height: 100vh;
+    width: 100%;
     gap: 10px;
-    display: flex;
+
     color: black;
     width: 70%;
 	margin-top: 50px;
 	font-size: 25px;
-    line-height: 1.4;
+    line-height: 2;
 	font-weight: bold;
+    font-weight: 500;
+    
 }
 .header-wrapper{
 	.header-div{

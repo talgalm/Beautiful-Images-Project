@@ -26,6 +26,7 @@ const useAutoLogout = () => {
 
     const logout = () => {
       setIsLoggedIn(false);
+      localStorage.clear();
       localStorage.removeItem('isLoggedIn');
       localStorage.removeItem('token');
       localStorage.removeItem('email');

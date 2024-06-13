@@ -18,22 +18,28 @@
 	max-height: 65vh;
 	color: black;
 }
+
+.text-ins{
+	font-size: 20px;
+	line-height: 2;
+
+}
 .left-div{
     width: 20%;
 }
 .text-div{
     width: 70%;
 	margin-left: -50px;
-	font-size: 25px;
+	font-size: 22px;
     line-height: 1.4;
 	font-weight: bold;
 
 }
 
 .button-div{
-	width: 100%;
+	width: 86%;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 
 	button{
 		margin-top: 20px;
