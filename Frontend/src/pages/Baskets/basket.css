@@ -125,6 +125,9 @@
 
 
 @media screen and (max-width: 400px) {
+    .basket-div{
+        margin: 1.5px;
+    }
 
     .basket-num{
         width: 25% !important;

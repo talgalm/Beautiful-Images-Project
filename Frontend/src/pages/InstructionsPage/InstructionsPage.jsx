@@ -30,8 +30,8 @@ export default function InstructionsPage (){
         <div className="header-wrapper">
             <Header/>
             <div className="guidelines-div">
-                <div className="left-div"></div>
-                <div className="text-div">
+             
+                <div className="text-div-d">
                 {!isReturningUser ? 
                 (<div dir={isRtl ? 'rtl' : 'ltr'} className="text-ins">
                     <Trans i18nKey="returningGeneralInstructions" components={{ br: <br /> }} />

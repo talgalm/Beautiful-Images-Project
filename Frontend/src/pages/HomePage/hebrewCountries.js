@@ -42,12 +42,6 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "741",
-    "name": "אזור תעלת פנמה",
-    "english_name": "CANAL ZONE"
-},
-{
-    "table": "טבלת ארצות",
     "id": "311",
     "name": "אזרביג'אן",
     "english_name": "AZERBAIJAN"
@@ -66,69 +60,15 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "885",
-    "name": "איי גילברט ואליס",
-    "english_name": "GILBERT ELLICE ISL"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "738",
-    "name": "איי הבתולה",
-    "english_name": "VIRGIN ISLAND"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "884",
-    "name": "איי ווליס ופוטונה",
-    "english_name": "WALLIS FUTUNA ISL"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "739",
-    "name": "איי טורקס וקייקוס",
-    "english_name": "TORKAS ISLAND"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "867",
-    "name": "איי מרשל",
-    "english_name": "MARSHALL ISLANDS"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "864",
-    "name": "איי נורפולק",
-    "english_name": "NORFOLK ISLA"
-},
-{
-    "table": "טבלת ארצות",
     "id": "289",
     "name": "איי סיישל",
     "english_name": "SEYCHELLES"
 },
 {
     "table": "טבלת ארצות",
-    "id": "832",
-    "name": "איי פאלקלנד",
-    "english_name": "FALKLAND"
-},
-{
-    "table": "טבלת ארצות",
     "id": "888",
     "name": "איי פיגי",
     "english_name": "FIJI"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "278",
-    "name": "איי קומורו",
-    "english_name": "COMOROS ISLANDS"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "887",
-    "name": "איי קוק",
-    "english_name": "COOK ISL"
 },
 {
     "table": "טבלת ארצות",
@@ -144,12 +84,6 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "861",
-    "name": "איי שלמה הבריטיים",
-    "english_name": "SOLOMON ISLANDS"
-},
-{
-    "table": "טבלת ארצות",
     "id": "130",
     "name": "אינדונזיה",
     "english_name": "INDONESIA"
@@ -159,12 +93,6 @@ export const countries = [{
     "id": "581",
     "name": "איסלנד",
     "english_name": "ISLAND"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "691",
-    "name": "אירופה לא ידוע",
-    "english_name": "EUROPE UNKNOWN"
 },
 {
     "table": "טבלת ארצות",
@@ -198,12 +126,6 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "852",
-    "name": "אמריקה לא ידוע",
-    "english_name": "AMERICA UNKNOWN"
-},
-{
-    "table": "טבלת ארצות",
     "id": "281",
     "name": "אנגולה",
     "english_name": "ANGOLA"
@@ -216,33 +138,15 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "758",
-    "name": "אנטיגואה וברבודה",
-    "english_name": "ANTIGUA AND BARBUDA"
-},
-{
-    "table": "טבלת ארצות",
     "id": "303",
     "name": "אסטוניה",
     "english_name": "ESTONIA"
 },
 {
     "table": "טבלת ארצות",
-    "id": "190",
-    "name": "אסיה לא ידוע",
-    "english_name": "ASIA UNKNOWN"
-},
-{
-    "table": "טבלת ארצות",
     "id": "100",
     "name": "אפגניסטן",
     "english_name": "AFGHANISTAN"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "290",
-    "name": "אפריקה לא ידוע",
-    "english_name": "AFRICA UNKNOWN"
 },
 {
     "table": "טבלת ארצות",
@@ -282,21 +186,9 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "905",
-    "name": "בדרך לארץ",
-    "english_name": "ON WAY TO ISRAEL"
-},
-{
-    "table": "טבלת ארצות",
     "id": "735",
     "name": "בהמס",
     "english_name": "BAHAMAS"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "115",
-    "name": "בוטן",
-    "english_name": "BHUTAN"
 },
 {
     "table": "טבלת ארצות",
@@ -324,12 +216,6 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "285",
-    "name": "בורונדי",
-    "english_name": "BURUNDI"
-},
-{
-    "table": "טבלת ארצות",
     "id": "217",
     "name": "בורקינה פאסו",
     "english_name": "BURKINA-FASSO"
@@ -343,14 +229,8 @@ export const countries = [{
 {
     "table": "טבלת ארצות",
     "id": "304",
-    "name": "בילורוסיה",
+    "name": "בלארוס",
     "english_name": "BELARUS"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "906",
-    "name": "בלב ים",
-    "english_name": "AT SEA"
 },
 {
     "table": "טבלת ארצות",
@@ -372,33 +252,15 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "214",
-    "name": "בנין )דהומי(",
-    "english_name": "BENIN (DAHOMEY)"
-},
-{
-    "table": "טבלת ארצות",
     "id": "732",
     "name": "ברבדוס",
     "english_name": "BARBADOS"
 },
 {
     "table": "טבלת ארצות",
-    "id": "134",
-    "name": "ברוניי",
-    "english_name": "BRUNEI"
-},
-{
-    "table": "טבלת ארצות",
     "id": "810",
     "name": "ברזיל",
     "english_name": "BRAZIL"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "300",
-    "name": "ברית המועצות",
-    "english_name": "USSR"
 },
 {
     "table": "טבלת ארצות",
@@ -426,12 +288,6 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "757",
-    "name": "גואדאלופ",
-    "english_name": "GUADELOUPE"
-},
-{
-    "table": "טבלת ארצות",
     "id": "135",
     "name": "גואם",
     "english_name": "GUAM"
@@ -450,12 +306,6 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "811",
-    "name": "גויאנה הצרפתית",
-    "english_name": "GUIANA FR"
-},
-{
-    "table": "טבלת ארצות",
     "id": "251",
     "name": "גיבוטי",
     "english_name": "DJIBOUTI"
@@ -471,24 +321,6 @@ export const countries = [{
     "id": "207",
     "name": "גינאה",
     "english_name": "GUINEA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "206",
-    "name": "גינאה ביסאו",
-    "english_name": "GUINEA BISSAU"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "865",
-    "name": "גינאה החדשה",
-    "english_name": "NEW GUINEA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "288",
-    "name": "גינאה המשוונית",
-    "english_name": "GUINEA EQ"
 },
 {
     "table": "טבלת ארצות",
@@ -516,45 +348,15 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "502",
-    "name": "גרמניה המזרחית",
-    "english_name": "E GERMANY"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "501",
-    "name": "גרמניה המערבית",
-    "english_name": "W GERMANY"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "753",
-    "name": "גרנדה",
-    "english_name": "GRENADA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "751",
-    "name": "דומיניקה",
-    "english_name": "DOMINICA"
-},
-{
-    "table": "טבלת ארצות",
     "id": "580",
     "name": "דנמרק",
     "english_name": "DENMARK"
 },
 {
     "table": "טבלת ארצות",
-    "id": "850",
-    "name": "דרום אמריקה",
-    "english_name": "SOUTH AMERICA"
-},
-{
-    "table": "טבלת ארצות",
     "id": "270",
     "name": "דרום אפריקה",
-    "english_name": "S AFRICA"
+    "english_name": "SOUTH AFRICA"
 },
 {
     "table": "טבלת ארצות",
@@ -567,18 +369,6 @@ export const countries = [{
     "id": "736",
     "name": "האיטי",
     "english_name": "HAITI"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "863",
-    "name": "האיים ההברדיים",
-    "english_name": "HEBRIDES"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "762",
-    "name": "האנטילים ההולנדים",
-    "english_name": "ANTILLES"
 },
 {
     "table": "טבלת ארצות",
@@ -613,14 +403,14 @@ export const countries = [{
 {
     "table": "טבלת ארצות",
     "id": "590",
-    "name": "הממלכה המאוחדת",
+    "name": "בריטניה",
     "english_name": "UNITED KINGDOM"
 },
 {
     "table": "טבלת ארצות",
     "id": "734",
-    "name": "הרפ הדומיניקנית",
-    "english_name": "DOMINICAN R"
+    "name": "הרפובליקה הדומיניקנית",
+    "english_name": "DOMINICAN REPUBLIC"
 },
 {
     "table": "טבלת ארצות",
@@ -628,18 +418,7 @@ export const countries = [{
     "name": "ויטנאם",
     "english_name": "VIETNAM"
 },
-{
-    "table": "טבלת ארצות",
-    "id": "126",
-    "name": "ויטנאם הדרומית",
-    "english_name": "SOUTH VIETNAM"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "871",
-    "name": "ונואטו",
-    "english_name": "VANUATU"
-},
+
 {
     "table": "טבלת ארצות",
     "id": "760",
@@ -678,39 +457,15 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "872",
-    "name": "טובלו",
-    "english_name": "TUVALU"
-},
-{
-    "table": "טבלת ארצות",
     "id": "215",
     "name": "טוגו",
     "english_name": "TOGO"
 },
 {
     "table": "טבלת ארצות",
-    "id": "881",
-    "name": "טונגה",
-    "english_name": "TONGA"
-},
-{
-    "table": "טבלת ארצות",
     "id": "133",
     "name": "טיוון",
     "english_name": "TAIWAN"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "132",
-    "name": "טימור הפורטוגלית",
-    "english_name": "PORTUGUESE TIMOR"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "201",
-    "name": "טנגר",
-    "english_name": "TANGIER"
 },
 {
     "table": "טבלת ארצות",
@@ -723,12 +478,6 @@ export const countries = [{
     "id": "761",
     "name": "טרינידד וטובגו",
     "english_name": "TRINIDAD AND TOBAGO"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "410",
-    "name": "יוגוסלביה",
-    "english_name": "YUGOSLAVIA"
 },
 {
     "table": "טבלת ארצות",
@@ -759,12 +508,6 @@ export const countries = [{
     "id": "51",
     "name": "כווית",
     "english_name": "KUWAIT"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "0",
-    "name": "לא רשום",
-    "english_name": "UNKNOWN"
 },
 {
     "table": "טבלת ארצות",
@@ -816,18 +559,6 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "272",
-    "name": "לסוטו",
-    "english_name": "LESOTHO"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "203",
-    "name": "מאוריטניה",
-    "english_name": "MAURITANIA"
-},
-{
-    "table": "טבלת ארצות",
     "id": "276",
     "name": "מאוריציוס",
     "english_name": "MAURITIUS"
@@ -870,21 +601,9 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "752",
-    "name": "מונסרת",
-    "english_name": "MONTSERRAT"
-},
-{
-    "table": "טבלת ארצות",
     "id": "641",
     "name": "מונקו",
     "english_name": "MONACO"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "136",
-    "name": "מזרח טימור",
-    "english_name": "EAST TIMOR"
 },
 {
     "table": "טבלת ארצות",
@@ -937,8 +656,8 @@ export const countries = [{
 {
     "table": "טבלת ארצות",
     "id": "414",
-    "name": "מקדוניה",
-    "english_name": "FYROM"
+    "name": "צפון מקדוניה",
+    "english_name": "NORTH MACEDONIA"
 },
 {
     "table": "טבלת ארצות",
@@ -954,27 +673,9 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "202",
-    "name": "מרוקו הספרדית",
-    "english_name": "SPANISH MOROCCO"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "756",
-    "name": "מרטיניק",
-    "english_name": "MARTINIQUE"
-},
-{
-    "table": "טבלת ארצות",
     "id": "750",
     "name": "מרכז אמריקה",
     "english_name": "CENTRAL AMERICA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "886",
-    "name": "נאורו",
-    "english_name": "NAURU"
 },
 {
     "table": "טבלת ארצות",
@@ -1020,21 +721,9 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "245",
-    "name": "סאו טומה ופרינציפה",
-    "english_name": "SAO TOME AND PRINCIP"
-},
-{
-    "table": "טבלת ארצות",
     "id": "241",
     "name": "סודן",
     "english_name": "SUDAN"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "273",
-    "name": "סווזילנד",
-    "english_name": "SWAZILAND"
 },
 {
     "table": "טבלת ארצות",
@@ -1054,34 +743,11 @@ export const countries = [{
     "name": "סורינם",
     "english_name": "SURINAME"
 },
-{
-    "table": "טבלת ארצות",
-    "id": "277",
-    "name": "סט הלנה",
-    "english_name": "ST HELENA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "754",
-    "name": "סט וינסנט",
-    "english_name": "ST VINCENT"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "755",
-    "name": "סט. לוציה",
-    "english_name": "ST LUCIA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "742",
-    "name": "סט. קיטס ונביס",
-    "english_name": "ST. KITTS & NEVIS"
-},
+
 {
     "table": "טבלת ארצות",
     "id": "208",
-    "name": "סיירה ליאונה",
+    "name": "סיירה ליאון",
     "english_name": "SIERRA LEONE"
 },
 {
@@ -1095,12 +761,6 @@ export const countries = [{
     "id": "122",
     "name": "סינגפור",
     "english_name": "SINGAPORE"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "113",
-    "name": "סיקים",
-    "english_name": "SIKKIM"
 },
 {
     "table": "טבלת ארצות",
@@ -1153,14 +813,8 @@ export const countries = [{
 {
     "table": "טבלת ארצות",
     "id": "112",
-    "name": "סרי לנקה )צילון(",
+    "name": "סרי לנקה",
     "english_name": "SRI-LANKA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "80",
-    "name": "עדן",
-    "english_name": "ADEN"
 },
 {
     "table": "טבלת ארצות",
@@ -1194,12 +848,6 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "889",
-    "name": "פולינזיה הצרפתית",
-    "english_name": "FRENCH POLYNESIA"
-},
-{
-    "table": "טבלת ארצות",
     "id": "711",
     "name": "פורטו ריקו",
     "english_name": "PUERTO RICO"
@@ -1221,12 +869,6 @@ export const countries = [{
     "id": "550",
     "name": "פינלנד",
     "english_name": "FINLAND"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "869",
-    "name": "פלאו",
-    "english_name": "PALAU"
 },
 {
     "table": "טבלת ארצות",
@@ -1260,21 +902,9 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "318",
-    "name": "צ'צ'ניה",
-    "english_name": "CHECHNYA"
-},
-{
-    "table": "טבלת ארצות",
     "id": "242",
     "name": "צאד",
     "english_name": "CHAD"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "530",
-    "name": "צכוסלובקיה",
-    "english_name": "CZECHOSLOVAKIA"
 },
 {
     "table": "טבלת ארצות",
@@ -1305,13 +935,7 @@ export const countries = [{
     "id": "286",
     "name": "קונגו",
     "english_name": "CONGO"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "283",
-    "name": "קונגו. רפ. דמוק.",
-    "english_name": "CONGO"
-},
+}, 
 {
     "table": "טבלת ארצות",
     "id": "417",
@@ -1323,12 +947,6 @@ export const countries = [{
     "id": "723",
     "name": "קוסטה ריקה",
     "english_name": "COSTA RICA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "151",
-    "name": "קוריאה",
-    "english_name": "KOREA"
 },
 {
     "table": "טבלת ארצות",
@@ -1359,18 +977,6 @@ export const countries = [{
     "id": "316",
     "name": "קירג'זסטאן",
     "english_name": "KIRGHIZSTAN"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "873",
-    "name": "קיריבטי",
-    "english_name": "KIRIBATI"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "862",
-    "name": "קלדוניה החדשה",
-    "english_name": "NEW CALEDONIA"
 },
 {
     "table": "טבלת ארצות",
@@ -1410,21 +1016,9 @@ export const countries = [{
 },
 {
     "table": "טבלת ארצות",
-    "id": "279",
-    "name": "ראוניון",
-    "english_name": "REUNION"
-},
-{
-    "table": "טבלת ארצות",
     "id": "284",
     "name": "רואנדה",
     "english_name": "RWANDA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "260",
-    "name": "רודזיה",
-    "english_name": "RODESIA"
 },
 {
     "table": "טבלת ארצות",
@@ -1436,36 +1030,7 @@ export const countries = [{
     "table": "טבלת ארצות",
     "id": "306",
     "name": "רוסיה",
-    "english_name": "RUSSIAN FEDERATION"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "243",
-    "name": "רפ מרכז אפריקנית",
-    "english_name": "CENTRAL AFRICA"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "880",
-    "name": "שאר ארצות אוקיאניה"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "690",
-    "name": "שאר ארצות אירופה",
-    "english_name": "OTHER EUROPE"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "180",
-    "name": "שאר ארצות אסיה",
-    "english_name": "OTHER ASIAN"
-},
-{
-    "table": "טבלת ארצות",
-    "id": "280",
-    "name": "שאר ארצות אפריקה",
-    "english_name": "OTHER AFRICA"
+    "english_name": "RUSSIA"
 },
 {
     "table": "טבלת ארצות",
@@ -1509,10 +1074,4 @@ export const countries = [{
     "name": "תימן",
     "english_name": "YEMEN"
 },
-{
-    "table": "טבלת ארצות",
-    "id": "71",
-    "name": "תימן הדמוקרטית",
-    "english_name": "PEOPLE'S DEMO PEP YE"
-}
 ]

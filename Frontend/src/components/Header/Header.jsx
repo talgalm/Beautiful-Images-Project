@@ -8,6 +8,8 @@ import logo from './logo.webp';
 import { useLocation } from "react-router-dom";
 import { handleUserLogout } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
+import {isMobile} from 'react-device-detect';
+
 
 export default function Header() {
   const [showLogout, setShowlogout] = useState(false);
@@ -44,12 +46,11 @@ export default function Header() {
 
   return (
     <div className="header-div">
-       <img className="logo" src={logo} alt="Logo" />
+       <img className="logo" src={logo} alt="Logo" style={{width : isMobile ? "50%" : "" , marginTop: isMobile ? "25px" : ""}}/>
       <div className="icons-div">
-       
         <div className="icon-panel" style={{ right: "20px" }}>
           <LanguageSwitcher />
-          {!isHomeOrRoot() && (
+          {!isHomeOrRoot()  && (
             <div>
               <div className="tooltip-container">
                 <img src={userIcon} onClick={openFinishModal}></img>
@@ -57,6 +58,11 @@ export default function Header() {
               </div>
             </div>
           )}
+          {!isMobile && localStorage.getItem('nickname') !== null && <div className="nick" dangerouslySetInnerHTML={{
+              __html: t("greet",
+                { name: localStorage.getItem('nickname')}
+              ),
+            }}></div>}
         </div>
       </div>
       <Modal show={showLogout} onHide={closeFinishModal} size="l">

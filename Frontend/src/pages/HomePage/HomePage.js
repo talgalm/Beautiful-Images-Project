@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Header from '../../components/Header/Header';
 import {countries} from '../HomePage/hebrewCountries.js';
 
-import useAutoLogout from '../../hooks/useAutoLogout.js';
 
 export default function HomePage (){
   const { t, i18n } = useTranslation();
@@ -57,18 +56,16 @@ export default function HomePage (){
     setGender(event.target.value);
   }
   function handleCountryChange(event){
-
-    let counyrtName = event.target.value;
-    if (isRtl){
-      countries.find((country)=> {
-        if (country.name === event.target.value)
-          counyrtName = country.english_name;
-      })
-    }
-      setCountry(counyrtName);
+      setCountry(event.target.value);
   }
 
   function handleRegistration(event){
+    if (isRtl){
+      countries.find((country)=> {
+        if (country.name === country)
+          setCountry(country.english_name);
+      })
+    }
     event.preventDefault();
     const isAge = (!isNaN(parseInt(age)) && parseInt(age) >= 18 && parseInt(age) <= 99);
     const isEmail = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
@@ -109,6 +106,7 @@ export default function HomePage (){
       if ( data.message === 'Login successful' && data.token ){
         localStorage.setItem('token',data.token)
         localStorage.setItem('email',email)
+        localStorage.setItem('nickname',data.nickname)
         navigate("/instructions")
       }
       else{

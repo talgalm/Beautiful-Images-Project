@@ -282,6 +282,7 @@ const RatingPage = () => {
           <div className="baskets-div">
             {[...Array(10)].reverse().map((_, index) => (
               <div key={`basket-wrapper-${10 - index}`}>
+  
                 <Basket
                   index={10 - index}
                   onDropImage={onDropImage}
@@ -293,6 +294,7 @@ const RatingPage = () => {
             ))}
           </div>
         </div>
+    
         <div className="button-container">
           <button className="button-53" onClick={openFinishModal}>
             {t("doneEvaluate")}

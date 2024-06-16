@@ -2,7 +2,6 @@
     "welcome": "Welcome to my app!",
     "langugaes":"Languages",
     "landingIntro": " Hello,<br/> Welcome to the image database project .<br/> if you have already registered a system, please enter it using the button.<br/>The database is developed as part of a final project that is being carried out in the Department of Software Engineering and Information Systems at Ben-Gurion University.<br/>  Our goal is to create a database of beautiful images taken by amateur and professional photographers and understand how much people like each of them. To allow us to arrive at a reliable assessment of the beauty of the images, we ask that you view at least 70 images and give each of them a score that expresses How much do you like them? In our estimation, the time required is about 10 minutes. <br/>The research is anonymous. We are interested in statistical data and not in personal data, so we do not collect any details about you. We would be happy if you later answer some demographic questions, but It's not mandatory, all you need is an email address so we can allow you to enter the system.",
-    
     "landingTitle" : "How much do you like this photo?",
     "landingSubTitle" : "Enjoy beautiful photos, and help us build a dataset of aesthetic images in the process.",
     "landingPart1" : "Welcome! We invite you to rate a set of beautiful photos in terms of how much you like each of them.",
@@ -36,7 +35,7 @@
     "adminPageTitle": "Manage Site",
     "description": "description of the experiment",
     "choose-photos": "Start an experiment",
-    "greet": "Hello, {{name}}!",
+    "greet": "Hello, {{name}} !",
     "signIn": "Sign In",
     "signUp": "Continute",
     "enterUsername": "Please enter your email address:",

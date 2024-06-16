@@ -21,7 +21,7 @@ export default function FinishPage(){
     return (
         <div className='header-wrapper'>            
             <Header/>
-            <div className='finish-div'>
+            <div className='finish-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
                 <div className='images-example-div'>
                 </div>
                 <div className='thank-you-div'  dangerouslySetInnerHTML={{

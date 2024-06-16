@@ -7,9 +7,9 @@ class AuthController {
         try {
           const { email } = req.body;
           logger.info(`AuthController - login request by ${email}`);
-          await UserRepository.authenticateUser(email);
+          const user = await UserRepository.authenticateUser(email);
           const token = generateAccessToken(email);
-          res.status(200).json({ message: 'Login successful', token: token });
+          res.status(200).json({ message: 'Login successful', token: token , nickname: user.nickname });
         } catch (error) {
           res.status(200).json({ message: error.message });
           logger.error(`AuthController - login error message ${error.message}`);

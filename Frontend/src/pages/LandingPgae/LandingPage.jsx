@@ -10,13 +10,14 @@ export default function LandingPage(){
     const isRtl = ['he'].includes(i18n.language);
     const [isChecked, setIsChecked] = useState(false);
     const [isOK, setIsOK] = useState(false);
+    const [isOKContinute, setIsOKContinute] = useState(false);
+
     const [num , setNum] = useState(0);
 
     useEffect(() => {
         handleGetParticipantsData()
         .then(data => { 
             setNum(data.participants.length);
-            console.log(data.participants.length)
 
         })
         .catch((error) => {
@@ -33,6 +34,7 @@ export default function LandingPage(){
 
     const handleCheckboxChange = (event) => {
         setIsChecked(event.target.checked);
+        setIsOKContinute(false);
     };
 
     const handleButtonClick = () => {
@@ -40,35 +42,43 @@ export default function LandingPage(){
             setIsOK(true)
         }
         else{
-            if (isChecked && isOK){
-                navigate("/home")
+            if (isChecked && !isOKContinute){
+                if (localStorage.getItem('nickname') !== null){
+                    navigate("/instructions")
+        
+                }
+                else{
+                    navigate("/home")
+        
+                }
+            }
+            else {
+                setIsOKContinute(true)
             }
         }
     };
     const handleButtonClickRegistered = () => {
-
         navigate("/home")
-        
+
     };
 
 
     return (
         <div className='landing-div'>
             <div className='instructions-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
-                {isRtl && <p className='p-intro'><Trans i18nKey="landingIntro" components={{ br: <br /> }} /></p>}
-                {!isRtl && <div className='text-div'>
+                {true && <div className='text-div'>
                     <p className='p-intro'>{t("landingTitle")}</p>
                     <p className='p-subtitle'>{t("landingSubTitle")}</p>
                     <p className='p-text'>{t("landingPart1")}</p>
                     <p className='p-text'>{t("landingPart2")}</p>
                     {!isOK && <p className='p-text'>{t("landingPart3")} </p>}
-                    {!isOK && <div className='num-count'>{num} {t('landingNum')}</div>}
-                    {isOK &&                 <p className='p-text'>{t("landingPartContinute")}</p>}
+                    {!isOK && <div className='num-count' style={{ justifyContent: isRtl ? ' flex-end' : ' flex-start' }}><div>{!isRtl && num}</div> <div>{t('landingNum')} </div> <div>{isRtl && num}</div></div>}
+                    {isOK &&   <p className='p-text'>{t("landingPartContinute")}</p>}
                     </div>}
 
 
                 {isOK && <div className='text-div-con'>
-                    {!isRtl && <div>
+                    {<div>
                     <p className='p-text-in-title'>{t("landingSubHeadline1")}</p>
                     <p className='p-text-in-sub'>{t("landingSubText1")}</p>
                     <p className='p-text-in-title'>{t("landingSubHeadline2")}</p>
@@ -114,16 +124,16 @@ export default function LandingPage(){
                     )}
 
                 </div>
-                {/* {isOK ? <div style={{ color: 'red' }}>{t('checkToAgree')}</div>
-: (
-  <div style={{ height: '25px', width: '100%', backgroundColor: 'white', color: 'white' }}>
-    {t('checkToAgree').replace('s', ' ')}
-  </div>
-)} */}
+                {isOKContinute ? <div style={{ color: 'red' }}>{t('checkToAgree')}</div>
+                    : (
+                    <div style={{ height: '25px', width: '100%', backgroundColor: 'white', color: 'white' }}>
+                        {t('checkToAgree').replace('s', ' ')}
+                    </div>
+                    )}
                 </div>
 
                 }
-                <div className='buttons-div'>
+                <div className='buttons-div' style={{alignItems : isRtl ? 'flex-start':'flex-end'}}>
                     <button className='button-c' onClick={handleButtonClick}>{t('continue')}</button>
                     {!isOK && <button className='button-c' onClick={handleButtonClickRegistered}>{t('RegisteredUsers')}</button>}
 
