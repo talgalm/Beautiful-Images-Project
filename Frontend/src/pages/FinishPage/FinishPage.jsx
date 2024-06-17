@@ -22,14 +22,16 @@ export default function FinishPage(){
         <div className='header-wrapper'>            
             <Header/>
             <div className='finish-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
-                <div className='images-example-div'>
+                <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >{t('finishExperiment1')}</div>
+                <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >{t('finishExperiment2')}</div>
+                <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >                 
+                     <div>{t('finishExperiment3')}</div>
+                    <div className='survey-link'>
+                        <a href='https://forms.gle/dCvjDjZMYmvmRCfp6' target='_blank'>{t('finishExperiment4')}</a>
+                        </div>
                 </div>
-                <div className='thank-you-div'  dangerouslySetInnerHTML={{
-              __html: t('finishExperiment')
-              ,
-            }}>
+                <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >{t('finishExperiment5')}</div>
 
-                </div>
             </div>
         </div>
     );

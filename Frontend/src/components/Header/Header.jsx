@@ -58,11 +58,11 @@ export default function Header() {
               </div>
             </div>
           )}
-          {!isMobile && localStorage.getItem('nickname') !== null && <div className="nick" dangerouslySetInnerHTML={{
+          {/* {!isMobile && localStorage.getItem('nickname') !== null && <div className="nick" dangerouslySetInnerHTML={{
               __html: t("greet",
                 { name: localStorage.getItem('nickname')}
               ),
-            }}></div>}
+            }}></div>} */}
         </div>
       </div>
       <Modal show={showLogout} onHide={closeFinishModal} size="l">
