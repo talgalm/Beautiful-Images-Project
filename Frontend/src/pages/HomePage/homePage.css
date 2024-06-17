@@ -207,6 +207,7 @@ input {
 	z-index: 1;
 
 	.form-2{
+		margin-top: -30px;
 		gap: 5px;
 	}
 }

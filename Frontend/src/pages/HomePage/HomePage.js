@@ -162,7 +162,7 @@ export default function HomePage (){
             </select>
         <input placeholder={t('age')} value={age}  onChange={handleAgeChange} className={errorInRegistration ? errorInRegistration ==='Userwiththisemailalreadyexists' ? '' :'err-div' : ''} dir={isRtl ? 'rtl' : 'ltr'}/>
         <span style={{color:'red' , height: '25px' , width:'100%'}}>{t(errorInRegistration)}</span>
-        <button className="button-53" onClick={handleRegistration} >{t('signUp')}</button>
+        <button className="button-53" onClick={handleRegistration} style={{marginTop :"-30px"}}>{t('signUp')}</button>
       </form>
     </div>
     <div className="form-container sign-in-container">
