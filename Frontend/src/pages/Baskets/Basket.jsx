@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState , useRef} from 'react';
 import './basket.css';
 import { handleRateImage } from '../../services/ratingService';
 import {Card, Modal} from 'react-bootstrap';
@@ -14,6 +14,14 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
     const [showModal, setShowModal] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [imgIndx , setImgIndex] = useState(-1);
+    const [color , setColor] = useState(false);
+    const containerRef = useRef(null);
+
+    const handleScroll = (event) => {
+      if (containerRef.current) {
+        containerRef.current.scrollLeft += event.deltaY;
+      }
+    };
 
     useEffect(()=>{
         setImageInBasket(sessionImages)
@@ -21,6 +29,7 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
 
     function handleOnDrop(event) {
         event.preventDefault();
+        setColor(false)
         const droppedItemData = JSON.parse(event.dataTransfer.getData("application/json"));
         if (droppedItemData.from !== index){
             setImageInBasket(prevState => [...prevState, droppedItemData.data]);
@@ -116,10 +125,17 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
             }
           }
       }
+      const handleMouseEnter = () => {
+        setColor(true);
+      };
+      const handleMouseLeave = () => {
+        setColor(false);
+      };
+      
 
     return (
             <div className='basket-div' onDrop={(e) => handleOnDrop(e, index)} onDragOver={(e) => handleOnDragOver(e)}>
-                <div className='basket-inside-div'>
+                <div className='basket-inside-div'  style={{backgroundColor: color ? '#888' : ''}}  onDragEnter={handleMouseEnter} onDragLeave={handleMouseLeave}   onWheel={handleScroll} ref={containerRef}>
                     {imageInBasket.map((img, index) => (
                         <div key={img.imageId} onDragStart={(e) => handleOnDrag(e, img)} draggable onClick={(e) => openModal(img , index)}>
                             <img src={`data:image/jpeg;base64,${img.imageData}`} alt={`Image ${img.imageId}`} style={{ width: '56px', height: '56px', marginRight: '0px' }} onDragEnd={() => removeImageFromBasket(img)} />

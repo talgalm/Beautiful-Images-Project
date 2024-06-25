@@ -18,6 +18,11 @@ export default function FinishPage(){
         }
     }, []); 
 
+    const backHome = () => {
+        navigate("/");
+      }
+    
+
     return (
         <div className='header-wrapper'>            
             <Header/>
@@ -31,7 +36,7 @@ export default function FinishPage(){
                         </div>
                 </div>
                 <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >{t('finishExperiment5')}</div>
-
+                <button className="button-53" onClick={backHome}>{t('backHome')}</button>
             </div>
         </div>
     );

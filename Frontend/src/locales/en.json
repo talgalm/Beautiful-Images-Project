@@ -110,7 +110,8 @@
     "ageRange":"Age Range",
     "usersByCountry":"Users by Country",
     "ageDistribution": "Age Distribution",
-    "noParticipantsData": "There is no participants data to present"
+    "noParticipantsData": "There is no participants data to present",
+    "backHome" : "Back to Home Page"
 
 
 }
