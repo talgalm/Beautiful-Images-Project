@@ -215,30 +215,25 @@ const ImagesAdminPage = () => {
       setShowAddModal(false);
     });
   };
-  //createImage
-
-
-
 
   return (
     <div>
     <Header />
       <div className="container mt-4">
-        <h1 className="mb-4">{t("imageManage")}</h1>
-        <div className="mb-3 d-flex align-items-center">
-        <button
-            className="btn btn-primary"
-            onClick={back}
-          >
-           Return
-          </button>
-        <button
-            className="btn btn-primary"
-            onClick={openModal}
-          >
-           Add image
-          </button>
-
+        <h1 className="header">{t("imageManage")}</h1>
+        <div className="mb-3 d-flex justify-content-center">
+          <button
+              className="btn btn-primary m-1"
+              onClick={back}
+            >
+              {t('return')}
+            </button>
+          <button
+              className="btn btn-primary m-1"
+              onClick={openModal}
+            >
+              {t('addImage')}
+            </button>
         </div>
         <div className="table-responsive table-wrapper">
           <table className="table table-striped table-hover">

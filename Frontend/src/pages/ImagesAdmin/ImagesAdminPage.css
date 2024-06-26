@@ -1,6 +1,12 @@
 .container{
   color: black;
 }
+
+.header {
+  text-align: center;
+  font-size: -webkit-xxx-large ;
+}
+
 .table-wrapper {
     max-height: 500px; /* Adjust this height as needed */
     overflow-y: auto;

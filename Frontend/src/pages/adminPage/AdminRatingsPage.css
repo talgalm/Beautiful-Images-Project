@@ -16,6 +16,11 @@
   }
 }
 
+.header {
+  text-align: center;
+  font-size: -webkit-xxx-large ;
+}
+
 .table-wrapper thead th {
   position: sticky;
   top: 0;

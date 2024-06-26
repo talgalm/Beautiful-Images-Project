@@ -11,14 +11,15 @@ import i18n from './i18n';
 
 import HomePage from './pages/HomePage/HomePage';
 import RatingPage from './pages/RatingPage/RatingPage';
-import AdminPage from './pages/adminPage/AdminPage';
+import AdminRatingsPage from './pages/adminPage/AdminRatingsPage';
 import ImagesAdminPage from './pages/ImagesAdmin/ImagesAdminPage';
 
 import InstructionsPage from './pages/InstructionsPage/InstructionsPage';
 import FinishPage from './pages/FinishPage/FinishPage';
 import ReportsAdminPage from './pages/ReportsAdmin/ReportsAdminPage';
-import AdminLoginPage from './pages/AdminLoginPage';
+import AdminLoginPage from './pages/AdminLoginPage/AdminLoginPage';
 import ParticipantsAdminPage from './pages/ParticipantsPage/ParticipantsAdminPage'
+import AdminHubPage from './pages/AdminHubPage/AdminHubPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -29,7 +30,8 @@ root.render(
       <Route exact path="/" element={<App/>} />
       <Route path="/home" element={<HomePage/>} />
       <Route path="/rating" element={<RatingPage/>} />
-      <Route path="/admin" element={<AdminPage/>} />
+      <Route path="/admin" element={<AdminHubPage/>} />
+      <Route path="/admin/ratings" element={<AdminRatingsPage/>} />
       <Route path="/admin/images" element={<ImagesAdminPage/>} />
       <Route path="/admin/reports" element={<ReportsAdminPage/>} />
       <Route path="/admin/participants" element={<ParticipantsAdminPage/>} />

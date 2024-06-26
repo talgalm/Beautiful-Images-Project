@@ -1,4 +1,3 @@
-// ParticipantsAdminPage.js
 import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar, Pie, Line } from 'react-chartjs-2';
@@ -7,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import Header from '../../components/Header/Header';
 import './ParticipantsAdminPage.css';
 import { handleGetParticipantsData } from '../../services/adminService';
+import { useNavigate } from 'react-router-dom';
+
 // Register the components in Chart.js
 ChartJS.register(
     CategoryScale,
@@ -23,15 +24,7 @@ ChartJS.register(
 const ParticipantsAdminPage = () => {
 
     const { t } = useTranslation();
-    // Mock data
-    const mockUsers = [
-        { name: 'Alice', gender: 'female', country: 'USA', age: 25 },
-        { name: 'Bob', gender: 'male', country: 'Canada', age: 30 },
-        { name: 'Charlie', gender: 'male', country: 'UK', age: 35 },
-        { name: 'David', gender: 'male', country: 'USA', age: 40 },
-        { name: 'Eve', gender: 'female', country: 'Canada', age: 28 },
-        // Add more mock data as needed
-    ];
+    const navigate = useNavigate();
 
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
@@ -146,6 +139,14 @@ const ParticipantsAdminPage = () => {
             <Header />
             <div className="admin-page">
                 <div className='header'>{t('participants')}</div>
+                <div className="mb-3 d-flex align-items-center">
+                  <button
+                      className="btn btn-primary"
+                      onClick={() => navigate("/admin")}
+                    >
+                    {t('return')}
+                  </button>
+                </div>
                 {users?.length === 0 && <div className='no-data-message'>{t('noParticipantsData')}</div>}
                 <div className="filter-controls">
                     <label>

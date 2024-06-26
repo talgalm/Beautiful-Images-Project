@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { handleGetAllImages, handleGetAllRatings, handleGetImageRatings } from '../../services/adminService';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './AdminPage.css';
+import './AdminRatingsPage.css';
 
 import { Card , Modal} from 'react-bootstrap';
 import Header from '../../components/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import { handleFetchSingleImage } from '../../services/userService';
 
-const AdminPage = () => {
+const AdminRatingsPage = () => {
   const { t } = useTranslation();
   const [data, setData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -26,18 +26,6 @@ const AdminPage = () => {
       setImages(response.images);
     });
   };
-
-  const moveToMan = () => {
-    navigate("/admin/images");
-  }
-
-  const handleNavigateToReportsPage = () => {
-    navigate("/admin/reports");
-  }
-
-  const handleNavigateToParticipantPage = () => {
-    navigate("/admin/participants");
-  }
 
   const fetchRatings = async () => {
     if (selectedImageId) {
@@ -65,7 +53,7 @@ const AdminPage = () => {
   useEffect(() => {
     fetchImages();
     fetchRatings();
-  }, []);
+  }, [selectedCategory, selectedImageId]);
 
   const parseDate = (dateString) => {
     const date = new Date(dateString);
@@ -82,8 +70,6 @@ const AdminPage = () => {
       direction = 'desc';
     }
     setSortConfig({ key, direction });
-
-    console.log('Sorting by:', key, direction);
 
     const sortedData = [...data].sort((a, b) => {
       if (a[key] < b[key]) {
@@ -127,7 +113,15 @@ const AdminPage = () => {
     <div>
       <Header />
       <div className="container mt-4">
-        <h1 className="mb-4">{t("adminPageTitle")}</h1>
+        <h1 className="header">{t("adminRatingTitle")}</h1>
+        <div className="mb-3 d-flex align-items-center">
+          <button
+              className="btn btn-primary"
+              onClick={() => navigate("/admin")}
+            >
+            {t('return')}
+          </button>
+        </div>
         <div className="mb-3 d-flex align-items-center">
           <select
             className="form-select me-2 small-select"
@@ -147,8 +141,11 @@ const AdminPage = () => {
           <select
             className="form-select me-2 small-select"
             value={selectedImageId}
-            onChange={(e) => setSelectedImageId(e.target.value)}
+            onChange={(e) => {
+              setSelectedImageId(e.target.value)
+            }}
             disabled={!selectedCategory}
+            
           >
             <option value="">{t("selectImageId")}</option>
             {filteredImages.map((item) => (
@@ -157,31 +154,6 @@ const AdminPage = () => {
               </option>
             ))}
           </select>
-          <button
-            className="btn btn-primary"
-            onClick={fetchRatings}
-          >
-            {t("fetchRatings")}
-          </button>
-          <button
-            className="btn btn-primary"
-            onClick={moveToMan}
-          >
-           {t('imageManage')}
-          </button>
-
-          <button
-            className="btn btn-primary"
-            onClick={handleNavigateToReportsPage}
-          >
-           {t('reports')}
-          </button>
-          <button
-            className="btn btn-primary"
-            onClick={handleNavigateToParticipantPage}
-          >
-           {t('participants')}
-          </button>
         </div>
         <div className="table-responsive table-wrapper">
           <table className="table table-striped table-hover">
@@ -260,4 +232,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default AdminRatingsPage;

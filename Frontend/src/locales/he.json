@@ -103,7 +103,8 @@
     "enterPassword": "הכנס/י סיסמה",
     "back": "חזור",
     "reports":"הפק דוחות",
-    "imageManage":"ניהול תמונות",
+    "imageManage":"תמונות",
+    "ratingsManage": "דירוגים",
     "participants": "משתתפי הניסוי",
     "gender": "מגדר",
     "country":"מדינה",
@@ -111,6 +112,9 @@
     "usersByCountry":"משתתפים לפי מדינות",
     "ageDistribution":"התפלגות גילאים",
     "noParticipantsData": "לא קיים מידע על משתתפי הניסוי",
-    "backHome" : "חזור לדף הבית"
+    "backHome" : "חזור לדף הבית",
+    "adminRatingTitle": "דירוגים שנשלחו על ידי משתמשים",
+    "return": "חזור",
+    "addImage": "הוסף תמונה"
 
 }

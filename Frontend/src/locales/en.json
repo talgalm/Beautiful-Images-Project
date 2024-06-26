@@ -103,16 +103,18 @@
     "enterPassword": "Enter password",
     "back": "Back",
     "reports": "Generate Reports",
-    "imageManage": "Manage Images",
-    "participants": "Participants Data",
+    "imageManage": "View Images",
+    "ratingsManage": "View Ratings",
+    "participants": "View Participants Data",
     "gender": "Gender",
     "country":"Country",
     "ageRange":"Age Range",
     "usersByCountry":"Users by Country",
     "ageDistribution": "Age Distribution",
     "noParticipantsData": "There is no participants data to present",
-    "backHome" : "Back to Home Page"
-
-
+    "backHome" : "Back to Home Page",
+    "adminRatingTitle": "Admin Rating Page",
+    "return": "Return",
+    "addImage": "Add Image"
 }
   
