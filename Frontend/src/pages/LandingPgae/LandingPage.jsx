@@ -43,14 +43,7 @@ export default function LandingPage(){
         }
         else{
             if (isChecked && !isOKContinute){
-                if (localStorage.getItem('nickname') !== null){
-                    navigate("/instructions")
-        
-                }
-                else{
-                    navigate("/home")
-        
-                }
+                navigate("/home")
             }
             else {
                 setIsOKContinute(true)

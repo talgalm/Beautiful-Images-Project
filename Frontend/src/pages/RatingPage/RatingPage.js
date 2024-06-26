@@ -264,6 +264,7 @@ const RatingPage = () => {
                         <Card.Img
                           variant="top"
                           src={`data:image/jpeg;base64,${selectedImage}`}
+                          draggable={false}
                         />
                       </Card>
                       <div className="prev-card">

@@ -43,7 +43,7 @@
 
         .image-display-div {
             align-self: flex-start;
-            height: 90%;
+            height: 85%;
             width: 70%;
             overflow: overlay;
 
@@ -108,7 +108,7 @@
         margin-top: -50px;
     }
     @media screen and (max-width: 420px) {
-        margin-top: -50px;
+        margin-top: -80px;
     }
 }
 
@@ -219,11 +219,12 @@
 
         .cardContainer {
             width: 100%;
+            height: 100%;
         }
 
         .imageCard {
-            width: 100%;
-            height: 200px;
+            width: 100px;
+            height: 75px;
 
         }
     }

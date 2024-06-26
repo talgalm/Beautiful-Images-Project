@@ -1,11 +1,12 @@
 .finish-div{
     width: 100%;
-    height: 100vh;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: black;
     margin-top: 50px;
+    overflow-y: scroll;
 
 }
 .thank-you-div{
@@ -41,5 +42,14 @@
 		color: black;
 		align-items: center;
 	}
+
+}
+
+@media screen and (max-width: 420px) {
+
+    .thank-you-div{
+       font-size: 17px;
+       margin: 0px 0px 15px 0px;
+    }
 
 }

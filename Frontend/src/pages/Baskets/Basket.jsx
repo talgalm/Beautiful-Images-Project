@@ -156,7 +156,7 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
                                 <img src={arrowLeftWhite}/>
                             </div>
                             <Card>
-                                <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
+                                <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} draggable={false}/>
                             </Card>
                             <div className="prev-card">
                                 <img src={arrowRight}/>
