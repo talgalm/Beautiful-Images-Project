@@ -58,14 +58,14 @@ export default function LandingPage(){
 
     return (
         <div className='landing-div'>
-            <div className='instructions-div' style={{ textAlign: isRtl ? 'right' : 'left' }}>
+            <div className='instructions-div' style={{ textAlign: isRtl ? 'right' : 'left' , direction : isRtl ? 'rtl' : 'ltr' }}>
                 {true && <div className='text-div'>
                     <p className='p-intro'>{t("landingTitle")}</p>
                     <p className='p-subtitle'>{t("landingSubTitle")}</p>
                     <p className='p-text'>{t("landingPart1")}</p>
                     <p className='p-text'>{t("landingPart2")}</p>
                     {!isOK && <p className='p-text'>{t("landingPart3")} </p>}
-                    {!isOK && <div className='num-count' style={{ justifyContent: isRtl ? ' flex-end' : ' flex-start' }}><div>{!isRtl && num}</div> <div>{t('landingNum')} </div> <div>{isRtl && num}</div></div>}
+                    {!isOK && <div className='num-count' ><div>{num}</div> <div>{t('landingNum')} </div></div>}
                     {isOK &&   <p className='p-text'>{t("landingPartContinute")}</p>}
                     </div>}
 
@@ -89,7 +89,7 @@ export default function LandingPage(){
                     <p className='p-text-in-title'>{t("landingSubHeadline8")}</p>
                     <p className='p-text-in-sub'>{t("landingSubText8")}</p>
                     </div>}
-                    <div className='checkbox-ok-div' style={{ }}>
+                    <div className='checkbox-ok-div' style={{ flexDirection : isRtl ? 'row-reverse' : 'row' }}>
                     {!isRtl ? (
                         <>
                             <input 
@@ -100,11 +100,11 @@ export default function LandingPage(){
                                 checked={isChecked} 
                                 onChange={handleCheckboxChange}
                             />
-                            <label className='l-1' htmlFor="myCheckbox" style={{marginLeft: '20px'}}>{t('checkboxAgreeExp')}</label>
+                            <label className='l-1' htmlFor="myCheckbox" style={{marginLeft: '20px' , direction : isRtl ? 'rtl' : 'ltr' }}>{t('checkboxAgreeExp')}</label>
                         </>
                     ) : (
                         <>
-                            <label className='l-1' htmlFor="myCheckbox"  style={{marginRight: '10px'}}>{t('checkboxAgreeExp')}</label>
+                            <label className='l-1' htmlFor="myCheckbox"  style={{marginRight: '10px' , direction : isRtl ? 'rtl' : 'ltr'}}>{t('checkboxAgreeExp')}</label>
                             <input 
                                 type="checkbox" 
                                 id="myCheckbox" 

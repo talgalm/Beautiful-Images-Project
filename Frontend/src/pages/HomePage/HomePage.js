@@ -67,19 +67,19 @@ export default function HomePage (){
       })
     }
     event.preventDefault();
-    const isAge = (!isNaN(parseInt(age)) && parseInt(age) >= 18 && parseInt(age) <= 99);
+    // const isAge = (!isNaN(parseInt(age)) && parseInt(age) >= 18 && parseInt(age) <= 99);
     const isEmail = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
     const matchingEmail = emailConfirm === email;
-    if (!isAge){
-      setInRegistraion("ageValidation")
-    }
+    // if (!isAge){
+    //   setInRegistraion("ageValidation")
+    // }
     if (!isEmail){
       setInRegistraion("invalidEmail")
     }
     if (!matchingEmail){
       setInRegistraion("emailsDontMatch")
     }
-    else if (isAge && isEmail && matchingEmail){
+    else if ( isEmail && matchingEmail){
       handleUserRegistration(email , nickname , age , country , gender)
       .then(data => {
         if (data.message === 'User registered successfully'){
@@ -160,7 +160,7 @@ export default function HomePage (){
               )))}
                 
             </select>
-        <input placeholder={t('age')} value={age}  onChange={handleAgeChange} className={errorInRegistration ? errorInRegistration ==='Userwiththisemailalreadyexists' ? '' :'err-div' : ''} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input placeholder={t('age')} value={age}  onChange={handleAgeChange} dir={isRtl ? 'rtl' : 'ltr'}/>
         <span style={{color:'red' , height: '25px' , width:'100%'}}>{t(errorInRegistration)}</span>
         <button className="button-53" onClick={handleRegistration} style={{marginTop :"-30px"}}>{t('signUp')}</button>
       </form>
