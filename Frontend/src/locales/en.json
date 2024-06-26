@@ -25,7 +25,7 @@
     "landingSubText7": "If you have questions about this research, you may contact the research team at ....     ",
     "landingSubHeadline8" :"Funding: ",
     "landingSubText8" :"This research is not funded.",
-    "checkboxAgreeExp":"By clicking the “I agree“ button, you confirm that you have read and understood the above and agree to take part in this research. Your participation is voluntary, and you are free to leave the experiment at any time by simply closing the web browser.",
+    "checkboxAgreeExp":"By agreeing , you confirm that you have read and understood the above and agree to take part in this research. Your participation is voluntary, and you are free to leave the experiment at any time by simply closing the web browser.",
     "home": "Home",
     "login": "Login",
     "images":"Images Page",
@@ -48,14 +48,14 @@
     "loginHere": "Login here",
     "createAccount": "Create new username",
     "RegisteredUsers" : "Registered Users",
-    "checkToAgree" : "It is not possible to continue without consent to participate in the project",
+    "checkToAgree" : "You must check the box to continue.",
     "enterNickname" : "Enter nickname (Optional)",
     "enterGender" : "Enter gender",
     "enterCountry" : "Enter country",
     "doneEvaluate" : "Finish rating",
     "FinishEvaluateSomeImages" : "You have finished evaluating {{imagesNumber}} photos. To view and rate additional photos, please select <b>Show additional photos.</b> To finish the experiment, press <b>Finish.</b>",
     "FinishEvaluateAllImages" : "Great! You have finished evaluating {{imagesNumber}} photos. To view and rate additional photos, please select <b>Show additional photos.</b> To finish the experiment, press <b>Finish.</b>",
-    "displayMoreImages" : "Display more images",
+    "displayMoreImages" : "Show additional photos",
     "Finish":"Finish",
     "UsernamesError" : "The email addresses do not match, please try again",
     "Male" : "Male",
@@ -81,9 +81,9 @@
     "Userwiththisemailalreadyexists" : "User with this email already exists",
     "finishExperiment1" : "We appreciate your participation in the project !",
     "finishExperiment2" :"You can return to this site later using the email with which you have registered to view and rate up to 250 photos !",
-    "finishExperiment3" : "If you have any feedback on this project, please let us know by pressing the ",
-    "finishExperiment4" : "“Feedback”",
-    "finishExperiment5" : "If you have not done so, you can also return here to update the background questions. This will help us in statistically analyzing the study’s result.",
+    "finishExperiment3" : "Let us know if you have any feedback on this project, ",
+    "finishExperiment4" : "let us know",
+    "finishExperiment5" : "If you have not done so, you can also return here to update the background questions. This will help us in statistically analyzing the study’s results.",
     "selectCategory": "Select Category",
     "selectImageId": "Select Image ID",
     "fetchRatings": "Fetch Ratings",
@@ -111,7 +111,8 @@
     "usersByCountry":"Users by Country",
     "ageDistribution": "Age Distribution",
     "noParticipantsData": "There is no participants data to present",
-    "backHome" : "Back to Home Page"
+    "backHome" : "Back to Home Page",
+    "continueEvaluations":"Continue evaluations"
 
 
 }

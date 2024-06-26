@@ -30,7 +30,7 @@ export default function FinishPage(){
                 <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >{t('finishExperiment1')}</div>
                 <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >{t('finishExperiment2')}</div>
                 <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >                 
-                     <div className='thank-you-div'>{t('finishExperiment3')}</div>
+                     <div className='' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}}>{t('finishExperiment3')}</div>
                     <div className='survey-link'>
                         <a href='https://forms.gle/dCvjDjZMYmvmRCfp6' target='_blank'>{t('finishExperiment4')}</a>
                         </div>

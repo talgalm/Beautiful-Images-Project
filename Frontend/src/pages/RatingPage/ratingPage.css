@@ -54,13 +54,18 @@
         }
 
         .images-dashboard {
-            
+            height: 100%;
             display: flex;
             flex-wrap: wrap;
             overflow-y: auto;
             margin-left: 20px;
             margin-right: 20px;
-            overflow: scroll;
+            overflow: auto;
+            gap: 0px;
+
+            .draggable{
+                height:22%;
+            }
             
 
         }

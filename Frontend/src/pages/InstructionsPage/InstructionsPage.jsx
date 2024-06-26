@@ -43,7 +43,7 @@ export default function InstructionsPage (){
                 </div>
                 
             </div>
-            <div className="button-div">
+            <div className="button-div" style={{justifyContent: isRtl ? 'flex-start' :'flex-end'}}>
                 <button className='button-c' onClick={handleGoToRating}>{t('continue')}</button>
             </div>
         </div>

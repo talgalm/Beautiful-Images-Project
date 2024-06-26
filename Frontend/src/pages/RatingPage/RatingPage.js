@@ -68,6 +68,7 @@ const RatingPage = () => {
   
 
   function handleOnDrag(event, dataImg) {
+
     event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setData(
       "application/json",
@@ -80,7 +81,7 @@ const RatingPage = () => {
     const droppedItemData = JSON.parse(
       event.dataTransfer.getData("application/json")
     );
-    if (!images.find((item) => item.imageId === droppedItemData.data.imageId)) {
+    if (droppedItemData.from != 0) {
       setCount(count-1)
       droppedItemData.data.rating = 0;
       droppedItemData.data.visible = true;
@@ -319,8 +320,8 @@ const RatingPage = () => {
           />
           <div className="buttons-in-modal">
             { (
-              <button className="button-53" onClick={handleDisplayMoreImages}>
-                {t("displayMoreImages")}
+              <button className="button-53" onClick={count >= images.length ? handleDisplayMoreImages : closeFinishModal}>
+                {count >= images.length ? t("displayMoreImages") :t("continueEvaluations")}
               </button>
             )}
             <button className="button-53" onClick={handleFinish}>
