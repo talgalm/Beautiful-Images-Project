@@ -20,14 +20,16 @@
 }
 
 .text-ins{
-	width: 90%;
+	width: 90ch;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 19px;
+	font-size: 21px;
 	font-weight: 500;
 	line-height: 2;
-	margin-bottom: 25px;
+	margin-bottom: 50px;
+	overflow-y: auto;
+	height: 60vh;
 
 
 }
@@ -37,7 +39,8 @@
     line-height: 1.4;
 	font-weight: bold;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
+	margin: 0px 50px 0px 0px;
 
 }
 

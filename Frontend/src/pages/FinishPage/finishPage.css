@@ -13,7 +13,7 @@
     width: 90%;
     color: black;
     margin-bottom: 20px;
-	font-size: 28px;
+	font-size: 21px;
     line-height: 2;
 	font-weight: bold;
     font-weight: 500;
@@ -22,11 +22,9 @@
     gap: 0px;
 
     a{
-        font-family: "Segoe UI", Arial, sans-serif;
-        font-size: 28px;
+        font-size: 21px;
         color: black;
         font-weight: bold;
-
     }
     
 }
@@ -44,6 +42,42 @@
 	}
 
 }
+
+.button-update{
+    display: flex;
+}
+
+.update-div{
+    color: white;
+    
+    select {
+        background-color: white !important;
+        border: 1px solid black;
+        border-radius: 8px;
+        gap : 10px
+    }
+    
+    input{
+        color: black;
+        background-color: white !important;
+        border: 1px solid black;
+        border-radius: 8px;
+    }
+    input::placeholder {
+        color: black;
+        
+    }
+}
+.update-header-div{
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    width :100%;
+}
+
+
 
 @media screen and (max-width: 420px) {
 

@@ -5,6 +5,8 @@ import { handleUserLogin, handleUserRegistration } from '../../services/userServ
 import { useNavigate } from "react-router-dom";
 import Header from '../../components/Header/Header';
 import {countries} from '../HomePage/hebrewCountries.js';
+import { handleAdminLogin } from '../../services/adminService';
+
 
 
 export default function HomePage (){
@@ -101,28 +103,44 @@ export default function HomePage (){
   }
   function handleLogin(event){
     event.preventDefault(); 
-    handleUserLogin(email)
-    .then(data => {
-      if ( data.message === 'Login successful' && data.token ){
-        localStorage.setItem('token',data.token)
-        localStorage.setItem('email',email)
-        localStorage.setItem('nickname',data.nickname)
-        navigate("/instructions")
-      }
-      else{
-        if (data.message === 'Email does not exist')
-          setError(data.message)
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+    if (email.includes('admin@gmail.com')){
+      handleAdminLogin(email, 'admin123')
+      .then((data) => {
+        if (data.message === 'Login successful' && data.token) {
+          navigate("/admin");
+        } else {
+          setError(data.message);
+        }
+      })
+      .catch((error) => {
+        setError('Login failed. Please try again.');
+      });
+    }
+    else {
+      handleUserLogin(email)
+      .then(data => {
+        if ( data.message === 'Login successful' && data.token ){
+          localStorage.setItem('token',data.token)
+          localStorage.setItem('email',email)
+          localStorage.setItem('nickname',data.nickname)
+          navigate("/instructions")
+        }
+        else{
+          if (data.message === 'Email does not exist')
+            setError(data.message)
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
 
   }
 
-  function handleAdminLogin(event){
-    navigate("/adminLogin")
-  }
+  // function handleAdminLogin(event){
+  //   navigate("/adminLogin")
+  // }
+  
 
   useEffect(() => {
 
@@ -171,7 +189,7 @@ export default function HomePage (){
         <input required type="input" placeholder={t('enterUsername')} className= {error ? 'form-1-sign-error' : 'form-1-sign'} value={email} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
         <span style={{color:'red' , height: '25px' , width:'100%'}}>{t(error)}</span>
         <button className="button-53" onClick={handleLogin}>{t('continue')}</button>
-        <button className="button-53" onClick={handleAdminLogin}>{t('adminLogin')}</button>
+        {/* <button className="button-53" onClick={handleAdminLogin}>{t('adminLogin')}</button> */}
       </form>
     </div>
     <div className="overlay-container">

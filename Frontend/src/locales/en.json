@@ -83,7 +83,9 @@
     "finishExperiment2" :"You can return to this site later using the email with which you have registered to view and rate up to 250 photos !",
     "finishExperiment3" : "If you have any feedback on this project, ",
     "finishExperiment4" : "let us know",
-    "finishExperiment5" : "If you have not done so, you can also return here to update the background questions. This will help us in statistically analyzing the study’s results.",
+    "finishExperiment5" : "If you have not done so, you can also return here to update the background questions ",
+    "finishExperiment6" : "This will help us in statistically analyzing the study’s results",
+
     "selectCategory": "Select Category",
     "selectImageId": "Select Image ID",
     "fetchRatings": "Fetch Ratings",
@@ -116,6 +118,10 @@
     "continueEvaluations":"Continue evaluations",
     "adminRatingTitle": "Admin Rating Page",
     "return": "Return",
-    "addImage": "Add Image"
+    "addImage": "Add Image",
+    "update" :"update",
+    "updateHeader" :"Update personal information",
+    "updateCountry" :"Updated Country",
+    "updateAge" :"Updated Age"
 }
   

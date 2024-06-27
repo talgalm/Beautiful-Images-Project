@@ -74,7 +74,6 @@ const RatingPage = () => {
       "application/json",
       JSON.stringify({ from: 0, data: dataImg })
     );
-    setCount(count+1)
   }
 
   function handleOnDrop(event) {
@@ -95,6 +94,7 @@ const RatingPage = () => {
   }
 
   function onDropImage(dataImg) {
+    setCount(count+1)
     const updatedImages = images.filter(
       (img) => img.imageId !== dataImg.data.imageId
     );
@@ -311,7 +311,7 @@ const RatingPage = () => {
             dir={isRtl ? "rtl" : "ltr"}
             dangerouslySetInnerHTML={{
               __html: t(
-                count === images.length
+                count > images.length-1
                   ? "FinishEvaluateAllImages"
                   : "FinishEvaluateSomeImages",
                 { imagesNumber: count}
@@ -320,8 +320,8 @@ const RatingPage = () => {
           />
           <div className="buttons-in-modal">
             { (
-              <button className="button-53" onClick={count >= images.length ? handleDisplayMoreImages : closeFinishModal}>
-                {count >= images.length ? t("displayMoreImages") :t("continueEvaluations")}
+              <button className="button-53" onClick={count > images.length-1 ? handleDisplayMoreImages : closeFinishModal}>
+                {count > images.length-1 ? t("displayMoreImages") :t("continueEvaluations")}
               </button>
             )}
             <button className="button-53" onClick={handleFinish}>
