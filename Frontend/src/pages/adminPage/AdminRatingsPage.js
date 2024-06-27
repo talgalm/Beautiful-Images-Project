@@ -8,6 +8,7 @@ import { Card , Modal} from 'react-bootstrap';
 import Header from '../../components/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import { handleFetchSingleImage } from '../../services/userService';
+import AdminNavBar from '../../components/AdminNavBar/adminNavBar';
 
 const AdminRatingsPage = () => {
   const { t } = useTranslation();
@@ -112,16 +113,9 @@ const AdminRatingsPage = () => {
   return (
     <div>
       <Header />
+      <AdminNavBar />
       <div className="container mt-4">
         <h1 className="header">{t("adminRatingTitle")}</h1>
-        <div className="mb-3 d-flex align-items-center">
-          <button
-              className="btn btn-primary"
-              onClick={() => navigate("/admin")}
-            >
-            {t('return')}
-          </button>
-        </div>
         <div className="mb-3 d-flex align-items-center">
           <select
             className="form-select me-2 small-select"

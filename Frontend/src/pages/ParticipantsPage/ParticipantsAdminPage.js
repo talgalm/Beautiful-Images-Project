@@ -7,6 +7,7 @@ import Header from '../../components/Header/Header';
 import './ParticipantsAdminPage.css';
 import { handleGetParticipantsData } from '../../services/adminService';
 import { useNavigate } from 'react-router-dom';
+import AdminNavBar from '../../components/AdminNavBar/adminNavBar';
 
 // Register the components in Chart.js
 ChartJS.register(
@@ -137,16 +138,9 @@ const ParticipantsAdminPage = () => {
     return (
         <div>
             <Header />
+            <AdminNavBar />
             <div className="admin-page">
                 <div className='header'>{t('participants')}</div>
-                <div className="mb-3 d-flex align-items-center">
-                  <button
-                      className="btn btn-primary"
-                      onClick={() => navigate("/admin")}
-                    >
-                    {t('return')}
-                  </button>
-                </div>
                 {users?.length === 0 && <div className='no-data-message'>{t('noParticipantsData')}</div>}
                 <div className="filter-controls">
                     <label>

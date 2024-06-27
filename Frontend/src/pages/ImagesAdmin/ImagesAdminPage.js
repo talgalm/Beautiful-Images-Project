@@ -13,6 +13,7 @@ import deleteIcon from "../../../src/icons/minus-image-photo-icon.svg"
 import { handleFetchSingleImage } from '../../services/userService';
 
 import { useNavigate } from 'react-router-dom';
+import AdminNavBar from '../../components/AdminNavBar/adminNavBar';
 
 const ImagesAdminPage = () => {
   const { t } = useTranslation();
@@ -219,15 +220,10 @@ const ImagesAdminPage = () => {
   return (
     <div>
     <Header />
+    <AdminNavBar />
       <div className="container mt-4">
         <h1 className="header">{t("imageManage")}</h1>
         <div className="mb-3 d-flex justify-content-center">
-          <button
-              className="btn btn-primary m-1"
-              onClick={back}
-            >
-              {t('return')}
-            </button>
           <button
               className="btn btn-primary m-1"
               onClick={openModal}

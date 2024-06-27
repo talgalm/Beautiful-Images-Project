@@ -107,7 +107,7 @@ export default function HomePage (){
       handleAdminLogin(email, 'admin123')
       .then((data) => {
         if (data.message === 'Login successful' && data.token) {
-          navigate("/admin");
+          navigate("/admin/participants");
         } else {
           setError(data.message);
         }
