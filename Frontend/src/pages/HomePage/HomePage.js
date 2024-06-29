@@ -18,6 +18,7 @@ export default function HomePage (){
   const [age , setAge] = useState('')
   const [gender , setGender] = useState('')
   const [country , setCountry] = useState('')
+  const [countryEnglishName , setCountryEnglishName] = useState('')
   const [error , setError] = useState(undefined)
   const [errorInRegistration , setInRegistraion] = useState(undefined)
 
@@ -58,16 +59,17 @@ export default function HomePage (){
     setGender(event.target.value);
   }
   function handleCountryChange(event){
-      setCountry(event.target.value);
+    const chosenCountryName = event.target.value;
+    setCountry(chosenCountryName);
+
+    countries.find((country)=> {
+      if (country.name === chosenCountryName || country.english_name == chosenCountryName )
+        setCountryEnglishName(country.english_name);
+    })
   }
 
   function handleRegistration(event){
-    if (isRtl){
-      countries.find((country)=> {
-        if (country.name === country)
-          setCountry(country.english_name);
-      })
-    }
+    
     event.preventDefault();
     // const isAge = (!isNaN(parseInt(age)) && parseInt(age) >= 18 && parseInt(age) <= 99);
     const isEmail = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
@@ -82,7 +84,7 @@ export default function HomePage (){
       setInRegistraion("emailsDontMatch")
     }
     else if ( isEmail && matchingEmail){
-      handleUserRegistration(email , nickname , age , country , gender)
+      handleUserRegistration(email , nickname , age , countryEnglishName , gender)
       .then(data => {
         if (data.message === 'User registered successfully'){
           localStorage.setItem('nowRegistered',"true")
