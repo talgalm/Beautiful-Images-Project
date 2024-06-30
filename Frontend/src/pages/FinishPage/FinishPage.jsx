@@ -16,6 +16,8 @@ export default function FinishPage(){
     const Countries = countries.map(item => item);
     const [age , setAge] = useState('')
     const [country , setCountry] = useState('')
+    const [gender , setGender] = useState('')
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -42,6 +44,9 @@ export default function FinishPage(){
     function handleAgeChange(event){
         setAge(event.target.value);
       }
+      function handleGenderChange(event){
+        setGender(event.target.value);
+      }
 
     
 
@@ -54,14 +59,16 @@ export default function FinishPage(){
                 <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >                 
                      <div className='' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}}>{t('finishExperiment3')}</div>
                     <div className='survey-link'>
-                        <a href={isRtl ? 'https://forms.gle/LDq3cfZp78qvzCBa7' :'https://forms.gle/ztBNC4RSCbFpwcJz7'} target='_blank' rel="noreferrer">{t('finishExperiment4')}</a>
+                        <a href={isRtl ? 'https://forms.gle/LDq3cfZp78qvzCBa7' :'https://forms.gle/ztBNC4RSCbFpwcJz7'} target='_blank' rel="noreferrer" dir={isRtl ? 'rtl' : 'ltr'} >{t('finishExperiment4')}</a>
                         </div>
                 </div>
                 <div className='thank-you-div' style={{flexDirection : isRtl ? ' row-reverse' : 'row'}} >
                
                 {t('finishExperiment5')}
                 <div className='survey-link' >
-                        <a onClick={openModal}>{isRtl ? t('finishExperiment4') : 'Here.'}</a>
+                <a onClick={openModal} style={{ cursor: 'pointer'}} dir={isRtl ? 'rtl' : 'ltr'} >
+                    {isRtl ? t('finishExperiment4') : 'Here.'}
+                    </a>
                         </div>
                 {isRtl && t('finishExperiment6')}
                 </div>
@@ -89,6 +96,12 @@ export default function FinishPage(){
                 
             </select>
                         <input placeholder={t('updateAge')} value={age}  onChange={handleAgeChange} style={{direction :isRtl ? 'rtl' :'lft'}}></input>
+                        <select value={gender} onChange={handleGenderChange} dir={isRtl ? 'rtl' : 'ltr'}>
+                        <option value="" disabled>{t('enterGender')}</option> 
+                        <option value="male">{t('Male')}</option>
+                        <option value="female">{t('Female')}</option>
+                        <option value="other">{t('Other')}</option>
+                        </select>
                     </div>
                     <div className='button-update' style={{justifyContent : isRtl ?  'flex-start' :'flex-end'}}>
                         <button className="button-53" onClick={closeModal}>{t('update')}</button>

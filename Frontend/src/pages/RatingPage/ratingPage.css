@@ -128,15 +128,32 @@
 }
 
 .modal-dialog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal-header {
+        display: flex;
+        width: 100%;
+    }
 
     .modal-content{
-
+        
+        width:fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
        .modal-body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         .modal-card-div{
             display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: center;
+
 
             .next-card-w,
             .prev-card-w,
@@ -156,6 +173,7 @@
             transition: opacity 0.3s;
             z-index: 9999;
 
+            
             img{
                 width: 50px;
                 height: 50px;
@@ -171,7 +189,8 @@
             }
             .prev-card-w,
             .prev-card{
-                left: 95% !important;
+                display: flex;
+                margin-left: -15px;
             }
             .prev-card-w{
                 opacity: 1;
@@ -187,10 +206,12 @@
             }
 
             .card{
-                width: 100%;
-                height: 80vh !important;
+                border: 0px;
+                
                 img {
-                    height: 98% !important;
+                    max-width: 100%;
+                    height: auto;
+                    object-fit: contain;
                 }
             }
         }

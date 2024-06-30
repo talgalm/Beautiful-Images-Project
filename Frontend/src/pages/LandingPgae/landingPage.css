@@ -24,8 +24,11 @@
 }
 
 .l-1 {
+    font-size: 18px;
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
     margin-top: 5px;
     color: black;
+    width: 80ch;
 }
 
 .images-example-div {
@@ -72,7 +75,7 @@
 }
 .p-text-in-sub{
     color: black;
-    width: 100%;
+    width: 80ch;
     line-height: 1.4; 
     font-size: 18px;
     margin: 0px 0px 10px 0px;
@@ -138,7 +141,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    justify-content: flex-end;
+
     width: 100%;
 }
 

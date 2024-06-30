@@ -311,7 +311,7 @@ const RatingPage = () => {
             dir={isRtl ? "rtl" : "ltr"}
             dangerouslySetInnerHTML={{
               __html: t(
-                count > images.length-1
+                count > 69
                   ? "FinishEvaluateAllImages"
                   : "FinishEvaluateSomeImages",
                 { imagesNumber: count}
@@ -320,8 +320,8 @@ const RatingPage = () => {
           />
           <div className="buttons-in-modal">
             { (
-              <button className="button-53" onClick={count > images.length-1 ? handleDisplayMoreImages : closeFinishModal}>
-                {count > images.length-1 ? t("displayMoreImages") :t("continueEvaluations")}
+              <button className="button-53" onClick={count > 69 ? handleDisplayMoreImages : closeFinishModal}>
+                {count > 69 ? t("displayMoreImages") :t("continueEvaluations")}
               </button>
             )}
             <button className="button-53" onClick={handleFinish}>

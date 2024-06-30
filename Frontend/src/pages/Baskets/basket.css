@@ -15,11 +15,40 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+    color: black;
     overflow-x: scroll;
     overflow-y: hidden;
     scrollbar-width: thin; 
     scrollbar-color: #708ea3; 
+
 }
+
+
+.tooltip-text {
+    visibility: hidden;
+    width: max-content;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    font-size: 10px;
+    bottom: 25%;
+    right: 98%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0s linear 0.3s;
+    z-index: 9999 !important;
+}
+  
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+    z-index: 99999;
+}
+
 
 .basket-inside-div::-webkit-scrollbar {
     scrollbar-width: thin; 
@@ -43,6 +72,8 @@
     background-color: rgb(81, 79, 75);
     color: white;
 }
+
+
 .modal-dialog{
 
   .modal-content{

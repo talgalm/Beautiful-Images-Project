@@ -89,7 +89,7 @@ export default function LandingPage(){
                     <p className='p-text-in-title'>{t("landingSubHeadline8")}</p>
                     <p className='p-text-in-sub'>{t("landingSubText8")}</p>
                     </div>}
-                    <div className='checkbox-ok-div' style={{ flexDirection : isRtl ? 'row-reverse' : 'row' }}>
+                    <div className='checkbox-ok-div' style={{ flexDirection : isRtl ? 'row-reverse' : 'row' , justifyContent : isRtl ? 'flex-end': 'flex-start'}}>
                     {!isRtl ? (
                         <>
                             <input 
@@ -117,7 +117,7 @@ export default function LandingPage(){
                     )}
 
                 </div>
-                {isOKContinute ? <div style={{ color: 'red' }}>{t('checkToAgree')}</div>
+                {isOKContinute ? <div style={{ color: 'red' , margin : '10px 0px 40px 40px'}}>{t('checkToAgree')}</div>
                     : (
                     <div style={{ height: '25px', width: '100%', backgroundColor: 'white', color: 'white' }}>
                         {t('checkToAgree').replace('s', ' ')}
@@ -126,7 +126,7 @@ export default function LandingPage(){
                 </div>
 
                 }
-                <div className='buttons-div' style={{alignItems : isRtl ? 'flex-start':'flex-end'}}>
+                <div className='buttons-div' style={{alignItems : isRtl ? 'flex-start':'flex-end' , justifyContent : isRtl ? 'center': 'center'}}>
                     <button className='button-c' onClick={handleButtonClick}>{t('continue')}</button>
                     {!isOK && <button className='button-c' onClick={handleButtonClickRegistered}>{t('RegisteredUsers')}</button>}
 

@@ -31,7 +31,7 @@ export default function InstructionsPage (){
             <Header/>
             <div className="guidelines-div">
              
-                <div className="text-div-d">
+                <div className="text-div-d" style={{justifyContent : isRtl ? 'flex-end' : 'flex-start'}}>
                 {!isReturningUser ? 
                 (<div dir={isRtl ? 'rtl' : 'ltr'} className="text-ins">
                     <Trans i18nKey="returningGeneralInstructions" components={{ br: <br /> }} />

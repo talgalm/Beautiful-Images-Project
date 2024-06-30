@@ -76,11 +76,10 @@ export default function HomePage (){
     const agePattern = /^\d*$/;
     const ageNum = parseInt(age);
     let isAge = true;
-    
-    if (!agePattern.test(age)) {
+    if (!agePattern.test(age) && age != '') {
       setInRegistraion("AgeMustContainOnlyNumbers")
         isAge = false;
-    } else if (age === '' || ageNum < 18 || ageNum > 99) {
+    } else if (age && (age === '' || ageNum < 18 || ageNum > 99)) {
         if (!(ageNum >= 18 && ageNum <= 99) ) {
           setInRegistraion("AgeMustBeBetween1899")
         } else  {
@@ -95,8 +94,9 @@ export default function HomePage (){
     }
 
     else if ( isEmail && matchingEmail){
-      handleUserRegistration(email , nickname , age , countryEnglishName , gender)
+      handleUserRegistration(email , nickname , age === '' ? 0 : age , countryEnglishName , gender)
       .then(data => {
+        console.log(data.message)
         if (data.message === 'User registered successfully'){
           localStorage.setItem('nowRegistered',"true")
           handleLogin(event)
@@ -110,7 +110,6 @@ export default function HomePage (){
       });
     }
     else{
-      
     }
 
   }
@@ -156,7 +155,6 @@ export default function HomePage (){
   
 
   useEffect(() => {
-
   }, []);
 
 
@@ -191,8 +189,9 @@ export default function HomePage (){
               )))}
                 
             </select>
-        <input placeholder={t('age')} value={age}  onChange={handleAgeChange} dir={isRtl ? 'rtl' : 'ltr'} className={errorInRegistration ? age != '' ? 'err-div' :'' : ''} />
-        <span style={{color:'red' , height: '25px' , width:'100%'}}>{t(errorInRegistration)}</span>
+        <input placeholder={t('age')} value={age}  onChange={handleAgeChange} dir={isRtl ? 'rtl' : 'ltr'} className={errorInRegistration ? (age != '' && !(age >= 18 && age <= 99) ) ? 'err-div' :'' : ''} />
+        <span style={{color:'red' , height: '25px' , width:'100%' , fontSize : '15px'}}>{t(errorInRegistration)}</span>
+        {errorInRegistration === 'Userwiththisemailalreadyexists' && <span style={{color:'red' , height: '25px' , width:'100%' , fontSize : '12px' , marginBottom: '-20px'}}>{t('emailExistsNote')}</span>}
         <button className="button-53" onClick={handleRegistration} style={{marginBottom :"-50px", marginTop :'35px'}}>{t('signUp')}</button>
       </form>
     </div>
@@ -200,7 +199,7 @@ export default function HomePage (){
       <form action="#" className='form-1'>
         <h1 className='h1-sign'>{t('signIn')}</h1>
         <input required type="input" placeholder={t('enterUsername')} className= {error ? 'form-1-sign-error' : 'form-1-sign'} value={email} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
-        <span style={{color:'red' , height: '25px' , width:'100%'}}>{t(error)}</span>
+        <span style={{color:'red' , height: '25px' , width:'100%' , fontSize : '15px'}}>{t(error)}</span>
         <button className="button-53" onClick={handleLogin}>{t('continue')}</button>
         {/* <button className="button-53" onClick={handleAdminLogin}>{t('adminLogin')}</button> */}
       </form>

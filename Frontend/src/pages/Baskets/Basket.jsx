@@ -1,4 +1,5 @@
 import { useEffect, useState , useRef} from 'react';
+import { useTranslation } from 'react-i18next';
 import './basket.css';
 import { handleRateImage } from '../../services/ratingService';
 import {Card, Modal} from 'react-bootstrap';
@@ -9,6 +10,8 @@ import arrowRight from "../../../src/icons/arrow-circle-right.svg"
 import arrowRightWhite from "../../../src/icons/arrow-circle-right-w.svg"
 
 export default function Basket({ index , onDropImage , sessionImages  }) {
+  const { t, i18n } = useTranslation();
+
     const [imageInBasket, setImageInBasket] = useState([]);
     const [validate , setValidate] = useState(false)
     const [showModal, setShowModal] = useState(false);
@@ -141,6 +144,13 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
                             <img src={`data:image/jpeg;base64,${img.imageData}`} alt={`Image ${img.imageId}`} style={{ width: '56px', height: '56px', marginRight: '0px' }} onDragEnd={() => removeImageFromBasket(img)} />
                         </div>
                     ))}
+
+                               { (index === 10 || index === 1 )&& <div className="tooltip-container">
+                         <div className='' style={{width : '100vh'}}></div>
+                        <span className="tooltip-text">{index === 1 && (t('basket1')) ||
+                      index === 10 && (t('basket10'))}</span>
+                      </div>}
+                    
                 </div>
                 <div className='basket-num'>{index}</div>
                 <Modal show={showModal} onHide={closeModal} size="xl" >
