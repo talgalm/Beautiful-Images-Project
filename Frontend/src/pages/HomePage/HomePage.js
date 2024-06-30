@@ -23,7 +23,7 @@ export default function HomePage (){
   const [errorInRegistration , setInRegistraion] = useState(undefined)
 
   const navigate = useNavigate();
-  const mobileScreen = window.innerWidth <= 400;
+  const mobileScreen = window.innerWidth <= 431;
   const isRtl = ['he'].includes(i18n.language);
   const Countries = countries.map(item => item);
 
@@ -159,7 +159,7 @@ export default function HomePage (){
 
 
   return (
-    <div>
+    <div className='all'>
     <div className="header-wrapper">
     <Header/>
 
@@ -190,9 +190,9 @@ export default function HomePage (){
                 
             </select>
         <input placeholder={t('age')} value={age}  onChange={handleAgeChange} dir={isRtl ? 'rtl' : 'ltr'} className={errorInRegistration ? (age != '' && !(age >= 18 && age <= 99) ) ? 'err-div' :'' : ''} />
-        <span style={{color:'red' , height: '25px' , width:'100%' , fontSize : '15px'}}>{t(errorInRegistration)}</span>
+        {errorInRegistration !== "" && <span style={{color:'red' , height: '25px' , width:'100%' , fontSize : '15px'}}>{t(errorInRegistration)}</span>}
         {errorInRegistration === 'Userwiththisemailalreadyexists' && <span style={{color:'red' , height: '25px' , width:'100%' , fontSize : '12px' , marginBottom: '-20px'}}>{t('emailExistsNote')}</span>}
-        <button className="button-53" onClick={handleRegistration} style={{marginBottom :"-50px", marginTop :'35px'}}>{t('signUp')}</button>
+        <button className="button-53" onClick={handleRegistration} style={{marginBottom :"-50px", marginTop :'5px'}}>{t('signUp')}</button>
       </form>
     </div>
     <div className="form-container sign-in-container">

@@ -29,6 +29,7 @@
     margin-top: 5px;
     color: black;
     width: 80ch;
+    max-width: 100%;
 }
 
 .images-example-div {
@@ -81,6 +82,11 @@
     margin: 0px 0px 10px 0px;
     margin-top: -10px;
     font-weight: 500;
+    @media screen and (max-width: 420px) {
+        width: 100%;
+
+    }
+
 }
 .p-text {
     color:#3d5d7c;
@@ -164,3 +170,5 @@
     text-align: center;
     width: 200px;
 }
+
+

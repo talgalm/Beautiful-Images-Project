@@ -53,6 +53,10 @@ select {
 	padding: 12px 15px;
 	margin: 8px 0;
 
+	@media screen and (max-width: 430px) {
+		height: 7.5%;
+	}
+
 }
 
 
@@ -152,6 +156,9 @@ input {
 	padding: 12px 15px;
 	margin: 8px 0;
 	width: 100%;
+	@media screen and (max-width: 430px) {
+		height: 6%;
+	}
 }
 
 .container {
@@ -422,10 +429,11 @@ footer a {
 
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 430px) {
 
 	
 	.container {
+		
 		position : absolute;
 		top: 56%;
 		left : 50%;
@@ -443,6 +451,7 @@ footer a {
 	  }
 
 	  .sign-up-container {
+		
 		left: -100%;
 		width: 100%;
 		opacity: 0;
@@ -453,6 +462,7 @@ footer a {
 		}
 	}
 	  .overlay {
+		
 		background: #FF416C;
 		background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
 		background: linear-gradient(to right,#2c3e50,#2c3e50);

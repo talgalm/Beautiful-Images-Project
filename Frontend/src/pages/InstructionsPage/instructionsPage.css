@@ -17,6 +17,12 @@
 	margin-top: 50px;
 	max-height: 65vh;
 	color: black;
+
+	@media screen and (max-width: 420px) {
+		width: 100%;
+		font-size: 15px;
+		overflow: hidden;
+	}
 }
 
 .text-ins{
@@ -30,6 +36,17 @@
 	margin-bottom: 50px;
 	overflow-y: auto;
 	height: 60vh;
+	@media screen and (max-width: 420px) {
+		display: flex;
+		justify-content: flex-start;
+		align-items: flex-start;
+		margin: 0px 20px 20px 20px;
+		height: 70vh;
+		overflow-y: scroll;
+	}
+
+
+
 
 
 }

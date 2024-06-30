@@ -38,18 +38,18 @@
     "greet": "Hello, {{name}} !",
     "signIn": "Sign In",
     "signUp": "Continute",
-    "enterUsername": "Please enter your email address:",
+    "enterUsername": "Enter your email address",
     "enterUsernameConfirm": "Enter email for verification",
-    "age" : "Age",
+    "age" : "Enter Age",
     "continue": "Continue",
     "helloFriend": "Hello Friend",
     "firstTime": "Your first time here ?",
     "welcomeBack": "Welcome Back",
     "loginHere": "Login here",
-    "createAccount": "Create new username",
+    "createAccount": "Register",
     "RegisteredUsers" : "Registered Users",
     "checkToAgree" : "You must check the box to continue.",
-    "enterNickname" : "Enter nickname (Optional)",
+    "enterNickname" : "Enter nickname",
     "enterGender" : "Enter gender",
     "enterCountry" : "Enter country",
     "doneEvaluate" : "Finish rating",
@@ -127,7 +127,7 @@
     "AgeMustContainOnlyNumbers" : "Age must contain only numbers",
     "AgeMustBeBetween1899"  :"Age must be between 18-99",
     "emailExistsNote"  :"If you are already registered, please log in using the button on the left",
-    "basket10" :"Like a lot",
-    "basket1" :"Do not like"
+    "basket10" :"Most like",
+    "basket1" :"Least like"
 }
   

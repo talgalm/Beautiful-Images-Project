@@ -219,7 +219,7 @@
     }
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 430px) {
 
     .baskets-div {
         width: 37% !important;
@@ -241,6 +241,7 @@
         .draggable{
             -ms-touch-action: none;
             touch-action: none;
+            cursor: grab; 
         }
 
         .cardContainer {

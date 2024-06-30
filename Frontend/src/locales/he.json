@@ -47,7 +47,7 @@
     "firstTime": " ? פעם ראשונה שלך כאן",
     "welcomeBack": "ברוכים השבים",
     "loginHere": "אם קיים שם משתמש, לחץ כאן",
-    "createAccount": "יצירת חשבון חדש",
+    "createAccount": "הרשמה",
     "checkToAgree" : "לא ניתן להמשיך ללא הסכמה להשתתף בפרוייקט",
     "enterNickname" : "שם או כינוי (אופציונלי)",
     "enterGender" : "מגדר",
@@ -129,6 +129,6 @@
     "AgeMustContainOnlyNumbers" : "גיל חייב להכיל רק מספרים",
     "AgeMustBeBetween1899"  :"גיל חייב להיות בין 18-99",
     "emailExistsNote"  :"אם כבר נרשמת למערכת , תיכנס דרך כפתור ההתחברות בצד שמאל",
-    "basket10" :"אוהב מאוד",
-    "basket1" :"לא אוהב"
+    "basket10" :"הכי אוהב",
+    "basket1" :"פחות אוהב"
 }
