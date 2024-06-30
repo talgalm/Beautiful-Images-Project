@@ -69,18 +69,29 @@ export default function HomePage (){
       })
     }
     event.preventDefault();
-    // const isAge = (!isNaN(parseInt(age)) && parseInt(age) >= 18 && parseInt(age) <= 99);
-    const isEmail = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+    const isEmail = (/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i.test(email));
     const matchingEmail = emailConfirm === email;
-    // if (!isAge){
-    //   setInRegistraion("ageValidation")
-    // }
-    if (!isEmail){
+    const agePattern = /^\d*$/;
+    const ageNum = parseInt(age);
+    let isAge = true;
+    
+    if (!agePattern.test(age)) {
+      setInRegistraion("AgeMustContainOnlyNumbers")
+        isAge = false;
+    } else if (age === '' || ageNum < 18 || ageNum > 99) {
+        if (!(ageNum >= 18 && ageNum <= 99) ) {
+          setInRegistraion("AgeMustBeBetween1899")
+        } else  {
+          isAge = false;
+        }
+    }
+    else if (!isEmail){
       setInRegistraion("invalidEmail")
     }
-    if (!matchingEmail){
+    else if (!matchingEmail){
       setInRegistraion("emailsDontMatch")
     }
+
     else if ( isEmail && matchingEmail){
       handleUserRegistration(email , nickname , age , country , gender)
       .then(data => {
@@ -178,9 +189,9 @@ export default function HomePage (){
               )))}
                 
             </select>
-        <input placeholder={t('age')} value={age}  onChange={handleAgeChange} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input placeholder={t('age')} value={age}  onChange={handleAgeChange} dir={isRtl ? 'rtl' : 'ltr'} className={errorInRegistration ? age != '' ? 'err-div' :'' : ''} />
         <span style={{color:'red' , height: '25px' , width:'100%'}}>{t(errorInRegistration)}</span>
-        <button className="button-53" onClick={handleRegistration} style={{marginTop :"-30px"}}>{t('signUp')}</button>
+        <button className="button-53" onClick={handleRegistration} style={{marginBottom :"-50px", marginTop :'35px'}}>{t('signUp')}</button>
       </form>
     </div>
     <div className="form-container sign-in-container">
