@@ -1,0 +1,22 @@
+/* AdminNavBar.css */
+.navbar {
+  width: auto;
+}
+
+.nav-item {
+  margin: 0 10px;
+}
+
+.nav-container {
+  max-width: 800px;
+}
+
+@media (max-width: 992px) {
+  .navbar-collapse {
+    flex-grow: unset;
+  }
+  .navbar-nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+}

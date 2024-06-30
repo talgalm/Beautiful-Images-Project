@@ -18,6 +18,7 @@ export default function HomePage (){
   const [age , setAge] = useState('')
   const [gender , setGender] = useState('')
   const [country , setCountry] = useState('')
+  const [countryEnglishName , setCountryEnglishName] = useState('')
   const [error , setError] = useState(undefined)
   const [errorInRegistration , setInRegistraion] = useState(undefined)
 
@@ -58,16 +59,17 @@ export default function HomePage (){
     setGender(event.target.value);
   }
   function handleCountryChange(event){
-      setCountry(event.target.value);
+    const chosenCountryName = event.target.value;
+    setCountry(chosenCountryName);
+
+    countries.find((country)=> {
+      if (country.name === chosenCountryName || country.english_name == chosenCountryName )
+        setCountryEnglishName(country.english_name);
+    })
   }
 
   function handleRegistration(event){
-    if (isRtl){
-      countries.find((country)=> {
-        if (country.name === country)
-          setCountry(country.english_name);
-      })
-    }
+    
     event.preventDefault();
     const isEmail = (/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i.test(email));
     const matchingEmail = emailConfirm === email;
@@ -93,7 +95,7 @@ export default function HomePage (){
     }
 
     else if ( isEmail && matchingEmail){
-      handleUserRegistration(email , nickname , age , country , gender)
+      handleUserRegistration(email , nickname , age , countryEnglishName , gender)
       .then(data => {
         if (data.message === 'User registered successfully'){
           localStorage.setItem('nowRegistered',"true")
@@ -118,7 +120,7 @@ export default function HomePage (){
       handleAdminLogin(email, 'admin123')
       .then((data) => {
         if (data.message === 'Login successful' && data.token) {
-          navigate("/admin");
+          navigate("/admin/participants");
         } else {
           setError(data.message);
         }

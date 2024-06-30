@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
-import { Bar, Pie, Line } from 'react-chartjs-2';
+import { Bar, Pie } from 'react-chartjs-2';
 import { useTable, useFilters } from 'react-table';
 import { useTranslation } from 'react-i18next';
 import Header from '../../components/Header/Header';
 import './ParticipantsAdminPage.css';
 import { handleGetParticipantsData } from '../../services/adminService';
 import { useNavigate } from 'react-router-dom';
+import AdminNavBar from '../../components/AdminNavBar/adminNavBar';
+import {countries} from '../HomePage/hebrewCountries.js';
 
 // Register the components in Chart.js
 ChartJS.register(
@@ -23,12 +25,15 @@ ChartJS.register(
 
 const ParticipantsAdminPage = () => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
 
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [filter, setFilter] = useState({ gender: '', country: '', ageRange: [0, 100] });
+    const Countries = countries.map(item => item);
+    const isRtl = ['he'].includes(i18n.language);
+    const [country , setCountry] = useState('')
 
     useEffect(() => {
         handleGetParticipantsData()
@@ -61,21 +66,35 @@ const ParticipantsAdminPage = () => {
         });
     };
 
+    function handleCountryChange(event){
+        const chosenCountryName = event.target.value;
+        setCountry(chosenCountryName);
+        let found = false;
+
+        countries.find((country)=> {
+            if (!found && (country.name === chosenCountryName || country.english_name == chosenCountryName)){
+                const countryEnglishNameEvent = {
+                    target: {
+                        name: event.target.name,    
+                        value : country.english_name
+                    }
+                }
+
+                handleFilterChange(countryEnglishNameEvent);
+                found = true;
+            } 
+        })
+
+        if(!found){
+            handleFilterChange(event);
+        }
+   
+    }
+
     const handleAgeRangeChange = (e, index) => {
         const newRange = [...filter.ageRange];
         newRange[index] = parseInt(e.target.value, 10);
         setFilter({ ...filter, ageRange: newRange });
-    };
-
-    const barData = {
-        labels: [...new Set(filteredUsers.map(user => user.country))],
-        datasets: [{
-            label: t('usersByCountry'),
-            data: [...new Set(filteredUsers.map(user => user.country))].map(
-                country => filteredUsers.filter(user => user.country === country).length
-            ),
-            backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        }]
     };
 
     const pieData = {
@@ -89,77 +108,137 @@ const ParticipantsAdminPage = () => {
         }]
     };
 
-    const lineData = {
-        labels: Array.from(new Set(filteredUsers.map(user => user.age))),
-        datasets: [{
-            label: t('ageDistribution'),
-            data: Array.from(new Set(filteredUsers.map(user => user.age))).map(
-                age => filteredUsers.filter(user => user.age === age).length
-            ),
-            fill: false,
-            borderColor: 'rgba(75, 192, 192, 1)',
-        }]
+        // Function to group ages into bins
+    const groupAgesIntoBins = (users, binSize) => {
+        const ageBins = {};
+        users.forEach(user => {
+            const bin = Math.floor(user.age / binSize) * binSize;
+            if (!ageBins[bin]) {
+                ageBins[bin] = 0;
+            }
+            ageBins[bin]++;
+        });
+        return ageBins;
     };
 
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: t("gender"),
-                accessor: 'gender',
-            },
-            {
-                Header: t("country"),
-                accessor: 'country',
-            },
-            {
-                Header: t("age"),
-                accessor: 'age',
-            },
-        ],
-        []
-    );
+    const AgeDistributionChart = ({ filteredUsers }) => {
+        const binSize = 10; // Set the bin size (e.g., 10 years per bin)
 
-    const data = React.useMemo(
-        () => filteredUsers,
-        [filteredUsers]
-    );
+        const ageBins = groupAgesIntoBins(filteredUsers, binSize);
+        const labels = Object.keys(ageBins).map(bin => `${bin}-${parseInt(bin) + binSize - 1}`);
+        const data = Object.values(ageBins);
 
-    const tableInstance = useTable({ columns, data }, useFilters);
+        const barData = {
+            labels: labels,
+            datasets: [{
+                label: t('ageDistribution'),
+                data: data,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
 
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = tableInstance;
+        const barOptions = {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: t('ageRange')
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: t('numOfParticipants')
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0, // Display Y-axis values as integers
+                        stepSize: 1 // Ensure integer steps between ticks
+                    }
+                    
+                }
+            }
+        };
+
+        return <Bar data={barData} options={barOptions} />;
+    };
+
+    const UsersByCountryBarChart = ({ filteredUsers }) => {
+        const { t } = useTranslation();
+    
+        // Function to get unique countries and count users per country
+        const countries = [...new Set(filteredUsers.map(user => user.country))];
+        const userCounts = countries.map(country =>
+            filteredUsers.filter(user => user.country === country).length
+        );
+    
+        const barData = {
+            labels: countries,
+            datasets: [{
+                label: t('usersByCountry'),
+                data: userCounts,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            }]
+        };
+    
+        const barOptions = {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: t('country')
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: t('numOfParticipants')
+                    },
+                    beginAtZero: true, // Start Y-axis from zero
+                    ticks: {
+                        stepSize: 1, // Ensure integer steps between ticks
+                        precision: 0 // Display Y-axis values as integers
+                    }
+                }
+            }
+        };
+    
+        return <Bar data={barData} options={barOptions} />;
+    };
 
     return (
         <div>
             <Header />
+            <AdminNavBar />
             <div className="admin-page">
                 <div className='header'>{t('participants')}</div>
-                <div className="mb-3 d-flex align-items-center">
-                  <button
-                      className="btn btn-primary"
-                      onClick={() => navigate("/admin")}
-                    >
-                    {t('return')}
-                  </button>
-                </div>
                 {users?.length === 0 && <div className='no-data-message'>{t('noParticipantsData')}</div>}
                 <div className="filter-controls">
                     <label>
                         {t("gender")}
-                        <select name="gender" value={filter.gender} onChange={handleFilterChange}>
-                            <option value="">All</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                        <select name="gender" value={filter.gender} onChange={handleFilterChange} dir={isRtl ? 'rtl' : 'ltr'}>
+                            <option value="">{t('selectGender')}</option>
+                            <option value="male">{t('Male')}</option>
+                            <option value="female">{t('Female')}</option>
                         </select>
                     </label>
                     <label>
                     {t("country")}
-                        <input name="country" value={filter.country} onChange={handleFilterChange} />
+                    <select name="country" value={country} onChange={handleCountryChange} dir={isRtl ? 'rtl' : 'ltr'}>
+                <option value="">{t("selectCountry")}</option>
+                {isRtl ? (Countries.map(obj => obj.name).map((country, index) => (
+                    <option key={index} value={country}>
+                        {country}
+                    </option>
+                ))) : (Countries.map(obj => obj.english_name).sort().map((country, index) => (
+                  <option key={index} value={country}>
+                    {country}
+                  </option>
+              )))}
+                
+            </select>
                     </label>
                     <label>
                     {t("ageRange")}
@@ -170,39 +249,14 @@ const ParticipantsAdminPage = () => {
                 </div>
                 <div className="charts">
                     <div className="chart">
-                        <Bar data={barData} />
+                        <UsersByCountryBarChart filteredUsers={filteredUsers} />
                     </div>
                     <div className="chart">
                         <Pie data={pieData} />
                     </div>
                     <div className="chart">
-                        <Line data={lineData} />
+                        <AgeDistributionChart filteredUsers={filteredUsers} />
                     </div>
-                </div>
-                <div className="table">
-                    <table {...getTableProps()}>
-                        <thead>
-                            {headerGroups.map(headerGroup => (
-                                <tr {...headerGroup.getHeaderGroupProps()}>
-                                    {headerGroup.headers.map(column => (
-                                        <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                                    ))}
-                                </tr>
-                            ))}
-                        </thead>
-                        <tbody {...getTableBodyProps()}>
-                            {rows.map(row => {
-                                prepareRow(row);
-                                return (
-                                    <tr {...row.getRowProps()}>
-                                        {row.cells.map(cell => (
-                                            <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                        ))}
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
