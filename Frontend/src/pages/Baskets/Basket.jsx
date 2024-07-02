@@ -9,6 +9,7 @@ import arrowLeftWhite from "../../../src/icons/arrow-circle-left-w.svg"
 import arrowRight from "../../../src/icons/arrow-circle-right.svg"
 import arrowRightWhite from "../../../src/icons/arrow-circle-right-w.svg"
 
+
 export default function Basket({ index , onDropImage , sessionImages  }) {
   const { t, i18n } = useTranslation();
 
@@ -19,6 +20,7 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
     const [imgIndx , setImgIndex] = useState(-1);
     const [color , setColor] = useState(false);
     const containerRef = useRef(null);
+    const isMobile = window.innerWidth <= 430
 
     const handleScroll = (event) => {
       if (containerRef.current) {
@@ -145,8 +147,8 @@ export default function Basket({ index , onDropImage , sessionImages  }) {
                         </div>
                     ))}
 
-                               { (index === 10 || index === 1 )&& <div className="tooltip-container">
-                         <div className='' style={{width : '100vh'}}></div>
+                               { !isMobile && (index === 10 || index === 1 ) && <div className="tooltip-container">
+                         <div className='' style={{width : '10vh'}}></div>
                         <span className="tooltip-text">{index === 1 && (t('basket1')) ||
                       index === 10 && (t('basket10'))}</span>
                       </div>}

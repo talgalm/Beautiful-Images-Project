@@ -11,7 +11,7 @@
 }
 .guidelines-div{
 	display: flex;
-	flex-direction: row;
+	flex-direction: row-reverse;
 	overflow-y: auto;
 	height: 80%;
 	margin-top: 50px;
@@ -26,7 +26,7 @@
 }
 
 .text-ins{
-	width: 90ch;
+	width: 85ch;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -35,7 +35,7 @@
 	line-height: 2;
 	margin-bottom: 50px;
 	overflow-y: auto;
-	height: 60vh;
+	height: 65vh;
 	@media screen and (max-width: 420px) {
 		display: flex;
 		justify-content: flex-start;
