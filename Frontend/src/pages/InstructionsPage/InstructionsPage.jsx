@@ -36,8 +36,20 @@ export default function InstructionsPage (){
              
                 <div className="text-div-d" style={{justifyContent : isRtl ? 'flex-end' : 'flex-start'}}>
                 {!isReturningUser ? 
-                (<div dir={isRtl ? 'rtl' : 'ltr'} className="text-ins">
+                (<div dir={isRtl ? 'rtl' : 'ltr'} style={{flexDirection : isMobile ? 'column' : ''}}  className="text-ins">
                     <Trans i18nKey="returningGeneralInstructions" components={{ br: <br /> }} />
+                    {isMobile && <div>
+                    <video
+                        style={{ width: '100%' , marginTop : '10px'}}
+                        loop
+                        autoPlay
+                        muted
+                        controls
+                    >
+                        <source src={video} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    </div>}
                 </div>) 
                 :
                 (<div dir={isRtl ? 'rtl' : 'ltr'} style={{flexDirection : isMobile ? 'column' : ''}} className="text-ins">
