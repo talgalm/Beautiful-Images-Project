@@ -20,10 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: backend/src
+        working-directory: ./backend/src
 
       - name: Run tests
         run: npm test
         env:
           NODE_ENV: test
-        working-directory: backend/src
+        working-directory: ./backend/src
