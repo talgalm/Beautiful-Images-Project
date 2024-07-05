@@ -24,7 +24,15 @@ jobs:
 
       - name: List directory contents shorter
         run: ls ./Backend
-        
+
+      - name: Clear npm cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+            
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
