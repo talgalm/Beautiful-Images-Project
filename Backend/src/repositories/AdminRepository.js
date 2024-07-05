@@ -126,13 +126,13 @@ class AdminRepository {
   }
 
   static async getParticipantsData() {
-     // Fetch all participants who are not admins
+    // Fetch all participants who are not admins
     // Exclude 'email', 'nickname', 'password', and 'isAdmin' fields from the result
     const participants = await User.findAll({
       where: {
         isAdmin: false
       },
-      attributes: { exclude: ['email','nickname','password', 'isAdmin'] }
+      attributes: { exclude: ['email','nickname','password', 'isAdmin', 'createdAt', 'updatedAt'] }
     });
 
      // Fetch all ratings where the type is 'final'
@@ -146,7 +146,7 @@ class AdminRepository {
     // Extract user IDs from the ratings
     // This gives us a list of user IDs who have at least one 'final' rating
     const completedExperimentUserIds = ratings.map(rating => rating.userId);
-
+   
     // Filter participants to include only those who have completed at least one experiment
     // This is determined by checking if the participant's ID is in the list of user IDs with 'final' ratings
     const participantThatFinisedAtLeadtOneExperiment = participants.filter(participant =>completedExperimentUserIds.includes(participant.id))

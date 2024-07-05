@@ -45,10 +45,12 @@ class RatingRepository {
 
     static async saveRatings(userId) {
         //await Rating.destroy( {where: { userId, type: "tmp", rating: 0 }}); //remove images with rating 0 from the table
-        await Rating.update({type: "final"}, { where: { userId, type: "tmp" } });// change all current user ratings to final
+        logger.info(`saveRatings - save all tmp ratings for user : ${userId}`);
+        await Rating.update({type: 'final'}, { where: { userId: userId, type: 'tmp' } });// change all current user ratings to final
     }
 
     static async saveOldRatings() {
+        logger.info(`saveOldRatings - save all Ratings that have not been updated in the last 24 hours`);
         const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
         const userIdsToSave = await Rating.findAll({
             attributes: ['userId'],
@@ -60,11 +62,12 @@ class RatingRepository {
             },
             group: ['userId']
         });
-
-        userIdsToSave.forEach(async (rating) => {
-            await RatingRepository.saveRatings(rating.userId);
+        
+        const savePromises = userIdsToSave.map(async (rating) => {
+          await RatingRepository.saveRatings(rating.userId);
         });
-
+      
+        await Promise.all(savePromises);
     }
 
     static async getAllRatings() {

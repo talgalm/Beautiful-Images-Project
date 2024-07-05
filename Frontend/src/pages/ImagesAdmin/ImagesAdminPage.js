@@ -165,7 +165,6 @@ const ImagesAdminPage = () => {
   }
 
   const editCategoryDB = (item) => {
-    console.log("s")
     setIsEdit(false);
     setEditIndex(-1)
   }

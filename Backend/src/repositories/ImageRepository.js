@@ -104,8 +104,6 @@ class ImageRepository {
               console.log("---------------------------")
               console.log(processedImages)
               return processedImages;
-              return images;
-
             }
             else {
               console.log("fetching session images");
@@ -118,7 +116,6 @@ class ImageRepository {
               console.log("---------------------------")
               console.log(processedImages)
               return processedImages;
-              return images;
             }
         } catch (error) {
             logger.error(`ImageRepo - fetchImages error ${error}`);

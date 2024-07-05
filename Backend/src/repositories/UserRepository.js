@@ -30,23 +30,6 @@ class UserRepository {
       }
       return user;
     }
-    
-
-    static async getUser(email) {
-      const user = await User.findOne({ where: { email } });
-      if (!user) {
-        throw new Error('Invalid email');
-      }
-      return user;
-    }
-
-    static async getUser(id) {
-      const user = await User.findOne({ where: { id: id } });
-      if (!user) {
-        throw new Error('Invalid id');
-      }
-      return user;
-    }
 
     static async getUserId(email) {
       logger.info(`UserRepository - getUserId request by ${email}`);
