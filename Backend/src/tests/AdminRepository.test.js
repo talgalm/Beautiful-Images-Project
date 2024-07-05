@@ -16,7 +16,6 @@ jest.mock('../logger', () => ({
 }));
 
 // Mock fs and PDFDocument
-//jest.mock('fs');
 jest.mock('pdfkit');
 
 describe('AdminRepository', () => {

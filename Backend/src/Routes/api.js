@@ -15,6 +15,7 @@ router.use('/rate', ratingRoutes);
 // Mount image routes
 router.use('/images', imageRoutes);
 
+// Mount admin routes
 router.use('/admin', adminRoutes);
 
 module.exports = router;
