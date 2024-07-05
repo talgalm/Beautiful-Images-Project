@@ -9,6 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      BACKEND_SRC_PATH: ${{ github.workspace }}/backend/src
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -20,10 +23,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./backend/src
+        working-directory: ${{ env.BACKEND_SRC_PATH }}
 
       - name: Run tests
         run: npm test
         env:
           NODE_ENV: test
-        working-directory: ./backend/src
+        working-directory: ${{ env.BACKEND_SRC_PATH }}
