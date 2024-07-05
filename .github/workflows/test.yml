@@ -9,12 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    env:
-      BACKEND_SRC_PATH: ${{ github.workspace }}/backend/src
-
     steps:
-      - name: List directory contents
-        run: ls -R ./
         
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -22,7 +17,7 @@ jobs:
           fetch-depth: 0  # Ensure all history is fetched to access branches and tags
           
       - name: List directory contents again
-        run: ls -R 
+        run: ls -R /
         
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -31,10 +26,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ${{ env.BACKEND_SRC_PATH }}
+        working-directory: /backend/src
 
       - name: Run tests
         run: npm test
         env:
           NODE_ENV: test
-        working-directory: ${{ env.BACKEND_SRC_PATH }}
+        working-directory: /backend/src
