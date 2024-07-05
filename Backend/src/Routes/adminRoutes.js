@@ -8,7 +8,6 @@ router.post('/allRatings', AdminController.allRatings);
 router.post('/userRatings', AdminController.userRatings);
 router.post('/imageRatings', AdminController.imageRatings);
 router.post('/images', AdminController.getAllImages);
-
 router.post('/generatePdf', AdminController.generateAndFetchPdfReport);
 router.post('/generateCsvRatings', AdminController.generateAndFetchCsvRatings);
 router.post('/generateCsvImages', AdminController.generateAndFetchCsvImages);
