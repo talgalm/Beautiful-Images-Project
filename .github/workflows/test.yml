@@ -17,7 +17,10 @@ jobs:
           fetch-depth: 0  # Ensure all history is fetched to access branches and tags
           
       - name: List directory contents again
-        run: ls -R /
+        run: ls -R 
+
+      - name: List directory contents short
+        run: ls 
         
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -26,10 +29,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: /backend/src
+        working-directory: backend/src
 
       - name: Run tests
         run: npm test
         env:
           NODE_ENV: test
-        working-directory: /backend/src
+        working-directory: backend/src
