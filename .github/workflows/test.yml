@@ -21,6 +21,9 @@ jobs:
 
       - name: List directory contents short
         run: ls 
+
+      - name: List directory contents shorter
+        run: ls ./Backend
         
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -29,10 +32,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: backend/src
+        working-directory: ./Backend/src
 
       - name: Run tests
         run: npm test
         env:
           NODE_ENV: test
-        working-directory: backend/src
+        working-directory: ./Backend/src
