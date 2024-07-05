@@ -25,9 +25,10 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./mainDirectory/backend/src
+        working-directory: ./backend/src
 
       - name: Run tests
         env:
           NODE_ENV: test  # Set the NODE_ENV to test
         run: npm test
+        working-directory: ./backend/src
