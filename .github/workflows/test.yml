@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: List directory contents
-        run: ls -R ./backend/src
+        run: ls -R ./
         
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0  # Ensure all history is fetched to access branches and tags
           
       - name: List directory contents again
-        run: ls -R ./backend/src
+        run: ls -R 
         
       - name: Set up Node.js
         uses: actions/setup-node@v2
