@@ -13,11 +13,17 @@ jobs:
       BACKEND_SRC_PATH: ${{ github.workspace }}/backend/src
 
     steps:
+      - name: List directory contents
+        run: ls -R ./backend/src
+        
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Ensure all history is fetched to access branches and tags
-
+          
+      - name: List directory contents again
+        run: ls -R ./backend/src
+        
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
