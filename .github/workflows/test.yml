@@ -13,8 +13,10 @@ jobs:
       BACKEND_SRC_PATH: ${{ github.workspace }}/backend/src
 
     steps:
-      - name: Checkout repository
+       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Ensure all history is fetched to access branches and tags
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
