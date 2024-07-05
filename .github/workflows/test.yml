@@ -25,6 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./mainDirectory/backend/src
 
       - name: Run tests
         env:
