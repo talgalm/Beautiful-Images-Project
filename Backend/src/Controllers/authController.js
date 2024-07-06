@@ -1,4 +1,4 @@
-const { generateAccessToken } = require("../tokens/tokens");
+const { generateAccessToken } = require("../Tokens/tokens");
 const UserRepository = require("../repositories/UserRepository");
 const logger = require('../logger');
 
