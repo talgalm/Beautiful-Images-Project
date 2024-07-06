@@ -45,9 +45,9 @@ jobs:
             sleep 1
           done
 
-      - name: Create test database
+      - name: Create test database if not exists
         run: |
-          PGPASSWORD=123 psql -h localhost -U postgres -c "CREATE DATABASE database_test;"
+          PGPASSWORD=123 psql -h localhost -U postgres -c "CREATE DATABASE database_test IF NOT EXISTS;"
 
       - name: Run migrations undo all (test environment)
         run: |
