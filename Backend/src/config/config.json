@@ -10,7 +10,7 @@
   "test": {
     "username": "postgres",
     "password": "123",
-    "database": "npx sequelize-cli db:migrate:undo:all",
+    "database": "database_test",
     "host": "localhost",
     "dialect": "postgres"
   },

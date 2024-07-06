@@ -1,7 +1,7 @@
 const UserRepository = require('../repositories/UserRepository');
 const { connectToPostgreSQL, disconnectFromPostgreSQL } = require('../config/pgConfig');
 const { connectToSequelize } = require('../config/sequelizeConfig');
-const { User } = require('../models');
+const { User } = require('../Models');
 
 describe("UserRepository", () => {
   beforeAll(async () => {
