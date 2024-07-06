@@ -9,26 +9,41 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    env:
-      BACKEND_SRC_PATH: ${{ github.workspace }}/backend/src
-
     steps:
+        
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Ensure all history is fetched to access branches and tags
+          
+      - name: List directory contents again
+        run: ls -R 
 
+      - name: List directory contents short
+        run: ls 
+
+      - name: List directory contents shorter
+        run: ls ./Backend
+
+      - name: Clear npm cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+            
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20.13.1'
 
       - name: Install dependencies
         run: npm install
-        working-directory: ${{ env.BACKEND_SRC_PATH }}
+        working-directory: ./Backend/src
 
       - name: Run tests
         run: npm test
         env:
           NODE_ENV: test
-        working-directory: ${{ env.BACKEND_SRC_PATH }}
+        working-directory: ./Backend/src
