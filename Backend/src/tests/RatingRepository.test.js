@@ -2,7 +2,7 @@ const { execSync } = require('child_process');
 const RatingRepository = require('../repositories/RatingRepository');
 const { connectToPostgreSQL, disconnectFromPostgreSQL } = require('../config/pgConfig');
 const { connectToSequelize } = require('../config/sequelizeConfig');
-const { Rating, Image, Category } = require('../models');
+const { Rating, Image, Category } = require('../Models');
 const { where } = require('sequelize');
 
 describe('RatingRepository', () => {

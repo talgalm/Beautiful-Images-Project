@@ -1,4 +1,4 @@
-const { Image, Rating, Category } = require("../models");
+const { Image, Rating, Category } = require("../Models");
 const RatingRepository = require("./RatingRepository");
 const UserRepository = require('../repositories/UserRepository');
 const logger = require('../logger');

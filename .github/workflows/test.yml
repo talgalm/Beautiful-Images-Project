@@ -8,9 +8,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    env:
-      BACKEND_SRC_PATH: ${{ github.workspace }}/backend/src
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 123
+          POSTGRES_DB: database_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout repository
@@ -21,14 +32,36 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20.13.1'
 
       - name: Install dependencies
         run: npm install
-        working-directory: ${{ env.BACKEND_SRC_PATH }}
+        working-directory: ./Backend/src
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -U postgres; do
+            echo "$(date) - waiting for database to start"
+            sleep 1
+          done
+
+      - name: Create test database if not exists
+        run: |
+          PGPASSWORD=123 psql -h localhost -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'database_test'" | grep -q 1 || PGPASSWORD=123 psql -h localhost -U postgres -c "CREATE DATABASE database_test;"
+
+
+      - name: Run migrations undo all (test environment)
+        run: |
+          npx sequelize-cli db:migrate:undo:all --env test
+        working-directory: ./Backend/src
+
+      - name: Run migrations (test environment)
+        run: |
+          npx sequelize-cli db:migrate --env test
+        working-directory: ./Backend/src
 
       - name: Run tests
         run: npm test
         env:
           NODE_ENV: test
-        working-directory: ${{ env.BACKEND_SRC_PATH }}
+        working-directory: ./Backend/src
