@@ -12,7 +12,6 @@ class AdminRepository {
     const ratings = await RatingRepository.getAllRatings();
     const images = await ImageRepository.getAllImages();
     const users = await UserRepository.getAllUsers();
-
     
     let tableImages = [];
     for (let image of images) {

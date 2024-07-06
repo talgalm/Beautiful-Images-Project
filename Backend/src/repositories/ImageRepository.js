@@ -7,9 +7,6 @@ const path = require('path');
 const sharp = require('sharp');
 const { v4: uuidv4 } = require('uuid');
 
-
-
-
 class ImageRepository {
 
     static async generateSmallScaleImages() {
@@ -19,8 +16,6 @@ class ImageRepository {
         await this.generateSmallImages(factor);
       }
     }
-      
-
 
     static async generateSmallImages(factor) {
       logger.info(`ImageRepo - generateSmallImages func is running`);

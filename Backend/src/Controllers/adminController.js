@@ -8,6 +8,7 @@ const path = require('path');
 
 
 class AdminController {
+  
   async adminLogin(req, res) {
     try {
       const { email, password } = req.body;

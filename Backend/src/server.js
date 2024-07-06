@@ -5,9 +5,7 @@ const logger = require('./logger');
 const { client, connectToPostgreSQL } = require('./config/pgConfig');
 const { sequelize, connectToSequelize } = require('./config/sequelizeConfig');
 const ImageRepository = require('./repositories/ImageRepository');
-const UserRepository = require('./repositories/UserRepository');
 const RatingRepository = require('./repositories/RatingRepository');
-const AdminRepository = require('./repositories/AdminRepository');
 
 class Server {
     constructor(port) {
@@ -30,16 +28,6 @@ class Server {
         await ImageRepository.initializeImagesDB(); // Initialize the images database if it doesn't exist
 
         setInterval(RatingRepository.saveOldRatings, 60 * 60 * 1000);
-        //await AdminRepository.generatePdfReport();
-        //await AdminRepository.generateCsvReports();
-
-        //await UserRepository.registerUser({email: 'gil@gmail.com', age: "24", gender: "male", country: "aaa", nickname: "gil"});
-        //await ImageRepository.fetchImages('gil@gmail.com');
-
-        //RatingRepository.saveOldRatings();
-    
-        //RatingRepository.changeRating('gil@gmail.com', '2bLAu4liFh', 0, 2);
-        //await RatingRepository.saveRatings('gil@gmail.com');
 
          // Mount the API router
          this.app.use('/api', apiRouter);
