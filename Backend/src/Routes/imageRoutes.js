@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const imageController = require('../controllers/imageController');
+const imageController = require('../Controllers/imageController');
 
 // Define routes for images
 router.post('/fetchImages', imageController.fetchImages);
