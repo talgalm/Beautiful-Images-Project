@@ -3,6 +3,7 @@ const router = express.Router();
 
 const AdminController = require('../Controllers/adminController');
 
+// Define routes for admin
 router.post('/login', AdminController.adminLogin);
 router.post('/allRatings', AdminController.allRatings);
 router.post('/userRatings', AdminController.userRatings);

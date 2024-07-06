@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const imageController = require('../controllers/imageController');
 
-// Define routes for authentication
-
+// Define routes for images
 router.post('/fetchImages', imageController.fetchImages);
 
 router.post('/fetchImage', imageController.fetchImage);
