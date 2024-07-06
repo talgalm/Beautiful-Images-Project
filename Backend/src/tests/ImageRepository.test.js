@@ -152,6 +152,41 @@ describe('ImageRepository', () => {
         });
     });
 
+    describe('fetchNewImagesForUser', () => {
+      it('fetch new images without rated images', async () => {
+     
+        const userId = 'user1';
+        
+        const images = [
+          { id: "1", imageName: "image1", categoryId: 3 },
+          { id: "2", imageName: "image2", categoryId: 4 },
+          { id: "3", imageName: "image3", categoryId: 2 },
+          { id: "4", imageName: "image4", categoryId: 1 },
+          { id: "5", imageName: "image5", categoryId: 7 },
+          { id: "6", imageName: "image6", categoryId: 1 },
+        ];
+
+        const finalRatings = [
+          { userId, imageId: "1", rating: 3, type: 'final' },
+          { userId, imageId: "2", rating: 4, type: 'final' },
+        ];
+
+        jest.spyOn(Image, 'findAll').mockResolvedValue(images);
+        const findAllRatingMock = jest.spyOn(Rating, 'findAll').mockResolvedValue(finalRatings);
+  
+        const result = await ImageRepository.fetchNewImagesForUser(userId);
+  
+        // Assert that Rating.findAll is called with the correct arguments
+        expect(findAllRatingMock).toHaveBeenCalledWith({ where: { userId, type: 'final' } });
+  
+        // Assert the returned data
+        expect(result.length).toEqual(4);
+  
+        // Restore the original implementation of Rating.findAll
+        findAllRatingMock.mockRestore();
+      });
+  });
+
     describe('generateSmallScaleImages', () => {
       it('should call generateSmallImages for each factor', async () => {
         const generateSmallImagesMock = jest.spyOn(ImageRepository, 'generateSmallImages').mockResolvedValue();

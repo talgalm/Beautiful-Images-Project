@@ -118,17 +118,19 @@ class ImageRepository {
         }
     }
 
+    static async fetchNewImagesForUser(userId) { 
+
+        const allImages = await Image.findAll();
+        const userRatedImages = await Rating.findAll({where: { userId, type: "final" }});
+        const userRatedImagesIds = userRatedImages.map((rating)=>rating.imageId);
+        //subtract rated images from all images
+        const images = allImages.filter(image => !userRatedImagesIds.includes(image.id));
+        return images;
+    }
+
     static async fetchNewImages(userId) {
         try {
-            const allImages = await Image.findAll();
-            const userRatedImages = await Rating.findAll({where: { userId, type: "final" }});
-            //subtract rated images from all images
-            const images = allImages.filter((image) => {
-                return !userRatedImages.some((ratedImage) => {
-                    return ratedImage.imageId === image.imageId;
-                });
-            });
-
+            const images = await ImageRepository.fetchNewImagesForUser(userId);
             const totalNumOfImages = images.length;
 
             //select 70 images proportionally to the number of images in each category
@@ -236,7 +238,6 @@ class ImageRepository {
             throw new Error('Error fetching images');
         }
     }
-
 
     static async doesUserHaveRatedImages(userId) {
       try {
