@@ -1,4 +1,4 @@
-const RatingController = require('../controllers/RatingController');
+const RatingController = require('../Controllers/ratingController');
 const RatingRepository = require('../repositories/RatingRepository');
 const UserRepository = require('../repositories/UserRepository');
 const logger = require('../logger');

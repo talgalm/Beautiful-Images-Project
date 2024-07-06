@@ -1,4 +1,4 @@
-const AuthController = require('../controllers/AuthController');
+const AuthController = require('../Controllers/authController');
 const UserRepository = require('../repositories/UserRepository');
 const { generateAccessToken } = require('../Tokens/tokens');
 const logger = require('../logger');

@@ -1,4 +1,4 @@
-const AdminController = require('../controllers/AdminController');
+const AdminController = require('../Controllers/adminController');
 const UserRepository = require('../repositories/UserRepository');
 const RatingRepository = require('../repositories/RatingRepository');
 const ImageRepository = require('../repositories/ImageRepository');
