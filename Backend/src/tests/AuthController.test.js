@@ -4,7 +4,7 @@ const { generateAccessToken } = require('../Tokens/tokens');
 const logger = require('../logger');
 
 // Mock generateAccessToken globally
-jest.mock('../tokens/tokens', () => ({
+jest.mock('../Tokens/tokens', () => ({
   generateAccessToken: jest.fn().mockReturnValue('mocked-token')
 }));
 

@@ -9,7 +9,7 @@ jest.mock('../repositories/UserRepository');
 jest.mock('../repositories/RatingRepository');
 jest.mock('../repositories/ImageRepository');
 jest.mock('../repositories/AdminRepository');
-jest.mock('../tokens/tokens');
+jest.mock('../Tokens/tokens');
 
 describe('AdminController', () => {
   let req, res;
