@@ -1,6 +1,6 @@
-const AuthController = require('../Controllers/AuthController');
+const AuthController = require('../controllers/AuthController');
 const UserRepository = require('../repositories/UserRepository');
-const { generateAccessToken } = require('../tokens/tokens');
+const { generateAccessToken } = require('../Tokens/tokens');
 const logger = require('../logger');
 
 // Mock generateAccessToken globally

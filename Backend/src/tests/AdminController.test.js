@@ -3,7 +3,7 @@ const UserRepository = require('../repositories/UserRepository');
 const RatingRepository = require('../repositories/RatingRepository');
 const ImageRepository = require('../repositories/ImageRepository');
 const AdminRepository = require('../repositories/AdminRepository');
-const { generateAccessToken } = require('../tokens/tokens');
+const { generateAccessToken } = require('../Tokens/tokens');
 
 jest.mock('../repositories/UserRepository');
 jest.mock('../repositories/RatingRepository');

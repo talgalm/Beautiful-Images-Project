@@ -1,4 +1,4 @@
-const ImageController = require('../Controllers/ImageController');
+const ImageController = require('../controllers/ImageController');
 const ImageRepository = require('../repositories/ImageRepository');
 const logger = require('../logger');
 const { Category } = require("../Models");
