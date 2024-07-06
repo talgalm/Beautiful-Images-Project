@@ -1,4 +1,4 @@
-const { Rating, Image, Category } = require("../models");
+const { Rating, Image, Category } = require("../Models");
 const { Op } = require("sequelize");
 const logger = require('../logger');
 

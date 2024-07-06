@@ -1,7 +1,7 @@
 const UserRepository = require("../repositories/UserRepository");
 const RatingRepository = require("../repositories/RatingRepository");
 const ImageRepository = require("../repositories/ImageRepository");
-const { Rating, Image, User } = require("../models");
+const { Rating, Image, User } = require("../Models");
 
 const PDFDocument = require('pdfkit');
 const fs = require('fs');

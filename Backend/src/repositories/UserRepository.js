@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-const { User } = require("../models");
+const { User } = require("../Models");
 const logger = require('../logger');
 
 class UserRepository {
