@@ -8,31 +8,27 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 123
+          POSTGRES_DB: database_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
-        
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Ensure all history is fetched to access branches and tags
-          
-      - name: List directory contents again
-        run: ls -R 
 
-      - name: List directory contents short
-        run: ls 
-
-      - name: List directory contents shorter
-        run: ls ./Backend
-
-      - name: Clear npm cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-            
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -40,6 +36,27 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./Backend/src
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -U postgres; do
+            echo "$(date) - waiting for database to start"
+            sleep 1
+          done
+
+      - name: Create test database
+        run: |
+          PGPASSWORD=123 psql -h localhost -U postgres -c "CREATE DATABASE database_test;"
+
+      - name: Run migrations undo all (test environment)
+        run: |
+          npx sequelize-cli db:migrate:undo:all --env test
+        working-directory: ./Backend/src
+
+      - name: Run migrations (test environment)
+        run: |
+          npx sequelize-cli db:migrate --env test
         working-directory: ./Backend/src
 
       - name: Run tests
