@@ -18,11 +18,11 @@ export const handleAdminLogin = async (email, password) => {
         return error;
     }
 };
-export const handleCreateImage = async (email, imageNme,categoryName ,imageData) => {
+export const handleCreateImage = async (email, imageName,categoryName ,imageData) => {
     try {
         const response = await axios.post(baseURL + 'api/admin/createImage', {
             email,
-            imageNme,
+            imageName,
             categoryName, 
             imageData
         });

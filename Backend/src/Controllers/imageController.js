@@ -44,10 +44,10 @@ class ImageController {
     }
 
     async createImage(req, res) {
-        const {email, imageNme, categoryName, imageData} = req.body;
+        const {email, imageName, categoryName, imageData} = req.body;
         logger.info(`ImageController - createImage request by ${email}`);
         try{
-            const image = await ImageRepository.createImage(email, imageNme, categoryName, imageData);
+            const image = await ImageRepository.createImage(email, imageName, categoryName, imageData);
             res.status(200).json({image});
         } catch (error) {
             res.status(400).json({ message: error.message });
@@ -68,10 +68,10 @@ class ImageController {
     }
 
     async updateImage(req, res) {
-        const {email, imageId, imageNme, categoryName} = req.body;
+        const {email, imageId, imageName, categoryName} = req.body;
         logger.info(`ImageController - updateImage request by ${email}`);
         try{
-            const image = await ImageRepository.updateImage(imageId, imageNme, categoryName);
+            const image = await ImageRepository.updateImage(imageId, imageName, categoryName);
             res.status(200).json({image});
         } catch (error) {
             res.status(400).json({ message: error.message });
