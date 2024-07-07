@@ -128,6 +128,7 @@
     "AgeMustBeBetween1899"  :"Age must be between 18-99",
     "emailExistsNote"  :"If you are already registered, please log in using the button on the left",
     "basket10" :"Most like",
-    "basket1" :"Least like"
+    "basket1" :"Least like",
+    "enterPassAdmin" : "Enter admin password"
 }
   

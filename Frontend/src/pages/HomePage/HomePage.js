@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Header from '../../components/Header/Header';
 import {countries} from '../HomePage/hebrewCountries.js';
 import { handleAdminLogin } from '../../services/adminService';
+import {Card, Modal} from 'react-bootstrap';
 
 
 
@@ -21,6 +22,9 @@ export default function HomePage (){
   const [countryEnglishName , setCountryEnglishName] = useState('')
   const [error , setError] = useState(undefined)
   const [errorInRegistration , setInRegistraion] = useState(undefined)
+  const [adminView , setAdminView] = useState(false);
+  const [password , setPassword] = useState('')
+
 
   const navigate = useNavigate();
   const mobileScreen = window.innerWidth <= 431;
@@ -116,17 +120,7 @@ export default function HomePage (){
   function handleLogin(event){
     event.preventDefault(); 
     if (email.includes('admin@gmail.com')){
-      handleAdminLogin(email, 'admin123')
-      .then((data) => {
-        if (data.message === 'Login successful' && data.token) {
-          navigate("/admin/participants");
-        } else {
-          setError(data.message);
-        }
-      })
-      .catch((error) => {
-        setError('Login failed. Please try again.');
-      });
+      openModal()
     }
     else {
       handleUserLogin(email)
@@ -149,9 +143,30 @@ export default function HomePage (){
 
   }
 
-  // function handleAdminLogin(event){
-  //   navigate("/adminLogin")
-  // }
+  function handleAdmin(){
+      handleAdminLogin(email, password)
+      .then((data) => {
+        if (data.message === 'Login successful' && data.token) {
+          navigate("/admin/participants");
+        } else {
+          setError(data.message);
+        }
+      })
+      .catch((error) => {
+        setError('Login failed. Please try again.');
+      });
+  }
+
+  const openModal = () => {
+    setAdminView(true)
+  }
+  const closeModal = () => {
+    setAdminView(false)
+  }
+
+  const handlePasswordChange = (event) =>{
+    setPassword(event.target.value);
+  }
   
 
   useEffect(() => {
@@ -230,7 +245,16 @@ export default function HomePage (){
         {isSignUpActive ? t('signInMobile') : t('signUpMobile')}
       </button>
     </div>}
-
+    <Modal show={adminView} onHide={closeModal} size="l" >
+                    <Modal.Header closeButton style={{color: 'black'}}> <div className='update-header-div'>{t('enterPassAdmin')}</div>
+                    </Modal.Header>
+                    <Modal.Body>
+                    <div>
+                      <input required type="input" placeholder={t('enterPassAdmin')} value={password} onChange={handlePasswordChange} dir={isRtl ? 'rtl' : 'ltr'}/>
+                      <button className="button-53" onClick={handleAdmin}>{t('continue')}</button>
+                    </div>
+                    </Modal.Body>
+                </Modal>
     </div>
   
   );

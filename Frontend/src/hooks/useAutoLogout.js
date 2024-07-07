@@ -4,6 +4,7 @@ const useAutoLogout = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    localStorage.clear()
     const loggedIn = localStorage.getItem('isLoggedIn');
     if (loggedIn === 'true') {
       setIsLoggedIn(true);
