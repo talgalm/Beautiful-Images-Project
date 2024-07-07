@@ -82,6 +82,18 @@ class AdminController {
     }
   }
 
+  async getAllImagesPaginated(req, res) {
+    try {
+      const { email, page, limit } = req.body;
+      logger.info(`AdminController - getAllImagesPaginated request by ${email}`);
+      const {images, count} = await ImageRepository.getAllImagesPaginated(page, limit);
+      res.status(200).json({ images, count });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - getAllImagesPaginated error message ${error.message}`);
+    }
+  }
+
   async generateAndFetchPdfReport(req, res) {
     try {
       const { email } = req.body;

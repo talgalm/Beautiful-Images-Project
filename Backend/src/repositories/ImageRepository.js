@@ -225,27 +225,46 @@ class ImageRepository {
     static async getAllImages() {
         try {
             const images = await Image.findAll();
-            let result = [];
-            for (const image of images) {
-              const category = await Category.findOne({ where: { id: image.categoryId } })
-              const imagePath = path.join(__dirname, `../../images/_10/${category.categoryName}`, image.imageName);
-              const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
-              const totalRatingsOfImage = await RatingRepository.getAmountOfRatings(image.id);
-              const averageRatingOfImage = await RatingRepository.getAverageImageRating(image.id) || 0;
-              result.push({
-                id: image.id, 
-                imageName: image.imageName, 
-                imageCategory: category.categoryName, 
-                imageData: imageData,
-                totalRatings: totalRatingsOfImage,
-                averageRating: averageRatingOfImage
-              });
-            }
+            let result = await ImageRepository.prepareImages(images);
             return result;
         } catch (error) {
             logger.error(`ImageRepo - getAllImages error ${error}`);
             throw new Error('Error fetching images');
         }
+    }
+
+    static async getAllImagesPaginated(page=1, limit=20) {
+      try {
+        const images = await Image.findAndCountAll({ 
+              limit: limit,
+              offset: (page - 1) * limit
+          });
+          let result = await ImageRepository.prepareImages(images.rows);
+          return {images: result, count: images.count };
+        } catch (error) {
+          logger.error(`ImageRepo - getAllImagesPaginated error ${error}`);
+          throw new Error('Error fetching images');
+        }
+    }
+
+    static async prepareImages(images) {
+      let result = [];
+      for (const image of images) {
+        const category = await Category.findOne({ where: { id: image.categoryId } });
+        const imagePath = path.join(__dirname, `../../images/_10/${category.categoryName}`, image.imageName);
+        const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
+        const totalRatingsOfImage = await RatingRepository.getAmountOfRatings(image.id);
+        const averageRatingOfImage = await RatingRepository.getAverageImageRating(image.id) || 0;
+        result.push({
+          id: image.id,
+          imageName: image.imageName,
+          imageCategory: category.categoryName,
+          imageData: imageData,
+          totalRatings: totalRatingsOfImage,
+          averageRating: averageRatingOfImage
+        });
+      }
+      return result;
     }
 
     static async doesUserHaveRatedImages(userId) {

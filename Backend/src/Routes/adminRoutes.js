@@ -10,6 +10,7 @@ router.post('/RatingsPaginated', AdminController.allRatingsPaginated);
 router.post('/userRatings', AdminController.userRatings);
 router.post('/imageRatings', AdminController.imageRatings);
 router.post('/images', AdminController.getAllImages);
+router.post('/imagesPaginated', AdminController.getAllImagesPaginated);
 router.post('/generatePdf', AdminController.generateAndFetchPdfReport);
 router.post('/generateCsvRatings', AdminController.generateAndFetchCsvRatings);
 router.post('/generateCsvImages', AdminController.generateAndFetchCsvImages);

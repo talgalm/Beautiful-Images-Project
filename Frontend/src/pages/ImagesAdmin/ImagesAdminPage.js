@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleCreateImage, handleGetAllImages } from '../../services/adminService';
+import { handleCreateImage, handleGetAllImagesPaginated } from '../../services/adminService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ImagesAdminPage.css';
 import { Card } from 'react-bootstrap';
@@ -27,6 +27,10 @@ const ImagesAdminPage = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [itemsPerPage] = useState(20);
+
 
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
@@ -51,14 +55,21 @@ const ImagesAdminPage = () => {
   }
 
   const fetchImages = async () => {
-    handleGetAllImages("admin@gmail.com").then((response) => {
+    handleGetAllImagesPaginated("admin@gmail.com", currentPage, itemsPerPage).then((response) => {
       setImages(response.images);
+      setTotalPages(Math.ceil(response.count / itemsPerPage));
     });
   };
 
   useEffect(() => {
     fetchImages();
-  }, []);
+  }, [currentPage]);
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   const closeAddModal = () => {
     setTags([])
@@ -203,6 +214,37 @@ const ImagesAdminPage = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="d-flex justify-content-center mt-4">
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => handlePageChange(1)}
+            disabled={currentPage === 1}
+          >
+            {"<<"}
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            {"◀"}
+          </button>
+          <div className="mt-2"> {currentPage} {"/"} {totalPages}</div>
+          <button
+            className="btn btn-secondary ms-2"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            {"▶"}
+          </button>
+          <button
+            className="btn btn-secondary ms-2"
+            onClick={() => handlePageChange(totalPages)}
+            disabled={currentPage === totalPages}
+          >
+            {">>"}
+          </button>
         </div>
       </div>
       <Modal show={showAddModal} onHide={closeAddModal} size="m">

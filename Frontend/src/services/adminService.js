@@ -91,6 +91,19 @@ export const handleGetAllImages = async (email) => {
     }
 }
 
+export const handleGetAllImagesPaginated = async (email, page, limit) => {
+    try {
+        const response = await axios.post(baseURL + 'api/admin/imagesPaginated', {
+            email,
+            page,
+            limit
+        });
+        return response.data
+    } catch (error) {
+        return error;
+    }
+}
+
 export const handleGetCsvRatings = async (email) => {
     try {
         const response = await axios.post(baseURL + 'api/admin/generateCsvRatings', { email }, {
