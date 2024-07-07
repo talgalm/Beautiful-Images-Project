@@ -113,7 +113,7 @@ class AdminController {
             logger.error(`AdminController - generateAndFetchPdfReport error message ${err.message}`);
           }
         });
-      }, 1);
+      }, 100);
     } catch (error) {
       res.status(500).json({ message: error.message }); // Changed to status 500 for error response
       logger.error(`AdminController - generateAndFetchPdfReport error message ${error.message}`);
