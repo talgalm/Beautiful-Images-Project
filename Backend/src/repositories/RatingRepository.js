@@ -149,6 +149,9 @@ class RatingRepository {
   static async getAverageImageRating(imageId) {
     try {
       const ratings = await Rating.findAll({ where: { imageId } });
+      if (ratings.length === 0) {
+        return 0;
+      }
       const sum = ratings.reduce((acc, rating) => acc + rating.rating, 0);
       return sum / ratings.length;
     } catch (error) {

@@ -230,7 +230,16 @@ class ImageRepository {
               const category = await Category.findOne({ where: { id: image.categoryId } })
               const imagePath = path.join(__dirname, `../../images/_10/${category.categoryName}`, image.imageName);
               const imageData = fs.readFileSync(imagePath, { encoding: 'base64' });
-              result.push({id: image.id, imageName: image.imageName, imageCategory: category.categoryName, imageData: imageData});
+              const totalRatingsOfImage = await RatingRepository.getAmountOfRatings(image.id);
+              const averageRatingOfImage = await RatingRepository.getAverageImageRating(image.id) || 0;
+              result.push({
+                id: image.id, 
+                imageName: image.imageName, 
+                imageCategory: category.categoryName, 
+                imageData: imageData,
+                totalRatings: totalRatingsOfImage,
+                averageRating: averageRatingOfImage
+              });
             }
             return result;
         } catch (error) {
