@@ -73,52 +73,42 @@ class RatingRepository {
     static async getAllRatings() {
       try {
           const ratings = await Rating.findAll();
-          let result = [];
-          for (let rating of ratings) {
-              const image = await Image.findOne({ where: { id: rating.imageId } });
-              const category = await Category.findOne({ where: { id: image.categoryId } })
-              result.push({
-                imageId: rating.imageId, 
-                imageName: image.imageName, 
-                imageCategory: category.categoryName,
-                userId: rating.userId,
-                rating: rating.rating,
-                type: rating.type,
-                submittedFrom: rating.submittedFrom,
-                updatedAt: rating.updatedAt
-              });
-          }
-          return result;
+          return await RatingRepository.prepareRatings(ratings);
       } catch (error) {
           throw new Error('Error fetching ratings ' + error);
       }
   }
-
-  static async getAllRatingsPaginated(page=1, pageSize=20) {
-    try {
-        const ratings = await Rating.findAndCountAll({
-            limit: pageSize,
-            offset: (page - 1) * pageSize
-        });
-        let result = [];
-        for (let rating of ratings.rows) {
-            const image = await Image.findOne({ where: { id: rating.imageId } });
-            const category = await Category.findOne({ where: { id: image.categoryId } })
-            result.push({
-              imageId: rating.imageId, 
-              imageName: image.imageName, 
-              imageCategory: category.categoryName,
-              userId: rating.userId,
-              rating: rating.rating,
-              type: rating.type,
-              submittedFrom: rating.submittedFrom,
-              updatedAt: rating.updatedAt
-            });
-        }
-        return { ratings: result, count: ratings.count };
-    } catch (error) {
-        throw new Error('Error fetching ratings');
+  
+    static async getAllRatingsPaginated(page=1, pageSize=20) {
+      try {
+          const ratings = await Rating.findAndCountAll({
+              limit: pageSize,
+              offset: (page - 1) * pageSize
+          });
+          let result = await RatingRepository.prepareRatings(ratings.rows);
+          return { ratings: result, count: ratings.count };
+      } catch (error) {
+          throw new Error('Error fetching ratings');
+      }
     }
+
+  static async prepareRatings(ratings) {
+    let result = [];
+    for (let rating of ratings) {
+      const image = await Image.findOne({ where: { id: rating.imageId } });
+      const category = await Category.findOne({ where: { id: image.categoryId } });
+      result.push({
+        imageId: rating.imageId,
+        imageName: image.imageName,
+        imageCategory: category.categoryName,
+        userId: rating.userId,
+        rating: rating.rating,
+        type: rating.type,
+        submittedFrom: rating.submittedFrom,
+        updatedAt: rating.updatedAt
+      });
+    }
+    return result;
   }
 
   static async getImageRatings(imageId) {
