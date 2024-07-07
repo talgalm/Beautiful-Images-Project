@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import './homePage.css'
 import { handleUserLogin, handleUserRegistration } from '../../services/userService';
@@ -24,6 +24,9 @@ export default function HomePage (){
   const [errorInRegistration , setInRegistraion] = useState(undefined)
   const [adminView , setAdminView] = useState(false);
   const [password , setPassword] = useState('')
+  const emailInputRef = useRef(null);
+  const emailInputRef2 = useRef(null);
+
 
 
   const navigate = useNavigate();
@@ -32,6 +35,7 @@ export default function HomePage (){
   const Countries = countries.map(item => item);
 
   function changeDisplay(){
+    isSignUpActive ? emailInputRef.current.focus() : emailInputRef2.current.focus()
     setSignUpActive(!isSignUpActive)
     setAge('')
     setEmail('')
@@ -170,6 +174,7 @@ export default function HomePage (){
   
 
   useEffect(() => {
+    emailInputRef.current.focus();
   }, []);
 
 
@@ -182,7 +187,7 @@ export default function HomePage (){
     <div className="form-container sign-up-container">
       <form action="#"  className='form-2'>
         <h1>{t('createAccount')}</h1>
-        <input required type="input" placeholder={t('enterUsername')} value={email} onChange={handleUsernameChange}  dir={isRtl ? 'rtl' : 'ltr'} className={errorInRegistration ? 'err-div' : ''} />
+        <input required type="input" placeholder={t('enterUsername')} value={email} onChange={handleUsernameChange}  dir={isRtl ? 'rtl' : 'ltr'} className={errorInRegistration ? 'err-div' : ''} ref={emailInputRef2}/>
         <input required type="input" placeholder={t('enterUsernameConfirm')} value={emailConfirm} onChange={handleUsernameConfirmChange}  dir={isRtl ? 'rtl' : 'ltr'} className={errorInRegistration ? 'err-div' : ''} />
         <input type="input" placeholder={t('enterNickname')} value={nickname} onChange={handleNickname}  dir={isRtl ? 'rtl' : 'ltr'}  />
         <select value={gender} onChange={handleGenderChange} dir={isRtl ? 'rtl' : 'ltr'}>
@@ -213,7 +218,7 @@ export default function HomePage (){
     <div className="form-container sign-in-container">
       <form action="#" className='form-1'>
         <h1 className='h1-sign'>{t('signIn')}</h1>
-        <input required type="input" placeholder={t('enterUsername')} className= {error ? 'form-1-sign-error' : 'form-1-sign'} value={email} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'}/>
+        <input required type="input" placeholder={t('enterUsername')} className= {error ? 'form-1-sign-error' : 'form-1-sign'} value={email} onChange={handleUsernameChange} dir={isRtl ? 'rtl' : 'ltr'} ref={emailInputRef}/>
         <span style={{color:'red' , height: '25px' , width:'100%' , fontSize : '15px'}}>{t(error)}</span>
         <button className="button-53" onClick={handleLogin}>{t('continue')}</button>
         {/* <button className="button-53" onClick={handleAdminLogin}>{t('adminLogin')}</button> */}

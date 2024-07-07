@@ -129,6 +129,7 @@
     "emailExistsNote"  :"If you are already registered, please log in using the button on the left",
     "basket10" :"Most like",
     "basket1" :"Least like",
-    "enterPassAdmin" : "Enter admin password"
+    "enterPassAdmin" : "Enter admin password",
+    "outofImages" :"You've finished ranking all photos in the system - you are transferred to the finish page"
 }
   

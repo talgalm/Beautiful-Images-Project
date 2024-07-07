@@ -48,18 +48,30 @@ const RatingPage = () => {
   const fetchData = async () => {
     try {
       const data = await handleFetchImages();
-      setImages(data.images); 
-      setCount(data.images.filter(item => !item.visible).length);
-      const newPercent =  (1 / 70) * 100 * data.images.filter(item => !item.visible).length;
-      const finalPercent = Math.min(newPercent, 100);
-      setPercent( `${finalPercent.toFixed(2)}%`);
-      setInitialNumberOfImages(images.filter(image => image.rating !== 0).length);
+      if (data.images.length > 0)
+        {
+          setImages(data.images); 
+          setCount(data.images.filter(item => !item.visible).length);
+          const newPercent =  (1 / 70) * 100 * data.images.filter(item => !item.visible).length;
+          const finalPercent = Math.min(newPercent, 100);
+          setPercent( `${finalPercent.toFixed(2)}%`);
+          setInitialNumberOfImages(images.filter(image => image.rating !== 0).length);
+        }
+        else{
+          handleOutOfImages()
+        }
+
     } catch (error) {
       console.error("Error:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  function handleOutOfImages () {
+    alert("Youre out of images")
+    navigate("/finish");
+  }
 
 
   useEffect(() => {
@@ -92,7 +104,6 @@ const RatingPage = () => {
     if (droppedItemData.from != 0) {
       setCount(count-1)
 
-      //calc percents
       const numericPercent = parseFloat(percent);
       const newPercent = numericPercent - (1 / 70) * 100;
       const finalPercent = Math.min(newPercent, 100);
@@ -112,7 +123,6 @@ const RatingPage = () => {
   function onDropImage(dataImg) {
     setCount(count+1)
 
-     //calc percents
     const numericPercent = parseFloat(percent);
     const newPercent = numericPercent + (1 / 70) * 100;
     const finalPercent = Math.min(newPercent, 100);
@@ -323,25 +333,21 @@ const RatingPage = () => {
         <div className="button-container">
           <div className="w">
           <div class="progress">
+            <div className="text">{percent}</div>
         <div class="bar" style={{width:percent}}>
-          <p class="percent">{percent}</p>
         </div>
       </div>
           </div>
-          <div className="w2"> <button className="button-53" onClick={openFinishModal}>
+          <div className="w2"> <button className="button-53" onClick={openFinishModal} disabled={count === 0}>
             {t("doneEvaluate")}
           </button></div>
           
-        {/* <button className="button-53" onClick={openFinishModal}>
-            {t("doneEvaluate")}
-          </button>
-          <div class="progress">
-        <div class="bar" style={{width:'0%'}}>
-          <p class="percent">35%</p>
-        </div>
-      </div> */}
         </div> 
       </div>
+      <Modal show={false} size="l">
+      <Modal.Header closeButton></Modal.Header>
+      <Modal.Body></Modal.Body>
+      </Modal>
       <Modal show={showFinishModal} onHide={closeFinishModal} size="l">
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
@@ -360,11 +366,11 @@ const RatingPage = () => {
           />
           <div className="buttons-in-modal">
             { (
-              <button className="button-53" onClick={count > 69 ? handleDisplayMoreImages : closeFinishModal}>
+              <button className="button-53" onClick={count > 69 ? handleDisplayMoreImages : closeFinishModal} >
                 {count > 69 ? t("displayMoreImages") :t("continueEvaluations")}
               </button>
             )}
-            <button className="button-53" onClick={handleFinish}>
+            <button className="button-53" onClick={handleFinish} >
               {t("Finish")}
             </button>
           </div>
