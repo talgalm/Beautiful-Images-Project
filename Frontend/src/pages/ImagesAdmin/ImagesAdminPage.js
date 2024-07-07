@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleCreateImage, handleGetAllImages, handleGetAllRatings, handleGetImageRatings } from '../../services/adminService';
+import { handleCreateImage, handleGetAllImages } from '../../services/adminService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ImagesAdminPage.css';
 import { Card } from 'react-bootstrap';
@@ -15,19 +15,16 @@ import AdminNavBar from '../../components/AdminNavBar/adminNavBar';
 
 const ImagesAdminPage = () => {
   const { t } = useTranslation();
-  const [data, setData] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedImageId, setSelectedImageId] = useState('');
   const [images, setImages] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showViewImageModal, setShowViewImageModal] = useState(false);
   const [file, setFile] = useState();
   const [loading, setLoading] = useState(true);
   const [tags, setTags] = useState(true);
   const [gen, setGen] = useState(false);
   const [input, setInput] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
-  const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
 
@@ -38,58 +35,32 @@ const ImagesAdminPage = () => {
     setSelectedValue(event.target.value);
   };
 
-  const openModalI =(img) => {
-    handleFetchSingleImage(img.imageId , 'original')
+  const openViewImageModal =(img) => {
+    handleFetchSingleImage(img.id , 'original')
     .then(data => { 
       setSelectedImage(data.image.imageData)
-      setShowModal(true);
     })
     .catch((error) => {
       console.error('Error:', error);
     });
-    setShowModal(true)
-  }
-  const closeModalI =() => {
-    setShowModal(false)
+    setShowViewImageModal(true)
   }
 
+  const closeViewImageModal =() => {
+    setShowViewImageModal(false)
+  }
 
-  
   const fetchImages = async () => {
     handleGetAllImages("admin@gmail.com").then((response) => {
       setImages(response.images);
     });
   };
 
-  const fetchRatings = async () => {
-    if (selectedImageId) {
-      handleGetImageRatings("admin@gmail.com", selectedImageId).then((response) => {
-        setData(response.ratings);
-      });
-    } else if (selectedCategory) {
-      const categoryImageIds = images
-        .filter(image => image.imageCategory === selectedCategory)
-        .map(image => image.id);
-      
-      const allCategoryRatings = [];
-      for (const imageId of categoryImageIds) {
-        const response = await handleGetImageRatings("admin@gmail.com", imageId);
-        allCategoryRatings.push(...response.ratings);
-      }
-      setData(allCategoryRatings);
-    } else {
-      handleGetAllRatings("admin@gmail.com").then((response) => {
-        setData(response.ratings);
-      });
-    }
-  };
-
   useEffect(() => {
     fetchImages();
-    fetchRatings();
   }, []);
 
-  const closeModal = () => {
+  const closeAddModal = () => {
     setTags([])
     setFile();
     setShowAddModal(false);
@@ -99,10 +70,10 @@ const ImagesAdminPage = () => {
     setShowAddModal(true);
   }
 
-  const closeDModal = () => {
+  const closeDeleteModal = () => {
     setShowDeleteModal(false);
   }
-  const openDModal = (item) => {
+  const openDeleteModal = (item) => {
     setFile(item)
     setShowDeleteModal(true);
   }
@@ -207,103 +178,92 @@ const ImagesAdminPage = () => {
               </tr>
             </thead>
             <tbody className="thead-dark-body">
-              {data.filter((item, index, self) => {
-              return index === self.findIndex(t => (
-                t.imageId === item.imageId
-              ));
-            }).map((item, index) => {
-                return (
-                  <tr key={index}>
-                    <td>{item.imageId}</td>
-                    <td>
-                      <Card.Img
-                        className="imageCard"
-                        src={`data:image/jpeg;base64,${images.find(img => img.id === item.imageId)?.imageData}`}
-                        style={{ maxWidth: '60px', maxHeight: '60px' }}
-                        onClick={() => openModalI(item)}
-                      />
-                    </td>
-                    <td>{item.imageName}</td>
-                    <td>{(!isEdit || index !== editIndex) ? <div onClick={() => editCategory(item , index)}>{item.imageCategory}</div> : 
+              {images.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.id}</td>
+                  <td>
+                    <Card.Img
+                      className="imageCard"
+                      src={`data:image/jpeg;base64,${item.imageData}`}
+                      style={{ maxWidth: '60px', maxHeight: '60px' }}
+                      onClick={() => openViewImageModal(item)}
+                    />
+                  </td>
+                  <td>{item.imageName}</td>
+                  <td>{(!isEdit || index !== editIndex) ? <div onClick={() => editCategory(item , index)}>{item.imageCategory}</div> : 
                     <div className='editDiv'>
                       <button className="btn btn-primary2" onClick={() => {setEditIndex(-1)}}>cancel</button>
                       <button className="btn btn-primary3" onClick={()=>editCategoryDB(item)}>save</button>
                       <input value={editedCategory} onChange={changeEdit}/>
                     </div>}</td>
-                    <td>{data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).length.toFixed(0)}</td>
-                    <td>{(data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).reduce((acc, curr) => acc + curr, 0) / data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).length).toFixed(2)}</td>
-
-                    <td onClick={()=>openDModal(`data:image/jpeg;base64,${images.find(img => img.id === item.imageId)?.imageData}`)}><img src={deleteIcon}/></td>
-                  </tr>//item.rating
-                );
-              })}
+                    <td>{item.totalRatings}</td>
+                  <td>{item.averageRating.toFixed(2)}</td>
+                  <td onClick={()=>openDeleteModal(`data:image/jpeg;base64,${item.imageData}`)}><img src={deleteIcon}/></td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
-      <Modal show={showAddModal} onHide={closeModal} size="m">
-      <Modal.Header closeButton>
-      </Modal.Header>
-      <Modal.Body>
-      <input type="file" onChange={handleChange} />
-      {file && <img src={file} />}
-      <div className='buttons'>
-        <button className="btn btn-primary" disabled={!file} onClick={generateCategory}>
-        {t('generateCategory')} 
-        </button>
-        <button className="btn btn-primary" onClick={enterCategory}>
-        {t('enterMan')} 
-        </button>
-      </div>
-      {!loading ? (
-            <div className='tagsDiv'>
-              {gen && <select  onChange={handleSelectChange} value={selectedValue}>
-                {tags.map((tag, index) => (
-                  <option key={index} value={tag}>{tag}</option>
-                ))}
-              </select>}
-            </div>
-          ) : (
-            (gen && <div className="loader-div">
-              <span className="loader"></span>
-            </div>)
-          )}
-          {input !== false && <div className='sendDiv'><input placeholder={t('enterMan')} value={selectedValue} onChange={setSelectedValueText}/>
-          <button className="btn btn-primary" style={{backgroundColor:'red !important'}} onClick={createImage}>Save</button></div>}
-      </Modal.Body>
-      </Modal>
-      <Modal show={showDeleteModal} onHide={closeDModal} size="m">
-      <Modal.Header closeButton>
-      </Modal.Header>
-      <Modal.Body>
-        <div className='deleteContainer'>Are you sure you want to delete ?</div>
-        <div className='imgDiv'>
-        <Card.Img
-                        className="imageCard"
-                        src={file}
-                        style={{ maxWidth: '500px', maxHeight: '500px' }}
-                      />
-                      <div className='buttonsDiv'>
-          <button className="btn btn-primary">Delete Image</button>
-          <button className="btn btn-primary" onClick={closeModal}>Cancel</button></div>
+      <Modal show={showAddModal} onHide={closeAddModal} size="m">
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+        <input type="file" onChange={handleChange} />
+        {file && <img src={file} />}
+        <div className='buttons'>
+          <button className="btn btn-primary" disabled={!file} onClick={generateCategory}>
+          {t('generateCategory')} 
+          </button>
+          <button className="btn btn-primary" onClick={enterCategory}>
+          {t('enterMan')} 
+          </button>
         </div>
-      </Modal.Body>
+        {!loading ? (
+              <div className='tagsDiv'>
+                {gen && <select  onChange={handleSelectChange} value={selectedValue}>
+                  {tags.map((tag, index) => (
+                    <option key={index} value={tag}>{tag}</option>
+                  ))}
+                </select>}
+              </div>
+            ) : (
+              (gen && <div className="loader-div">
+                <span className="loader"></span>
+              </div>)
+            )}
+            {input !== false && <div className='sendDiv'><input placeholder={t('enterMan')} value={selectedValue} onChange={setSelectedValueText}/>
+            <button className="btn btn-primary" style={{backgroundColor:'red !important'}} onClick={createImage}>Save</button></div>}
+        </Modal.Body>
       </Modal>
-      <Modal show={showModal} onHide={closeModalI} size="xl" >
-                    <Modal.Header closeButton>
-                    </Modal.Header>
-                    <Modal.Body>
-                    {selectedImage && (
-                        <div className="modal-card-div">
-                            <Card>
-                                <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
-                            </Card>
-
-                        </div>
-                        )
-                    }
-                    </Modal.Body>
-                </Modal>
+      <Modal show={showDeleteModal} onHide={closeDeleteModal} size="m">
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <div className='deleteContainer'>Are you sure you want to delete ?</div>
+            <div className='imgDiv'>
+              <Card.Img
+                  className="imageCard"
+                  src={file}
+                  style={{ maxWidth: '500px', maxHeight: '500px' }}
+                />
+              <div className='buttonsDiv'>
+                <button className="btn btn-primary">Delete Image</button>
+                <button className="btn btn-primary" onClick={closeDeleteModal}>Cancel</button>
+              </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+      <Modal show={showViewImageModal} onHide={closeViewImageModal} size="xl" >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          {selectedImage && (
+            <div className="modal-card-div">
+              <Card>
+                  <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
+              </Card>
+            </div>
+          )}
+        </Modal.Body>
+    </Modal>
     </div>
 
   );
