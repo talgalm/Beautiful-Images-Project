@@ -11,8 +11,6 @@ import '@tensorflow/tfjs-backend-webgl';
 import * as mobilenet from '@tensorflow-models/mobilenet'
 import deleteIcon from "../../../src/icons/minus-image-photo-icon.svg"
 import { handleFetchSingleImage } from '../../services/userService';
-
-import { useNavigate } from 'react-router-dom';
 import AdminNavBar from '../../components/AdminNavBar/adminNavBar';
 
 const ImagesAdminPage = () => {
@@ -21,7 +19,6 @@ const ImagesAdminPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedImageId, setSelectedImageId] = useState('');
   const [images, setImages] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [file, setFile] = useState();
@@ -32,7 +29,6 @@ const ImagesAdminPage = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const navigate = useNavigate();
 
 
   const handleSelectChange = (event) => {
@@ -93,45 +89,6 @@ const ImagesAdminPage = () => {
     fetchRatings();
   }, []);
 
-  const parseDate = (dateString) => {
-    const date = new Date(dateString);
-    const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
-    return date.toLocaleDateString(undefined, options);
-  };
-
-  const categories = [...new Set(images.map(img => img.imageCategory))];
-  const filteredImages = images.filter(img => img.imageCategory === selectedCategory);
-
-  const sortData = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
-    }
-    setSortConfig({ key, direction });
-
-    console.log('Sorting by:', key, direction);
-
-    const sortedData = [...data].sort((a, b) => {
-      if (a[key] < b[key]) {
-        return direction === 'asc' ? -1 : 1;
-      }
-      if (a[key] > b[key]) {
-        return direction === 'asc' ? 1 : -1;
-      }
-      return 0;
-    });
-    
-
-    setData(sortedData);
-  };
-
-  const sortIndicator = (key) => {
-    if (sortConfig.key === key) {
-      return sortConfig.direction === 'asc' ? '▲' : '▼';
-    }
-    return null;
-  };
-
   const closeModal = () => {
     setTags([])
     setFile();
@@ -140,10 +97,6 @@ const ImagesAdminPage = () => {
   const openModal = () => {
     setFile()
     setShowAddModal(true);
-  }
-
-  const back = () => {
-    navigate("/admin");
   }
 
   const closeDModal = () => {
@@ -234,21 +187,21 @@ const ImagesAdminPage = () => {
           <table className="table table-striped table-hover">
             <thead className="thead-dark">
               <tr>
-                <th onClick={() => sortData('imageId')}>
-                  {t("imageIdColumn")} {sortIndicator('imageId')}
+                <th>
+                  {t("imageIdColumn")}
                 </th>
                 <th>{t("imageIconColumn")}</th>
-                <th onClick={() => sortData('imageName')}>
-                  {t("imageNameColumn")} {sortIndicator('imageName')}
+                <th>
+                  {t("imageNameColumn")}
                 </th>
-                <th onClick={() => sortData('imageCategory')}>
-                  {t("imageCategoryColumn")} {sortIndicator('imageCategory')}
+                <th>
+                  {t("imageCategoryColumn")}
                 </th>
-                <th onClick={() => sortData('totalRatings')}>
-                  {t("totalRatingsColumn")} {sortIndicator('totalRatings')}
+                <th>
+                  {t("totalRatingsColumn")}
                 </th>
-                <th onClick={() => sortData('avarageRating')}>
-                  {t("avarageRatingColumn")} {sortIndicator('avarageRating')}
+                <th>
+                  {t("avarageRatingColumn")}
                 </th>
                 <th></th>
               </tr>
@@ -277,7 +230,7 @@ const ImagesAdminPage = () => {
                       <button className="btn btn-primary3" onClick={()=>editCategoryDB(item)}>save</button>
                       <input value={editedCategory} onChange={changeEdit}/>
                     </div>}</td>
-                    <td>{data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).length.toFixed(2)}</td>
+                    <td>{data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).length.toFixed(0)}</td>
                     <td>{(data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).reduce((acc, curr) => acc + curr, 0) / data.filter(img => img.imageId === item.imageId).map((item)=>item.rating).length).toFixed(2)}</td>
 
                     <td onClick={()=>openDModal(`data:image/jpeg;base64,${images.find(img => img.id === item.imageId)?.imageData}`)}><img src={deleteIcon}/></td>
