@@ -194,6 +194,42 @@ class AdminController {
       logger.error(`AdminController - participantsData error message ${error.message}`);
     }
   }
+
+  async createImage(req, res) {
+    try {
+      const { email, imageName, categoryName, imageData } = req.body;
+      logger.info(`AdminController - createImage request by ${email}`);
+      const image = await ImageRepository.createImage(email, imageName, categoryName, imageData);
+      res.status(200).json({ image });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - createImage error message ${error.message}`);
+    }
+  }
+
+  async deleteImage(req, res) {
+    try {
+      const { email, imageId } = req.body;
+      logger.info(`AdminController - deleteImage request by ${email}`);
+      const image = await ImageRepository.deleteImage(email, imageId);
+      res.status(200).json({ image });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - deleteImage error message ${error.message}`);
+    }
+  }
+
+  async updateImage(req, res) {
+    try {
+      const { email, imageId, imageName, categoryName } = req.body;
+      logger.info(`AdminController - updateImage request by ${email}`);
+      const image = await ImageRepository.updateImage(email, imageId, imageName, categoryName);
+      res.status(200).json({ image });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - updateImage error message ${error.message}`);
+    }
+  }
 }
 
 module.exports = new AdminController();

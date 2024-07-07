@@ -18,13 +18,39 @@ export const handleAdminLogin = async (email, password) => {
         return error;
     }
 };
-export const handleCreateImage = async (email, imageName,categoryName ,imageData) => {
+export const handleCreateImage = async (email, imageName, categoryName, imageData) => {
     try {
         const response = await axios.post(baseURL + 'api/admin/createImage', {
             email,
             imageName,
             categoryName, 
             imageData
+        });
+        return response.data
+    } catch (error) {
+        return error;
+    }
+};
+
+export const handleDeleteImage = async (email, imageId) => {
+    try {
+        const response = await axios.post(baseURL + 'api/admin/deleteImage', {
+            email,
+            imageId
+        });
+        return response.data
+    } catch (error) {
+        return error;
+    }
+};
+
+export const handleUpdateImage = async (email, imageId, imageName, categoryName) => {
+    try {
+        const response = await axios.post(baseURL + 'api/admin/updateImage', {
+            email,
+            imageId,
+            imageName,
+            categoryName
         });
         return response.data
     } catch (error) {

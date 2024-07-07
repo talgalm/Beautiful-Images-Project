@@ -310,11 +310,17 @@ class ImageRepository {
         }
     }
 
-    static async createImage(imageName, categoryName, imageData) {
+    static async createImage(email, imageName, categoryName, imageData) {
       try {
         let category = await Category.findOne({ where: { categoryName } });
         if (!category) {
-          category = Category.create({ categoryName });
+          category = await Category.create({ categoryName });
+          //create the category folder
+          fs.mkdirSync(path.join(__dirname, `../../images/original/${categoryName}`));
+        }
+        const existingImage = await Image.findOne({ where: { imageName, categoryId: category.id } });
+        if (existingImage) {
+          throw new Error('Image with this name already exists in this category');
         }
         const imageId = uuidv4();
         const img = await Image.create({
@@ -323,16 +329,17 @@ class ImageRepository {
           categoryId: category.id
         });
         const imagePath = path.join(__dirname, `../../images/original/${categoryName}`, imageName);
+        //check if the image already exists
         await fs.promises.writeFile(imagePath, imageData, { encoding: 'base64' });
-        this.generateSmallScaleImages();
+        await this.generateSmallScaleImages();
         return img;
       } catch (error) {
         logger.error(`ImageRepo - addImage error ${error}`);
-        throw new Error('Error adding image');
+        throw new Error(`Error adding image - ${error}`);
       }
     }
 
-    static async deleteImage(imageId) {
+    static async deleteImage(email, imageId) {
       try {
         const image = await Image.findOne({ where: { id: imageId } });
         const category = await Category.findOne({ where: { id: image.categoryId } });
@@ -349,6 +356,11 @@ class ImageRepository {
         const imagesInCategory = await Image.findAll({ where: { categoryId: category.id } });
         if (imagesInCategory.length === 0) {
           await category.destroy();
+          //delete the category folder
+          for (const size of sizes) {
+            const categoryPath = path.join(__dirname, `../../images/${size}`, category.categoryName);
+            await fs.promises.rmdir(categoryPath);
+          }
         }
 
         //delete ratings with the image id from db
@@ -359,33 +371,54 @@ class ImageRepository {
       }
     }
 
-    static async updateImage(imageId, imageName, categoryName) {
+    static async updateImage(email, imageId, imageName, categoryName) {
       try {
         const image = await Image.findOne({ where: { id: imageId } });
         const oldCategory = await Category.findOne({ where: { id: image.categoryId } });
         const imageData = fs.readFileSync(path.join(__dirname, `../../images/original/${oldCategory.categoryName}`, image.imageName), { encoding: 'base64' });
         
+        //check if the updated image name already exists in the new category
+        let category = await Category.findOne({ where: { categoryName } });
+        if (!category) {
+          category = await Category.create({ categoryName });
+          //create the category folder
+          fs.mkdirSync(path.join(__dirname, `../../images/original/${categoryName}`));
+        }
+
+        const existingImage = await Image.findOne({ where: { imageName, categoryId: category.id } });
+        if (existingImage) {
+          throw new Error('Image with this name already exists in the new category');
+        }
+
         //delete images files
         const sizes = ["original", "_50", "_25", "_10"];
         for (const size of sizes) {
           const imagePath = path.join(__dirname, `../../images/${size}/${oldCategory.categoryName}`, image.imageName);
           await fs.promises.unlink(imagePath);
         }
-
-        let category = await Category.findOne({ where: { categoryName } });
-        if (!category) {
-          category = Category.create({ categoryName });
-          //create the category folder
-          fs.mkdirSync(path.join(__dirname, `../../images/original/${categoryName}`));
-        }
+        
+        //update image in db
         image.imageName = imageName;
         image.categoryId = category.id;
+        await image.save();
+
+        //check if the category is empty and delete it
+        const imagesInCategory = await Image.findAll({ where: { categoryId: oldCategory.id } });
+        if (imagesInCategory.length === 0) {
+          await oldCategory.destroy();
+          //delete the category folder
+          for (const size of sizes) {
+            const categoryPath = path.join(__dirname, `../../images/${size}`, oldCategory.categoryName);
+            await fs.promises.rmdir(categoryPath);
+          }
+        }
+
+
 
         const imagePath = path.join(__dirname, `../../images/original/${categoryName}`, imageName);
         await fs.promises.writeFile(imagePath, imageData, { encoding: 'base64' });
         this.generateSmallScaleImages();
       
-        await image.save();
       } catch (error) {
         logger.error(`ImageRepo - updateImage error ${error}`);
         throw new Error('Error updating image');

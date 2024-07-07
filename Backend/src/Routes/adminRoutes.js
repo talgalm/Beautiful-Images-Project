@@ -16,5 +16,8 @@ router.post('/generateCsvRatings', AdminController.generateAndFetchCsvRatings);
 router.post('/generateCsvImages', AdminController.generateAndFetchCsvImages);
 router.post('/generateCsvUsers', AdminController.generateAndFetchCsvUsers);
 router.post('/participantsData',AdminController.participantsData);
+router.post('/createImage',AdminController.createImage);
+router.post('/deleteImage',AdminController.deleteImage);
+router.post('/updateImage',AdminController.updateImage);
 
 module.exports = router;
