@@ -34,6 +34,18 @@ class AdminController {
     }
   }
 
+  async allRatingsPaginated(req, res) {
+    try {
+      const { email, page, limit } = req.body;
+      logger.info(`AdminController - allRatingsPaginated request by ${email}`);
+      const {ratings, count} = await RatingRepository.getAllRatingsPaginated(page, limit);
+      res.status(200).json({ ratings, count });
+    } catch (error) {
+      res.status(200).json({ message: error.message });
+      logger.error(`AdminController - allRatingsPaginated error message ${error.message}`);
+    }
+  }
+
   async userRatings(req, res) {
     try {
       const { email, userId } = req.body;

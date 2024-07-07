@@ -60,14 +60,14 @@ const ImagesAdminPage = () => {
 
   
   const fetchImages = async () => {
-    handleGetAllImages("adminnnnnn@gmail.com").then((response) => {
+    handleGetAllImages("admin@gmail.com").then((response) => {
       setImages(response.images);
     });
   };
 
   const fetchRatings = async () => {
     if (selectedImageId) {
-      handleGetImageRatings("adminnnnnn@gmail.com", selectedImageId).then((response) => {
+      handleGetImageRatings("admin@gmail.com", selectedImageId).then((response) => {
         setData(response.ratings);
       });
     } else if (selectedCategory) {
@@ -77,12 +77,12 @@ const ImagesAdminPage = () => {
       
       const allCategoryRatings = [];
       for (const imageId of categoryImageIds) {
-        const response = await handleGetImageRatings("adminnnnnn@gmail.com", imageId);
+        const response = await handleGetImageRatings("admin@gmail.com", imageId);
         allCategoryRatings.push(...response.ratings);
       }
       setData(allCategoryRatings);
     } else {
-      handleGetAllRatings("adminnnnnn@gmail.com").then((response) => {
+      handleGetAllRatings("admin@gmail.com").then((response) => {
         setData(response.ratings);
       });
     }
@@ -211,7 +211,7 @@ const ImagesAdminPage = () => {
     setInput(true);
   };
   const createImage = async () => {
-    handleCreateImage("adminnnnnn@gmail.com" , "temp" , input,file).then((response) => {
+    handleCreateImage("admin@gmail.com" , "temp" , input,file).then((response) => {
       setShowAddModal(false);
     });
   };

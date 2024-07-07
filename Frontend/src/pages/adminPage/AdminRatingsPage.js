@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleGetAllImages, handleGetAllRatings, handleGetImageRatings } from '../../services/adminService';
+import { handleGetAllImages, handleGetImageRatings, handleGetRatingsPaginated } from '../../services/adminService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './AdminRatingsPage.css';
 
-import { Card , Modal} from 'react-bootstrap';
+import { Card, Modal } from 'react-bootstrap';
 import Header from '../../components/Header/Header';
-import { useNavigate } from 'react-router-dom';
 import { handleFetchSingleImage } from '../../services/userService';
 import AdminNavBar from '../../components/AdminNavBar/adminNavBar';
 
@@ -17,44 +16,52 @@ const AdminRatingsPage = () => {
   const [selectedImageId, setSelectedImageId] = useState('');
   const [images, setImages] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [itemsPerPage] = useState(40);
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-
   const fetchImages = async () => {
-    handleGetAllImages("adminnnnnn@gmail.com").then((response) => {
+    handleGetAllImages("admin@gmail.com").then((response) => {
       setImages(response.images);
     });
   };
 
+  const showPagination = () => {
+    return selectedCategory === '' && selectedImageId === '';
+  };
+
   const fetchRatings = async () => {
     if (selectedImageId) {
-      handleGetImageRatings("adminnnnnn@gmail.com", selectedImageId).then((response) => {
+      handleGetImageRatings("admin@gmail.com", selectedImageId).then((response) => {
         setData(response.ratings);
       });
     } else if (selectedCategory) {
       const categoryImageIds = images
         .filter(image => image.imageCategory === selectedCategory)
         .map(image => image.id);
-      
+
       const allCategoryRatings = [];
       for (const imageId of categoryImageIds) {
-        const response = await handleGetImageRatings("adminnnnnn@gmail.com", imageId);
+        const response = await handleGetImageRatings("admin@gmail.com", imageId);
         allCategoryRatings.push(...response.ratings);
       }
       setData(allCategoryRatings);
     } else {
-      handleGetAllRatings("adminnnnnn@gmail.com").then((response) => {
-        setData(response.ratings);
-      });
+      const response = await handleGetRatingsPaginated("admin@gmail.com", currentPage, itemsPerPage);
+      setData(response.ratings);
+      setTotalPages(Math.ceil(response.count / itemsPerPage));
     }
   };
 
   useEffect(() => {
     fetchImages();
+  }, []);
+
+  useEffect(() => {
     fetchRatings();
-  }, [selectedCategory, selectedImageId]);
+  }, [selectedCategory, selectedImageId, currentPage]);
 
   const parseDate = (dateString) => {
     const date = new Date(dateString);
@@ -92,23 +99,27 @@ const AdminRatingsPage = () => {
     return null;
   };
 
+  const openModal = (img) => {
+    handleFetchSingleImage(img.imageId, 'original')
+      .then(data => {
+        setSelectedImage(data.image.imageData);
+        setShowModal(true);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    setShowModal(true);
+  };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
-  const openModal =(img) => {
-    handleFetchSingleImage(img.imageId , 'original')
-    .then(data => { 
-      setSelectedImage(data.image.imageData)
-      setShowModal(true);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-    setShowModal(true)
-  }
-  const closeModal =() => {
-    setShowModal(false)
-  }
-
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <div>
@@ -123,6 +134,7 @@ const AdminRatingsPage = () => {
             onChange={(e) => {
               setSelectedCategory(e.target.value);
               setSelectedImageId(''); // Reset selected image when category changes
+              setCurrentPage(1); // Reset to first page
             }}
           >
             <option value="">{t("selectCategory")}</option>
@@ -136,10 +148,10 @@ const AdminRatingsPage = () => {
             className="form-select me-2 small-select"
             value={selectedImageId}
             onChange={(e) => {
-              setSelectedImageId(e.target.value)
+              setSelectedImageId(e.target.value);
+              setCurrentPage(1); // Reset to first page
             }}
             disabled={!selectedCategory}
-            
           >
             <option value="">{t("selectImageId")}</option>
             {filteredImages.map((item) => (
@@ -206,22 +218,54 @@ const AdminRatingsPage = () => {
             </tbody>
           </table>
         </div>
+        <div className="d-flex justify-content-center mt-4">
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => handlePageChange(1)}
+            disabled={currentPage === 1}
+            hidden={!showPagination()}
+          >
+            {"<<"}
+          </button>
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            hidden={!showPagination()}
+          >
+            {"◀"}
+          </button>
+          <div className="mt-2" hidden={!showPagination()}> {currentPage} {"/"} {totalPages}</div>
+          <button
+            className="btn btn-secondary ms-2"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            hidden={!showPagination()}
+          >
+            {"▶"}
+          </button>
+          <button
+            className="btn btn-secondary ms-2"
+            onClick={() => handlePageChange(totalPages)}
+            disabled={currentPage === totalPages}
+            hidden={!showPagination()}
+          >
+            {">>"}
+          </button>
+        </div>
       </div>
-      <Modal show={showModal} onHide={closeModal} size="xl" >
-                    <Modal.Header closeButton>
-                    </Modal.Header>
-                    <Modal.Body>
-                    {selectedImage && (
-                        <div className="modal-card-div">
-                            <Card>
-                                <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
-                            </Card>
-
-                        </div>
-                        )
-                    }
-                    </Modal.Body>
-                </Modal>
+      <Modal show={showModal} onHide={closeModal} size="xl">
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          {selectedImage && (
+            <div className="modal-card-div">
+              <Card>
+                <Card.Img variant="top" src={`data:image/jpeg;base64,${selectedImage}`} />
+              </Card>
+            </div>
+          )}
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
