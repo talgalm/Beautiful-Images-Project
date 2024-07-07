@@ -6,6 +6,7 @@ const AdminController = require('../Controllers/adminController');
 // Define routes for admin
 router.post('/login', AdminController.adminLogin);
 router.post('/allRatings', AdminController.allRatings);
+router.post('/RatingsPaginated', AdminController.allRatingsPaginated);
 router.post('/userRatings', AdminController.userRatings);
 router.post('/imageRatings', AdminController.imageRatings);
 router.post('/images', AdminController.getAllImages);

@@ -43,6 +43,19 @@ export const handleGetAllRatings = async (email) => {
     }
 }
 
+export const handleGetRatingsPaginated = async (email, page, limit) => {
+  try {
+      const response = await axios.post(baseURL + 'api/admin/RatingsPaginated', {
+          email,
+          page,
+          limit
+      });
+      return response.data
+  } catch (error) {
+      return error;
+  }
+}
+
 export const handleGetUserRatings = async (email, userId) => {
     try {
         const response = await axios.post(baseURL + 'api/admin/userRatings', {
