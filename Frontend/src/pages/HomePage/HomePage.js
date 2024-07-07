@@ -21,7 +21,7 @@ export default function HomePage (){
   const [country , setCountry] = useState('')
   const [countryEnglishName , setCountryEnglishName] = useState('')
   const [error , setError] = useState(undefined)
-  const [errorInRegistration , setInRegistraion] = useState(undefined)
+  const [errorInRegistration , setInRegistraion] = useState("")
   const [adminView , setAdminView] = useState(false);
   const [password , setPassword] = useState('')
   const emailInputRef = useRef(null);
