@@ -1,24 +1,23 @@
-.center-div{
-    display: flex;
-    justify-content: center;
-    margin-top: 100px;
+.center-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
 }
 
-.box-div{
-
-    background-color: #708ea3;
-    width: 400px;
-    height: 400px;
+.box-div {
+  background-color: #708ea3;
+  width: 400px;
+  height: 400px;
 }
 
-.head-div{
-    margin-bottom: 50px;
+.head-div {
+  margin-bottom: 50px;
 }
 
-.button-div{
-    gap: 30px;
+.button-div {
+  gap: 30px;
 
-    button{
-        background-color:rgb(80, 92, 104);
-    }
+  button {
+    background-color: rgb(80, 92, 104);
+  }
 }

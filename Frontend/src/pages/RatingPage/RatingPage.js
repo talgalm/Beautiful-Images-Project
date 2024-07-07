@@ -13,10 +13,10 @@ import {
 } from "../../services/ratingService";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import arrowLeft from "../../../src/icons/arrow-circle-left.svg"
-import arrowLeftWhite from "../../../src/icons/arrow-circle-left-w.svg"
-import arrowRight from "../../../src/icons/arrow-circle-right.svg"
-import arrowRightWhite from "../../../src/icons/arrow-circle-right-w.svg"
+import arrowLeft from "../../../src/icons/arrow-circle-left.svg";
+import arrowLeftWhite from "../../../src/icons/arrow-circle-left-w.svg";
+import arrowRight from "../../../src/icons/arrow-circle-right.svg";
+import arrowRightWhite from "../../../src/icons/arrow-circle-right-w.svg";
 
 const RatingPage = () => {
   const { t } = useTranslation();
@@ -29,10 +29,9 @@ const RatingPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imgIndx, setImgIndex] = useState(-1);
   const [initialNumberOfImages, setInitialNumberOfImages] = useState(null);
-  const [count , setCount] = useState(0);
-  const [percent , setPercent] = useState('0%');
+  const [count, setCount] = useState(0);
+  const [percent, setPercent] = useState("0%");
   const navigate = useNavigate();
-  
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -48,19 +47,19 @@ const RatingPage = () => {
   const fetchData = async () => {
     try {
       const data = await handleFetchImages();
-      if (data.images.length > 0)
-        {
-          setImages(data.images); 
-          setCount(data.images.filter(item => !item.visible).length);
-          const newPercent =  (1 / 70) * 100 * data.images.filter(item => !item.visible).length;
-          const finalPercent = Math.min(newPercent, 100);
-          setPercent( `${finalPercent.toFixed(2)}%`);
-          setInitialNumberOfImages(images.filter(image => image.rating !== 0).length);
-        }
-        else{
-          handleOutOfImages()
-        }
-
+      if (data.images.length > 0) {
+        setImages(data.images);
+        setCount(data.images.filter((item) => !item.visible).length);
+        const newPercent =
+          (1 / 70) * 100 * data.images.filter((item) => !item.visible).length;
+        const finalPercent = Math.min(newPercent, 100);
+        setPercent(`${finalPercent.toFixed(2)}%`);
+        setInitialNumberOfImages(
+          images.filter((image) => image.rating !== 0).length
+        );
+      } else {
+        handleOutOfImages();
+      }
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -68,28 +67,20 @@ const RatingPage = () => {
     }
   };
 
-  function handleOutOfImages () {
-    alert("Youre out of images")
+  function handleOutOfImages() {
+    alert("Youre out of images");
     navigate("/finish");
   }
 
-
   useEffect(() => {
     if (!loading && images.length === 0) {
-      fetchData()
+      fetchData();
     }
   }, [loading, images]);
 
-
-  useEffect(() => {
-
-  }, [percent]);
-  
-
-  
+  useEffect(() => {}, [percent]);
 
   function handleOnDrag(event, dataImg) {
-
     event.dataTransfer.effectAllowed = "move";
     event.dataTransfer.setData(
       "application/json",
@@ -102,12 +93,12 @@ const RatingPage = () => {
       event.dataTransfer.getData("application/json")
     );
     if (droppedItemData.from != 0) {
-      setCount(count-1)
+      setCount(count - 1);
 
       const numericPercent = parseFloat(percent);
       const newPercent = numericPercent - (1 / 70) * 100;
       const finalPercent = Math.min(newPercent, 100);
-      setPercent( `${finalPercent.toFixed(2)}%`);
+      setPercent(`${finalPercent.toFixed(2)}%`);
 
       droppedItemData.data.rating = 0;
       droppedItemData.data.visible = true;
@@ -121,12 +112,12 @@ const RatingPage = () => {
   }
 
   function onDropImage(dataImg) {
-    setCount(count+1)
+    setCount(count + 1);
 
     const numericPercent = parseFloat(percent);
     const newPercent = numericPercent + (1 / 70) * 100;
     const finalPercent = Math.min(newPercent, 100);
-    setPercent( `${finalPercent.toFixed(2)}%`);
+    setPercent(`${finalPercent.toFixed(2)}%`);
 
     const updatedImages = images.filter(
       (img) => img.imageId !== dataImg.data.imageId
@@ -134,7 +125,7 @@ const RatingPage = () => {
     setImages(updatedImages);
   }
 
-  function openModal(image , index) {
+  function openModal(image, index) {
     handleFetchSingleImage(image.imageId, "original")
       .then((data) => {
         setSelectedImage(data.image.imageData);
@@ -188,56 +179,50 @@ const RatingPage = () => {
     setSelectedImage(null);
   };
 
-  const handleArrow = (next , img) => {
-
-    if (!next){
-      if (imgIndx===images.length-1){
-        setImgIndex(0)
+  const handleArrow = (next, img) => {
+    if (!next) {
+      if (imgIndx === images.length - 1) {
+        setImgIndex(0);
         handleFetchSingleImage(images[0].imageId, "original")
-        .then((data) => {
-          setSelectedImage(data.image.imageData);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+          .then((data) => {
+            setSelectedImage(data.image.imageData);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } else {
+        setImgIndex(imgIndx + 1);
+        setSelectedImage(images[imgIndx + 1].imageData);
+        handleFetchSingleImage(images[imgIndx + 1].imageId, "original")
+          .then((data) => {
+            setSelectedImage(data.image.imageData);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
-      else{
-        setImgIndex(imgIndx+1)
-        setSelectedImage(images[imgIndx+1].imageData)
-        handleFetchSingleImage(images[imgIndx+1].imageId, "original")
-        .then((data) => {
-          setSelectedImage(data.image.imageData);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-      }
-    }
-    else{
-      if (imgIndx===0){
-        setImgIndex(images.length-1)
-        handleFetchSingleImage(images[images.length-1].imageId, "original")
-        .then((data) => {
-          setSelectedImage(data.image.imageData);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-      }
-      else{
-        setImgIndex(imgIndx-1)
-        handleFetchSingleImage(images[imgIndx-1].imageId, "original")
-        .then((data) => {
-          setSelectedImage(data.image.imageData);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+    } else {
+      if (imgIndx === 0) {
+        setImgIndex(images.length - 1);
+        handleFetchSingleImage(images[images.length - 1].imageId, "original")
+          .then((data) => {
+            setSelectedImage(data.image.imageData);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } else {
+        setImgIndex(imgIndx - 1);
+        handleFetchSingleImage(images[imgIndx - 1].imageId, "original")
+          .then((data) => {
+            setSelectedImage(data.image.imageData);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
     }
-    
-  }
-
+  };
 
   function openFinishModal(image) {
     setShowFinishModal(true);
@@ -255,7 +240,6 @@ const RatingPage = () => {
     );
   }
 
-
   return (
     <div>
       <Header />
@@ -267,21 +251,24 @@ const RatingPage = () => {
               onDrop={(e) => handleOnDrop(e)}
               onDragOver={(e) => handleOnDragOver(e)}
             >
-              {images.map((img , index) => (
-                img.visible && <div
-                  key={img.imageId}
-                  className="draggable"
-                  onDragStart={(e) => handleOnDrag(e, img)}
-                  onClick={() => openModal(img , index)}
-                >
-                  <Card className="cardContainer">
-                    <Card.Img
-                      className="imageCard"
-                      src={`data:image/jpeg;base64,${img.imageData}`}
-                    />
-                  </Card>
-                </div>
-              ))}
+              {images.map(
+                (img, index) =>
+                  img.visible && (
+                    <div
+                      key={img.imageId}
+                      className="draggable"
+                      onDragStart={(e) => handleOnDrag(e, img)}
+                      onClick={() => openModal(img, index)}
+                    >
+                      <Card className="cardContainer">
+                        <Card.Img
+                          className="imageCard"
+                          src={`data:image/jpeg;base64,${img.imageData}`}
+                        />
+                      </Card>
+                    </div>
+                  )
+              )}
 
               <Modal show={showModal} onHide={closeModal} size="xl">
                 <Modal.Header closeButton></Modal.Header>
@@ -289,10 +276,13 @@ const RatingPage = () => {
                   {selectedImage && (
                     <div className="modal-card-div">
                       <div className="next-card">
-                        <img src={arrowLeft}/>
+                        <img src={arrowLeft} />
                       </div>
-                      <div className="next-card-w"  onClick={() => handleArrow(true , selectedImage)}>
-                        <img src={arrowLeftWhite}/>
+                      <div
+                        className="next-card-w"
+                        onClick={() => handleArrow(true, selectedImage)}
+                      >
+                        <img src={arrowLeftWhite} />
                       </div>
                       <Card>
                         <Card.Img
@@ -302,10 +292,13 @@ const RatingPage = () => {
                         />
                       </Card>
                       <div className="prev-card">
-                        <img src={arrowRight}/>
+                        <img src={arrowRight} />
                       </div>
-                      <div className="prev-card-w" onClick={() => handleArrow(false , selectedImage)}>
-                        <img src={arrowRightWhite}/>
+                      <div
+                        className="prev-card-w"
+                        onClick={() => handleArrow(false, selectedImage)}
+                      >
+                        <img src={arrowRightWhite} />
                       </div>
                     </div>
                   )}
@@ -317,7 +310,6 @@ const RatingPage = () => {
           <div className="baskets-div">
             {[...Array(10)].reverse().map((_, index) => (
               <div key={`basket-wrapper-${10 - index}`}>
-  
                 <Basket
                   index={10 - index}
                   onDropImage={onDropImage}
@@ -329,51 +321,63 @@ const RatingPage = () => {
             ))}
           </div>
         </div>
-    
+
         <div className="button-container">
           <div className="w">
-          <div class="progress">
-            <div className="text">{percent}</div>
-        <div class="bar" style={{width:percent}}>
+            <div class="progress">
+              <div className="text">{percent}</div>
+              <div class="bar" style={{ width: percent }}></div>
+            </div>
+          </div>
+          <div className="w2">
+            {" "}
+            <button
+              className="button-53"
+              onClick={openFinishModal}
+              disabled={count === 0}
+            >
+              {t("doneEvaluate")}
+            </button>
+          </div>
         </div>
       </div>
-          </div>
-          <div className="w2"> <button className="button-53" onClick={openFinishModal} disabled={count === 0}>
-            {t("doneEvaluate")}
-          </button></div>
-          
-        </div> 
-      </div>
       <Modal show={false} size="l">
-      <Modal.Header closeButton></Modal.Header>
-      <Modal.Body></Modal.Body>
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body></Modal.Body>
       </Modal>
       <Modal show={showFinishModal} onHide={closeFinishModal} size="l">
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <div>
-          <div
-            className="modal-div"
-            dir={isRtl ? "rtl" : "ltr"}
-            dangerouslySetInnerHTML={{
-              __html: t(
-                count > 69
-                  ? "FinishEvaluateAllImages"
-                  : "FinishEvaluateSomeImages",
-                { imagesNumber: count}
-              ),
-            }}
-          />
-          <div className="buttons-in-modal">
-            { (
-              <button className="button-53" onClick={count > 69 ? handleDisplayMoreImages : closeFinishModal} >
-                {count > 69 ? t("displayMoreImages") :t("continueEvaluations")}
+            <div
+              className="modal-div"
+              dir={isRtl ? "rtl" : "ltr"}
+              dangerouslySetInnerHTML={{
+                __html: t(
+                  count > 69
+                    ? "FinishEvaluateAllImages"
+                    : "FinishEvaluateSomeImages",
+                  { imagesNumber: count }
+                ),
+              }}
+            />
+            <div className="buttons-in-modal">
+              {
+                <button
+                  className="button-53"
+                  onClick={
+                    count > 69 ? handleDisplayMoreImages : closeFinishModal
+                  }
+                >
+                  {count > 69
+                    ? t("displayMoreImages")
+                    : t("continueEvaluations")}
+                </button>
+              }
+              <button className="button-53" onClick={handleFinish}>
+                {t("Finish")}
               </button>
-            )}
-            <button className="button-53" onClick={handleFinish} >
-              {t("Finish")}
-            </button>
-          </div>
+            </div>
           </div>
         </Modal.Body>
       </Modal>

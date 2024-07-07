@@ -1,128 +1,123 @@
-.loader-div{
-    background-color: #2c3e50;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+.loader-div {
+  background-color: #2c3e50;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .loader {
-    width: 200px;
-    height: 200px;
-    border: 10px solid #FFF;
-    border-bottom-color: #FF3D00;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    }
+  width: 200px;
+  height: 200px;
+  border: 10px solid #fff;
+  border-bottom-color: #ff3d00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .progress {
-    margin: 20px auto;
-    padding: 0;
-    width: 80%;
-    height: 30px;
-    overflow: hidden;
-    background: #e5e5e5;
-    border-radius: 6px;
-    position: relative;
-    
+  margin: 20px auto;
+  padding: 0;
+  width: 80%;
+  height: 30px;
+  overflow: hidden;
+  background: #e5e5e5;
+  border-radius: 6px;
+  position: relative;
 
-    .text{
-        color: black;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1;
-        font-weight: 500;
-    }
+  .text {
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    font-weight: 500;
   }
-  
-  .bar {
-      position:relative;
-    float:left;
-    min-width:1%;
-    height:100%;
-    background:rgb(112, 142, 163);
-    transition: width 1s ease;
-  }
-  
-  .percent {
-      position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    margin:0;
-    font-family:tahoma,arial,helvetica;
-    font-size:12px;
-    color:white;
-  }
-
-.rating-container-page{
-    height: 100vh;
-    width: 100%;
-    overflow: overlay;
-    @media screen and (max-width: 430px) {
-        overflow-y: auto;
-    }
 }
 
-.rating-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-    width: 100%;
-    height: 70%;
+.bar {
+  position: relative;
+  float: left;
+  min-width: 1%;
+  height: 100%;
+  background: rgb(112, 142, 163);
+  transition: width 1s ease;
+}
+
+.percent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  font-family: tahoma, arial, helvetica;
+  font-size: 12px;
+  color: white;
+}
+
+.rating-container-page {
+  height: 100vh;
+  width: 100%;
+  overflow: overlay;
+  @media screen and (max-width: 430px) {
+    overflow-y: auto;
+  }
+}
+
+.rating-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  width: 100%;
+  height: 70%;
+  @media screen and (min-width: 1000px) {
+    height: 80%;
+  }
+
+  .image-display-div {
+    align-self: flex-start;
+    height: 95%;
+    width: 70%;
+    overflow: overlay;
+    overflow-x: hidden;
+
     @media screen and (min-width: 1000px) {
-        height: 80%;
+      height: 90%;
     }
+  }
 
-        .image-display-div {
-            align-self: flex-start;
-            height: 95%;
-            width: 70%;
-            overflow: overlay;
-            overflow-x: hidden;
+  .images-dashboard {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    margin-left: 20px;
+    margin-right: 20px;
+    overflow-x: hidden;
+    gap: 0px;
 
-            
-            @media screen and (min-width: 1000px) {
-                height: 90%;
-            }
-        }
+    .draggable {
+      height: 22%;
 
-        .images-dashboard {
-            height: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            overflow-y: auto;
-            margin-left: 20px;
-            margin-right: 20px;
-            overflow-x: hidden;
-            gap: 0px;
-
-            .draggable{
-                height:22%;
-
-                @media screen and (max-width: 430px) {
-                    height: auto;
-                }
-            }
-            
-
-        }
-            /* ::-webkit-scrollbar {
+      @media screen and (max-width: 430px) {
+        height: auto;
+      }
+    }
+  }
+  /* ::-webkit-scrollbar {
                 display: none;
             -webkit-appearance: none;
             width: 7px;
@@ -134,224 +129,208 @@
             box-shadow: 0 0 1px rgba(255, 255, 255, .5);
             } */
 
-        .cardContainer {
-            width: 180px;
-            height: 120px;
-        }
+  .cardContainer {
+    width: 180px;
+    height: 120px;
+  }
 
-        .imageCard {
-            padding: 3px;
-            height: 100%;
-            width: 100%;
-            object-fit: contain;
-        }
+  .imageCard {
+    padding: 3px;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
 
-        .baskets-div {
-            align-self: flex-start;
-            height: 100%;
-            width: 30%;
-        }
-
-   
+  .baskets-div {
+    align-self: flex-start;
+    height: 100%;
+    width: 30%;
+  }
 }
 
 .button-container {
+  display: flex;
+  justify-content: space-between; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  width: 100%; /* Adjust width as needed */
+  height: 50px;
+
+  .w {
+    width: 700px;
+    height: 100%;
+  }
+  .w2 {
+    width: 850px;
+  }
+
+  @media screen and (min-width: 1000px) {
+    margin-top: -50px;
+  }
+  @media screen and (max-width: 420px) {
+  }
+}
+
+.modal-div {
+  color: #333;
+}
+
+.buts {
+  display: none;
+}
+.buttons-in-modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-header {
     display: flex;
-    justify-content: space-between; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    width: 100%; /* Adjust width as needed */
-    height: 50px;
+    width: 100%;
+  }
 
-    .w{
-        width: 700px;
-        height: 100%;
-    }
-    .w2{
-        width: 850px;
-
-    }
-
-
-    @media screen and (min-width: 1000px) {
-        margin-top: -50px;
-    }
-    @media screen and (max-width: 420px) {
-        
-    }
-}
-
-.modal-div{
-
-    color: #333;
-}
-
-.buts{
-    display: none;
-}
-.buttons-in-modal{
-    display: flex;
-    flex-direction: row;
-    justify-content:space-around;
-    align-items: center;
-}
-
-.modal-dialog{
+  .modal-content {
+    width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    .modal-header {
+    .modal-body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .modal-card-div {
         display: flex;
-        width: 100%;
-    }
-
-    .modal-content{
-        
-        width:fit-content;
-        display: flex;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
-        
-       .modal-body{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .modal-card-div{
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
 
+        .next-card-w,
+        .prev-card-w,
+        .prev-card,
+        .next-card {
+          position: absolute;
+          top: 50%;
+          left: 3%;
+          transform: translateY(-50%);
+          width: 30px;
+          height: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          opacity: 1;
+          transition: opacity 0.3s;
+          z-index: 9999;
 
-            .next-card-w,
-            .prev-card-w,
-            .prev-card,
-            .next-card {
-            position: absolute;
-            top: 50%;
-            left: 3%;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
+          img {
+            width: 50px;
+            height: 50px;
+          }
+          &:hover {
             opacity: 1;
-            transition: opacity 0.3s;
-            z-index: 9999;
+          }
 
-            
-            img{
-                width: 50px;
-                height: 50px;
-            }
-                &:hover {
-                    opacity: 1;
-                }
-
-                &:hover  {
-                    opacity: 1;
-                }
-
-            }
-            .prev-card-w,
-            .prev-card{
-                display: flex;
-                margin-left: -15px;
-            }
-            .prev-card-w{
-                opacity: 1;
-                &:hover {
-                    opacity: 0;
-                }
-            }
-            .next-card-w{
-                opacity: 1;
-                &:hover {
-                    opacity: 0;
-                }
-            }
-
-            .card{
-                border: 0px;
-                
-                img {
-                    max-width: 100%;
-                    height: auto;
-                    object-fit: contain;
-                }
-            }
+          &:hover {
+            opacity: 1;
+          }
         }
-       }
+        .prev-card-w,
+        .prev-card {
+          display: flex;
+          margin-left: -15px;
+        }
+        .prev-card-w {
+          opacity: 1;
+          &:hover {
+            opacity: 0;
+          }
+        }
+        .next-card-w {
+          opacity: 1;
+          &:hover {
+            opacity: 0;
+          }
+        }
+
+        .card {
+          border: 0px;
+
+          img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+          }
+        }
+      }
     }
+  }
 }
 
 @media screen and (max-width: 430px) {
+  .baskets-div {
+    width: 37% !important;
+    margin-left: -15px;
+  }
 
-    .baskets-div {
-        width: 37% !important;
-        margin-left: -15px;
+  .images-dashboard {
+    height: 100vh;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    margin-top: 0px;
+    margin-left: 0px !important;
+    margin-right: 0px;
+    -webkit-overflow-scrolling: touch;
+
+    .draggable {
+      -ms-touch-action: none;
+      touch-action: none;
+      cursor: grab;
     }
 
-    .images-dashboard {
-        height: 100vh;
-        width: 95%;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        overflow-y: auto;
-        margin-top: 0px;
-        margin-left: 0px !important;
-        margin-right: 0px;
-        -webkit-overflow-scrolling: touch;
+    .cardContainer {
+      width: 100%;
+      height: auto;
+    }
 
-        .draggable{
-            -ms-touch-action: none;
-            touch-action: none;
-            cursor: grab; 
+    .imageCard {
+      width: 100px;
+      height: 75px;
+    }
+  }
+  .modal-dialog {
+    .modal-content {
+      .modal-body {
+        .modal-card-div {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
 
-        }
+          .next-card-w,
+          .prev-card-w,
+          .prev-card,
+          .next-card {
+            display: none !important;
+          }
 
-        .cardContainer {
+          .card {
             width: 100%;
-            height: auto;
-        }
-
-        .imageCard {
-            width: 100px;
-            height: 75px;
-
-        }
-    }
-    .modal-dialog{
-
-        .modal-content{
-    
-           .modal-body{
-            .modal-card-div{
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-    
-                .next-card-w,
-                .prev-card-w,
-                .prev-card,
-                .next-card {
-                    display: none !important;
-                }
-
-    
-                .card{
-                    width: 100%;
-                    height: 80vh !important;
-                    img {
-                        height: 98% !important;
-                    }
-                }
+            height: 80vh !important;
+            img {
+              height: 98% !important;
             }
-           }
+          }
         }
+      }
     }
+  }
 }

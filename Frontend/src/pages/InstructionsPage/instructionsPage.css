@@ -1,104 +1,96 @@
-.header-wrapper{
-	display: flex;
-	flex-direction: column;
-	.header-div{
-		display: flex;
-		justify-content: center;
-		color: black;
-		align-items: center;
-	}
-
+.header-wrapper {
+  display: flex;
+  flex-direction: column;
+  .header-div {
+    display: flex;
+    justify-content: center;
+    color: black;
+    align-items: center;
+  }
 }
-.guidelines-div{
-	display: flex;
-	flex-direction: row-reverse;
-	overflow-y: auto;
-	height: 80%;
-	margin-top: 50px;
-	max-height: 65vh;
-	color: black;
+.guidelines-div {
+  display: flex;
+  flex-direction: row-reverse;
+  overflow-y: auto;
+  height: 80%;
+  margin-top: 50px;
+  max-height: 65vh;
+  color: black;
 
-	@media screen and (max-width: 420px) {
-		width: 100%;
-		font-size: 15px;
-		overflow: hidden;
-	}
-}
-
-.text-ins{
-	width: 85ch;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 21px;
-	font-weight: 500;
-	line-height: 2;
-	margin-bottom: 50px;
-	overflow-y: auto;
-	height: 65vh;
-	@media screen and (max-width: 420px) {
-		display: flex;
-		justify-content: flex-start;
-		align-items: flex-start;
-		margin: 0px 20px 20px 20px;
-		height: 60vh;
-		overflow-y: scroll;
-	}
-
-
-
-
-
-}
-.text-div-d{
+  @media screen and (max-width: 420px) {
     width: 100%;
-	font-size: 22px;
-    line-height: 1.4;
-	font-weight: bold;
-	display: flex;
-	margin: 0px 50px 0px 50px;
-	@media screen and (max-width: 420px) {
-		width: 50vh;
-		margin: 0px 0px 0px 0px;
-	}
-
+    font-size: 15px;
+    overflow: hidden;
+  }
 }
 
-.button-div{
-	width: 95%;
-	display: flex;
-	margin-top: -25px;
-	padding: 0px 0px 0px 50px;
+.text-ins {
+  width: 85ch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 2;
+  margin-bottom: 50px;
+  overflow-y: auto;
+  height: 65vh;
+  @media screen and (max-width: 420px) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0px 20px 20px 20px;
+    height: 60vh;
+    overflow-y: scroll;
+  }
+}
+.text-div-d {
+  width: 100%;
+  font-size: 22px;
+  line-height: 1.4;
+  font-weight: bold;
+  display: flex;
+  margin: 0px 50px 0px 50px;
+  @media screen and (max-width: 420px) {
+    width: 50vh;
+    margin: 0px 0px 0px 0px;
+  }
+}
 
-	button{
-		margin-top: 20px;
-        background-color: #708ea3;
-        border: 0 solid #E5E7EB;
-        box-sizing: border-box;
-        color: white;
-        display: flex;
-        font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-        font-size: 1rem;
-        font-weight: 500;
-        justify-content: center;
-        line-height: 1.75rem;
-        padding: .75rem 1.65rem;
-        position: relative;
-        text-align: center;
+.button-div {
+  width: 95%;
+  display: flex;
+  margin-top: -25px;
+  padding: 0px 0px 0px 50px;
 
-	}
-	@media screen and (max-width: 430px) {
-		margin-top: 0px;
-	}
-
+  button {
+    margin-top: 20px;
+    background-color: #708ea3;
+    border: 0 solid #e5e7eb;
+    box-sizing: border-box;
+    color: white;
+    display: flex;
+    font-family: ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+      "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 500;
+    justify-content: center;
+    line-height: 1.75rem;
+    padding: 0.75rem 1.65rem;
+    position: relative;
+    text-align: center;
+  }
+  @media screen and (max-width: 430px) {
+    margin-top: 0px;
+  }
 }
 
 @media screen and (max-width: 400px) {
-	.guidelines-div{
-		display: flex;
-		justify-content: center;
-		align-items: flex-start;
-		
-	}
-
+  .guidelines-div {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
 }

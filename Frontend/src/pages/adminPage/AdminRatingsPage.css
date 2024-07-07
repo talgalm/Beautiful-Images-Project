@@ -1,14 +1,14 @@
-.container{
+.container {
   color: black;
 }
 .table-wrapper {
   max-height: 500px;
   overflow-y: auto;
 
-  .table-striped{
-    .thead-dark{
-      tr{
-        th{
+  .table-striped {
+    .thead-dark {
+      tr {
+        th {
           text-align: center;
         }
       }
@@ -18,7 +18,7 @@
 
 .header {
   text-align: center;
-  font-size: -webkit-xxx-large ;
+  font-size: -webkit-xxx-large;
 }
 
 .table-wrapper thead th {
@@ -26,7 +26,6 @@
   top: 0;
   background: #7b8085;
   z-index: 1;
-
 }
 
 .small-select {

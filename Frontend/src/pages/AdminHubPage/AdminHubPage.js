@@ -1,20 +1,18 @@
-import React from 'react';
-import Header from '../../components/Header/Header';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import AdminNavBar from '../../components/AdminNavBar/adminNavBar';
+import React from "react";
+import Header from "../../components/Header/Header";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import AdminNavBar from "../../components/AdminNavBar/adminNavBar";
 
-
-export default function AdminHubPage (){
+export default function AdminHubPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
 
   return (
     <div>
       <Header />
       <AdminNavBar />
-      <div className='header'>
+      <div className="header">
         <button
           className="btn btn-primary m-1"
           onClick={() => navigate("/admin/ratings")}
@@ -24,22 +22,22 @@ export default function AdminHubPage (){
         <button
           className="btn btn-primary m-1"
           onClick={() => navigate("/admin/images")}
-          >
-          {t('imageManage')}
+        >
+          {t("imageManage")}
         </button>
         <button
-            className="btn btn-primary m-1"
-            onClick={() => navigate("/admin/participants")}
-          >
-          {t('participants')}
+          className="btn btn-primary m-1"
+          onClick={() => navigate("/admin/participants")}
+        >
+          {t("participants")}
         </button>
         <button
           className="btn btn-primary m-1"
           onClick={() => navigate("/admin/reports")}
-          >
-          {t('reports')}
+        >
+          {t("reports")}
         </button>
       </div>
     </div>
   );
-};
+}
