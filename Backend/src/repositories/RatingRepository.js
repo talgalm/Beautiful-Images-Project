@@ -4,12 +4,7 @@ const logger = require('../logger');
 
 class RatingRepository {
     static async addInitialRatings(userId, images) {
-        console.log('images: ', images.length);
-        let ids = images.map((image) => image.id);
-        ids.sort();
-        console.log('ids: ', ids);
         await Promise.all(images.map(async (image) => {
-            console.log('adding initial rating for image: ', image.id, ' userId: ', userId);
             await Rating.create({
                 imageId: image.id,
                 userId,

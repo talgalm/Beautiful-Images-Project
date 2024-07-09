@@ -10,8 +10,8 @@ class UserRepository {
       if (existingUser) {
         throw new Error('User with this email already exists');
       }
+      
       // Create a new user record in the database
-
       return User.create({ id: uuidv4(), email, nickname, age, country, gender });
     }
   

@@ -27,7 +27,7 @@ class Server {
         await ImageRepository.initializeCategoryDB(); // Initialize the categories database if it doesn't exist
         await ImageRepository.initializeImagesDB(); // Initialize the images database if it doesn't exist
 
-        setInterval(RatingRepository.saveOldRatings, 60 * 60 * 1000);
+        setInterval(RatingRepository.saveOldRatings, 60 * 60 * 1000); // Set interval to check for old ratings every hour
 
          // Mount the API router
          this.app.use('/api', apiRouter);

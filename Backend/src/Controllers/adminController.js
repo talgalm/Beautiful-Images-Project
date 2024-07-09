@@ -182,6 +182,27 @@ class AdminController {
       logger.error(`AdminController - generateCsvUsers error message ${error.message}`);
     }
   }
+  
+  async generateAndFetchCsvCategories(req, res) {
+    try {
+      const { email } = req.body;
+      logger.info(`AdminController - generateCsvCategories request by ${email}`);
+      const csvFilePath = await AdminRepository.generateCsvCategories(email);
+
+      res.setHeader('Content-Disposition', `attachment; filename="${path.basename(csvFilePath)}"`);
+      res.setHeader('Content-Type', 'text/csv');
+
+      res.download(csvFilePath, path.basename(csvFilePath), (err) => {
+        if (err) {
+          res.status(500).json({ message: 'Error downloading file' });
+          logger.error(`AdminController - generateCsvCategories error message ${err.message}`);
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+      logger.error(`AdminController - generateCsvCategories error message ${error.message}`);
+    }
+  }
 
   async participantsData(req, res) {
     try {
