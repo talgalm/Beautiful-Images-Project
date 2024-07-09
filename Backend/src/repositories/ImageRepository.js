@@ -89,27 +89,21 @@ class ImageRepository {
             const userId = await UserRepository.getUserId(email);
             const userTmpRatings = await Rating.findAll({ where: { userId: userId, type: "tmp" } });
             if (userTmpRatings.length === 0) {
-              console.log("fetching new images");
               logger.info(`ImageRepo - fetchImages func is running - fetching new images`);
               const images = await ImageRepository.fetchNewImages(userId);
               const processedImages = images.map(image => ({
                 ...image,
                 visible: image.rating ? image.rating === 0 : true
               }));
-              console.log("---------------------------")
-              console.log(processedImages)
               return processedImages;
             }
             else {
-              console.log("fetching session images");
               logger.info(`ImageRepo - fetchImages func is running - fetching session images`);
               const images = await ImageRepository.fetchSessionImages(userId);
               const processedImages = images.map(image => ({
                 ...image,
                 visible: image.rating ? image.rating === 0 : true
               }));
-              console.log("---------------------------")
-              console.log(processedImages)
               return processedImages;
             }
         } catch (error) {

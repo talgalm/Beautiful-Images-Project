@@ -1,22 +1,18 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import {
   handleGetCsvRatings,
   handleGetCsvImages,
   handleGetCsvUsers,
+  handleGetCsvCategories,
   handleGetPdfReport,
 } from "../../services/adminService";
 import Header from "../../components/Header/Header";
 import AdminNavBar from "../../components/AdminNavBar/adminNavBar";
 
 export default function ReportsAdminPage() {
-  const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const handleNavigateToAdminPage = () => {
-    navigate("/admin");
-  };
   return (
     <div>
       <Header />
@@ -34,6 +30,7 @@ export default function ReportsAdminPage() {
           <button onClick={() => handleGetCsvRatings()}>ratings csv</button>
           <button onClick={() => handleGetCsvImages()}>images csv</button>
           <button onClick={() => handleGetCsvUsers()}>users csv</button>
+          <button onClick={() => handleGetCsvCategories()}>categories csv</button>
           <button onClick={() => handleGetPdfReport()}>pdf</button>
         </div>
       </div>

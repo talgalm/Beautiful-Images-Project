@@ -1,7 +1,7 @@
 const UserRepository = require("../repositories/UserRepository");
 const RatingRepository = require("../repositories/RatingRepository");
 const ImageRepository = require("../repositories/ImageRepository");
-const { Rating, Image, User } = require("../Models");
+const { Rating, Image, User, Category } = require("../Models");
 
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
@@ -9,9 +9,9 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 class AdminRepository {
   static async generatePdfReport(email) {
-    const ratings = await RatingRepository.getAllRatings();
+    //const ratings = await RatingRepository.getAllRatings();
     const images = await ImageRepository.getAllImages();
-    const users = await UserRepository.getAllUsers();
+    //const users = await UserRepository.getAllUsers();
     
     let tableImages = [];
     for (let image of images) {
@@ -101,6 +101,11 @@ class AdminRepository {
   static async generateCsvUsers() {
     const users = await User.findAll();
     return this.generateCsvFromTable("users", users);
+  }
+
+  static async generateCsvCategories() {
+    const categories = await Category.findAll();
+    return this.generateCsvFromTable("category", categories);
   }
 
   static async generateCsvFromTable(name, data) {

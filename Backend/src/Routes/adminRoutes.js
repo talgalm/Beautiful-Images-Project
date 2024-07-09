@@ -15,6 +15,7 @@ router.post('/generatePdf', AdminController.generateAndFetchPdfReport);
 router.post('/generateCsvRatings', AdminController.generateAndFetchCsvRatings);
 router.post('/generateCsvImages', AdminController.generateAndFetchCsvImages);
 router.post('/generateCsvUsers', AdminController.generateAndFetchCsvUsers);
+router.post('/generateCsvCategories', AdminController.generateAndFetchCsvCategories);
 router.post('/participantsData',AdminController.participantsData);
 router.post('/createImage',AdminController.createImage);
 router.post('/deleteImage',AdminController.deleteImage);

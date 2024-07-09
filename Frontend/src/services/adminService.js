@@ -197,6 +197,26 @@ export const handleGetCsvUsers = async (email) => {
   }
 };
 
+export const handleGetCsvCategories = async (email) => {
+  try {
+    const response = await axios.post(
+      baseURL + "api/admin/generateCsvCategories",
+      { email },
+      {
+        responseType: "blob",
+      }
+    );
+    const filename = getFileNameFromContentDisposition(
+      response.headers["content-disposition"]
+    );
+    downloadFile(response.data, filename);
+  } catch (error) {
+    console.error("Error downloading CSV:", error);
+    return error;
+  }
+}
+
+
 export const handleGetPdfReport = async (email) => {
   try {
     const response = await axios.post(
