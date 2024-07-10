@@ -5,9 +5,6 @@ let baseURL =
     ? "https://coil.cs.bgu.ac.il/"
     : "http://localhost:3001/";
 
-//baseURL = 'https://coil.cs.bgu.ac.il/';
-
-// Use Case 1: Participant Registration
 export const handleUserRegistration = async (
   email,
   nickname,
@@ -29,7 +26,6 @@ export const handleUserRegistration = async (
   }
 };
 
-// Use Case 2: User Login
 export const handleUserLogin = async (email) => {
   try {
     const response = await axios.post(baseURL + "api/auth/login", {
@@ -40,7 +36,7 @@ export const handleUserLogin = async (email) => {
     return error;
   }
 };
-//Use case : Logout
+
 export const handleUserLogout = async () => {
   localStorage.clear();
   try {
@@ -59,58 +55,6 @@ export const handleUserLogout = async () => {
     );
   } catch (error) {
     console.error("Error:", error);
-  }
-};
-
-// Use Case 3: Classify Image
-export const handleImageClassification = async (imageData) => {
-  try {
-    const response = await axios.post(
-      baseURL + "api/image/classify",
-      imageData
-    );
-  } catch (error) {
-    console.error("Error:", error); // Handle error
-  }
-};
-
-// Use Case 4: Modify Image Classification – Change Classification
-export const handleChangeImageClassification = async (
-  imageId,
-  newClassification
-) => {
-  try {
-    const response = await axios.put(
-      baseURL + `api/image/classify/${imageId}`,
-      {
-        newClassification: newClassification,
-      }
-    );
-  } catch (error) {
-    console.error("Error:", error); // Handle error
-  }
-};
-
-// Use Case 5: Modify Image Classification - Remove Classification
-export const handleRemoveImageClassification = async (imageId) => {
-  try {
-    const response = await axios.delete(
-      baseURL + `api/image/classify/${imageId}`
-    );
-  } catch (error) {
-    console.error("Error:", error); // Handle error
-  }
-};
-
-// Use Case 6: The participant starts a new experiment
-export const handleStartNewExperiment = async (experimentData) => {
-  try {
-    const response = await axios.post(
-      baseURL + "api/experiments/start",
-      experimentData
-    );
-  } catch (error) {
-    console.error("Error:", error); // Handle error
   }
 };
 

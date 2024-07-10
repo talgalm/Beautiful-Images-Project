@@ -30,6 +30,7 @@ export const handleRateImage = async (imageId, fromBasket, toBasket) => {
     console.error("Error:", error);
   }
 };
+
 export const handleSaveRating = async (email) => {
   try {
     const response = await axios.post(
