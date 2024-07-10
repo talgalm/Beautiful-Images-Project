@@ -5,8 +5,6 @@ let baseURL =
     ? "https://coil.cs.bgu.ac.il/"
     : "http://localhost:3001/";
 
-//baseURL = 'https://coil.cs.bgu.ac.il/';
-
 export const handleAdminLogin = async (email, password) => {
   try {
     const response = await axios.post(baseURL + "api/admin/login", {
