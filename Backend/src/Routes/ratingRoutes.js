@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const ratingController = require('../controllers/ratingController');
-const { authenticateToken } = require('../tokens/tokens');
+const ratingController = require('../Controllers/ratingController');
+const { authenticateToken } = require('../Tokens/tokens');
 
 // Define routes for ratings
 router.post('/rateImage', authenticateToken, ratingController.changeRating);
