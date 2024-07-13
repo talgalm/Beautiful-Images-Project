@@ -159,8 +159,7 @@ export default function FinishPage() {
               <option value="female">{t("Female")}</option>
               <option value="other">{t("Other")}</option>
             </select>
-          </div>
-          <div
+            <div
             className="button-update"
             style={{ justifyContent: isRtl ? "flex-start" : "flex-end" }}
           >
@@ -168,6 +167,8 @@ export default function FinishPage() {
               {t("update")}
             </button>
           </div>
+          </div>
+
         </Modal.Body>
       </Modal>
     </div>

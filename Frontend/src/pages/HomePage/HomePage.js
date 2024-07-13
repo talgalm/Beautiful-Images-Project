@@ -278,7 +278,7 @@ export default function HomePage() {
                     height: "25px",
                     width: "100%",
                     fontSize: "12px",
-                    marginBottom: "-20px",
+                    marginBottom: "0px",
                   }}
                 >
                   {t("emailExistsNote")}
