@@ -264,13 +264,13 @@ const ImagesAdminPage = () => {
                             setEditIndex(-1);
                           }}
                         >
-                          cancel
+                          {t("cancel")}
                         </button>
                         <button
                           className="btn btn-primary3"
                           onClick={() => editCategoryDB(item)}
                         >
-                          save
+                          {t("save")}
                         </button>
                         <input value={editedCategory} onChange={changeEdit} />
                       </div>
@@ -378,11 +378,11 @@ const ImagesAdminPage = () => {
                   onChange={(e) => setImageName(e.target.value)}
                 />
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-success"
                   style={{ backgroundColor: "red !important" }}
                   onClick={createImage}
                 >
-                  Save
+                  {t("save")}
                 </button>
               </div>
             )}
@@ -406,14 +406,14 @@ const ImagesAdminPage = () => {
               style={{ maxWidth: "500px", maxHeight: "500px" }}
             />
             <div className="buttonsDiv">
-              <button className="btn btn-primary" onClick={deleteImage}>
-                Delete Image
+              <button className="btn btn-danger" onClick={deleteImage}>
+                {t("deleteImage")}
               </button>
               <button
                 className="btn btn-primary"
                 onClick={() => setShowDeleteModal(false)}
               >
-                Cancel
+                {t("cancel")}
               </button>
             </div>
           </div>

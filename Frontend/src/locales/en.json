@@ -86,7 +86,7 @@
     "finishExperiment5" : "If you have not done so, you can also return here to update the background questions ",
     "finishExperiment6" : "This will help us in statistically analyzing the study’s results",
     "selectCategory": "Select Category",
-    "selectImageId": "Select Image ID",
+    "selectImageId": "Select Image Name",
     "fetchRatings": "Fetch Ratings",
     "imageIdColumn": "Image ID",
     "imageIconColumn": "Image Icon",
@@ -130,6 +130,9 @@
     "basket10" :"Most like",
     "basket1" :"Least like",
     "enterPassAdmin" : "Enter admin password",
-    "outofImages" :"You've finished ranking all photos in the system - you are transferred to the finish page"
+    "outofImages" :"You've finished ranking all photos in the system - you are transferred to the finish page",
+    "cancel" : "Cancel",
+    "save" : "Save",
+    "deleteImage" : "Delete Image"
 }
   
