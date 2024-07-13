@@ -38,6 +38,10 @@ jobs:
         run: npm install
         working-directory: ./Backend/src
 
+      - name: Build Node server
+        working-directory: ./Backend/src
+        run: npm run build
+
       - name: Wait for PostgreSQL to be ready
         run: |
           until pg_isready -h localhost -U postgres; do
