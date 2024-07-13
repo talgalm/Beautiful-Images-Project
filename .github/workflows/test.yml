@@ -38,9 +38,12 @@ jobs:
         run: npm install
         working-directory: ./Backend/src
 
-      - name: Build Node server
+      - name: Start Node server
         working-directory: ./Backend/src
-        run: npm run build
+        run: |
+          npm start &
+          sleep 10
+          curl -f http://localhost:3000 || exit 1  # Adjust port and URL as needed
 
       - name: Wait for PostgreSQL to be ready
         run: |
