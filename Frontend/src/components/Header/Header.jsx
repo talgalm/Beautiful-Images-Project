@@ -4,7 +4,7 @@ import LanguageSwitcher from "../LanguageSwitcher";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
 import userIcon from "./user-icon.png";
-import logo from "./logo.webp";
+import logo from "./u-logo.webp";
 import { useLocation } from "react-router-dom";
 import { handleUserLogout } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
@@ -49,8 +49,8 @@ export default function Header() {
         src={logo}
         alt="Logo"
         style={{
-          width: isMobile ? "50%" : "",
-          marginTop: isMobile ? "25px" : "",
+          height: "90%",
+          marginTop: "8px",
         }}
       />
       <div className="icons-div">
